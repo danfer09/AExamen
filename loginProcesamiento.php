@@ -1,8 +1,10 @@
 <?php
+	include 'servidor.php';
+
 	session_start();
 	//Comprobamos que el método empleado es POST
 	if ($_SERVER['REQUEST_METHOD'] == 'POST'){
-		//Cojemos los valores que han puesto en el formulario, si el valor no existe, cargamos en la variable null
+		//Cogemos los valores que han puesto en el formulario, si el valor no existe, cargamos en la variable null
 		$email = isset($_POST['email'])? $_POST['email']: null;
 		$clave = isset($_POST['clave'])? $_POST['clave']: null;
 		//Comprobamos que ninguna de las variables este a null
@@ -51,6 +53,7 @@
 		}
 		else{
 			echo "Hay campos que se han dejado vacíos";
-		}		
+		}
+		mysqli_close($db);	
 	}
 ?>
