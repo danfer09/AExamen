@@ -1,26 +1,16 @@
-document.getElementById('boton_cambiar').addEventListener("click",alertSeguridad);
+$("#btn_cambiarNombre").on( "click", function() {
+    console.log( "click" );
+    $('#modal_cambiarnombre').modal('show');
+});
 
-document.getElementById('btn_cambiarNombre').addEventListener("click",openForm);
+$("#boton_cambiar").on( "click", function() {
+    console.log( "click" );
+    $('#modal_confirmar').modal('show');
+});
 
 
-document.getElementById('btn_a').addEventListener("click",a);
-
-function a() {
-   alert("Aaaaaaaaaaaaaaaaaaaaaaaa");
-}
-
-function alertSeguridad() {
-    if (confirm("Press a button!")) {
-    } 
-    else {
-        location.href ="perfilPropioProf.php";
-    }
-}
-
-function openForm() {
-    document.getElementById("myForm").style.display = "block";
-}
-
-function closeForm() {
-    document.getElementById("myForm").style.display = "none";
-}
+/*
+$('#myModal').modal('toggle');
+$('#myModal').modal('show');
+$('#myModal').modal('hide');
+*/
