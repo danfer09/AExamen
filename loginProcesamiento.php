@@ -2,6 +2,9 @@
 	include 'servidor.php';
 
 	session_start();
+	$_SESSION['error_campoVacio']=false;
+	$_SESSION['error_BBDD']=false;
+	$_SESSION['error_autenticar']=false;
 	//Comprobamos que el método empleado es POST
 	if ($_SERVER['REQUEST_METHOD'] == 'POST'){
 		//Cogemos los valores que han puesto en el formulario, si el valor no existe, cargamos en la variable null
@@ -30,29 +33,35 @@
 					}
 				}
 				if(!$encontrado){
-					echo "El correo no es correcto o no coincide con su contraseña";
+					$_SESSION['error_autenticar']=true;
+					header('Location: loginFormulario.php');
 				}
 				else{
 					//ENCRIPTAR LA CLAVE, NO DEJARLA EN TEXTO PLANO EN LA BASE DE DATOS
 					if($clave==$fila["clave"]){
 						echo "sesion iniciada correctamente";
+						$_SESSION['logeado']=true;
 						$_SESSION["email"] = $email;
 						$_SESSION["nombre"]=$fila['nombre'];
 						$_SESSION['apellidos']=$fila['apellidos'];
 						$_SESSION['id']=$fila['id'];
 						$_SESSION['coordinador']=$fila["coordinador"];
+						header('Location: paginaPrincipalProf.php');
 					}
-					else{
-						echo "El correo no es correcto o no coincide con su contraseña";
+					else{					
+						$_SESSION['error_autenticar']=true;
+						header('Location: loginFormulario.php');
 					}
 				}				
 			}
 			else{
-				echo "Error al conectar con la base de datos";
+				$_SESSION['error_BBDD']=true;
+				header('Location: loginFormulario.php');
 			}
 		}
 		else{
-			echo "Hay campos que se han dejado vacíos";
+			$_SESSION['error_campoVacio']=true;
+			header('Location: loginFormulario.php');
 		}
 		mysqli_close($db);	
 	}

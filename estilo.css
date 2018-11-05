@@ -1,0 +1,9 @@
+/* The popup form - hidden by default */
+.form-popup {
+  display: none;
+}
+h1 {
+    text-align: center;
+    text-transform: uppercase;
+    color: #4CAF50;
+}
