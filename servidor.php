@@ -1,16 +1,10 @@
 <?php
-//ip del servidor, nombre de usr de bbdd, contraseña de usuario, nombre de base de datos
-	/*$db =@mysqli_connect('', '', '',"");
-	if($db){
-		echo 'Connected successfully';
-		$sql="SELECT * FROM profesores";
-		$consulta=mysqli_query($db,$sql);
-		//$fila=mysqli_fetch_assoc($consulta);
-		$matches = mysqli_fetch_assoc($consulta);
-		echo "<option value=".$matches['nombre'].">".$matches['nombre']."</option>";
-		
-		@mysqli_close($db);
-	}*/
+
+	use PHPMailer\PHPMailer\PHPMailer;
+	use PHPMailer\PHPMailer\Exception;
+
+	require 'PHPMailer/src/Exception.php';
+	require 'PHPMailer/src/PHPMailer.php';
 
 	/*
 		Devuelve el resultado del select para todos los profesores
@@ -167,7 +161,7 @@
 		Elimina la pregunta con el $id pasado por parámetro a la función
 	*/
 	function deletePreguntas($db, $id) {
-		if($db && $id){
+		if($db && $id) {
 			$sql = "SELECT * FROM preguntas WHERE id='".$id."'";
 			$consulta=mysqli_query($db,$sql);
 			if($consulta->num_rows == 1){
@@ -180,6 +174,21 @@
 				return false;
 			}
 		} else {
+			echo "Conexión fallida";
+		}
+	}
+
+	/*
+		Inserta en la base de datos un profesor nuevo que se acaba de registrar y validar
+	*/
+	function insertProfesor($db, $nombre, $apellidos, $email, $clave) {
+		if($db) {
+			$sql = "INSERT INTO 'profesores' ('nombre', 'apellidos', 'email', 'id', 'clave', 'coordinador') VALUES (".$nombre.",".$apellidos.",".$email.",null,".$clave.",false)";
+			if (mysqli_query($db,$sql)) {
+				printf("Error message: %s\n", $db->error);
+			}
+		} else {
+			printf("Error message: %s\n", $db->error);
 			echo "Conexión fallida";
 		}
 	}
@@ -200,6 +209,30 @@
 			}
 		} else {
 			echo "Conexión fallida";
+		}
+	}
+
+	function smtpmailer($to, $from, $fromName, $subject, $body, $googleUser, $googlePassword) { 
+		global $error;
+		$mail = new PHPMailer();  // create a new object
+		$mail->IsSMTP(); // enable SMTP
+		$mail->SMTPDebug = 0;  // debugging: 1 = errors and messages, 2 = messages only
+		$mail->SMTPAuth = true;  // authentication enabled
+		$mail->SMTPSecure = 'ssl'; // secure transfer enabled REQUIRED for GMail
+		$mail->Host = 'smtp.gmail.com';
+		$mail->Port = 465; 
+		$mail->Username = GUSER;  
+		$mail->Password = GPWD;           
+		$mail->SetFrom($from, $fromName);
+		$mail->Subject = $subject;
+		$mail->Body = $body;
+		$mail->AddAddress($to);
+		if(!$mail->Send()) {
+			$error = 'Mail error: '.$mail->ErrorInfo; 
+			return false;
+		} else {
+			$error = 'Message sent!';
+			return true;
 		}
 	}
 

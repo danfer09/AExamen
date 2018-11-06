@@ -8,6 +8,8 @@
 ?>
 <a href="perfilPropioProf.php"> Editar perfil </a>
 <a href=""> Ver mis asignaturas</a>
+<br>
+<a href="cerrarSesion.php">Salir</a>
 
 
 </body>

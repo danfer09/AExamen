@@ -15,6 +15,7 @@
 		echo"Error al autenticar";
 		$error_autenticar=false;
 	}
+
 ?>
 <!DOCTYPE html>
 <html>
@@ -26,7 +27,7 @@
 	  Email:<br>
 	  <input type="text" name="email" id="email">
 	  <br>
-	  Password:<br>
+	  Contraseña:<br>
 	  <input type="password" name="clave" id="clave">
 	  <br><br>
 	  <input type="submit" value="Acceder" id="logear" name="logear">
