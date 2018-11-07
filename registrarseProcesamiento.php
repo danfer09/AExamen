@@ -1,7 +1,6 @@
 <?php
 	include 'servidor.php';
 
-	session_start();
 	$_SESSION['error_campoVacio']=false;
 	$_SESSION['error_BBDD']=false;
 	$_SESSION['error_usuario_existente']=false;
@@ -25,12 +24,14 @@
 				if($consulta->num_rows > 0) {
 					$_SESSION['error_usuario_existente']=true;
 					header('Location: registrarseFormulario.php');
+					exit();
 				} else {
-					if (smtpmailer($email, $credentials['webMail']['mail'], 'AExamen Web', 'Confirme su dirección de correo electrónico', $_SESSION['host'].'/establecerPassword.php?authenticate=1', $credentials['webMail']['mail'], $credentials['webMail']['password'])) {
+					if (smtpmailer($email, $credentials['webMail']['mail'], 'AExamen Web', 'Confirme su email', "localhost".'/establecerPassword.php?authenticate=1', $credentials['webMail']['mail'], $credentials['webMail']['password'])) {
 						$_SESSION['confirmado'] = false;
 						$_SESSION['emailTemp'] = $email;
 						$_SESSION['nombreTemp'] = $nombre;
 						$_SESSION['apellidosTemp'] = $apellidos;
+						echo "Debug: perfil temporal creado";
 					}
 					if (!empty($error)) echo $error;
 				}
@@ -38,11 +39,13 @@
 			else{
 				$_SESSION['error_BBDD']=true;
 				header('Location: registrarseFormulario.php');
+				exit();
 			}
 		}
 		else{
 			$_SESSION['error_campoVacio']=true;
 			header('Location: registrarseFormulario.php');
+			exit();
 		}
 		mysqli_close($db);	
 	}

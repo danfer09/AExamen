@@ -1,6 +1,5 @@
 <?php
 	include 'servidor.php';
-	session_start();
 
 	$_SESSION['password_diferente'] = false;
 
@@ -8,25 +7,30 @@
 		$pass1 = isset($_POST['pass1'])? $_POST['pass1']: null;
 		$pass2 = isset($_POST['pass2'])? $_POST['pass2']: null;
 
-		if ( ($pass1 != null && $pass2 != null) && $pass1 === $pass2) {
-			$_SESSION['logeado']=true;
-			$_SESSION["email"] = $_SESSION['emailTemp'];
-			$_SESSION["nombre"]= $_SESSION['nombreTemp'];
-			$_SESSION['apellidos']= $_SESSION['apellidosTemp'];
-
-			$_SESSION['emailTemp'] = null;
-			$_SESSION['nombreTemp'] = null;
-			$_SESSION['apellidosTemp'] = null;
+		if ( ($pass1 != null && $pass2 != null) && $pass1 == $pass2) {
 
 			$credentialsStr = file_get_contents('credentials.json');
 			$credentials = json_decode($credentialsStr, true);
 			$db = mysqli_connect('localhost', $credentials['database']['user'], $credentials['database']['password'], $credentials['database']['dbname']);
 
+			$_SESSION["email"] = $_SESSION['emailTemp'];
+			$_SESSION["nombre"]= $_SESSION['nombreTemp'];
+			$_SESSION["apellidos"]= $_SESSION['apellidosTemp'];
 			insertProfesor($db, $_SESSION["nombre"], $_SESSION["apellidos"], $_SESSION["email"], $pass1);
+
+			$_SESSION['logeado']=true;
+			$_SESSION['emailTemp'] = null;
+			$_SESSION['nombreTemp'] = null;
+			$_SESSION['apellidosTemp'] = null;
+			session_write_close();
+
 			header('Location: paginaPrincipalProf.php');
+			exit();
 		} else {
 			$_SESSION['password_diferente'] = true;
+			session_write_close();
 			header('Location: establecerPassword.php');
+			exit();
 		}
 	}
 

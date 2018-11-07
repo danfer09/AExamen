@@ -32,6 +32,7 @@
 	  <br><br>
 	  <input type="submit" value="Acceder" id="logear" name="logear">
 	</form> 
+	<p><a href="registrarseFormulario.php">Registrarse</a></p>
 
 </body>
 </html>

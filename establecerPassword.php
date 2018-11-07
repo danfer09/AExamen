@@ -6,18 +6,19 @@
 
 	$error_password_diferente = isset($_SESSION['password_diferente'])? $_SESSION['password_diferente']: false;
 
-	if (!isset($_GET['authenticate']) || !$_GET['authenticate']) {
-		header('Location: loginFormulario.php');
-	} else {
-		$_SESSION['confirmado'] = true;
-	}
+	$_SESSION['confirmado'] = true;
+	session_write_close();
 
-	if ($_SESSION['logeado']) {
+	if (isset($_SESSION['logeado']) && $_SESSION['logeado']) {
+		echo "if logeado";
 		header('Location: paginaPrincipalProf.php');
+		exit();
 	}
 
-	if (!$_SESSION['emailTemp']) {
-		header('Location: registrarseFormulario.php')
+	if (!isset($_SESSION['emailTemp']) || $_SESSION['emailTemp'] == null) {
+		var_dump($_SESSION);
+		header('Location: registrarseFormulario.php');
+		exit();
 	}
 
 	if($error_password_diferente){

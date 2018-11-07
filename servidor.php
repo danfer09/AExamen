@@ -2,10 +2,13 @@
 
 	use PHPMailer\PHPMailer\PHPMailer;
 	use PHPMailer\PHPMailer\Exception;
+	use PHPMailer\PHPMailer\SMTP;
 
 	require 'PHPMailer/src/Exception.php';
 	require 'PHPMailer/src/PHPMailer.php';
+	require 'PHPMailer/src/SMTP.php';
 
+	session_start();
 	/*
 		Devuelve el resultado del select para todos los profesores
 	*/
@@ -183,9 +186,11 @@
 	*/
 	function insertProfesor($db, $nombre, $apellidos, $email, $clave) {
 		if($db) {
-			$sql = "INSERT INTO 'profesores' ('nombre', 'apellidos', 'email', 'id', 'clave', 'coordinador') VALUES (".$nombre.",".$apellidos.",".$email.",null,".$clave.",false)";
+			$sql = "INSERT INTO profesores (nombre, apellidos, email, id, clave, coordinador) VALUES ('".$nombre."','".$apellidos."','".$email."',null,'".$clave."',false)";
 			if (mysqli_query($db,$sql)) {
-				printf("Error message: %s\n", $db->error);
+				echo "Nuevo profesor añadido";
+			} else {
+				echo "Error: " . $sql . "<br>" . mysqli_error($conn);
 			}
 		} else {
 			printf("Error message: %s\n", $db->error);
@@ -221,8 +226,8 @@
 		$mail->SMTPSecure = 'ssl'; // secure transfer enabled REQUIRED for GMail
 		$mail->Host = 'smtp.gmail.com';
 		$mail->Port = 465; 
-		$mail->Username = GUSER;  
-		$mail->Password = GPWD;           
+		$mail->Username = $googleUser;  
+		$mail->Password = $googlePassword;           
 		$mail->SetFrom($from, $fromName);
 		$mail->Subject = $subject;
 		$mail->Body = $body;

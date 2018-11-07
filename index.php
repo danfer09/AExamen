@@ -7,9 +7,11 @@
 	$_SESSION['host'] = 'localhost';
 	if (!isset($_SESSION['logeado']) && !$_SESSION['logeado']) {
 		header('Location: loginFormulario.php');
+		exit();
 	}
 	else{
 		header('Location: paginaPrincipalProf.php');
+		exit();
 	}
 ?>
 

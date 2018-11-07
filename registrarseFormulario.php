@@ -1,5 +1,4 @@
 <?php
-	session_start();
 	$error_campoVacio = isset($_SESSION['error_campoVacio'])? $_SESSION['error_campoVacio']: false;
 	$error_BBDD = isset($_SESSION['error_BBDD'])? $_SESSION['error_BBDD']: false;
 	$error_usuario_existente = isset($_SESSION['error_usuario_existente'])? $_SESSION['error_usuario_existente']: false;
@@ -38,6 +37,6 @@
 
 		<input type="submit" value="Registrarse" id="logear" name="logear">
 	</form> 
-
+	<p><a href="loginFormulario.php">Iniciar sesión</a></p>
 </body>
 </html>

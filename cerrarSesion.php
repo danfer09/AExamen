@@ -2,5 +2,5 @@
 session_start();
 
 session_destroy();
-header("Location: loginFormulario.html");
+header("Location: loginFormulario.php");
 ?>
