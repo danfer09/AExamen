@@ -1,3 +1,29 @@
+<?php
+	$error_ejecuccionConsulta = isset($_SESSION['error_ejecuccionConsulta'])? $_SESSION['error_ejecuccionConsulta']: false;
+	$error_noFilasConCondicion = isset($_SESSION['error_noFilasConCondicion'])? $_SESSION['error_noFilasConCondicion']: false;
+	$error_BBDD = isset($_SESSION['error_BBDD'])? $_SESSION['error_BBDD']: false;
+	$error_campoVacio = isset($_SESSION['error_campoVacio'])? $_SESSION['error_campoVacio']: false;
+	
+	
+	if($error_ejecuccionConsulta){
+		echo"Error en la ejecución de la consulta";
+		$error_ejecuccionConsulta=false;
+	}
+	elseif($error_noFilasConCondicion){
+		echo"Error, no hay filas que cumplan esa condición";
+		$error_noFilasConCondicion=false;
+	}
+	elseif($error_BBDD) {
+		echo "Error al conectar con la base de datos";
+		$error_BBDD=false;
+	}
+	elseif($error_campoVacio){
+		echo "Error campos vacíos";
+		$error_campoVacio=false;
+	}
+
+
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -11,42 +37,104 @@
 			session_start();
 			echo "<h2> Bienvenido ". $_SESSION['nombre'] . "</h2>";
 			echo '<p>Nombre: ' . $_SESSION['nombre']. ' <button type="button" class="btn btn-primary" data-toggle="modal" id="btn_cambiarNombre">Cambiar nombre</button></p>';		
-			echo "<p>Apellidos: " . $_SESSION['apellidos']. "</p>";
+			echo "<p>Apellidos: " . $_SESSION['apellidos']. ' <button type="button" class="btn btn-primary" data-toggle="modal" id="btn_cambiarApellidos">Cambiar apellidos</button></p>';
 			echo "<p>correo: " . $_SESSION['email'] . "</p>";
-			echo "<a href='formularioclave.php'>Cambiar contraseña</a>";
+			echo "<p><button type='button' class='btn btn-primary' data-toggle='modal' id='btn_cambiarClave'>Cambiar contraseña</button></p>";
 		?>
 	  
 
-	  <!-- The Modal -->
-	  <div class="modal" id="modal_cambiarnombre">
-	    <div class="modal-dialog">
-	      <div class="modal-content">
-	      
-	        <!-- Modal Header -->
-	        <div class="modal-header">
-	          <h4 class="modal-title">Modal Heading</h4>
-	          <button type="button" class="close" data-dismiss="modal">&times;</button>
-	        </div>
-	        
-	        <!-- Modal body -->
-	        <div class="modal-body">
-				  <form action="perfPropProfProcesamiento.php" class="form-container" method="post">
-				    <h1>Login</h1>
+		<!-- Modal de Nombre -->
+		<div class="modal" id="modal_cambiarNombre">
+			<div class="modal-dialog">
+			  <div class="modal-content">
+			  
+			    <!-- Modal Header -->
+			    <div class="modal-header">
+			      <h4 class="modal-title">Modal Heading</h4>
+			      <button type="button" class="close" data-dismiss="modal">&times;</button>
+			    </div>
+			    
+			    <!-- Modal body -->
+			    <div class="modal-body">
+					  <form action="perfPropProfProcesamiento.php" class="form-container" method="post">
+					    <h1>Login</h1>
 
-				    <input type="text" placeholder="Introduzca el nombre" name="nombre" id="nombre">
+					    <input type="text" placeholder="Introduzca el nombre" name="nombre" id="nombre">
 
-				    <button type="submit" class="btn" id="boton_cambiar" name="boton_cambiar">Cambiar</button>
-				  </form>
-	        </div>
-	        
-	        <!-- Modal footer -->
-	        <div class="modal-footer">
-	          <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
-	        </div>
-	        
-	      </div>
-	    </div>
-	  </div>
+					    <button type="submit" class="btn" id="boton_cambiar" name="boton_cambiar">Cambiar</button>
+					  </form>
+			    </div>
+			    
+			    <!-- Modal footer -->
+			    <div class="modal-footer">
+			      <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
+			    </div>
+			    
+			  </div>
+			</div>
+		</div>
+		<!-- Modal de Apellidos -->
+		<div class="modal" id="modal_cambiarApellidos">
+		    <div class="modal-dialog">
+		      <div class="modal-content">
+		      
+		        <!-- Modal Header -->
+		        <div class="modal-header">
+		          <h4 class="modal-title">Modal Heading</h4>
+		          <button type="button" class="close" data-dismiss="modal">&times;</button>
+		        </div>
+		        
+		        <!-- Modal body -->
+		        <div class="modal-body">
+					  <form action="perfPropProfProcesamiento.php" class="form-container" method="post">
+					    <h1>Login</h1>
+
+					    <input type="text" placeholder="Introduzca los apellidos" name="apellidos" id="apellidos">
+
+					    <button type="submit" class="btn" id="boton_cambiar" name="boton_cambiar">Cambiar</button>
+					  </form>
+		        </div>
+		        
+		        <!-- Modal footer -->
+		        <div class="modal-footer">
+		          <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
+		        </div>
+		        
+		      </div>
+		    </div>
+	  	</div>
+		<!-- Modal de Clave -->
+		<div class="modal" id="modal_cambiarClave">
+		    <div class="modal-dialog">
+		      <div class="modal-content">
+		      
+		        <!-- Modal Header -->
+		        <div class="modal-header">
+		          <h4 class="modal-title">Modal Heading</h4>
+		          <button type="button" class="close" data-dismiss="modal">&times;</button>
+		        </div>
+		        
+		        <!-- Modal body -->
+		        <div class="modal-body">
+					  <form action="perfPropProfProcesamiento.php" class="form-container" method="post">
+					    <h1>Login</h1>
+
+					    <input type="text" placeholder="Introduzca la clave" name="clave" id="clave">
+					    <input type="text" placeholder="Repita la clave" name="repitaClave" id="repitaClave">
+
+					    <button type="submit" class="btn" id="boton_cambiarClave" name="boton_cambiarClave">Cambiar</button>
+					  </form>
+		        </div>
+		        
+		        <!-- Modal footer -->
+		        <div class="modal-footer">
+		          <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
+		        </div>
+		        
+		      </div>
+		    </div>
+	  	</div>
+
 
 	  <!--INTENTO DE VENTANA DE CONFIRMACIÓN UNA VEZ PULSA EN CAMBIAR
 	  <div class="modal" id="modal_confirmar">
