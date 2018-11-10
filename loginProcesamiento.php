@@ -38,7 +38,8 @@
 				}
 				else{
 					//ENCRIPTAR LA CLAVE, NO DEJARLA EN TEXTO PLANO EN LA BASE DE DATOS
-					if($clave==$fila["clave"]){
+					if(password_verify($clave, $fila['clave'])){
+					//if($clave==$fila["clave"]){
 						echo "sesion iniciada correctamente";
 						$_SESSION['logeado']=true;
 						$_SESSION["email"] = $email;

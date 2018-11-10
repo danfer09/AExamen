@@ -16,6 +16,7 @@
 		//Cogemos el valor que han puesto en el formulario, si el valor no existe, cargamos en la variable null
 		$nuevoNombre = isset($_POST['nombre'])? $_POST['nombre']: null;
 		$nuevoApellidos = isset($_POST['apellidos'])? $_POST['apellidos']: null;
+		$nuevoClave = isset($_POST['clave'])? $_POST['clave']: null;
 		//Comprobamos que la variable no este a null
 		if($nuevoNombre!=null){
 			//Conectamos la base de datos
@@ -51,6 +52,33 @@
 			//comprobamos si se ha conectado a la base de datos
 			if($db){
 				$sql = "UPDATE profesores SET apellidos= '".$nuevoApellidos."' WHERE id=".$_SESSION['id'];
+				$consulta=mysqli_query($db,$sql);
+
+				if(mysqli_affected_rows($db) == -1){
+					$_SESSION['error_ejecuccionConsulta']=true;
+				}
+				elseif(!(mysqli_affected_rows($db))){
+					$_SESSION['error_noFilasConCondicion']=true;
+				}
+				else{
+					$_SESSION['apellidos']=$nuevoApellidos;
+				}
+				header('Location: perfilPropioProf.php');				
+			}
+			else{
+				$_SESSION['error_BBDD']=true;
+				header('Location: perfilPropioProf.php');
+			}
+		}
+		elseif($nuevoClave!=null){
+			//Conectamos la base de datos
+			$hashed_clave = password_hash($nuevoClave, PASSWORD_BCRYPT);
+			$credentialsStr = file_get_contents('credentials.json');
+			$credentials = json_decode($credentialsStr, true);
+			$db = mysqli_connect('localhost', $credentials['database']['user'], $credentials['database']['password'], $credentials['database']['dbname']);
+			//comprobamos si se ha conectado a la base de datos
+			if($db){
+				$sql = "UPDATE profesores SET clave= '".$hashed_clave."' WHERE id=".$_SESSION['id'];
 				$consulta=mysqli_query($db,$sql);
 
 				if(mysqli_affected_rows($db) == -1){
