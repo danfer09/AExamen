@@ -13,23 +13,50 @@ $(document).ready(function(){
 	    $('#modal_cambiarClave').modal('show');
 	    $("#boton_cambiarClave").attr("class", "btn btn-primary disabled");
 	    $("#boton_cambiarClave").attr("disabled", true);
+	    
+		
 	});
 
-	
-	$("#clave").change(function(){
+	$("#repitaClave").after("<span id='mensaje'></span><br>");
+	var mensaje = $("#mensaje");
+	function compruebaClaves(mensaje){
+		var coinciden = "Las contraseñas si coinciden";
+		var noCoinciden = "No coinciden las contraseñas";
+		var vacio = "La contraseña no puede estar vacía";
+		mensaje.hide();
 		if($("#clave").val() == $("#repitaClave").val()){
 			console.log( "click" );
 			$("#boton_cambiarClave").attr("class", "btn btn-primary active");
 			$("#boton_cambiarClave").attr("disabled", false);
+			mensaje.hide();
+			console.log(mensaje);
 		}
-	});
-	$("#repitaClave").change(function(){
-		if($("#clave").val() == $("#repitaClave").val()){
-			console.log( "click" );
-			$("#boton_cambiarClave").attr("class", "btn btn-primary active");
-			$("#boton_cambiarClave").attr("disabled", false);
+		else if($("#clave").val()=="" || $("#repitaClave").val()==""){
+			console.log( "campoVacio" );
+			$("#boton_cambiarClave").attr("class", "btn btn-primary disabled");
+	    	$("#boton_cambiarClave").attr("disabled", true);
+	    	mensaje.show();
+	    	mensaje.text(vacio).addClass('badge badge-pill badge-danger');
+	    	console.log(mensaje);
 		}
+		else{
+			console.log( "campoDiferente" );
+			$("#boton_cambiarClave").attr("class", "btn btn-primary disabled");
+	    	$("#boton_cambiarClave").attr("disabled", true);
+	    	mensaje.show();
+	    	mensaje.text(noCoinciden).addClass('badge badge-pill badge-danger');
+	    	console.log(mensaje);
+
+		}
+	}
+	$("#clave").keyup(function(){
+		compruebaClaves(mensaje);
 	});
+	$("#repitaClave").keyup(function(){
+		compruebaClaves(mensaje);
+	});
+
+
 });
 
 /*
