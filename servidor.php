@@ -230,8 +230,9 @@
 		$mail->Password = $googlePassword;           
 		$mail->SetFrom($from, $fromName);
 		$mail->Subject = $subject;
-		$mail->Body = $body;
+		//$mail->Body = $body;
 		$mail->AddAddress($to);
+		$mail->msgHTML(file_get_contents('mailRegistro.html'), __DIR__);
 		if(!$mail->Send()) {
 			$error = 'Mail error: '.$mail->ErrorInfo; 
 			return false;
