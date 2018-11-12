@@ -26,7 +26,7 @@
 					header('Location: registrarseFormulario.php');
 					exit();
 				} else {
-					if (smtpmailer($email, $credentials['webMail']['mail'], 'AExamen Web', 'Confirme su email', "localhost".'/establecerPassword.php?authenticate=1', $credentials['webMail']['mail'], $credentials['webMail']['password'])) {
+					if (smtpmailer($email, $credentials['webMail']['mail'], 'AExamen Web', 'Confirme su email', 'localhost/establecerPassword.php?authenticate=1', $credentials['webMail']['mail'], $credentials['webMail']['password'])) {
 						$_SESSION['confirmado'] = false;
 						$_SESSION['emailTemp'] = $email;
 						$_SESSION['nombreTemp'] = $nombre;

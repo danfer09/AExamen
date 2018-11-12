@@ -8,7 +8,9 @@
 	require 'PHPMailer/src/PHPMailer.php';
 	require 'PHPMailer/src/SMTP.php';
 
-	session_start();
+	if (session_status() == PHP_SESSION_NONE) {
+	    session_start();
+	}
 	/*
 		Devuelve el resultado del select para todos los profesores
 	*/
@@ -44,7 +46,7 @@
 					$resultado[] = $fila;
 				}
 			} else {
-				echo "No hay profesores";
+				echo "No hay asignaturas";
 				$resultado = null;
 			}
 			return $resultado;
@@ -66,12 +68,36 @@
 					$resultado[] = $fila;
 				}
 			} else {
-				echo "No hay profesores";
+				echo "No hay exámenes";
 				$resultado = null;
 			}
 			return $resultado;
 		} else {
 			echo "Conexión fallida";
+			return false;
+		}
+	}
+
+	/*
+		Devuelve el resultado del select para todos los examenes junto con creador, modificador y asignatura relacionados
+	*/
+	function selectAllExamenesCompleto($db) {
+		if($db){
+			$sql = "SELECT e1.titulo, p1.nombre as creador, p2.nombre as ultimo_modificador, e1.id as id, e1.fecha_creado, e1.fecha_modificado, asignaturas.nombre FROM ((examenes e1 JOIN profesores p1) JOIN (profesores p2)) JOIN (asignaturas) WHERE e1.creador=p1.id and e1.ultimo_modificador=p2.id AND asignaturas.id=e1.id_asig";
+			$consulta=mysqli_query($db,$sql);
+			$resultado = [];
+			if($consulta->num_rows > 0){
+				while ($fila=mysqli_fetch_assoc($consulta)){
+					$resultado[] = $fila;
+				}
+			} else {
+				echo "No hay exámenes";
+				$resultado = null;
+			}
+			return $resultado;
+		} else {
+			echo "Conexión fallida";
+			return false;
 		}
 	}
 
@@ -88,7 +114,7 @@
 					$resultado[] = $fila;
 				}
 			} else {
-				echo "No hay profesores";
+				echo "No hay preguntas";
 				$resultado = null;
 			}
 			return $resultado;
