@@ -1,17 +1,65 @@
+<!--COMPROBAR QUE EL USUARIO ESTA LOGEADO -->
+
 <html>
 <body>
 
 <h1>Pagina principal del profesor</h1>
-<?php 
-	session_start();
-	echo "<h2> Asignturas de ". $_SESSION['nombre']. "</h2>";
+	<div class="container">
+		<?php 
+			session_start();
+			echo "<h2> Asignaturas de ". $_SESSION['nombre']. "</h2>";
+			include 'asignaturasProfesorProcesamiento.php';
+		?>
+		<table class="table table-hover">
+		    <thead>
+		      <tr>
+		        <th>Siglas</th>
+		        <th>Nombre asignatura</th>
+		        <th>Coordinador</th>
+		      </tr>
+		    </thead>
+		    <tbody>
+		<?php
 
+			$asignaturas=cargaAsignaturas($_SESSION['id']);
 
+			$error_ningunaAsignatura = isset($_SESSION['error_ningunaAsignatura'])? $_SESSION['error_ningunaAsignatura']: false;
+			$error_BBDD = isset($_SESSION['error_BBDD'])? $_SESSION['error_BBDD']: false;
 
-SELECT prof_asig_coord.coordinador AS coordinador, profesores.nombre AS nombre_profesor, asignaturas.nombre AS nombre_asignatura FROM ((prof_asig_coord INNER JOIN profesores ON prof_asig_coord.id_profesor = profesores.id) INNER JOIN asignaturas ON prof_asig_coord.id_asignatura = asignaturas.id) WHERE id_profesor='4'
-?>
+			if($error_ningunaAsignatura){
+				echo 'No tienes ninguna asignatura';
+			}
 
+			else if($error_BBDD){
+				echo 'Error con la BBDD, contacte con el administrador';
+			}
+			else{
+				foreach ($asignaturas as $pos => $valor) {
+					echo '<tr>';
+					echo '<td>'.$valor['siglas_asignatura'].'</td>';
+					echo '<td>'.$valor['nombre_asignatura'].'</td>';
+					$coord=($valor['coordinador'])?'Si':'No';
+					echo '<td>'.$coord.'</td>';
+					echo '</tr>';
+				}
+			}
+		?>
+			</tbody>
+		</table>
+		
+	</div>
 
+	<script src="jquery-3.3.1.min.js"></script>
+	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+	<script type="text/javascript" src="formularioNombre.js"></script>
+
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
 
 </body>
 </html>
+
