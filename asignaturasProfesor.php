@@ -48,7 +48,6 @@
 			else{
 				foreach ($asignaturas as $pos => $valor) {
 					echo '<tr class="item">';
-					echo '<td>'.$valor['id_asignatura'].'</td>';
 					echo '<td><a href="asignatura.php?id='.$valor['id_asignatura'].'&nombre='.$valor['nombre_asignatura'].'"></a>'.$valor['siglas_asignatura'].'</td>';
 					echo '<td>'.$valor['nombre_asignatura'].'</td>';
 					$coord=($valor['coordinador'])?'Si':'No';
