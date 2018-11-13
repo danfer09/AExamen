@@ -7,32 +7,32 @@
 	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
 </head>
 <body>
-
-<h1>Pagina principal del profesor</h1>
 	<div class="container">
 		<?php 
 			session_start();
-			echo "<h2> Asignaturas de ". $_SESSION['nombre']. "</h2>";
-			include 'asignaturasProfesorProcesamiento.php';
+			echo "<h1>Preguntas de ". $_GET['nombreAsignatura']. "</h1>";
+			include "preguntasProcesamiento.php"
 		?>
-		<table class="table table-hover" id="tabla_asignaturas">
+		<table class="table table-hover" id="tabla_preguntas">
 		    <thead>
 		      <tr>
-		        <th>Siglas</th>
-		        <th>Nombre asignatura</th>
-		        <th>Coordinador</th>
+		        <th>Titulo</th>
+		        <th>Tema</th>
+		        <th>Autor</th>
+		        <th>Fecha creación</th>
+		        <th>Fecha modificiación</th>
 		      </tr>
 		    </thead>
 		    <tbody>
 		<?php
 
-			$asignaturas=cargaAsignaturas($_SESSION['id']);
+			$asignaturas=cargaAsignaturas($_GET['idAsignatura']);
 
-			$error_ningunaAsignatura = isset($_SESSION['error_ningunaAsignatura'])? $_SESSION['error_ningunaAsignatura']: false;
+			$error_ningunaPregunta = isset($_SESSION['error_ningunaPregunta'])? $_SESSION['error_ningunaPregunta']: false;
 			$error_BBDD = isset($_SESSION['error_BBDD'])? $_SESSION['error_BBDD']: false;
 
-			if($error_ningunaAsignatura){
-				echo 'No tienes ninguna asignatura';
+			if($error_ningunaPregunta){
+				echo 'Esta asignatura no tienen ninguna pregunta';
 			}
 
 			else if($error_BBDD){
@@ -41,11 +41,11 @@
 			else{
 				foreach ($asignaturas as $pos => $valor) {
 					echo '<tr>';
-					echo '<td>'.$valor['id_asignatura'].'</td>';
-					echo '<td><a href="asignatura.php?id='.$valor['id_asignatura'].'&nombre='.$valor['nombre_asignatura'].'"></a>'.$valor['siglas_asignatura'].'</td>';
-					echo '<td>'.$valor['nombre_asignatura'].'</td>';
-					$coord=($valor['coordinador'])?'Si':'No';
-					echo '<td>'.$coord.'</td>';
+					echo '<td>'.$valor['titulo'].'</td>';
+					echo '<td>'.$valor['tema'].'</td>';
+					echo '<td>'.$valor['autor'].'</td>';
+					echo '<td>'.$valor['fecha_creacion'].'</td>';
+					echo '<td>'.$valor['fecha_modificado'].'</td>';
 					echo '</tr>';
 				}
 			}
