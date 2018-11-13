@@ -16,15 +16,19 @@
 			echo "<h2> Examenes </h2>";
 			include "servidor.php";
 		?>
-		<table class="table table-hover">
+		<br>
+		<p>
+			<input oninput="w3.filterHTML('#tabla_examenes', '.item', this.value)" class="w3-input" placeholder="Buscar...">
+		</p>
+		<table id="tabla_examenes" class="table table-hover">
 		    <thead>
 		      <tr>
 		      	<th>	</th>
-		        <th>Título</th>
-		        <th>Creado por</th>
-		        <th>Fecha creación</th>
-		        <th>Últ. modificación</th>
-		        <th>Modificado por</th>
+		        <th onclick="w3.sortHTML('#tabla_examenes', '.item', 'td:nth-child(2)')" style="cursor:pointer;">Título</th>
+		        <th onclick="w3.sortHTML('#tabla_examenes', '.item', 'td:nth-child(3)')" style="cursor:pointer;">Creado por</th>
+		        <th onclick="w3.sortHTML('#tabla_examenes', '.item', 'td:nth-child(4)')" style="cursor:pointer;">Fecha creación</th>
+		        <th onclick="w3.sortHTML('#tabla_examenes', '.item', 'td:nth-child(5)')" style="cursor:pointer;">Últ. modificación</th>
+		        <th onclick="w3.sortHTML('#tabla_examenes', '.item', 'td:nth-child(6)')" style="cursor:pointer;">Modificado por</th>
 		      	<th>	</th>
 		      </tr>
 		    </thead>
@@ -42,7 +46,7 @@
 			}
 			else{
 				foreach ($examenes as $pos => $valor) {
-					echo '<tr>';
+					echo '<tr class="item">';
 					echo '<td> <i class="fas fa-file-invoice fa-fw fa-lg"></i> </td>';
 					echo '<td>'.$valor['titulo'].'</td>';
 					echo '<td>'.$valor['creador'].'</td>';

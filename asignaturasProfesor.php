@@ -2,6 +2,7 @@
 
 <html>
 <head>
+	<link rel="stylesheet" type="text/css" href="estilo.css">
 	<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
 	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
@@ -15,12 +16,18 @@
 			echo "<h2> Asignaturas de ". $_SESSION['nombre']. "</h2>";
 			include 'asignaturasProfesorProcesamiento.php';
 		?>
+
+		<br>
+		<p>
+			<input oninput="w3.filterHTML('#tabla_asignaturas', '.item', this.value)" class="w3-input" placeholder="Buscar...">
+		</p>
 		<table class="table table-hover" id="tabla_asignaturas">
 		    <thead>
 		      <tr>
-		        <th>Siglas</th>
-		        <th>Nombre asignatura</th>
-		        <th>Coordinador</th>
+		      	<!-- td:nth-child(2) se refiere a la segunda columna de cada fila de la tabla -->
+		        <th onclick="w3.sortHTML('#tabla-examenes', '.item', 'td:nth-child(1)')" style="cursor:pointer;">Siglas</th>
+		        <th onclick="w3.sortHTML('#tabla-examenes', '.item', 'td:nth-child(2)')" style="cursor:pointer;">Nombre asignatura</th>
+		        <th onclick="w3.sortHTML('#tabla-examenes', '.item', 'td:nth-child(3)')" style="cursor:pointer;">Coordinador</th>
 		      </tr>
 		    </thead>
 		    <tbody>
@@ -40,7 +47,7 @@
 			}
 			else{
 				foreach ($asignaturas as $pos => $valor) {
-					echo '<tr>';
+					echo '<tr class="item">';
 					echo '<td>'.$valor['id_asignatura'].'</td>';
 					echo '<td><a href="asignatura.php?id='.$valor['id_asignatura'].'&nombre='.$valor['nombre_asignatura'].'"></a>'.$valor['siglas_asignatura'].'</td>';
 					echo '<td>'.$valor['nombre_asignatura'].'</td>';

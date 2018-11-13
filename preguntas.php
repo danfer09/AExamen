@@ -2,6 +2,7 @@
 
 <html>
 <head>
+	<link rel="stylesheet" type="text/css" href="estilo.css">
 	<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
 	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
@@ -13,14 +14,19 @@
 			echo "<h1>Preguntas de ". $_GET['nombreAsignatura']. "</h1>";
 			include "preguntasProcesamiento.php"
 		?>
+
+		<br>
+		<p>
+			<input oninput="w3.filterHTML('#tabla_preguntas', '.item', this.value)" class="w3-input" placeholder="Buscar...">
+		</p>
 		<table class="table table-hover" id="tabla_preguntas">
 		    <thead>
 		      <tr>
-		        <th>Titulo</th>
-		        <th>Tema</th>
-		        <th>Autor</th>
-		        <th>Fecha creación</th>
-		        <th>Fecha modificiación</th>
+		        <th onclick="w3.sortHTML('#tabla_examenes', '.item', 'td:nth-child(1)')" style="cursor:pointer;">Titulo</th>
+		        <th onclick="w3.sortHTML('#tabla_examenes', '.item', 'td:nth-child(2)')" style="cursor:pointer;">Tema</th>
+		        <th onclick="w3.sortHTML('#tabla_examenes', '.item', 'td:nth-child(3)')" style="cursor:pointer;">Autor</th>
+		        <th onclick="w3.sortHTML('#tabla_examenes', '.item', 'td:nth-child(4)')" style="cursor:pointer;">Fecha creación</th>
+		        <th onclick="w3.sortHTML('#tabla_examenes', '.item', 'td:nth-child(5)')" style="cursor:pointer;">Fecha modificiación</th>
 		      </tr>
 		    </thead>
 		    <tbody>
@@ -40,7 +46,7 @@
 			}
 			else{
 				foreach ($asignaturas as $pos => $valor) {
-					echo '<tr>';
+					echo '<tr class="item">';
 					echo '<td>'.$valor['titulo'].'</td>';
 					echo '<td>'.$valor['tema'].'</td>';
 					echo '<td>'.$valor['autor'].'</td>';
