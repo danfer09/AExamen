@@ -9,11 +9,17 @@
 <h1>Pagina principal del profesor</h1>
 <?php 
 	session_start();
-	echo "<h2> Bienvenido ". $_SESSION['nombre']. "</h2>";
+	if (!isset($_SESSION['logeado']) && !$_SESSION['logeado']) {
+		header('Location: index.php');
+	}
+	else{
+		echo "<h2> Bienvenido ". $_SESSION['nombre']. "</h2>";
+	}
+
 ?>
 <a href="perfilPropioProf.php"> Editar perfil </a>
 <a href="asignaturasProfesor.php"> Ver mis asignaturas </a>
-<a href="examenes.php"> Exámenes </a>
+<a href="examenes.php?asignatura=todas&autor=todos"> Exámenes </a>
 <br>
 <a href="cerrarSesion.php">Salir</a>
 

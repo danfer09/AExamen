@@ -25,9 +25,9 @@
 		    <thead>
 		      <tr>
 		      	<!-- td:nth-child(2) se refiere a la segunda columna de cada fila de la tabla -->
-		        <th onclick="w3.sortHTML('#tabla-examenes', '.item', 'td:nth-child(1)')" style="cursor:pointer;">Siglas</th>
-		        <th onclick="w3.sortHTML('#tabla-examenes', '.item', 'td:nth-child(2)')" style="cursor:pointer;">Nombre asignatura</th>
-		        <th onclick="w3.sortHTML('#tabla-examenes', '.item', 'td:nth-child(3)')" style="cursor:pointer;">Coordinador</th>
+		        <th onclick="w3.sortHTML('#tabla_asignaturas', '.item', 'td:nth-child(1)')" style="cursor:pointer;">Siglas</th>
+		        <th onclick="w3.sortHTML('#tabla_asignaturas', '.item', 'td:nth-child(2)')" style="cursor:pointer;">Nombre asignatura</th>
+		        <th onclick="w3.sortHTML('#tabla_asignaturas', '.item', 'td:nth-child(3)')" style="cursor:pointer;">Coordinador</th>
 		      </tr>
 		    </thead>
 		    <tbody>
@@ -47,7 +47,7 @@
 			}
 			else{
 				foreach ($asignaturas as $pos => $valor) {
-					echo '<tr class="item">';
+					echo '<tr class="item" style="cursor:pointer;">';
 					echo '<td><a href="asignatura.php?id='.$valor['id_asignatura'].'&nombre='.$valor['nombre_asignatura'].'"></a>'.$valor['siglas_asignatura'].'</td>';
 					echo '<td>'.$valor['nombre_asignatura'].'</td>';
 					$coord=($valor['coordinador'])?'Si':'No';

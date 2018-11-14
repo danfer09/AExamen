@@ -12,7 +12,8 @@
 		<?php 
 			session_start();
 			echo "<h1>Preguntas de ". $_GET['nombreAsignatura']. "</h1>";
-			include "preguntasProcesamiento.php"
+			include "preguntasProcesamiento.php";
+			include "servidor.php";
 		?>
 
 		<br>
@@ -22,11 +23,11 @@
 		<table class="table table-hover" id="tabla_preguntas">
 		    <thead>
 		      <tr>
-		        <th onclick="w3.sortHTML('#tabla_examenes', '.item', 'td:nth-child(1)')" style="cursor:pointer;">Titulo</th>
-		        <th onclick="w3.sortHTML('#tabla_examenes', '.item', 'td:nth-child(2)')" style="cursor:pointer;">Tema</th>
-		        <th onclick="w3.sortHTML('#tabla_examenes', '.item', 'td:nth-child(3)')" style="cursor:pointer;">Autor</th>
-		        <th onclick="w3.sortHTML('#tabla_examenes', '.item', 'td:nth-child(4)')" style="cursor:pointer;">Fecha creación</th>
-		        <th onclick="w3.sortHTML('#tabla_examenes', '.item', 'td:nth-child(5)')" style="cursor:pointer;">Fecha modificiación</th>
+		        <th onclick="w3.sortHTML('#tabla_preguntas', '.item', 'td:nth-child(1)')" style="cursor:pointer;">Titulo</th>
+		        <th onclick="w3.sortHTML('#tabla_preguntas', '.item', 'td:nth-child(2)')" style="cursor:pointer;">Tema</th>
+		        <th onclick="w3.sortHTML('#tabla_preguntas', '.item', 'td:nth-child(3)')" style="cursor:pointer;">Autor</th>
+		        <th onclick="w3.sortHTML('#tabla_preguntas', '.item', 'td:nth-child(4)')" style="cursor:pointer;">Fecha creación</th>
+		        <th onclick="w3.sortHTML('#tabla_preguntas', '.item', 'td:nth-child(5)')" style="cursor:pointer;">Últ. modificación</th>
 		      </tr>
 		    </thead>
 		    <tbody>
@@ -46,12 +47,14 @@
 			}
 			else{
 				foreach ($asignaturas as $pos => $valor) {
-					echo '<tr class="item">';
+					echo '<tr class="item" style="cursor:pointer;">';
 					echo '<td><a href="'.$valor['id_preguntas'].'"></a>'.$valor['titulo'].'</td>';
 					echo '<td>'.$valor['tema'].'</td>';
 					echo '<td>'.$valor['autor'].'</td>';
-					echo '<td>'.$valor['fecha_creacion'].'</td>';
-					echo '<td>'.$valor['fecha_modificado'].'</td>';
+					echo '<td hidden=true;>'.$valor['fecha_creacion'].'</td>';
+					echo '<td hidden=true;>'.$valor['fecha_modificado'].'</td>';
+					echo '<td>'.formateoDateTime($valor['fecha_creacion']).'</td>';
+					echo '<td>'.formateoDateTime($valor['fecha_modificado']).'</td>';
 					echo '</tr>';
 				}
 			}

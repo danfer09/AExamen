@@ -30,6 +30,53 @@
 			return $resultado;
 		} else {
 			echo "Conexión fallida";
+			return false;
+		}
+	}
+
+	/*
+		Devuelve el resultado del select para todos los nombres de profesores
+	*/
+	function selectAllNombresProfesores($db) {
+		if($db){
+			$sql = "SELECT id, nombre FROM profesores";
+			$consulta=mysqli_query($db,$sql);
+			$resultado = [];
+			if($consulta->num_rows > 0){
+				while ($fila=mysqli_fetch_assoc($consulta)){
+					$resultado[] = $fila;
+				}
+			} else {
+				echo "No hay profesores";
+				$resultado = null;
+			}
+			return $resultado;
+		} else {
+			echo "Conexión fallida";
+			return false;
+		}
+	}
+
+	/*
+		Devuelve el resultado del select para todos los mails de profesores
+	*/
+	function selectAllMailsProfesores($db) {
+		if($db){
+			$sql = "SELECT id, email FROM profesores";
+			$consulta=mysqli_query($db,$sql);
+			$resultado = [];
+			if($consulta->num_rows > 0){
+				while ($fila=mysqli_fetch_assoc($consulta)){
+					$resultado[] = $fila;
+				}
+			} else {
+				echo "No hay profesores";
+				$resultado = null;
+			}
+			return $resultado;
+		} else {
+			echo "Conexión fallida";
+			return false;
 		}
 	}
 
@@ -52,6 +99,30 @@
 			return $resultado;
 		} else {
 			echo "Conexión fallida";
+			return false;
+		}
+	}
+
+	/*
+		Devuelve el resultado del select para todas las siglas de las asignaturas
+	*/
+	function selectAllSiglasAsignaturas($db) {
+		if($db){
+			$sql = "SELECT siglas FROM asignaturas";
+			$consulta=mysqli_query($db,$sql);
+			$resultado = [];
+			if($consulta->num_rows > 0){
+				while ($fila=mysqli_fetch_assoc($consulta)){
+					$resultado[] = $fila;
+				}
+			} else {
+				echo "No hay asignaturas";
+				$resultado = null;
+			}
+			return $resultado;
+		} else {
+			echo "Conexión fallida";
+			return false;
 		}
 	}
 
@@ -92,6 +163,35 @@
 				}
 			} else {
 				echo "No hay exámenes";
+				$resultado = null;
+			}
+			return $resultado;
+		} else {
+			echo "Conexión fallida";
+			return false;
+		}
+	}
+
+	/*
+		Devuelve el resultado del select para ciertos examenes junto con creador, modificador y asignatura relacionados
+	*/
+	function selectAllExamenesFiltrado($db, $asignaturaSiglas, $autorMail) {
+		if($db){
+			$sql = "SELECT e1.titulo, p1.nombre as creador, p1.email, p2.nombre as ultimo_modificador, e1.id as id, e1.fecha_creado, e1.fecha_modificado, asignaturas.nombre, asignaturas.siglas FROM ((examenes e1 INNER JOIN profesores p1) INNER JOIN (profesores p2)) INNER JOIN (asignaturas) WHERE e1.creador=p1.id and e1.ultimo_modificador=p2.id AND asignaturas.id=e1.id_asig";
+			if ($asignaturaSiglas != "todas") {
+				$sql = $sql." AND asignaturas.siglas='".$asignaturaSiglas."' ";
+			}
+			if ($autorMail != "todos") {
+				$sql = $sql." AND p1.email='".$autorMail."' ";
+			}
+			$consulta=mysqli_query($db,$sql);
+			$resultado = [];
+			if($consulta->num_rows > 0){
+				while ($fila=mysqli_fetch_assoc($consulta)){
+					$resultado[] = $fila;
+				}
+			} else {
+				//echo "No hay exámenes";
 				$resultado = null;
 			}
 			return $resultado;
@@ -266,6 +366,35 @@
 			$error = 'Message sent!';
 			return true;
 		}
+	}
+
+	function formateoDateTime ($fecha) {
+		$time = strtotime($fecha);
+
+		$diff = (time() - $time)*1000; // the difference in milliseconds
+		
+		if ($diff < 1000) { // less than 1 second
+			return 'ahora mismo';
+		}
+
+		$sec = floor($diff / 1000); // convert $diff to seconds
+
+		if ($sec < 60) {
+			return 'hace '.$sec.' seg.';
+		}
+
+		$min = floor($diff / 60000); // convert $diff to minutes
+		if ($min < 60) {
+			return 'hace '.$min.' min.';
+		}
+
+		if ((date("j")==date('j',$time))) {
+			return date('G:i',$time);
+		}
+
+		$newformat = date('d/m/Y H:i',$time);
+	
+		return $newformat;
 	}
 
 ?>

@@ -12,6 +12,7 @@
 		<?php 
 			session_start();
 			include "preguntasProcesamiento.php";
+			include 'servidor.php';
 			$pregunta=cargaUnicaPregunta($_GET['id']);
 			echo "<h1>Preguntas de ". $pregunta['titulo']. "</h1>";
 			
