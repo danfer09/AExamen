@@ -62,7 +62,7 @@
 	*/
 	function selectAllMailsProfesores($db) {
 		if($db){
-			$sql = "SELECT id, email FROM profesores";
+			$sql = "SELECT id, email, nombre, apellidos FROM profesores";
 			$consulta=mysqli_query($db,$sql);
 			$resultado = [];
 			if($consulta->num_rows > 0){

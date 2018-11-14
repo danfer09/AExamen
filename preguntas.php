@@ -15,11 +15,73 @@
 
 			session_start();
 			echo "<h1>Preguntas de ". $_GET['nombreAsignatura']. "</h1>";
+			//echo "<h1>Preguntas</h1>";
 			$_SESSION['idAsignatura']=$_GET['idAsignatura'];
 			include "preguntasProcesamiento.php";
 			include "servidor.php";
 		?>
+		<br>
+		<div class="row" id="filtros">
+			<div class="form-inline col-lg-2">
+				<label for="sel1">Asignatura </label>
+				<select class="form-control" id="sel1" onchange="location = this.value;">
+					<?php
+						$credentialsStr = file_get_contents('credentials.json');
+						$credentials = json_decode($credentialsStr, true);
+						$db = mysqli_connect('localhost', $credentials['database']['user'], $credentials['database']['password'], $credentials['database']['dbname']);
+						
+						$siglas = selectAllSiglasAsignaturas($db);
+						if ($_GET['siglas'] == "todas") {
+							echo '<option value="examenes.php?siglas=todas&autor='.$_GET['autor'].'" selected>Todas</option>';
+						} else {
+							echo '<option value="examenes.php?siglas=todas&autor='.$_GET['autor'].'">Todas</option>';
+						}
 
+						if ($siglas == null){
+							echo 'No hay siglas';
+						} else if (!$siglas){
+							echo 'Error con la BBDD, contacte con el administrador';
+						} else {
+							foreach ($siglas as $pos => $valor) {
+								if ($_GET['siglas'] == $valor['siglas']) {
+									echo '<option value="examenes.php?siglas='.$valor['siglas'].'&autor='.$_GET['autor'].'" selected>'.$valor['siglas'].'</option>';
+								} else {
+									echo '<option value="examenes.php?siglas='.$valor['siglas'].'&autor='.$_GET['autor'].'">'.$valor['siglas'].'</option>';
+								}
+							}
+						}
+					?>
+				</select>
+			</div>
+			<div class="form-inline col-lg-4">
+				<label for="sel1">Autor </label>
+				<select class="form-control" id="sel1" onchange="location = this.value;">
+					<?php
+						$autores = selectAllMailsProfesores($db);
+						if ($_GET['autor'] == "todos") {
+							echo '<option value="examenes.php?asignatura='.$_GET['asignatura'].'&autor=todos" selected>Todos</option>';
+						} else {
+							echo '<option value="examenes.php?asignatura='.$_GET['asignatura'].'&autor=todos">Todos</option>';
+						}
+
+						if ($autores == null){
+							echo 'No hay nombres de profesores';
+						} else if (!$autores){
+							echo 'Error con la BBDD, contacte con el administrador';
+						} else {
+							foreach ($autores as $pos => $valor) {
+								if ($_GET['autor'] == $valor['email']) {
+									echo '<option value="examenes.php?asignatura='.$_GET['asignatura'].'&autor='.$valor['email'].'" selected>'.$valor['email'].' ('.$valor['nombre'].')</option>';
+								} else {
+									echo '<option value="examenes.php?asignatura='.$_GET['asignatura'].'&autor='.$valor['email'].'">'.$valor['email'].' ('.$valor['nombre'].')</option>';
+								}
+							}
+						}
+					?>
+				</select>
+			</div>
+			<input oninput="w3.filterHTML('#tabla_examenes', '.item', this.value)" class="w3-input col-lg-6" placeholder="Buscar...">
+		</div>
 		<br>
 		<p>
 			<input oninput="w3.filterHTML('#tabla_preguntas', '.item', this.value)" class="w3-input" placeholder="Buscar...">

@@ -15,7 +15,6 @@
 			session_start();
 			echo "<h2> Examenes </h2>";
 			include "servidor.php";
-
 		?>
 		<br>
 		<div class="row" id="filtros">
@@ -68,9 +67,9 @@
 						} else {
 							foreach ($autores as $pos => $valor) {
 								if ($_GET['autor'] == $valor['email']) {
-									echo '<option value="examenes.php?asignatura='.$_GET['asignatura'].'&autor='.$valor['email'].'" selected>'.$valor['email'].'</option>';
+									echo '<option value="examenes.php?asignatura='.$_GET['asignatura'].'&autor='.$valor['email'].'" selected>'.$valor['email'].' ('.$valor['nombre'].')</option>';
 								} else {
-									echo '<option value="examenes.php?asignatura='.$_GET['asignatura'].'&autor='.$valor['email'].'">'.$valor['email'].'</option>';
+									echo '<option value="examenes.php?asignatura='.$_GET['asignatura'].'&autor='.$valor['email'].'">'.$valor['email'].' ('.$valor['nombre'].')</option>';
 								}
 							}
 						}
