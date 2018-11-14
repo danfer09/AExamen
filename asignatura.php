@@ -11,7 +11,7 @@
 		<?php 
 			session_start();
 			echo '<h1>Asignatura: '. $_GET["nombre"]. '</h1>';
-			echo '<a class="btn btn-primary" href="preguntas.php?nombreAsignatura='.$_GET["nombre"].'&idAsignatura='.$_GET["id"].'&siglas='.$_GET['siglas'].'" role="button">Ver preguntas</a>';
+			echo '<a class="btn btn-primary" href="preguntas.php?nombreAsignatura='.$_GET["nombre"].'&idAsignatura='.$_GET["id"].'&autor=todos" role="button">Ver preguntas</a>';
 			echo '<a class="btn btn-primary" href="examenes.php?asignatura='.$_GET['siglas'].'&autor=todos" role="button">Ver exámenes</a>';
 		?>
 		

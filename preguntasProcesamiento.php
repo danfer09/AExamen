@@ -18,7 +18,7 @@
 	}*/
 
 	//Comprobamos que el método empleado es POST
-	function cargaPreguntas($idAsignatura){
+	function cargaPreguntas($idAsignatura, $emailAutor){
 		$_SESSION['error_ningunaPregunta']=false;
 		$_SESSION['error_BBDD']=false;
 		//Comprobamos que ninguna de las variables este a null
@@ -33,6 +33,11 @@
 			$sql = "SELECT asignaturas.siglas AS siglasAsignatura,  profesores.nombre AS autor, preguntas.titulo AS titulo, preguntas.cuerpo AS cuerpo, preguntas.tema AS tema, preguntas.fecha_creacion AS fecha_creacion, preguntas.fecha_modificado AS fecha_modificado, preguntas.id AS id_preguntas
 				FROM ((preguntas INNER JOIN asignaturas ON asignaturas.id =".$idAsignatura.") INNER JOIN profesores ON preguntas.creador=profesores.id)
 				WHERE preguntas.asignatura=".$idAsignatura;
+
+			if ($emailAutor != "todos") {
+				$sql = $sql." AND profesores.email='".$emailAutor."'";
+			}
+
 			$consulta=mysqli_query($db,$sql);
 			$fila=mysqli_fetch_assoc($consulta);
 

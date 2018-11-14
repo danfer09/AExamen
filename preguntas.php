@@ -22,46 +22,19 @@
 		?>
 		<br>
 		<div class="row" id="filtros">
-			<div class="form-inline col-lg-2">
-				<label for="sel1">Asignatura </label>
+			<div class="col-lg-1"></div>
+			<div class="form-inline col-lg-4">
+				<label for="sel1">Autor </label>
 				<select class="form-control" id="sel1" onchange="location = this.value;">
 					<?php
 						$credentialsStr = file_get_contents('credentials.json');
 						$credentials = json_decode($credentialsStr, true);
 						$db = mysqli_connect('localhost', $credentials['database']['user'], $credentials['database']['password'], $credentials['database']['dbname']);
-						
-						$siglas = selectAllSiglasAsignaturas($db);
-						if ($_GET['siglas'] == "todas") {
-							echo '<option value="examenes.php?siglas=todas&autor='.$_GET['autor'].'" selected>Todas</option>';
-						} else {
-							echo '<option value="examenes.php?siglas=todas&autor='.$_GET['autor'].'">Todas</option>';
-						}
-
-						if ($siglas == null){
-							echo 'No hay siglas';
-						} else if (!$siglas){
-							echo 'Error con la BBDD, contacte con el administrador';
-						} else {
-							foreach ($siglas as $pos => $valor) {
-								if ($_GET['siglas'] == $valor['siglas']) {
-									echo '<option value="examenes.php?siglas='.$valor['siglas'].'&autor='.$_GET['autor'].'" selected>'.$valor['siglas'].'</option>';
-								} else {
-									echo '<option value="examenes.php?siglas='.$valor['siglas'].'&autor='.$_GET['autor'].'">'.$valor['siglas'].'</option>';
-								}
-							}
-						}
-					?>
-				</select>
-			</div>
-			<div class="form-inline col-lg-4">
-				<label for="sel1">Autor </label>
-				<select class="form-control" id="sel1" onchange="location = this.value;">
-					<?php
 						$autores = selectAllMailsProfesores($db);
 						if ($_GET['autor'] == "todos") {
-							echo '<option value="examenes.php?asignatura='.$_GET['asignatura'].'&autor=todos" selected>Todos</option>';
+							echo '<option value="preguntas.php?nombreAsignatura='. $_GET['nombreAsignatura'].'&idAsignatura='.$_GET['idAsignatura'].'&autor=todos" selected>Todos</option>';
 						} else {
-							echo '<option value="examenes.php?asignatura='.$_GET['asignatura'].'&autor=todos">Todos</option>';
+							echo '<option value="preguntas.php?nombreAsignatura='. $_GET['nombreAsignatura'].'&idAsignatura='.$_GET['idAsignatura'].'&autor=todos">Todos</option>';
 						}
 
 						if ($autores == null){
@@ -71,21 +44,18 @@
 						} else {
 							foreach ($autores as $pos => $valor) {
 								if ($_GET['autor'] == $valor['email']) {
-									echo '<option value="examenes.php?asignatura='.$_GET['asignatura'].'&autor='.$valor['email'].'" selected>'.$valor['email'].' ('.$valor['nombre'].')</option>';
+									echo '<option value="preguntas.php?nombreAsignatura='. $_GET['nombreAsignatura'].'&idAsignatura='.$_GET['idAsignatura'].'&autor='.$valor['email'].'" selected>'.$valor['email'].' ('.$valor['nombre'].')</option>';
 								} else {
-									echo '<option value="examenes.php?asignatura='.$_GET['asignatura'].'&autor='.$valor['email'].'">'.$valor['email'].' ('.$valor['nombre'].')</option>';
+									echo '<option value="preguntas.php?nombreAsignatura='. $_GET['nombreAsignatura'].'&idAsignatura='.$_GET['idAsignatura'].'&autor='.$valor['email'].'">'.$valor['email'].' ('.$valor['nombre'].')</option>';
 								}
 							}
 						}
 					?>
 				</select>
 			</div>
-			<input oninput="w3.filterHTML('#tabla_examenes', '.item', this.value)" class="w3-input col-lg-6" placeholder="Buscar...">
+			<input oninput="w3.filterHTML('#tabla_preguntas', '.item', this.value)" class="w3-input col-lg-7" placeholder="Buscar...">
 		</div>
 		<br>
-		<p>
-			<input oninput="w3.filterHTML('#tabla_preguntas', '.item', this.value)" class="w3-input" placeholder="Buscar...">
-		</p>
 		<table class="table table-hover" id="tabla_preguntas">
 		    <thead>
 		      <tr>
@@ -94,18 +64,18 @@
 		        <th onclick="w3.sortHTML('#tabla_preguntas', '.item', 'td:nth-child(3)')" style="cursor:pointer;">Autor</th>
 		        <th onclick="w3.sortHTML('#tabla_preguntas', '.item', 'td:nth-child(4)')" style="cursor:pointer;">Fecha creación</th>
 		        <th onclick="w3.sortHTML('#tabla_preguntas', '.item', 'td:nth-child(5)')" style="cursor:pointer;">Últ. modificación</th>
+		        <th> </th>
 		      </tr>
 		    </thead>
 		    <tbody>
 		<?php
-
-			$asignaturas=cargaPreguntas($_GET['idAsignatura']);
+			$asignaturas=cargaPreguntas($_GET['idAsignatura'], $_GET['autor']);
 
 			$error_ningunaPregunta = isset($_SESSION['error_ningunaPregunta'])? $_SESSION['error_ningunaPregunta']: false;
 			$error_BBDD = isset($_SESSION['error_BBDD'])? $_SESSION['error_BBDD']: false;
 
 			if($error_ningunaPregunta){
-				echo 'Esta asignatura no tienen ninguna pregunta';
+				echo 'Esta asignatura no tienen ninguna pregunta para ti';
 			}
 
 			else if($error_BBDD){
@@ -121,8 +91,8 @@
 					echo '<td hidden=true;>'.$valor['fecha_modificado'].'</td>';
 					echo '<td>'.formateoDateTime($valor['fecha_creacion']).'</td>';
 					echo '<td>'.formateoDateTime($valor['fecha_modificado']).'</td>';
-					echo '</tr>';
 					echo '<td id="opciones"><a class="fas fa-edit" id="boton_pregunta"></a><a class="fas fa-trash-alt" id="boton_pregunta"></a><a class="fas fa-plus-circle" id="boton_pregunta"></a></td>';
+					echo '</tr>';
 					
 				}
 			}
