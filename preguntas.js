@@ -1,20 +1,26 @@
 $(document).ready(function(){
-	$('#tabla_preguntas tr').click(function() {
+
+	//Esto es para que muestre los detalles cuando se pulsa en al fila,pero si se activa, no funcionan los demás botones
+	/*$('#tabla_preguntas tr').click(function() {
         var href = $(this).find("a").attr("href");
         if(href) {
             window.location = "detallePregunta.php?id="+href;
         }
-    });
+    });*/
 
     $('#opciones a').click(function() {
-        var clase = $(this).attr("class");
-        if(clase == "fas fa-edit") {
+        var id = $(this).attr("id");
+        if(id == "boton_modalEditar") {
         	alert("desea editar?");
         }
-        else if(clase == "fas fa-trash-alt"){
-        	alert("desea borrar?");
+        else if(id == "boton_modalBorrar"){
+        	$("#boton_borrar").attr("id_pregunta",$(this).attr("idPreguntas"));
+        	//alert($(this).attr("idPreguntas"));
+        	//alert($("#boton_borrar").attr("id_pregunta"));
+        	$('#modal_borrarPregunta').modal('show');
+
         }
-        else if(clase =="fas fa-plus-circle"){
+        else if(id =="boton_modalAñadir"){
    			$("#boton_añadir").attr("class", "btn btn-primary disabled");
 	    	$("#boton_añadir").attr("disabled", true);
         	$('#modal_aniadirPregunta').modal('show');
@@ -36,11 +42,40 @@ $(document).ready(function(){
             data        : form_data + '&funcion=' + funcion, // our data object
             success: function(respuesta) {
           		if(respuesta){
-          			alert("insertada con exito");
+          			alert("Insertada con exito");
           			location.reload();
           		}
           		else{
           			alert("fallo al insertar");
+          			location.reload();
+          		}
+			}
+        })
+    	event.preventDefault();
+
+    });
+
+     $('#form_delete').submit(function(event) {
+    	var funcion = "borrarPregunta";
+    	var form_data = $(this).serialize();
+    	/*var formDataAndFunction = {
+            'titulo'              : $('input[name=titulo]').val(),
+            'cuerpo'              : $('input[name=cuerpo]').val(),
+            'funcion'			  : $('input[name=cuerpo]').val(),
+            'tema'                : $('input[name=tema]').val()
+        };*/
+        //$('#myForm').serialize() + "&moredata=" + morevalue
+        $.ajax({
+            type        : 'POST', // define the type of HTTP verb we want to use (POST for our form)
+            url         : 'preguntasProcesamiento.php', // the url where we want to POST
+            data        : form_data + '&funcion=' + funcion + '&id_pregunta=' + $("#boton_borrar").attr("id_pregunta"), // our data object
+            success: function(respuesta) {
+          		if(respuesta){
+          			alert("Borrada con exito");
+          			location.reload();
+          		}
+          		else{
+          			alert("Fallo al borrar");
           			location.reload();
           		}
 			}

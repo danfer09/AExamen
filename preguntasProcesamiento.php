@@ -7,8 +7,12 @@
 	$cuerpo = isset($_POST['cuerpo'])? $_POST['cuerpo']: null;
 	$tema = isset($_POST['tema'])? $_POST['tema']: null;
 	$funcion = isset($_POST['funcion'])? $_POST['funcion']: null;
+	$idPregunta = isset($_POST['id_pregunta'])? $_POST['id_pregunta']: null;
 	if($funcion == "aniadirPregunta")
 		aniadirPregunta($titulo,$cuerpo,$tema);
+	else if($funcion =="borrarPregunta"){
+		borrarPregunta($idPregunta);
+	}
 	/*else{
 		return false;
 	}*/
@@ -127,7 +131,7 @@
 
 		if($db){
 			date_default_timezone_set('Europe/Berlin');
-			$date = date('Y-m-d h:i:s', time());
+			$date = date('Y-m-d H:i:s', time());
 			$sql = "INSERT INTO `preguntas`(`id`, `titulo`, `cuerpo`, `tema`, `creador`, `fecha_creacion`, `ult_modificador`, `fecha_modificado`, `asignatura`) VALUES ('','".$titulo."','".$cuerpo."','".$tema."','".$_SESSION['id']."','".$date."','".$_SESSION['id']."','".$date."','".$_SESSION['idAsignatura']."')";
 			$consulta=mysqli_query($db,$sql);
 			$fila=mysqli_fetch_assoc($consulta);
@@ -135,7 +139,29 @@
 		}
 		else{
 			$_SESSION['error_BBDD']=true;
-			header('Location: loginFormulario.php');
+			$funciona=false;
+		}
+		mysqli_close($db);
+
+		echo $funciona;
+		//INSERT INTO `preguntas`(`id`, `titulo`, `cuerpo`, `tema`, `creador`, `fecha_creacion`, `ult_modificador`, `fecha_modificado`, `asignatura`) VALUES ('','Titulo pregunta insertada','Cuerpo pregunta insertada','3','3','','3','','2')
+	}
+
+	function borrarPregunta($idPregunta){
+		$funciona=false;
+		$credentialsStr = file_get_contents('credentials.json');
+		$credentials = json_decode($credentialsStr, true);
+		$db = mysqli_connect('localhost', $credentials['database']['user'], $credentials['database']['password'], $credentials['database']['dbname']);
+		//comprobamos si se ha conectado a la base de datos
+
+		if($db){
+			$sql = "DELETE FROM `preguntas` WHERE id=".$idPregunta;
+			$consulta=mysqli_query($db,$sql);
+			$fila=mysqli_fetch_assoc($consulta);
+			$funciona=true;
+		}
+		else{
+			$_SESSION['error_BBDD']=true;
 			$funciona=false;
 		}
 		mysqli_close($db);
