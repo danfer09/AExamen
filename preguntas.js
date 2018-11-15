@@ -7,11 +7,15 @@ $(document).ready(function(){
             window.location = "detallePregunta.php?id="+href;
         }
     });*/
+    $('#boton_modalAñadir').click(function(){
+    	$("#boton_añadir").attr("class", "btn btn-primary disabled");
+	    $("#boton_añadir").attr("disabled", true);
+        $('#modal_aniadirPregunta').modal('show');
+    });
 
     $('#opciones a').click(function() {
         var id = $(this).attr("id");
         if(id == "boton_modalEditar") {
-        	alert("desea editar?");
         	$("#boton_editar").attr("id_pregunta",$(this).attr("idPreguntas"));
         	$('#modal_editarPregunta').modal('show');
         }
@@ -22,11 +26,12 @@ $(document).ready(function(){
         	$('#modal_borrarPregunta').modal('show');
 
         }
+        /*
         else if(id =="boton_modalAñadir"){
    			$("#boton_añadir").attr("class", "btn btn-primary disabled");
 	    	$("#boton_añadir").attr("disabled", true);
         	$('#modal_aniadirPregunta').modal('show');
-        }
+        }*/
     });
 
     $('#form_mod').submit(function(event) {

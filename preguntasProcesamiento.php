@@ -14,6 +14,7 @@
 		borrarPregunta($idPregunta);
 	}
 	else if($funcion == "editarPregunta")
+		//if($titulo)
 		editarPregunta($titulo,$cuerpo,$tema,$idPregunta);
 	/*else{
 		return false;

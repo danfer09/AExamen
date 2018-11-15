@@ -55,6 +55,7 @@
 			<input oninput="w3.filterHTML('#tabla_preguntas', '.item', this.value)" class="w3-input col-lg-7" placeholder="Buscar...">
 		</div>
 		<br>
+		<a class="fas fa-plus-circle" id="boton_modalAñadir"></a>
 		<table class="table table-hover" id="tabla_preguntas">
 		    <thead>
 		      <tr>
@@ -92,7 +93,7 @@
 					echo '<td hidden=true;>'.$valor['fecha_modificado'].'</td>';
 					echo '<td>'.formateoDateTime($valor['fecha_creacion']).'</td>';
 					echo '<td>'.formateoDateTime($valor['fecha_modificado']).'</td>';
-					echo '<td id="opciones"><a class="btn btn-primary" href="detallePregunta.php?id='.$valor['id_preguntas'].'" role="button">Detalles</a><a class="fas fa-edit" id="boton_modalEditar" idPreguntas="'.$valor['id_preguntas'].'"></a><a class="fas fa-trash-alt" id="boton_modalBorrar" idPreguntas="'.$valor['id_preguntas'].'"></a><a class="fas fa-plus-circle" id="boton_modalAñadir"></a></td>';
+					echo '<td id="opciones"><a class="btn btn-primary" href="detallePregunta.php?id='.$valor['id_preguntas'].'" role="button">Detalles</a><a class="fas fa-edit" id="boton_modalEditar" idPreguntas="'.$valor['id_preguntas'].'"></a><a class="fas fa-trash-alt" id="boton_modalBorrar" idPreguntas="'.$valor['id_preguntas'].'"></a></td>';
 					echo '</tr>';
 					
 				}
@@ -180,8 +181,8 @@
 			    <!-- Modal body -->
 			    <div class="modal-body">
 					  <form action="preguntasProcesamiento.php" class="form-container" method="post" id="form_mod">
-					    <h1 name="aniadirPregunta">Editar pregunta</h1>
-
+					    <h1">Editar pregunta</h1>
+					    <p>Los campos que deje vacíos mantendrán su valor actual</p>
 					    <input type="text" placeholder="Introduzca el titulo" name="titulo" id="titulo">
 					    <br>
 					    <input type="text" placeholder="Introduzca el cuerpo" name="cuerpo" id="cuerpo">
