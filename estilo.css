@@ -15,6 +15,9 @@ th:hover {
 #infoParaEditar{
 	color:red;
 }
+#header{
+	background-color:grey;
+}
 
 /*
 .boton_pregunta {
@@ -26,3 +29,8 @@ th:hover {
 	border-width: thin;
 	border-right-style: ridge;
 }*/
+
+
+
+
+/*----------------------------------------CSS para el header----------------------------------------------------*/

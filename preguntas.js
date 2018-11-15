@@ -1,5 +1,6 @@
 $(document).ready(function(){
 
+
 	//Esto es para que muestre los detalles cuando se pulsa en al fila,pero si se activa, no funcionan los demás botones
 	/*$('#tabla_preguntas tr').click(function() {
         var href = $(this).find("a").attr("href");
