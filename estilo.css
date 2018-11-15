@@ -19,6 +19,13 @@ th:hover {
 	background-color:grey;
 }
 
+#logoCentral {
+	color: black;
+}
+#logoCentral:hover {
+	text-decoration: none;
+}
+
 /*
 .boton_pregunta {
 	border-width: thin;

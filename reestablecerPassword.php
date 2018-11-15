@@ -5,6 +5,8 @@
 	$emailTemp = isset($_SESSION['emailTemp'])? $_SESSION['emailTemp']: null;
 
 	$error_password_diferente = isset($_SESSION['password_diferente'])? $_SESSION['password_diferente']: false;
+	$error_campo_vacio = isset($_SESSION['campo_vacio'])? $_SESSION['campo_vacio']: false;
+	$error_password_anterior = isset($_SESSION['password_anterior'])? $_SESSION['password_anterior']: false;
 
 	$_SESSION['confirmado'] = true;
 	session_write_close();
@@ -17,6 +19,16 @@
 	if (!isset($_SESSION['emailTemp']) || $_SESSION['emailTemp'] == null) {
 		header('Location: registrarseFormulario.php');
 		exit();
+	}
+
+	if ($error_password_anterior) {
+		echo "Error: la contraseña anterior no es correcta";
+		$error_password_anterior = false;
+	}
+
+	if ($error_campo_vacio) {
+		echo "Error: rellene todos los campos";
+		$error_campo_vacio = false;
 	}
 
 	if($error_password_diferente){
@@ -32,17 +44,20 @@
 	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
 </head>
 <body>
-	<h1>Establecer contraseña</h1>
+	<h1>Reestablecer contraseña</h1>
 
-	<span>Escriba su nueva contraseña, <?php echo($_SESSION['nombreTemp']); ?></span>
-	<form action="establecerPasswordProcesamiento.php" id="formulario_establecer_password" method="post">
-	  Contraseña:<br>
+	<span>Reestablezca la contraseña para el email <?php echo $_SESSION['emailTemp']; ?></span>
+	<form action="reestablecerPasswordProcesamiento.php" id="formulario_establecer_password" method="post">
+	  Anterior contraseña:<br>
+	  <input type="password" name="passOld" id="passOld">
+	  <br>	  
+	  Nueva contraseña:<br>
 	  <input type="password" name="pass1" id="pass1">
 	  <br>
 	  Escriba de nuevo la contraseña:<br>
 	  <input type="password" name="pass2" id="pass2">
 	  <br><br>
-	  <input type="submit" value="Confirmar" id="establecerPasswordSubmit" name="establecerPasswordSubmit">
+	  <input type="submit" value="Confirmar" id="reestablecerPasswordSubmit" name="reestablecerPasswordSubmit">
 	</form> 
 
 	<script src="jquery-3.3.1.min.js"></script>

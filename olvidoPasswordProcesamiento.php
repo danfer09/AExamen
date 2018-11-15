@@ -3,15 +3,14 @@
 
 	$_SESSION['error_campoVacio']=false;
 	$_SESSION['error_BBDD']=false;
-	$_SESSION['error_usuario_existente']=false;
+	$_SESSION['error_usuario_no_existente']=false;
 	//Comprobamos que el método empleado es POST
 	if ($_SERVER['REQUEST_METHOD'] == 'POST'){
 		//Cogemos los valores que han puesto en el formulario, si el valor no existe, cargamos en la variable null
 		$email = isset($_POST['email'])? $_POST['email']: null;
-		$nombre = isset($_POST['nombre'])? $_POST['nombre']: null;
-		$apellidos = isset($_POST['apellidos'])? $_POST['apellidos']: null;
+
 		//Comprobamos que ninguna de las variables este a null
-		if($email!=null && $apellidos!=null && $nombre!=null){
+		if($email!=null){
 			//Conectamos la base de datos
 			$credentialsStr = file_get_contents('credentials.json');
 			$credentials = json_decode($credentialsStr, true);
@@ -21,16 +20,14 @@
 			if($db){
 				$sql = "SELECT * FROM profesores WHERE email='".$email."'";
 				$consulta=mysqli_query($db,$sql);
-				if($consulta->num_rows > 0) {
-					$_SESSION['error_usuario_existente']=true;
-					header('Location: registrarseFormulario.php');
+				if($consulta->num_rows <= 0) {
+					$_SESSION['error_usuario_no_existente']=true;
+					header('Location: olvidoPassword.php');
 					exit();
-				} else {
-					if (smtpmailer($email, $credentials['webMail']['mail'], 'AExamen Web', 'Confirme su email', 'mailRegistro.html', $credentials['webMail']['mail'], $credentials['webMail']['password'])) {
+				} else if ($consulta->num_rows == 1) {
+					if (smtpmailer($email, $credentials['webMail']['mail'], 'AExamen Web', 'Reestablecer la contraseña', 'mailReestablecer.html', $credentials['webMail']['mail'], $credentials['webMail']['password'])) {
 						$_SESSION['confirmado'] = false;
 						$_SESSION['emailTemp'] = $email;
-						$_SESSION['nombreTemp'] = $nombre;
-						$_SESSION['apellidosTemp'] = $apellidos;
 						echo "Debug: perfil temporal creado";
 					}
 					if (!empty($error)) echo $error;

@@ -324,6 +324,22 @@
 		}
 	}
 
+	function updateClaveProfesor($db, $email, $hash) {
+		if($db) {
+			$sql = "UPDATE profesores SET clave='".$hash."' WHERE email='".$email."'";
+			if (mysqli_query($db,$sql)) {
+				echo "Nueva contraseña establecida";
+				return true;
+			} else {
+				echo "Error: " . $sql . "<br>" . mysqli_error($db);
+				return false;
+			}
+		} else {
+			printf("Error message: %s\n", $db->error);
+			echo "Conexión fallida";
+		}
+	}
+
 	/*
 		Comprueba si un determinado profesor con el $id pasado por parámetro es coordinador de alguna asignatura
 	*/
@@ -336,6 +352,25 @@
 				return $fila['coordinador'];
 			} else {
 				echo "No existe el profesor con id ".$id;
+				return null;
+			}
+		} else {
+			echo "Conexión fallida";
+		}
+	}
+
+	/*
+		Comprueba, para el mail dado, si esa es su contraseña
+	*/
+	function anteriorPasswordCorrecta($db, $email, $pass) {
+		if($db){
+			$sql = "SELECT * FROM profesores WHERE email='".$email."'";
+			$consulta=mysqli_query($db,$sql);
+			if($consulta->num_rows > 0){
+				$fila=mysqli_fetch_assoc($consulta);
+				return (password_verify($pass, $fila['clave']));
+			} else {
+				echo "No existe el profesor con email ".$email;
 				return null;
 			}
 		} else {
@@ -358,7 +393,8 @@
 		$mail->Subject = $subject;
 		//$mail->Body = $body;
 		$mail->AddAddress($to);
-		$mail->msgHTML(file_get_contents('mailRegistro.html'), __DIR__);
+		$mail->CharSet = 'ISO-8859';
+		$mail->msgHTML(file_get_contents($body), __DIR__);
 		if(!$mail->Send()) {
 			$error = 'Mail error: '.$mail->ErrorInfo; 
 			return false;

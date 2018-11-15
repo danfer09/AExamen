@@ -37,7 +37,9 @@
 		  <br><br>
 		  <input type="submit" value="Acceder" id="logear" name="logear">
 		</form> 
+		<br>
 		<p><a href="registrarseFormulario.php">Registrarse</a></p>
+		<p><a href="olvidoPassword.php">Olvidé mi contraseña</a></p>
 	</div>
 
 	<script src="jquery-3.3.1.min.js"></script>
