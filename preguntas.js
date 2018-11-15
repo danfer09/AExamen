@@ -50,11 +50,11 @@ $(document).ready(function(){
             data        : form_data + '&funcion=' + funcion + '&id_pregunta=' + $("#boton_editar").attr("id_pregunta"), // our data object
             success: function(respuesta) {
           		if(respuesta){
-          			alert("Editada con exito");
+          			//alert("Editada con exito");
           			location.reload();
           		}
           		else{
-          			alert("Fallo al editar");
+          			//alert("Fallo al editar");
           			location.reload();
           		}
 			}
@@ -79,11 +79,11 @@ $(document).ready(function(){
             data        : form_data + '&funcion=' + funcion, // our data object
             success: function(respuesta) {
           		if(respuesta){
-          			alert("Insertada con exito");
+          			//alert("Insertada con exito");
           			location.reload();
           		}
           		else{
-          			alert("fallo al insertar");
+          			//alert("fallo al insertar");
           			location.reload();
           		}
 			}
@@ -95,28 +95,21 @@ $(document).ready(function(){
      $('#form_delete').submit(function(event) {
     	var funcion = "borrarPregunta";
     	var form_data = $(this).serialize();
-    	/*var formDataAndFunction = {
-            'titulo'              : $('input[name=titulo]').val(),
-            'cuerpo'              : $('input[name=cuerpo]').val(),
-            'funcion'			  : $('input[name=cuerpo]').val(),
-            'tema'                : $('input[name=tema]').val()
-        };*/
-        //$('#myForm').serialize() + "&moredata=" + morevalue
-        $.ajax({
-            type        : 'POST', // define the type of HTTP verb we want to use (POST for our form)
-            url         : 'preguntasProcesamiento.php', // the url where we want to POST
-            data        : form_data + '&funcion=' + funcion + '&id_pregunta=' + $("#boton_borrar").attr("id_pregunta"), // our data object
-            success: function(respuesta) {
-          		if(respuesta){
-          			alert("Borrada con exito");
-          			location.reload();
-          		}
-          		else{
-          			alert("Fallo al borrar");
-          			location.reload();
-          		}
-			}
-        })
+      $.ajax({
+          type        : 'POST', // define the type of HTTP verb we want to use (POST for our form)
+          url         : 'preguntasProcesamiento.php', // the url where we want to POST
+          data        : form_data + '&funcion=' + funcion + '&id_pregunta=' + $("#boton_borrar").attr("id_pregunta"), // our data object
+          success: function(respuesta) {
+        		if(respuesta){
+        			//alert("Borrada con exito");
+        			location.reload();
+        		}
+        		else{
+        			//alert("Fallo al borrar");
+        			location.reload();
+        		}
+		     }
+      })
     	event.preventDefault();
 
     });
@@ -156,4 +149,21 @@ $(document).ready(function(){
 	$("#tema").keyup(function(){
 		validarInsert(mensaje);
 	});
+
+
+  $('#boton_borrar').click(function() {
+    const mensaje = "¿Esta seguro de que desea borrar esta pregunta?";
+    if(window.confirm(mensaje)){ 
+        $("#form_delete").submit(); 
+      }
+      return false;
+  });
+
+  $('#boton_editar').click(function() {
+    const mensaje = "¿Esta seguro de que desea editar esta pregunta?";
+    if(window.confirm(mensaje)){ 
+        $("#form_mod").submit(); 
+      }
+      return false;
+  });
 });

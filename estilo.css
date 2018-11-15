@@ -11,6 +11,11 @@ h1 {
 th:hover {
 	background-color: rgb(234, 234, 234);
 }
+
+#infoParaEditar{
+	color:red;
+}
+
 /*
 .boton_pregunta {
 	border-width: thin;

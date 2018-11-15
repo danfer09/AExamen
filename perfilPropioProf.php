@@ -52,18 +52,17 @@
 			  
 			    <!-- Modal Header -->
 			    <div class="modal-header">
-			      <h4 class="modal-title">Modal Heading</h4>
+			      <h4 class="modal-title">Cambiar nombre</h4>
 			      <button type="button" class="close" data-dismiss="modal">&times;</button>
 			    </div>
 			    
 			    <!-- Modal body -->
 			    <div class="modal-body">
-					  <form action="perfPropProfProcesamiento.php" class="form-container" method="post">
-					    <h1>Login</h1>
+					  <form action="perfPropProfProcesamiento.php" class="form-container" method="post" id="form_cambiarNombre">
 
 					    <input type="text" placeholder="Introduzca el nombre" name="nombre" id="nombre">
 
-					    <button type="submit" class="btn" id="boton_cambiar" name="boton_cambiar">Cambiar</button>
+					    <button type="submit" class="btn" id="boton_cambiarNombre" name="boton_cambiarNombre">Cambiar</button>
 					  </form>
 			    </div>
 			    
@@ -82,18 +81,17 @@
 		      
 		        <!-- Modal Header -->
 		        <div class="modal-header">
-		          <h4 class="modal-title">Modal Heading</h4>
+		          <h4 class="modal-title">Cambiar apellidos</h4>
 		          <button type="button" class="close" data-dismiss="modal">&times;</button>
 		        </div>
 		        
 		        <!-- Modal body -->
 		        <div class="modal-body">
-					  <form action="perfPropProfProcesamiento.php" class="form-container" method="post">
-					    <h1>Login</h1>
+					  <form action="perfPropProfProcesamiento.php" class="form-container" method="post" id="form_cambiarApellidos">
 
 					    <input type="text" placeholder="Introduzca los apellidos" name="apellidos" id="apellidos">
 
-					    <button type="submit" class="btn" id="boton_cambiar" name="boton_cambiar">Cambiar</button>
+					    <button type="submit" class="btn" id="boton_cambiarApellidos" name="boton_cambiarApellidos">Cambiar</button>
 					  </form>
 		        </div>
 		        
@@ -112,14 +110,13 @@
 		      
 		        <!-- Modal Header -->
 		        <div class="modal-header">
-		          <h4 class="modal-title">Modal Heading</h4>
+		          <h4 class="modal-title">Cambiar contraseña</h4>
 		          <button type="button" class="close" data-dismiss="modal">&times;</button>
 		        </div>
 		        
 		        <!-- Modal body -->
 		        <div class="modal-body">
 					  <form action="perfPropProfProcesamiento.php" class="form-container" method="post" id="form_cambiarClave">
-					    <h1>Login</h1>
 
 					    <input type="text" placeholder="Introduzca la clave" name="clave" id="clave">
 					    <input type="text" placeholder="Repita la clave" name="repitaClave" id="repitaClave">

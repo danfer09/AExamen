@@ -160,7 +160,7 @@
 			    
 			    <!-- Modal footer -->
 			    <div class="modal-footer">
-			      <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
+			      <!--<button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>-->
 			    </div>
 			    
 			  </div>
@@ -182,7 +182,7 @@
 			    <div class="modal-body">
 					  <form action="preguntasProcesamiento.php" class="form-container" method="post" id="form_mod">
 					    <h1">Editar pregunta</h1>
-					    <p>Los campos que deje vacíos mantendrán su valor actual</p>
+					    <p id="infoParaEditar">Los campos que deje vacíos mantendrán su valor actual</p>
 					    <input type="text" placeholder="Introduzca el titulo" name="titulo" id="titulo">
 					    <br>
 					    <input type="text" placeholder="Introduzca el cuerpo" name="cuerpo" id="cuerpo">
