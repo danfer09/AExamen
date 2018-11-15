@@ -13,6 +13,8 @@
 	else if($funcion =="borrarPregunta"){
 		borrarPregunta($idPregunta);
 	}
+	else if($funcion == "editarPregunta")
+		editarPregunta($titulo,$cuerpo,$tema,$idPregunta);
 	/*else{
 		return false;
 	}*/
@@ -169,6 +171,32 @@
 		echo $funciona;
 		//INSERT INTO `preguntas`(`id`, `titulo`, `cuerpo`, `tema`, `creador`, `fecha_creacion`, `ult_modificador`, `fecha_modificado`, `asignatura`) VALUES ('','Titulo pregunta insertada','Cuerpo pregunta insertada','3','3','','3','','2')
 	}
+
+	function editarPregunta($titulo,$cuerpo,$tema,$idPregunta){
+		$funciona=false;
+		$credentialsStr = file_get_contents('credentials.json');
+		$credentials = json_decode($credentialsStr, true);
+		$db = mysqli_connect('localhost', $credentials['database']['user'], $credentials['database']['password'], $credentials['database']['dbname']);
+		//comprobamos si se ha conectado a la base de datos
+
+		if($db){
+			date_default_timezone_set('Europe/Berlin');
+			$date = date('Y-m-d H:i:s', time());
+			$sql = "UPDATE `preguntas` SET `titulo`='".$titulo."',`cuerpo`='".$cuerpo."',`tema`=".$tema.",`ult_modificador`=".$_SESSION['id'].",`fecha_modificado`='".$date."'WHERE id=".$idPregunta;
+			$consulta=mysqli_query($db,$sql);
+			$fila=mysqli_fetch_assoc($consulta);
+			$funciona=true;
+		}
+		else{
+			$_SESSION['error_BBDD']=true;
+			$funciona=false;
+		}
+		mysqli_close($db);
+
+		echo $funciona;
+		//INSERT INTO `preguntas`(`id`, `titulo`, `cuerpo`, `tema`, `creador`, `fecha_creacion`, `ult_modificador`, `fecha_modificado`, `asignatura`) VALUES ('','Titulo pregunta insertada','Cuerpo pregunta insertada','3','3','','3','','2')
+	}
+
 
 
 //SELECT prof_asig_coord.coordinador AS coordinador, profesores.nombre AS nombre_profesor, asignaturas.nombre AS nombre_asignatura FROM ((prof_asig_coord INNER JOIN profesores ON prof_asig_coord.id_profesor = profesores.id) INNER JOIN asignaturas ON prof_asig_coord.id_asignatura = asignaturas.id) WHERE id_profesor='4'

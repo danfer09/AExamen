@@ -92,7 +92,7 @@
 					echo '<td hidden=true;>'.$valor['fecha_modificado'].'</td>';
 					echo '<td>'.formateoDateTime($valor['fecha_creacion']).'</td>';
 					echo '<td>'.formateoDateTime($valor['fecha_modificado']).'</td>';
-					echo '<td id="opciones"><a class="btn btn-primary" href="detallePregunta.php?id='.$valor['id_preguntas'].'" role="button">Detalles</a><a class="fas fa-edit" id="boton_modalEditar"></a><a class="fas fa-trash-alt" id="boton_modalBorrar" idPreguntas="'.$valor['id_preguntas'].'"></a><a class="fas fa-plus-circle" id="boton_modalAñadir"></a></td>';
+					echo '<td id="opciones"><a class="btn btn-primary" href="detallePregunta.php?id='.$valor['id_preguntas'].'" role="button">Detalles</a><a class="fas fa-edit" id="boton_modalEditar" idPreguntas="'.$valor['id_preguntas'].'"></a><a class="fas fa-trash-alt" id="boton_modalBorrar" idPreguntas="'.$valor['id_preguntas'].'"></a><a class="fas fa-plus-circle" id="boton_modalAñadir"></a></td>';
 					echo '</tr>';
 					
 				}
@@ -124,7 +124,7 @@
 					    <br>
 					    <input type="text" placeholder="Introduzca el tema" name="tema" id="tema">
 					    <br>
-					    <button type="submit" class="btn" id="boton_añadir" name="boton_añadir">Cambiar</button>
+					    <button type="submit" class="btn" id="boton_añadir" name="boton_añadir">Insertar</button>
 					  </form>
 			    </div>
 			    
@@ -154,6 +154,41 @@
 					    <h1 name="borrarPregunta">Borrar pregunta</h1>
 					    <button type="submit" class="btn btn-primary" id="boton_borrar" name="boton_borrar">Si</button>
 					    <button type="button" class="btn btn-danger" id="boton_noBorrar" name="boton_noBorrar" data-dismiss="modal">No</button>					  
+					  </form>
+			    </div>
+			    
+			    <!-- Modal footer -->
+			    <div class="modal-footer">
+			      <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
+			    </div>
+			    
+			  </div>
+			</div>
+		</div>
+
+		<!-- Modal de editar pregunta -->
+		<div class="modal" id="modal_editarPregunta">
+			<div class="modal-dialog">
+			  <div class="modal-content">
+			  
+			    <!-- Modal Header -->
+			    <div class="modal-header">
+			      <h4 class="modal-title">Editar pregunta</h4>
+			      <button type="button" class="close" data-dismiss="modal">&times;</button>
+			    </div>
+			    
+			    <!-- Modal body -->
+			    <div class="modal-body">
+					  <form action="preguntasProcesamiento.php" class="form-container" method="post" id="form_mod">
+					    <h1 name="aniadirPregunta">Editar pregunta</h1>
+
+					    <input type="text" placeholder="Introduzca el titulo" name="titulo" id="titulo">
+					    <br>
+					    <input type="text" placeholder="Introduzca el cuerpo" name="cuerpo" id="cuerpo">
+					    <br>
+					    <input type="text" placeholder="Introduzca el tema" name="tema" id="tema">
+					    <br>
+					    <button type="submit" class="btn" id="boton_editar" name="boton_editar">Editar</button>
 					  </form>
 			    </div>
 			    

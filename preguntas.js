@@ -12,6 +12,8 @@ $(document).ready(function(){
         var id = $(this).attr("id");
         if(id == "boton_modalEditar") {
         	alert("desea editar?");
+        	$("#boton_editar").attr("id_pregunta",$(this).attr("idPreguntas"));
+        	$('#modal_editarPregunta').modal('show');
         }
         else if(id == "boton_modalBorrar"){
         	$("#boton_borrar").attr("id_pregunta",$(this).attr("idPreguntas"));
@@ -26,6 +28,36 @@ $(document).ready(function(){
         	$('#modal_aniadirPregunta').modal('show');
         }
     });
+
+    $('#form_mod').submit(function(event) {
+    	var funcion = "editarPregunta";
+    	var form_data = $(this).serialize();
+    	/*var formDataAndFunction = {
+            'titulo'              : $('input[name=titulo]').val(),
+            'cuerpo'              : $('input[name=cuerpo]').val(),
+            'funcion'			  : $('input[name=cuerpo]').val(),
+            'tema'                : $('input[name=tema]').val()
+        };*/
+        //$('#myForm').serialize() + "&moredata=" + morevalue
+        $.ajax({
+            type        : 'POST', // define the type of HTTP verb we want to use (POST for our form)
+            url         : 'preguntasProcesamiento.php', // the url where we want to POST
+            data        : form_data + '&funcion=' + funcion + '&id_pregunta=' + $("#boton_editar").attr("id_pregunta"), // our data object
+            success: function(respuesta) {
+          		if(respuesta){
+          			alert("Editada con exito");
+          			location.reload();
+          		}
+          		else{
+          			alert("Fallo al editar");
+          			location.reload();
+          		}
+			}
+        })
+    	event.preventDefault();
+
+    });
+
     $('#form_add').submit(function(event) {
     	var funcion = "aniadirPregunta";
     	var form_data = $(this).serialize();
@@ -83,6 +115,8 @@ $(document).ready(function(){
     	event.preventDefault();
 
     });
+
+
 
     function validarInsert($mensaje){
     	var camposVacios = "Hay campos vacios, rellenelos";
