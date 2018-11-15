@@ -15,7 +15,6 @@
 
 			session_start();
 			echo "<h1>Preguntas de ". $_GET['nombreAsignatura']. "</h1>";
-			//echo "<h1>Preguntas</h1>";
 			$_SESSION['idAsignatura']=$_GET['idAsignatura'];
 			include "preguntasProcesamiento.php";
 			include "servidor.php";
@@ -91,8 +90,8 @@
 					echo '<td hidden=true;>'.$valor['fecha_modificado'].'</td>';
 					echo '<td>'.formateoDateTime($valor['fecha_creacion']).'</td>';
 					echo '<td>'.formateoDateTime($valor['fecha_modificado']).'</td>';
-					echo '<td id="opciones"><a class="fas fa-edit" id="boton_pregunta"></a><a class="fas fa-trash-alt" id="boton_pregunta"></a><a class="fas fa-plus-circle" id="boton_pregunta"></a></td>';
 					echo '</tr>';
+					echo '<td id="opciones"><a class="fas fa-edit" id="boton_pregunta"></a><a class="fas fa-trash-alt" id="boton_pregunta"></a><a class="fas fa-plus-circle" id="boton_pregunta"></a></td>';
 					
 				}
 			}
@@ -114,13 +113,15 @@
 			    
 			    <!-- Modal body -->
 			    <div class="modal-body">
-					  <form action="" class="form-container" method="post" id="form_add">
+					  <form action="preguntasProcesamiento.php" class="form-container" method="post" id="form_add">
 					    <h1 name="aniadirPregunta">Añadir pregunta</h1>
 
 					    <input type="text" placeholder="Introduzca el titulo" name="titulo" id="titulo">
+					    <br>
 					    <input type="text" placeholder="Introduzca el cuerpo" name="cuerpo" id="cuerpo">
+					    <br>
 					    <input type="text" placeholder="Introduzca el tema" name="tema" id="tema">
-
+					    <br>
 					    <button type="submit" class="btn" id="boton_añadir" name="boton_añadir">Cambiar</button>
 					  </form>
 			    </div>
@@ -137,9 +138,10 @@
 	</div>
 
 	<script src="jquery-3.3.1.min.js"></script>
-	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+	<!--<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+	-->
 	<script type="text/javascript" src="preguntas.js"></script>
 
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>

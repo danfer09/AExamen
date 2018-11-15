@@ -7,10 +7,6 @@
 	$cuerpo = isset($_POST['cuerpo'])? $_POST['cuerpo']: null;
 	$tema = isset($_POST['tema'])? $_POST['tema']: null;
 	$funcion = isset($_POST['funcion'])? $_POST['funcion']: null;
-	echo "<p>titulo:".$titulo."</p>";
-	echo "<p>cuerpo:".$cuerpo."</p>";
-	echo "<p>tema:".$tema."</p>";
-	echo "<p>funcion:".$funcion."</p>";
 	if($funcion == "aniadirPregunta")
 		aniadirPregunta($titulo,$cuerpo,$tema);
 	/*else{
@@ -128,8 +124,11 @@
 		$credentials = json_decode($credentialsStr, true);
 		$db = mysqli_connect('localhost', $credentials['database']['user'], $credentials['database']['password'], $credentials['database']['dbname']);
 		//comprobamos si se ha conectado a la base de datos
+
 		if($db){
-			$sql = "INSERT INTO `preguntas`(`id`, `titulo`, `cuerpo`, `tema`, `creador`, `fecha_creacion`, `ult_modificador`, `fecha_modificado`, `asignatura`) VALUES ('','".$titulo."','".$cuerpo."','".$tema."','".$_SESSION['id']."','','".$_SESSION['id']."','','".$_SESSION['idAsignatura']."')";
+			date_default_timezone_set('Europe/Berlin');
+			$date = date('Y-m-d h:i:s', time());
+			$sql = "INSERT INTO `preguntas`(`id`, `titulo`, `cuerpo`, `tema`, `creador`, `fecha_creacion`, `ult_modificador`, `fecha_modificado`, `asignatura`) VALUES ('','".$titulo."','".$cuerpo."','".$tema."','".$_SESSION['id']."','".$date."','".$_SESSION['id']."','".$date."','".$_SESSION['idAsignatura']."')";
 			$consulta=mysqli_query($db,$sql);
 			$fila=mysqli_fetch_assoc($consulta);
 			$funciona=true;
@@ -140,7 +139,8 @@
 			$funciona=false;
 		}
 		mysqli_close($db);
-		return $funciona;
+
+		echo $funciona;
 		//INSERT INTO `preguntas`(`id`, `titulo`, `cuerpo`, `tema`, `creador`, `fecha_creacion`, `ult_modificador`, `fecha_modificado`, `asignatura`) VALUES ('','Titulo pregunta insertada','Cuerpo pregunta insertada','3','3','','3','','2')
 	}
 
