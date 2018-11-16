@@ -399,7 +399,7 @@
 			$error = 'Mail error: '.$mail->ErrorInfo; 
 			return false;
 		} else {
-			$error = 'Message sent!';
+			$error = "\nMessage sent to ".$to."!";
 			return true;
 		}
 	}

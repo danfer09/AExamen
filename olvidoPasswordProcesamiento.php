@@ -28,7 +28,7 @@
 					if (smtpmailer($email, $credentials['webMail']['mail'], 'AExamen Web', 'Reestablecer la contraseña', 'mailReestablecer.html', $credentials['webMail']['mail'], $credentials['webMail']['password'])) {
 						$_SESSION['confirmado'] = false;
 						$_SESSION['emailTemp'] = $email;
-						echo "Debug: perfil temporal creado";
+						echo "<p>Debug: perfil temporal creado \n</p>";
 					}
 					if (!empty($error)) echo $error;
 				}
