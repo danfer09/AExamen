@@ -29,10 +29,8 @@
 				<label for="sel1">Autor </label>
 				<select class="form-control" id="sel1" onchange="location = this.value;">
 					<?php
-						$credentialsStr = file_get_contents('credentials.json');
-						$credentials = json_decode($credentialsStr, true);
-						$db = mysqli_connect('localhost', $credentials['database']['user'], $credentials['database']['password'], $credentials['database']['dbname']);
-						$autores = selectAllMailsProfesores($db);
+						
+						$autores = selectAllMailsProfesores();
 						if ($_GET['autor'] == "todos") {
 							echo '<option value="preguntas.php?nombreAsignatura='. $_GET['nombreAsignatura'].'&idAsignatura='.$_GET['idAsignatura'].'&autor=todos" selected>Todos</option>';
 						} else {

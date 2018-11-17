@@ -69,7 +69,10 @@
 	/*
 		Devuelve el resultado del select para todos los mails de profesores
 	*/
-	function selectAllMailsProfesores($db) {
+	function selectAllMailsProfesores() {
+		$credentialsStr = file_get_contents('credentials.json');
+		$credentials = json_decode($credentialsStr, true);
+		$db = mysqli_connect('localhost', $credentials['database']['user'], $credentials['database']['password'], $credentials['database']['dbname']);
 		if($db){
 			$sql = "SELECT id, email, nombre, apellidos FROM profesores";
 			$consulta=mysqli_query($db,$sql);
@@ -167,7 +170,7 @@
 	*/
 	function selectAllExamenesCompleto($db) {
 		if($db){
-			$sql = "SELECT e1.titulo, p1.nombre as creador, p2.nombre as ultimo_modificador, e1.id as id, e1.fecha_creado, e1.fecha_modificado, asignaturas.nombre FROM ((examenes e1 INNER JOIN profesores p1) INNER JOIN (profesores p2)) INNER JOIN (asignaturas) WHERE e1.creador=p1.id and e1.ultimo_modificador=p2.id AND asignaturas.id=e1.id_asig";
+			$sql = "SELECT e1.titulo, p1.nombre as creador, p2.nombre as ultimo_modificador, e1.id as id, e1.fecha_creado, e1.fecha_modificado, asignaturas.nombre FROM (((examenes e1 INNER JOIN profesores p1) INNER JOIN (profesores p2)) INNER JOIN (asignaturas)) INNER JOIN prof_asig_coord pac WHERE e1.creador=p1.id and e1.ultimo_modificador=p2.id AND asignaturas.id=e1.id_asig AND asignaturas.id=pac.id_asignatura AND pac.id_profesor=".$_SESSION['id'];
 			$consulta=mysqli_query($db,$sql);
 			$resultado = [];
 			if($consulta->num_rows > 0){
@@ -191,7 +194,7 @@
 	*/
 	function selectAllExamenesFiltrado($db, $asignaturaSiglas, $autorMail) {
 		if($db){
-			$sql = "SELECT e1.titulo, p1.nombre as creador, p1.email, p2.nombre as ultimo_modificador, e1.id as id, e1.fecha_creado, e1.fecha_modificado, asignaturas.nombre, asignaturas.siglas FROM ((examenes e1 INNER JOIN profesores p1) INNER JOIN (profesores p2)) INNER JOIN (asignaturas) WHERE e1.creador=p1.id and e1.ultimo_modificador=p2.id AND asignaturas.id=e1.id_asig";
+			$sql = "SELECT e1.titulo, p1.nombre as creador, p2.nombre as ultimo_modificador, e1.id as id, e1.fecha_creado, e1.fecha_modificado, asignaturas.nombre FROM (((examenes e1 INNER JOIN profesores p1) INNER JOIN (profesores p2)) INNER JOIN (asignaturas)) INNER JOIN prof_asig_coord pac WHERE e1.creador=p1.id and e1.ultimo_modificador=p2.id AND asignaturas.id=e1.id_asig AND asignaturas.id=pac.id_asignatura AND pac.id_profesor=".$_SESSION['id'];
 			if ($asignaturaSiglas != "todas") {
 				$sql = $sql." AND asignaturas.siglas='".$asignaturaSiglas."' ";
 			}
