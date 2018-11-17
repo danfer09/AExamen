@@ -82,7 +82,7 @@
 		mysqli_close($db);
 		return $fila;
 	}
-	function cargaAutor($idPregunta){
+	function cargaAutorPregunta($idPregunta){
 		$_SESSION['error_BBDD']=false;
 		//Comprobamos que ninguna de las variables este a null
 		//Conectamos la base de datos
@@ -103,7 +103,7 @@
 		return $fila['autor'];
 		
 	}
-	function cargaModificador($idPregunta){
+	function cargaModificadorPregunta($idPregunta){
 		$_SESSION['error_BBDD']=false;
 		//Comprobamos que ninguna de las variables este a null
 		//Conectamos la base de datos

@@ -1,5 +1,10 @@
 $(document).ready(function(){
 
+	$('#boton_modalAñadir').click(function(){
+    	$("#boton_añadir").attr("class", "btn btn-primary disabled");
+	    $("#boton_añadir").attr("disabled", true);
+        $('#modal_aniadirPregunta').modal('show');
+    });
 
     $('#opciones a').click(function() {
         var id = $(this).attr("id");
@@ -12,7 +17,6 @@ $(document).ready(function(){
         	//alert($(this).attr("idExamens"));
         	//alert($("#boton_borrar").attr("id_Examen"));
         	$('#modal_borrarExamen').modal('show');
-
         }
         
     });

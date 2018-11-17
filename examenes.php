@@ -83,6 +83,7 @@
 			<input oninput="w3.filterHTML('#tabla_examenes', '.item', this.value)" class="w3-input col-lg-5" placeholder="Buscar...">
 		</div>
 		<br>
+		<a class="fas fa-plus-circle" id="boton_modalAñadir"></a>
 		<table id="tabla_examenes" class="table table-hover">
 		    <thead>
 		      <tr>
@@ -123,7 +124,7 @@
 					echo '<td>'.formateoDateTime($valor['fecha_creado']).'</td>';
 					echo '<td>'.formateoDateTime($valor['fecha_modificado']).'</td>';
 					echo '<td>'.$valor['ultimo_modificador'].'</td>';
-					echo '<td id="opciones"> <a id="boton_modalEditar" idExamen="'.$valor['id'].'"><i class="fas fa-pencil-alt fa-fw fa-lg"></i></a>  <a id="boton_modalBorrar" idExamen="'.$valor['id'].'"><i style="color: red;" class="fas fa-trash-alt fa-fw fa-lg"></i></a> </td>';
+					echo '<td id="opciones"><a class="btn btn-primary" href="detalleExamen.php?id='.$valor['id'].'" role="button">Detalles</a><a id="boton_modalEditar" idExamen="'.$valor['id'].'"><i class="fas fa-pencil-alt fa-fw fa-lg"></i></a>  <a id="boton_modalBorrar" idExamen="'.$valor['id'].'"><i style="color: red;" class="fas fa-trash-alt fa-fw fa-lg"></i></a> </td>';
 					echo '</tr>';
 				}
 			}
@@ -153,6 +154,36 @@
 			    <!-- Modal footer -->
 			    <div class="modal-footer">
 			      <!--<button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>-->
+			    </div>
+			    
+			  </div>
+			</div>
+		</div>
+		<!--Añadir Examen -->
+		<div class="modal" id="modal_aniadirExamen">
+			<div class="modal-dialog">
+			  <div class="modal-content">
+			  
+			    <!-- Modal Header -->
+			    <div class="modal-header">
+			      <h4 class="modal-title">Añadir Examen</h4>
+			      <button type="button" class="close" data-dismiss="modal">&times;</button>
+			    </div>
+			    
+			    <!-- Modal body -->
+			    <div class="modal-body">
+					  <form action="preguntasProcesamiento.php" class="form-container" method="post" id="form_add">
+					    <h1 name="aniadirPregunta">Añadir Examen</h1>
+
+					    <input type="text" placeholder="Introduzca el titulo" name="titulo" id="titulo">
+					    <br>
+					    <button type="submit" class="btn" id="boton_añadir" name="boton_añadir">Insertar</button>
+					  </form>
+			    </div>
+			    
+			    <!-- Modal footer -->
+			    <div class="modal-footer">
+			      <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
 			    </div>
 			    
 			  </div>
