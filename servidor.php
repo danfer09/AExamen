@@ -11,6 +11,13 @@
 	if (session_status() == PHP_SESSION_NONE) {
 	    session_start();
 	}
+
+	$funcion = isset($_POST['funcion'])? $_POST['funcion']: null;
+	$idExamen = isset($_POST['id_examen'])? $_POST['id_examen']: null;
+	if($funcion =="borrarExamen"){
+		borrarExamen($idExamen);
+	}
+
 	/*
 		Devuelve el resultado del select para todos los profesores
 	*/
@@ -27,6 +34,7 @@
 				echo "No hay profesores";
 				$resultado = null;
 			}
+			mysqli_close($db);
 			return $resultado;
 		} else {
 			echo "Conexión fallida";
@@ -50,6 +58,7 @@
 				echo "No hay profesores";
 				$resultado = null;
 			}
+			mysqli_close($db);
 			return $resultado;
 		} else {
 			echo "Conexión fallida";
@@ -73,6 +82,7 @@
 				echo "No hay profesores";
 				$resultado = null;
 			}
+			mysqli_close($db);
 			return $resultado;
 		} else {
 			echo "Conexión fallida";
@@ -96,6 +106,7 @@
 				echo "No hay asignaturas";
 				$resultado = null;
 			}
+			mysqli_close($db);
 			return $resultado;
 		} else {
 			echo "Conexión fallida";
@@ -119,6 +130,7 @@
 				echo "No hay asignaturas";
 				$resultado = null;
 			}
+			mysqli_close($db);
 			return $resultado;
 		} else {
 			echo "Conexión fallida";
@@ -142,6 +154,7 @@
 				echo "No hay exámenes";
 				$resultado = null;
 			}
+			mysqli_close($db);
 			return $resultado;
 		} else {
 			echo "Conexión fallida";
@@ -165,6 +178,7 @@
 				echo "No hay exámenes";
 				$resultado = null;
 			}
+			mysqli_close($db);
 			return $resultado;
 		} else {
 			echo "Conexión fallida";
@@ -194,6 +208,7 @@
 				//echo "No hay exámenes";
 				$resultado = null;
 			}
+			mysqli_close($db);
 			return $resultado;
 		} else {
 			echo "Conexión fallida";
@@ -217,6 +232,7 @@
 				echo "No hay preguntas";
 				$resultado = null;
 			}
+			mysqli_close($db);
 			return $resultado;
 		} else {
 			echo "conexión fallida";
@@ -234,9 +250,11 @@
 				$fila=mysqli_fetch_assoc($consulta);
 				$sql = "DELETE FROM profesores WHERE id='".$fila['id'];
 				$consulta = mysqli_query($db, $sql);
+				mysqli_close($db);
 				return true;
 			} else {
 				echo "No existe el profesor con email ".$email." o está repetido";
+				mysqli_close($db);
 				return false;
 			}
 		} else {
@@ -255,9 +273,11 @@
 				$fila=mysqli_fetch_assoc($consulta);
 				$sql = "DELETE FROM asignaturas WHERE id='".$fila['id'];
 				$consulta = mysqli_query($db, $sql);
+				mysqli_close($db);
 				return true;
 			} else {
 				echo "No existe la asignatura con siglas ".$siglas." o está repetida";
+				mysqli_close($db);
 				return false;
 			}
 		} else {
@@ -265,10 +285,8 @@
 		}
 	}
 
-	/*
-		Elimina el examen con el $id pasado por parámetro a la función
-	*/
-	function deleteExamen($db, $id) {
+	
+	/*function deleteExamen($db, $id) {
 		if($db && $id){
 			$sql = "SELECT * FROM examenes WHERE id='".$id."'";
 			$consulta=mysqli_query($db,$sql);
@@ -276,14 +294,42 @@
 				$fila=mysqli_fetch_assoc($consulta);
 				$sql = "DELETE FROM examenes WHERE id='".$fila['id'];
 				$consulta = mysqli_query($db, $sql);
+				mysqli_close($db);
 				return true;
 			} else {
 				echo "No existe el examen con id ".$id;
+				mysqli_close($db);
 				return false;
 			}
 		} else {
 			echo "Conexión fallida";
 		}
+	}*/
+
+	/*
+		Elimina el examen con el $id pasado por parámetro a la función
+	*/
+	function borrarExamen($idExamen){
+		$funciona=false;
+		$credentialsStr = file_get_contents('credentials.json');
+		$credentials = json_decode($credentialsStr, true);
+		$db = mysqli_connect('localhost', $credentials['database']['user'], $credentials['database']['password'], $credentials['database']['dbname']);
+		//comprobamos si se ha conectado a la base de datos
+
+		if($db){
+			$sql = "DELETE FROM examenes WHERE id=".$idExamen;
+			$consulta=mysqli_query($db,$sql);
+			$fila=mysqli_fetch_assoc($consulta);
+			$funciona=true;
+		}
+		else{
+			$_SESSION['error_BBDD']=true;
+			$funciona=false;
+		}
+		mysqli_close($db);
+
+		echo $funciona;
+		//INSERT INTO `preguntas`(`id`, `titulo`, `cuerpo`, `tema`, `creador`, `fecha_creacion`, `ult_modificador`, `fecha_modificado`, `asignatura`) VALUES ('','Titulo pregunta insertada','Cuerpo pregunta insertada','3','3','','3','','2')
 	}
 
 	/*
