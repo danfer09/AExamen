@@ -80,10 +80,13 @@
 					?>
 				</select>
 			</div>
-			<input oninput="w3.filterHTML('#tabla_examenes', '.item', this.value)" class="w3-input col-lg-5" placeholder="Buscar...">
+			<input class="w3-input col-lg-5" placeholder="Buscar...">
 		</div>
 		<br>
-		<a class="fas fa-plus-circle" id="boton_modalAñadir"></a>
+		<?php
+		print('<a class="fas fa-plus-circle" id="boton_modalAñadir" href="crearExamen.php?asignatura='.$_GET["asignatura"].'"></a>');
+
+		?>
 		<table id="tabla_examenes" class="table table-hover">
 		    <thead>
 		      <tr>
@@ -154,36 +157,6 @@
 			    <!-- Modal footer -->
 			    <div class="modal-footer">
 			      <!--<button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>-->
-			    </div>
-			    
-			  </div>
-			</div>
-		</div>
-		<!--Añadir Examen -->
-		<div class="modal" id="modal_aniadirExamen">
-			<div class="modal-dialog">
-			  <div class="modal-content">
-			  
-			    <!-- Modal Header -->
-			    <div class="modal-header">
-			      <h4 class="modal-title">Añadir Examen</h4>
-			      <button type="button" class="close" data-dismiss="modal">&times;</button>
-			    </div>
-			    
-			    <!-- Modal body -->
-			    <div class="modal-body">
-					  <form action="preguntasProcesamiento.php" class="form-container" method="post" id="form_add">
-					    <h1 name="aniadirPregunta">Añadir Examen</h1>
-
-					    <input type="text" placeholder="Introduzca el titulo" name="titulo" id="titulo">
-					    <br>
-					    <button type="submit" class="btn" id="boton_añadir" name="boton_añadir">Insertar</button>
-					  </form>
-			    </div>
-			    
-			    <!-- Modal footer -->
-			    <div class="modal-footer">
-			      <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
 			    </div>
 			    
 			  </div>
