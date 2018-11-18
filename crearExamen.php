@@ -98,13 +98,14 @@
 			    
 			    <!-- Modal body -->
 			    <div class="modal-body">
-					  <form action="" class="form-container" method="post" id="form_delete">
+					  <form action="pruebas.php" class="form-container" method="post" id="form_añiadirPregunta">
 					    <h1 name="borrarExamen">Añadir preguntas</h1>
 					    	<div id=info_aniadirPreg class="badge badge-pill badge-danger">No hay ninguna pregunta de este tema</div>
 					    	<div class="table-wrapper-scroll-y">
 				    			<table class="table table-hover" id="tabla">	
 									<thead>
 								      <tr>
+								      	<th>#</th>
 								        <th>Titulo</th>
 								        <th>Cuerpo</th>
 								        <th>Tema</th>
@@ -116,8 +117,8 @@
 
 								</table>
 							</div>
-					    <button type="submit" class="btn btn-primary" id="boton_borrar" name="boton_borrar">Si</button>
-					    <button type="button" class="btn btn-danger" id="boton_noBorrar" name="boton_noBorrar" data-dismiss="modal">No</button>					  
+					    <button type="submit" class="btn btn-primary" id="boton_añiadir" name="boton_añiadir">Añadir</button>
+					    <button type="button" class="btn btn-danger" id="boton_noAñiadir" name="boton_noAñiadir" data-dismiss="modal">Cancelar</button>					  
 					  </form>
 			    </div>
 			    

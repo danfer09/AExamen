@@ -6,6 +6,10 @@ $(document).ready(function(){
 	$('#closeNav').click(function() {
 		 document.getElementById("mySidenav").style.width = "0px";
 	});
+	/*$('#form_añiadirPregunta').submit(function(event) {
+
+	});*/
+
 
 	/*$('#boton_aniadirPregunta').click(function() {
 		 console.log($(this).attr("tema"));
@@ -33,7 +37,7 @@ $(document).ready(function(){
           			if(respuesta.length>0){
 	          			for (i = 0; i < respuesta.length; i++) {
 						    console.log(respuesta[i]["titulo"]);
-						    $("#table_añadirPreguntas").append( '<tr><td>'+respuesta[i]["titulo"]+'</td><td>'+respuesta[i]["cuerpo"]+'</td><td>'+respuesta[i]["tema"]+'</td></tr>');
+						    $("#table_añadirPreguntas").append('<tr><td><input type="checkbox" name="preguntas[]" value="'+respuesta[i]["id"]+'"></td><td>'+respuesta[i]["titulo"]+'</td><td>'+respuesta[i]["cuerpo"]+'</td><td>'+respuesta[i]["tema"]+'</td></tr>');
 						}
 					}
 					else{
@@ -55,7 +59,7 @@ $(document).ready(function(){
     	event.preventDefault();
 	});
 
-	$('#form_mod').submit(function(event) {
+	/*$('#form_mod').submit(function(event) {
     	var funcion = "editarPregunta";
     	var form_data = $(this).serialize();
     	/*var formDataAndFunction = {
@@ -63,7 +67,7 @@ $(document).ready(function(){
             'cuerpo'              : $('input[name=cuerpo]').val(),
             'funcion'			  : $('input[name=cuerpo]').val(),
             'tema'                : $('input[name=tema]').val()
-        };*/
+        };
         //$('#myForm').serialize() + "&moredata=" + morevalue
         $.ajax({
             type        : 'POST', // define the type of HTTP verb we want to use (POST for our form)
@@ -82,6 +86,6 @@ $(document).ready(function(){
         })
     	event.preventDefault();
 
-    });
+    });*/
 	//fas fa-plus-circle
 });
