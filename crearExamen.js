@@ -33,10 +33,11 @@ $(document).ready(function(){
             success:function(respuesta){
 		        if(respuesta){
           			//alert(respuesta);
-          			//console.log(respuesta);
+          			console.log(respuesta);
           			console.log("llega");
           			for (i = 0; i < respuesta.length; i++) {
 					    console.log(respuesta[i]["titulo"]);
+					    //$('#table_añadirPreguntas').children('tr').remove();
 					    $("#table_añadirPreguntas").append( '<tr><td>'+respuesta[i]["titulo"]+'</td><td>'+respuesta[i]["cuerpo"]+'</td><td>'+respuesta[i]["tema"]+'</td></tr>');
 					}
 					//location.reload();
@@ -50,7 +51,7 @@ $(document).ready(function(){
 		    },
 		    dataType:"json"
         })
-    	//event.preventDefault();
+    	event.preventDefault();
 	});
 
 	$('#form_mod').submit(function(event) {

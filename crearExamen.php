@@ -25,7 +25,16 @@
 
 			<div class="col-1"></div>
 			<div class="col-7"><input class="w3-input col-lg-5" placeholder="Buscar..."></div>
-			<div class="col-2"><span>Total(3/10)</span></div>
+			<div class="col-2">
+				<?php
+					$arrayPuntosTema =cargaPuntosTema($_GET["idAsignatura"]);
+					$jsonPuntosTema = json_decode($arrayPuntosTema,true);
+					echo '<span>Total(</span>';
+					echo '<span>0/</span>';
+					echo '<span>'.$jsonPuntosTema['maximoPuntos'].')</span>'
+				?>
+
+			</div>
 			<div class="col-2"><button><i class="fas fa-save"></i></button></div>
 		
 		</div>
@@ -52,11 +61,13 @@
 
 		<?php
 			$numTemas = getNumTemas($_GET["idAsignatura"]);
+			$arrayPuntosTema =cargaPuntosTema($_GET["idAsignatura"]);
+			$jsonPuntosTema = json_decode($arrayPuntosTema,true);
 			for ($i = 1; $i <= $numTemas; $i++) {
-			   
 			    echo '<div class="row">';
 					echo'<div class="col-5">';
 						echo'<span>Tema'.$i.'</span>';
+						echo'<span>(0/'.$jsonPuntosTema["tema".$i].')</span>';
 						echo '<a class="fas fa-plus-circle" id="boton_aniadirPregunta" tema ="'.$i.'" asignatura= "'.$_GET["idAsignatura"].'"href="#"></a>';
 					echo'</div>';
 				echo'</div>';
