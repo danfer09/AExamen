@@ -2,16 +2,9 @@ $(document).ready(function(){
 
 	$('#openNav').click(function() {
 		 document.getElementById("mySidenav").style.width = "250px";
-		 document.getElementById("overlay").style.display = "block";
 	});
-	$('#overlay').click(function() {
-		document.getElementById("mySidenav").style.width = "0px";
-		document.getElementById("overlay").style.display = "none";
-	});
-
 	$('#closeNav').click(function() {
 		 document.getElementById("mySidenav").style.width = "0px";
-		 document.getElementById("overlay").style.display = "none";
 	});
 
 	/*$('#boton_aniadirPregunta').click(function() {
@@ -35,11 +28,19 @@ $(document).ready(function(){
           			//alert(respuesta);
           			console.log(respuesta);
           			console.log("llega");
-          			for (i = 0; i < respuesta.length; i++) {
-					    console.log(respuesta[i]["titulo"]);
-					    //$('#table_añadirPreguntas').children('tr').remove();
-					    $("#table_añadirPreguntas").append( '<tr><td>'+respuesta[i]["titulo"]+'</td><td>'+respuesta[i]["cuerpo"]+'</td><td>'+respuesta[i]["tema"]+'</td></tr>');
+          			$('#table_añadirPreguntas').children('tr,td').remove();
+          			$("#info_aniadirPreg").hide();
+          			if(respuesta.length>0){
+	          			for (i = 0; i < respuesta.length; i++) {
+						    console.log(respuesta[i]["titulo"]);
+						    $("#table_añadirPreguntas").append( '<tr><td>'+respuesta[i]["titulo"]+'</td><td>'+respuesta[i]["cuerpo"]+'</td><td>'+respuesta[i]["tema"]+'</td></tr>');
+						}
 					}
+					else{
+						$("#info_aniadirPreg").show();
+						//$("#info_aniadirPreg").text('No hay ninguna pregunta de este tema').addClass('badge badge-pill badge-danger');
+					}
+
 					//location.reload();
 					$('#modal_aniadirPreguntas').modal('show');
           		}

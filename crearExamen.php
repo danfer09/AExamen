@@ -49,10 +49,12 @@
 				<span id="openNav"><i class="fas fa-bars"></i></span>
 				<div id="mySidenav" class="sidenav">
 				  <a href="javascript:void(0)" class="closebtn" id="closeNav">&times;</a>
-				  <a href="#">Tema 1</a>
-				  <a href="#">Tema 2</a>
-				  <a href="#">Tema 3</a>
-				  <a href="#">Tema 4</a>
+				  <?php
+				  $numTemas = getNumTemas($_GET["idAsignatura"]);
+				  for ($i = 1; $i <= $numTemas; $i++) {
+				  	echo '<a href="#">Tema'.$i.'</a>';
+				  }
+				  ?>
 				</div>
 			</div>
 		</div>		
@@ -98,6 +100,7 @@
 			    <div class="modal-body">
 					  <form action="" class="form-container" method="post" id="form_delete">
 					    <h1 name="borrarExamen">Añadir preguntas</h1>
+					    	<div id=info_aniadirPreg class="badge badge-pill badge-danger">No hay ninguna pregunta de este tema</div>
 					    	<div class="table-wrapper-scroll-y">
 				    			<table class="table table-hover" id="tabla">	
 									<thead>
