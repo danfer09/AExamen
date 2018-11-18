@@ -25,9 +25,9 @@
 			echo "<p>Titulo: ".$pregunta['titulo']."</p>";
 			echo "<p>Cuerpo: ".$pregunta['cuerpo']."</p>";
 			echo "<p>Tema: ".$pregunta['tema']."</p>";
-			echo "<p>Autor: ".cargaAutor($pregunta['id'])."</p>";
+			echo "<p>Autor: ".cargaAutorPregunta($pregunta['id'])."</p>";
 			echo "<p>Fecha de creacion: ".$pregunta['fecha_creacion']."</p>";
-			echo "<p>Ultimo usuario en modificarla: ".cargaModificador($pregunta['id'])."</p>";
+			echo "<p>Ultimo usuario en modificarla: ".cargaModificadorPregunta($pregunta['id'])."</p>";
 			echo "<p>Fecha de ultima modificación: ".$pregunta['fecha_modificado']."</p>";
 		?>
 		

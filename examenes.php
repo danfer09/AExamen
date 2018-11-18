@@ -84,7 +84,7 @@
 		</div>
 		<br>
 		<?php
-		print('<a class="fas fa-plus-circle" id="boton_modalAñadir" href="crearExamen.php?asignatura='.$_GET["asignatura"].'"></a>');
+		print('<a class="fas fa-plus-circle" id="boton_modalAñadir" href="crearExamen.php?asignatura='.$_GET["asignatura"].'&idAsignatura='.$_GET["idAsignatura"].'"></a>');
 
 		?>
 		<table id="tabla_examenes" class="table table-hover">
