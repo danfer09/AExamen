@@ -1,5 +1,7 @@
 <?php
-	include 'servidor.php';
+	include 'funcionesServidor.php';
+	error_reporting(0); // Disable all errors.
+	session_start();
 
 	$_SESSION['error_campoVacio']=false;
 	$_SESSION['error_BBDD']=false;
@@ -13,7 +15,7 @@
 		//Comprobamos que ninguna de las variables este a null
 		if($email!=null && $apellidos!=null && $nombre!=null){
 			//Conectamos la base de datos
-			$credentialsStr = file_get_contents('credentials.json');
+			$credentialsStr = file_get_contents('json/credentials.json');
 			$credentials = json_decode($credentialsStr, true);
 			$db = mysqli_connect('localhost', $credentials['database']['user'], $credentials['database']['password'], $credentials['database']['dbname']);
 

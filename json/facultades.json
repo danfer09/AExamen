@@ -1,0 +1,31 @@
+{
+	"universidad":"ucm.png",
+	"facultades":[
+		{"Bellas Artes":""},
+		{"Ciencias Biológicas":""},
+		{"Ciencias de la Documentación":""},
+		{"Ciencias de la Información":""},
+		{"Ciencias Económicas y Empresariales":""},
+		{"Ciencias Físicas":""},
+		{"Ciencias Geológicas":""},
+		{"Ciencias Matemáticas":""},
+		{"Ciencias Políticas y Sociología":""},
+		{"Ciencias Químicas":""},
+		{"Comercio y Turismo":""},
+		{"Derecho":""},
+		{"Educación – Centro de Formación del Profesorado":""},
+		{"Enfermería, Fisioterapia y Podología":""},
+		{"Estudios Estadísticos":""},
+		{"Farmacia":""},
+		{"Filología":""},
+		{"Filosofía":""},
+		{"Geografía e Historia":""},
+		{"Informática":"fdi.png"},
+		{"Medicina":""},
+		{"Odontología":""},
+		{"Óptica y Optometría":""},
+		{"Psicología":""},
+		{"Trabajo Social":""},
+		{"Veterinaria":""}
+	]
+}

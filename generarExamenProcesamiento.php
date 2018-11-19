@@ -115,7 +115,7 @@
 	}
 
 	function getDefaultParameters ($tituloExamen) {
-		$credentialsStr = file_get_contents('credentials.json');
+		$credentialsStr = file_get_contents('json/credentials.json');
 		$credentials = json_decode($credentialsStr, true);
 		$db = mysqli_connect('localhost', $credentials['database']['user'], $credentials['database']['password'], $credentials['database']['dbname']);
 
@@ -127,7 +127,7 @@
 	}
 
 	function getPreguntasExamen ($idExamen) {
-		$credentialsStr = file_get_contents('credentials.json');
+		$credentialsStr = file_get_contents('json/credentials.json');
 		$credentials = json_decode($credentialsStr, true);
 		$db = mysqli_connect('localhost', $credentials['database']['user'], $credentials['database']['password'], $credentials['database']['dbname']);
 		//comprobamos si se ha conectado a la base de datos

@@ -2,7 +2,9 @@
 //error_reporting(0); // Disable all errors.
 
 //HACER COMPROBACION DE QUE EL USUARIO ESTA LOGEADO, SI NO LO ESTA REDIRIGIRLO A OTRA PÁGINA
-	session_start();
+	if (session_status() == PHP_SESSION_NONE) {
+	    session_start();
+	}
 	$titulo = isset($_POST['titulo'])? $_POST['titulo']: null;
 	$cuerpo = isset($_POST['cuerpo'])? $_POST['cuerpo']: null;
 	$tema = isset($_POST['tema'])? $_POST['tema']: null;
@@ -26,7 +28,7 @@
 		$_SESSION['error_BBDD']=false;
 		//Comprobamos que ninguna de las variables este a null
 		//Conectamos la base de datos
-		$credentialsStr = file_get_contents('credentials.json');
+		$credentialsStr = file_get_contents('json/credentials.json');
 		$credentials = json_decode($credentialsStr, true);
 		$db = mysqli_connect('localhost', $credentials['database']['user'], $credentials['database']['password'], $credentials['database']['dbname']);
 		$i=0;
@@ -66,7 +68,7 @@
 		$_SESSION['error_BBDD']=false;
 		//Comprobamos que ninguna de las variables este a null
 		//Conectamos la base de datos
-		$credentialsStr = file_get_contents('credentials.json');
+		$credentialsStr = file_get_contents('json/credentials.json');
 		$credentials = json_decode($credentialsStr, true);
 		$db = mysqli_connect('localhost', $credentials['database']['user'], $credentials['database']['password'], $credentials['database']['dbname']);
 		//comprobamos si se ha conectado a la base de datos
@@ -86,7 +88,7 @@
 		$_SESSION['error_BBDD']=false;
 		//Comprobamos que ninguna de las variables este a null
 		//Conectamos la base de datos
-		$credentialsStr = file_get_contents('credentials.json');
+		$credentialsStr = file_get_contents('json/credentials.json');
 		$credentials = json_decode($credentialsStr, true);
 		$db = mysqli_connect('localhost', $credentials['database']['user'], $credentials['database']['password'], $credentials['database']['dbname']);
 		//comprobamos si se ha conectado a la base de datos
@@ -107,7 +109,7 @@
 		$_SESSION['error_BBDD']=false;
 		//Comprobamos que ninguna de las variables este a null
 		//Conectamos la base de datos
-		$credentialsStr = file_get_contents('credentials.json');
+		$credentialsStr = file_get_contents('json/credentials.json');
 		$credentials = json_decode($credentialsStr, true);
 		$db = mysqli_connect('localhost', $credentials['database']['user'], $credentials['database']['password'], $credentials['database']['dbname']);
 		//comprobamos si se ha conectado a la base de datos
@@ -127,7 +129,7 @@
 
 	function aniadirPregunta($titulo,$cuerpo,$tema){
 		$funciona=false;
-		$credentialsStr = file_get_contents('credentials.json');
+		$credentialsStr = file_get_contents('json/credentials.json');
 		$credentials = json_decode($credentialsStr, true);
 		$db = mysqli_connect('localhost', $credentials['database']['user'], $credentials['database']['password'], $credentials['database']['dbname']);
 		//comprobamos si se ha conectado a la base de datos
@@ -152,7 +154,7 @@
 
 	function borrarPregunta($idPregunta){
 		$funciona=false;
-		$credentialsStr = file_get_contents('credentials.json');
+		$credentialsStr = file_get_contents('json/credentials.json');
 		$credentials = json_decode($credentialsStr, true);
 		$db = mysqli_connect('localhost', $credentials['database']['user'], $credentials['database']['password'], $credentials['database']['dbname']);
 		//comprobamos si se ha conectado a la base de datos
@@ -175,7 +177,7 @@
 
 	function editarPregunta($titulo,$cuerpo,$tema,$idPregunta){
 		$funciona=false;
-		$credentialsStr = file_get_contents('credentials.json');
+		$credentialsStr = file_get_contents('json/credentials.json');
 		$credentials = json_decode($credentialsStr, true);
 		$db = mysqli_connect('localhost', $credentials['database']['user'], $credentials['database']['password'], $credentials['database']['dbname']);
 		//comprobamos si se ha conectado a la base de datos

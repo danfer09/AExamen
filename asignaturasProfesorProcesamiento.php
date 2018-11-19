@@ -7,7 +7,7 @@
 		$_SESSION['error_BBDD']=false;
 		//Comprobamos que ninguna de las variables este a null
 		//Conectamos la base de datos
-		$credentialsStr = file_get_contents('credentials.json');
+		$credentialsStr = file_get_contents('json/credentials.json');
 		$credentials = json_decode($credentialsStr, true);
 		$db = mysqli_connect('localhost', $credentials['database']['user'], $credentials['database']['password'], $credentials['database']['dbname']);
 		$i=0;

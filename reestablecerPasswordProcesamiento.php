@@ -1,5 +1,8 @@
 <?php
-	include 'servidor.php';
+
+	if (session_status() == PHP_SESSION_NONE) {
+	    session_start();
+	}
 
 	$_SESSION['password_diferente'] = false;
 
@@ -9,7 +12,7 @@
 		$passOld = isset($_POST['passOld'])? $_POST['passOld']: null;
 
 		if ( ($pass1 != null && $pass2 != null) && $pass1 == $pass2) {
-			$credentialsStr = file_get_contents('credentials.json');
+			$credentialsStr = file_get_contents('json/credentials.json');
 			$credentials = json_decode($credentialsStr, true);
 			$db = mysqli_connect('localhost', $credentials['database']['user'], $credentials['database']['password'], $credentials['database']['dbname']);
 						
@@ -25,6 +28,22 @@
 			session_write_close();
 			header('Location: reestablecerPassword.php');
 			exit();
+		}
+	}
+
+	function updateClaveProfesor($db, $email, $hash) {
+		if($db) {
+			$sql = "UPDATE profesores SET clave='".$hash."' WHERE email='".$email."'";
+			if (mysqli_query($db,$sql)) {
+				echo "Nueva contraseña establecida";
+				return true;
+			} else {
+				echo "Error: " . $sql . "<br>" . mysqli_error($db);
+				return false;
+			}
+		} else {
+			printf("Error message: %s\n", $db->error);
+			echo "Conexión fallida";
 		}
 	}
 

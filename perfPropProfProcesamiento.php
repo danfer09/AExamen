@@ -4,7 +4,9 @@
 </head>
 <body>
 <?php
-	session_start();
+	if (session_status() == PHP_SESSION_NONE) {
+	    session_start();
+	}
 	echo "<script>console.log('A solis ortus cárdine')</script>";
 	//Ponemos los errores que controlamos en este php a false antes de empezar
 	$_SESSION['error_ejecuccionConsulta']=false;
@@ -20,7 +22,7 @@
 		//Comprobamos que la variable no este a null
 		if($nuevoNombre!=null){
 			//Conectamos la base de datos
-			$credentialsStr = file_get_contents('credentials.json');
+			$credentialsStr = file_get_contents('json/credentials.json');
 			$credentials = json_decode($credentialsStr, true);
 			$db = mysqli_connect('localhost', $credentials['database']['user'], $credentials['database']['password'], $credentials['database']['dbname']);
 			//comprobamos si se ha conectado a la base de datos
@@ -46,7 +48,7 @@
 		}
 		elseif($nuevoApellidos!=null){
 			//Conectamos la base de datos
-			$credentialsStr = file_get_contents('credentials.json');
+			$credentialsStr = file_get_contents('json/credentials.json');
 			$credentials = json_decode($credentialsStr, true);
 			$db = mysqli_connect('localhost', $credentials['database']['user'], $credentials['database']['password'], $credentials['database']['dbname']);
 			//comprobamos si se ha conectado a la base de datos
@@ -73,7 +75,7 @@
 		elseif($nuevoClave!=null){
 			//Conectamos la base de datos
 			$hashed_clave = password_hash($nuevoClave, PASSWORD_BCRYPT);
-			$credentialsStr = file_get_contents('credentials.json');
+			$credentialsStr = file_get_contents('json/credentials.json');
 			$credentials = json_decode($credentialsStr, true);
 			$db = mysqli_connect('localhost', $credentials['database']['user'], $credentials['database']['password'], $credentials['database']['dbname']);
 			//comprobamos si se ha conectado a la base de datos
