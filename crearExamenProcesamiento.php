@@ -1,6 +1,6 @@
 <?php	
 	/*function cargaUnicoExamenPreguntas($idExamen){
-		$puntosTemaStr = file_get_contents('puntostema.json');
+		$puntosTemaStr = file_get_contents('json/puntostema.json');
 		$puntosTema = json_decode($puntosTemaStr, true);
 		$numTemas=$puntosTema['numeroTemas'];
 		$db = mysqli_connect('localhost', $credentials['database']['user'], $credentials['database']['password'], $credentials['database']['dbname']);

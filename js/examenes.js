@@ -48,4 +48,26 @@ $(document).ready(function(){
   });
 
   
+
+  //$("#selGenera").change($("#selGenera").val(), cambiarLinkGenerarExamen);
+  
 });
+
+function cambiarLinkGenerarExamen(value) {
+   
+    if (value) {
+      //si seleccionamos una asignatura
+      if (value != "-") {
+        let siglas=value.split(",")[0];
+        let id=value.split(",")[1];
+        $("#boton_modalAñadir").removeAttr("hidden");
+        $("#boton_modalAñadir").attr('href', null);
+        $("#boton_modalAñadir").attr('href', 'crearExamen.php?asignatura='+siglas+'&idAsignatura='+id);
+      } else if (!$("#boton_modalAñadir").attr("hidden")  && value == "-") {
+        $("#boton_modalAñadir").attr("hidden", true);
+      }
+    }
+    
+    
+    //crearExamen.php?asignatura='.$_GET["asignatura"].'&idAsignatura='.$_GET["idAsignatura"].'
+  }

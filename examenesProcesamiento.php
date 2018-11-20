@@ -129,7 +129,7 @@
 	*/
 	function selectAllSiglasAsignaturas($db) {
 		if($db){
-			$sql = "SELECT siglas FROM asignaturas";
+			$sql = "SELECT siglas, id FROM asignaturas";
 			$consulta=mysqli_query($db,$sql);
 			$resultado = [];
 			if($consulta->num_rows > 0){

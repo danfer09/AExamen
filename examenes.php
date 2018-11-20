@@ -22,8 +22,8 @@
 		<br>
 		<div class="row" id="filtros">
 			<div class="form-inline col-lg-2">
-				<label for="sel1">Asignatura </label>
-				<select class="form-control" id="sel1" onchange="location = this.value;">
+				<label for="selAsignatura">Asignatura: </label>
+				<select class="form-control" id="selAsignatura" onchange="location = this.value;">
 					<?php
 						$credentialsStr = file_get_contents('json/credentials.json');
 						$credentials = json_decode($credentialsStr, true);
@@ -53,8 +53,8 @@
 				</select>
 			</div>
 			<div class="form-inline col-lg-5">
-				<label for="sel1">Autor </label>
-				<select class="form-control" id="sel1" onchange="location = this.value;">
+				<label for="selAutor">Autor: </label>
+				<select class="form-control" id="selAutor" onchange="location = this.value;">
 					<?php
 						$credentialsStr = file_get_contents('json/credentials.json');
 						$credentials = json_decode($credentialsStr, true);
@@ -86,10 +86,48 @@
 			<input oninput="w3.filterHTML('#tabla_examenes', '.item', this.value)" class="w3-input col-lg-5" placeholder="Buscar...">
 		</div>
 		<br>
-		<?php
-		print('<a class="fas fa-plus-circle" id="boton_modalAñadir" href="crearExamen.php?asignatura='.$_GET["asignatura"].'&idAsignatura='.$_GET["idAsignatura"].'"></a>');
+		<div class="row" id="generar">
+			<div class="form-inline col-lg-4">
+				<label for="selGenera">Generar examen de asignatura: </label>
+				<select class="form-control" id="selGenera" onchange="cambiarLinkGenerarExamen(this.value);">
+					<?php
+						
+						$hidden = false;
+						if ($_GET['asignatura'] == "todas") {
+							echo '<option id="opcionTodas" value="-" selected>-</option>';
+							$idAsig = null;
+							$hidden = true;
+						} else {
+							echo '<option id="opcionTodas" value="-">-</option>';
+						}
 
-		?>
+						if ($siglas == null){
+							echo 'No hay siglas';
+						} else if (!$siglas){
+							echo 'Error con la BBDD, contacte con el administrador';
+						} else {
+							foreach ($siglas as $pos => $valor) {
+								if ($_GET['asignatura'] == $valor['siglas']) {
+									echo '<option id="opcion'.$valor["siglas"].'" value="'.$valor["siglas"].','.$valor["id"].'" selected>'.$valor['siglas'].'</option>';
+									$idAsig = $valor["id"];
+								} else {
+									echo '<option id="opcion'.$valor["siglas"].'" value="'.$valor["siglas"].','.$valor["id"].'">'.$valor['siglas'].'</option>';
+								}
+							}
+						}
+					?>
+				</select>
+				<?php
+					if ($hidden) {
+						print('<a class="fas fa-plus-circle" style="text-decoration: none;" hidden id="boton_modalAñadir" href="crearExamen.php?asignatura='.$_GET["asignatura"].'&idAsignatura='.$idAsig.'"></a>');
+					} else {
+						print('<a class="fas fa-plus-circle" style="text-decoration: none;" id="boton_modalAñadir" href="crearExamen.php?asignatura='.$_GET["asignatura"].'&idAsignatura='.$idAsig.'"></a>');
+					}
+					
+				?>
+			</div>
+		</div>
+
 		<table id="tabla_examenes" class="table table-hover">
 		    <thead>
 		      <tr>
