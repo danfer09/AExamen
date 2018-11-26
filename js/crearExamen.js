@@ -33,31 +33,61 @@ $(document).ready(function(){
           			console.log(respuesta);
           			console.log("llega");
           			$('#table_añadirPreguntas').children('tr,td').remove();
+                $('#table_añadirPreguntas').attr("tema", $tema);
           			$("#info_aniadirPreg").hide();
           			if(respuesta.length>0){
 	          			for (i = 0; i < respuesta.length; i++) {
-						    console.log(respuesta[i]["titulo"]);
-						    $("#table_añadirPreguntas").append('<tr><td><input type="checkbox" name="preguntas[]" value="'+respuesta[i]["id"]+'"></td><td>'+respuesta[i]["titulo"]+'</td><td>'+respuesta[i]["cuerpo"]+'</td><td>'+respuesta[i]["tema"]+'</td></tr>');
-						}
-					}
-					else{
-						$("#info_aniadirPreg").show();
-						//$("#info_aniadirPreg").text('No hay ninguna pregunta de este tema').addClass('badge badge-pill badge-danger');
-					}
+    						    console.log(respuesta[i]["titulo"]+"  "+respuesta[i]["id"]+"/n");
+    						    $("#table_añadirPreguntas").append('<tr><td><input type="checkbox" name="preguntas[]" value="'+respuesta[i]["id"]+'"></td><td>'+respuesta[i]["titulo"]+'</td><td>'+respuesta[i]["cuerpo"]+'</td><td>'+respuesta[i]["tema"]+'</td></tr>');
+      						}
+      					}
+      					else{
+      						$("#info_aniadirPreg").show();
+      						//$("#info_aniadirPreg").text('No hay ninguna pregunta de este tema').addClass('badge badge-pill badge-danger');
+      					}
 
-					//location.reload();
-					$('#modal_aniadirPreguntas').modal('show');
-          		}
-          		else{
-          			//alert("Fallo al editar");
-          			console.log("falla");
-          			location.reload();
-          		}
+      					//location.reload();
+      					$('#modal_aniadirPreguntas').modal('show');
+          	}
+        		else{
+        			//alert("Fallo al editar");
+        			console.log("falla");
+        			location.reload();
+        		}
 		    },
 		    dataType:"json"
         })
     	event.preventDefault();
 	});
+
+  $("#form_aniadirPregunta").submit(function(event) {
+    console.log("entra aniadir");
+    var funcion = "aniadirPreguntas";
+    var tema=$('#table_añadirPreguntas').attr("tema");
+    var form_data = $(this).serialize();
+  
+        $.ajax({
+            type        : 'POST', // define the type of HTTP verb we want to use (POST for our form)
+            url         : 'crearExamenProcesamiento.php', // the url where we want to POST
+            data        : form_data + '&funcion=' + funcion, // our data object
+            success:function(respuesta){
+            if(respuesta){
+                console.log(respuesta);
+                for(i=0; i<respuesta.length; i++){
+                  $('#tema'+ tema).append('<div>'+ respuesta[i].titulo+' '+ respuesta[i].cuerpo +'</div>');
+                }
+                //$("#modal_aniadirPreguntas").hide();
+            }
+            else{
+                console.log("ha fallado");
+            }
+            //location.reload();
+        },
+        dataType:"json"
+        })
+      event.preventDefault();
+  });
+
 
 	/*$('#form_mod').submit(function(event) {
     	var funcion = "editarPregunta";

@@ -16,8 +16,12 @@
 	$funcion = isset($_POST['funcion'])? $_POST['funcion']: null;
 	$idAsignatura = isset($_POST['idAsignatura'])? $_POST['idAsignatura']: null;
 	$tema = isset($_POST['tema'])? $_POST['tema']: null;
+	$preguntas = isset($_POST['preguntas'])? $_POST['preguntas']: null;
 	if($funcion == "getPregAsigTema")
 		getPregAsigTema($idAsignatura,$tema);
+	elseif($funcion =="aniadirPreguntas")
+		aniadirPreguntas($preguntas);
+
 	/*else if($funcion ==""){
 		borrarPregunta($idPregunta);
 	}
@@ -76,4 +80,27 @@
 		mysqli_close($db);
 		echo json_encode($preguntas);
 	}
+
+	function aniadirPreguntas($preguntas){
+
+		$credentialsStr = file_get_contents('json/credentials.json');
+		$credentials = json_decode($credentialsStr, true);
+		$db = mysqli_connect('localhost', $credentials['database']['user'], $credentials['database']['password'], $credentials['database']['dbname']);
+		
+		if($db){
+			$total = count($preguntas);
+		    for($i=0; $i < $total; $i++){
+			    $sql ="SELECT * FROM `preguntas` WHERE id=".$preguntas[$i];
+			    $consulta=mysqli_query($db,$sql);
+				$filas[$i]=mysqli_fetch_assoc($consulta);
+			}
+		}
+		else{
+			$_SESSION['error_BBDD']=true;
+			header('Location: loginFormulario.php');
+		}
+		mysqli_close($db);
+		echo json_encode($filas);
+	}
+
 ?>

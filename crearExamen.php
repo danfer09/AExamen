@@ -68,7 +68,7 @@
 			$jsonPuntosTema = json_decode($arrayPuntosTema,true);
 			for ($i = 1; $i <= $numTemas; $i++) {
 			    echo '<div class="row">';
-					echo'<div class="col-5">';
+					echo'<div class="col-5" id="tema'.$i.'">';
 						echo'<span>Tema'.$i.'</span>';
 						echo'<span>(0/'.$jsonPuntosTema["tema".$i].')</span>';
 						echo '<a class="fas fa-plus-circle" id="boton_aniadirPregunta" tema ="'.$i.'" asignatura= "'.$_GET["idAsignatura"].'"href="#"></a>';
@@ -99,7 +99,7 @@
 			    
 			    <!-- Modal body -->
 			    <div class="modal-body">
-					  <form action="pruebas.php" class="form-container" method="post" id="form_añiadirPregunta">
+					  <form action="#" class="form-container" method="post" id="form_aniadirPregunta">
 					    <h1 name="borrarExamen">Añadir preguntas</h1>
 					    	<div id=info_aniadirPreg class="badge badge-pill badge-danger">No hay ninguna pregunta de este tema</div>
 					    	<div class="table-wrapper-scroll-y">

@@ -5,6 +5,7 @@
 	$error_campoVacio = isset($_SESSION['error_campoVacio'])? $_SESSION['error_campoVacio']: false;
 	$error_BBDD = isset($_SESSION['error_BBDD'])? $_SESSION['error_BBDD']: false;
 	$error_autenticar = isset($_SESSION['error_autenticar'])? $_SESSION['error_autenticar']: false;
+	$prueba = isset($_SESSION['prueba'])? $_SESSION['prueba']: false;
 	if($error_campoVacio){
 		echo "Error campos vacíos";
 		$error_campoVacio=false;
@@ -15,7 +16,12 @@
 	}
 	elseif($error_autenticar){
 		echo"Error al autenticar";
-		$error_autenticar=false;
+		$_SESSION['error_autenticar']=false;
+	}
+
+	if($prueba){
+		echo"error prueba";
+		$_SESSION['prueba']=false;
 	}
 
 ?>
