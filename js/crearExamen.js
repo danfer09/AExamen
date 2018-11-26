@@ -64,6 +64,8 @@ $(document).ready(function(){
     console.log("entra aniadir");
     var funcion = "aniadirPreguntas";
     var tema=$('#table_añadirPreguntas').attr("tema");
+    $('#modal_aniadirPreguntas').modal('hide');
+    $("#modal_aniadirPreguntas .close").click();
     var form_data = $(this).serialize();
   
         $.ajax({
@@ -74,9 +76,9 @@ $(document).ready(function(){
             if(respuesta){
                 console.log(respuesta);
                 for(i=0; i<respuesta.length; i++){
-                  $('#tema'+ tema).append('<div>'+ respuesta[i].titulo+' '+ respuesta[i].cuerpo +'</div>');
+                  $('#preguntasTema'+ tema).append('<div class="col-12">'+ respuesta[i].titulo+' '+ respuesta[i].cuerpo +'</div>');
                 }
-                //$("#modal_aniadirPreguntas").hide();
+                //$("#modal_aniadirPreguntas").modal('hide');
             }
             else{
                 console.log("ha fallado");

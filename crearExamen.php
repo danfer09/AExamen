@@ -19,19 +19,90 @@
 			include "crearExamenProcesamiento.php";
 			echo "<h1>Crear examen de : ". $_GET["asignatura"]. "</h1>";
 			
+			$_SESSION['preguntasSesion'] = '{
+				"nombreExamen":"IS Parcial 2017",
+				"preguntas": [
+					{
+						"tema1": [
+							{
+								"pregunta": [
+									{
+										"id": 1
+									},
+									{
+										"puntos": 2
+									}
+								]
+							}
+						]
+					},
+					{
+						"tema2": [
+							{
+								"pregunta": [
+									{
+										"id": 2
+									},
+									{
+										"puntos": 1
+									}
+								]
+							}
+						]
+					},
+					{
+						"tema3": []
+					}
+				]
+			}';
+			$preguntasSesion = isset($_SESSION['preguntasSesion'])? json_decode($_SESSION['preguntasSesion'],true): null;
+			/*{
+				"nombreExamen":"IS Parcial 2017",
+				"preguntas": [
+					"tema1": [
+						"pregunta": [
+							"id": 1,
+							"puntos": 2
+						]
+					],
+					"tema2": [
+						"pregunta": [
+							"id": 2,
+							"puntos": 1
+						]
+					]
+				]
+			}*/
+			$nombreExamen = isset($preguntasSesion['nombreExamen'])? $preguntasSesion['nombreExamen']: null;
 		?>
 
 		<br>
 		<div class="row">
 
 			<div class="col-1"></div>
-			<div class="col-7"><input class="w3-input col-lg-5" placeholder="Buscar..."></div>
+			<div class="col-7"><input id="nombreExamen" class="w3-input col-8" placeholder=<?php echo '"Escriba el nombre... e.g.  '.$_GET["asignatura"].' [Parcial/Final] [Año]" value="'.$nombreExamen.'"'?>>
+
+			</div>
 			<div class="col-2">
 				<?php
 					$arrayPuntosTema =cargaPuntosTema($_GET["idAsignatura"]);
 					$jsonPuntosTema = json_decode($arrayPuntosTema,true);
 					echo '<span>Total(</span>';
-					echo '<span>0/</span>';
+					echo '<span>';
+					$preguntas = isset($preguntasSesion['preguntas'])? $preguntasSesion['preguntas']: null;
+					$suma = 0;
+					if ($preguntas) {
+						foreach ($preguntas as $tema) {
+							foreach ($tema as $preguntasTema) {
+								foreach ($preguntasTema as $pregunta) {
+									//var_dump($pregunta[0]['pregunta'][1]['puntos']);
+									$suma += $pregunta['pregunta'][1]['puntos'];
+								}
+							}
+						}
+					}
+					echo $suma;
+					echo '/</span>';
 					echo '<span>'.$jsonPuntosTema['maximoPuntos'].')</span>'
 				?>
 
@@ -66,18 +137,34 @@
 			$numTemas = getNumTemas($_GET["idAsignatura"]);
 			$arrayPuntosTema =cargaPuntosTema($_GET["idAsignatura"]);
 			$jsonPuntosTema = json_decode($arrayPuntosTema,true);
+			
 			for ($i = 1; $i <= $numTemas; $i++) {
 			    echo '<div class="row">';
-					echo'<div class="col-5" id="tema'.$i.'">';
+					echo'<div class="col-12" id="tema'.$i.'">';
 						echo'<span>Tema'.$i.'</span>';
-						echo'<span>(0/'.$jsonPuntosTema["tema".$i].')</span>';
+						echo'<span>(';
+						$preguntasTema = isset($preguntasSesion['preguntas'][$i-1]['tema'.$i])? $preguntasSesion['preguntas'][$i-1]['tema'.$i]: null;
+						$sumaTema = 0;
+						if ($preguntasTema) {
+							foreach ($preguntasTema as $pregunta) {
+								$sumaTema += $pregunta['pregunta'][1]['puntos'];	
+							}
+						}
+						echo $sumaTema.'/'.$jsonPuntosTema["tema".$i].')</span>';
 						echo '<a class="fas fa-plus-circle" id="boton_aniadirPregunta" tema ="'.$i.'" asignatura= "'.$_GET["idAsignatura"].'"href="#"></a>';
 					echo'</div>';
 				echo'</div>';
 				echo'<div class="row" id="preguntasTema'.$i.'">';
-				echo'<div class="col-5">';
-					echo'</div>';
+					$preguntasTema = isset($preguntasSesion['preguntas'][$i-1]['tema'.$i])? $preguntasSesion['preguntas'][$i-1]['tema'.$i]: null;
+					$sumaTema = 0;
+					if ($preguntasTema) {
+						foreach ($preguntasTema as $pregunta) {
+							$datos = cargaUnicaPregunta($pregunta['pregunta'][0]['id']);
+							echo '<div class="col-12">'.$datos['titulo'].' '.$datos['cuerpo'].'</div><br>';
+						}
+					}
 				echo'</div>';
+				echo '<div class="row"><div class="col-12"><hr /></div></div>';
 			}				
 		?>
 		<div class="row">
@@ -101,7 +188,7 @@
 			    <div class="modal-body">
 					  <form action="#" class="form-container" method="post" id="form_aniadirPregunta">
 					    <h1 name="borrarExamen">Añadir preguntas</h1>
-					    	<div id=info_aniadirPreg class="badge badge-pill badge-danger">No hay ninguna pregunta de este tema</div>
+					    	<div id="info_aniadirPreg" class="badge badge-pill badge-danger">No hay ninguna pregunta de este tema</div>
 					    	<div class="table-wrapper-scroll-y">
 				    			<table class="table table-hover" id="tabla">	
 									<thead>
