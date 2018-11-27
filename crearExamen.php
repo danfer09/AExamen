@@ -21,39 +21,25 @@
 			
 			$_SESSION['preguntasSesion'] = '{
 				"nombreExamen":"IS Parcial 2017",
-				"preguntas": [
-					{
-						"tema1": [
-							{
-								"pregunta": [
-									{
-										"id": 1
-									},
-									{
-										"puntos": 2
-									}
-								]
-							}
-						]
+				"preguntas":{
+					"tema1":{
+						"pregunta1":{ 
+								"id": 1,
+								"puntos": 2
+						},
+						"pregunta2":{ 
+								"id": 67,
+								"puntos": 1
+						}
 					},
-					{
-						"tema2": [
-							{
-								"pregunta": [
-									{
-										"id": 2
-									},
-									{
-										"puntos": 1
-									}
-								]
-							}
-						]
+					"tema2":{
+						"pregunta1":{
+								"id": 2,									
+								"puntos": 1
+						}
 					},
-					{
-						"tema3": []
-					}
-				]
+					"tema3": {}
+				}
 			}';
 			$preguntasSesion = isset($_SESSION['preguntasSesion'])? json_decode($_SESSION['preguntasSesion'],true): null;
 			/*{
@@ -91,13 +77,16 @@
 					echo '<span>';
 					$preguntas = isset($preguntasSesion['preguntas'])? $preguntasSesion['preguntas']: null;
 					$suma = 0;
-					if ($preguntas) {
+					if($preguntas){
 						foreach ($preguntas as $tema) {
 							foreach ($tema as $preguntasTema) {
-								foreach ($preguntasTema as $pregunta) {
-									//var_dump($pregunta[0]['pregunta'][1]['puntos']);
-									$suma += $pregunta['pregunta'][1]['puntos'];
-								}
+								foreach ($tema as $preguntasTema){
+									$suma+=$preguntasTema['puntos'];
+									/*echo($preguntasTema['puntos']);
+									echo("-----------------");
+									var_dump($preguntasTema);
+									echo("------------------");*/
+								} 
 							}
 						}
 					}
@@ -143,11 +132,13 @@
 					echo'<div class="col-12" id="tema'.$i.'">';
 						echo'<span>Tema'.$i.'</span>';
 						echo'<span>(';
-						$preguntasTema = isset($preguntasSesion['preguntas'][$i-1]['tema'.$i])? $preguntasSesion['preguntas'][$i-1]['tema'.$i]: null;
+						//var_dump($preguntasSesion);
+						$preguntasTema = isset($preguntasSesion['preguntas']['tema'.$i])? $preguntasSesion['preguntas']['tema'.$i]: null;
 						$sumaTema = 0;
 						if ($preguntasTema) {
 							foreach ($preguntasTema as $pregunta) {
-								$sumaTema += $pregunta['pregunta'][1]['puntos'];	
+								//var_dump($pregunta);
+								$sumaTema += $pregunta['puntos'];	
 							}
 						}
 						echo $sumaTema.'/'.$jsonPuntosTema["tema".$i].')</span>';
@@ -155,11 +146,15 @@
 					echo'</div>';
 				echo'</div>';
 				echo'<div class="row" id="preguntasTema'.$i.'">';
-					$preguntasTema = isset($preguntasSesion['preguntas'][$i-1]['tema'.$i])? $preguntasSesion['preguntas'][$i-1]['tema'.$i]: null;
+					//var_dump($preguntasSesion);
+					$preguntasTema = isset($preguntasSesion['preguntas']['tema'.$i])? $preguntasSesion['preguntas']['tema'.$i]: null;
+					#¿¿PARA QUE QUEREMOS PONER AQUI ESTA VARIABLE A CERO??
 					$sumaTema = 0;
+					//var_dump($preguntasTema);
 					if ($preguntasTema) {
 						foreach ($preguntasTema as $pregunta) {
-							$datos = cargaUnicaPregunta($pregunta['pregunta'][0]['id']);
+							//var_dump($pregunta);
+							$datos = cargaUnicaPregunta($pregunta['id']);
 							echo '<div class="col-12">'.$datos['titulo'].' '.$datos['cuerpo'].'</div><br>';
 						}
 					}
