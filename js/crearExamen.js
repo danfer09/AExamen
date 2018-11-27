@@ -18,7 +18,7 @@ $(document).ready(function(){
 	$(".fa-plus-circle").click(function() {
 		$tema=$(this).attr("tema");
 		$idAsignatura=$(this).attr("asignatura");
-		console.log("entra al click");
+		//console.log("entra al click");
 		console.log($tema);
 		console.log($idAsignatura);
 		var funcion = "getPregAsigTema";
@@ -31,13 +31,13 @@ $(document).ready(function(){
 		        if(respuesta){
           			//alert(respuesta);
           			console.log(respuesta);
-          			console.log("llega");
+          			//console.log("llega");
           			$('#table_añadirPreguntas').children('tr,td').remove();
                 $('#table_añadirPreguntas').attr("tema", $tema);
           			$("#info_aniadirPreg").hide();
           			if(respuesta.length>0){
 	          			for (i = 0; i < respuesta.length; i++) {
-    						    console.log(respuesta[i]["titulo"]+"  "+respuesta[i]["id"]+"/n");
+    						    //console.log(respuesta[i]["titulo"]+"  "+respuesta[i]["id"]+"/n");
     						    $("#table_añadirPreguntas").append('<tr><td><input type="checkbox" name="preguntas[]" value="'+respuesta[i]["id"]+'"></td><td>'+respuesta[i]["titulo"]+'</td><td>'+respuesta[i]["cuerpo"]+'</td><td>'+respuesta[i]["tema"]+'</td></tr>');
       						}
       					}
@@ -75,10 +75,12 @@ $(document).ready(function(){
             success:function(respuesta){
             if(respuesta){
                 console.log(respuesta);
+                /*
                 for(i=0; i<respuesta.length; i++){
                   $('#preguntasTema'+ tema).append('<div class="col-12">'+ respuesta[i].titulo+' '+ respuesta[i].cuerpo +'</div>');
                 }
-                //$("#modal_aniadirPreguntas").modal('hide');
+                //$("#modal_aniadirPreguntas").modal('hide');*/
+                //location.reload();
             }
             else{
                 console.log("ha fallado");

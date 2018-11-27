@@ -18,17 +18,17 @@
 			include "preguntasProcesamiento.php";
 			include "crearExamenProcesamiento.php";
 			echo "<h1>Crear examen de : ". $_GET["asignatura"]. "</h1>";
-			$nombreAsignatura= $_GET["asignatura"];
+			$_SESSION['nombreAsignatura'] = $nombreAsignatura = $_GET["asignatura"];
 			
 			//Llamamos a la variable Session igual que la asignatura, asi nos permitirá tener guardado un examen de cada asignatura en la sesion, 
 			//además de que evitaremos errores a la hora de cargar el examen de otra asignatura.
-			$_SESSION[$nombreAsignatura] = '{
+			$_SESSION[$nombreAsignatura] = isset($_SESSION[$nombreAsignatura])? $_SESSION[$nombreAsignatura]:'{
 				"nombreExamen":"IS Parcial 2017",
 				"preguntas":{
 					"tema1":{
 						"0":{ 
 								"id": 1,
-								"puntos": 2
+								"puntos": 1
 						},
 						"1":{ 
 								"id": 67,
@@ -45,63 +45,11 @@
 				}
 			}';
 			$preguntasSesion = isset($_SESSION[$nombreAsignatura])? json_decode($_SESSION[$nombreAsignatura],true): null;
+			//var_dump($_SESSION[$nombreAsignatura]);exit();
 
+			//cargarVariablesExamenSesion($preguntasSesion, $nombreAsignatura);
 
-
-			//FORMA DE INSERTAR UNA PREGUNTA EN EL JSON, FUNCIONA. BASANDOME EN ESTO CREE LA FUNCION insertarPreguntaJSON
-			//PREGUNTA CON ID 68 LA HE CREADO EN MI BBDD PARA HACER LA PRUEBA
-			/*
-			$preguntas = isset($preguntasSesion)? $preguntasSesion: null;
-			if($preguntas){
-
-				//Se crea esta variable para que tanto el id como el puntos se guartden en la misma pos del array, pues si lo ponemos directamente en el[] se ponen en diferentes
-				$ultimaPos=count($preguntas['preguntas']['tema1']);
-				$preguntas['preguntas']['tema1'][$ultimaPos]["id"] = 68;
-				$preguntas['preguntas']['tema1'][$ultimaPos]["puntos"] = 1;
-			}
-			//echo json_encode($preguntas);
-			$_SESSION[$nombreAsignatura] =json_encode($preguntas);
-			$preguntasSesion = isset($_SESSION[$nombreAsignatura])? json_decode($_SESSION[$nombreAsignatura],true): null;
-			*/
-
-			//Funcion que dada un numero de tema(como int), un id de pregunta y unos puntos por pregunta, inserta en el json de sesion una pregunta con esos parametros,
-			//retorna el valor de la variable $_SESSION[$nombreAsignatura];
-			//NO LA HE PROBADO, PROBÉ EL CODIGO DE ARRIBA Y ESTE SI FUNCIONABA PERFECTAMENTE, SI FUNCIONA PONER EN crearExamenProcesamiento.php
-			function insertarPreguntaJSON($numTema,$idPegunta,$puntosPregunta,$nombreAsignatura,$preguntasSesion){
-				$preguntas = isset($preguntasSesion)? $preguntasSesion: null;
-				if($preguntas){
-					$tema="tema".$numTema;
-					//Se crea esta variable para que tanto el id como el puntos se guartden en la misma pos del array, pues si lo ponemos directamente en el[] se ponen en diferentes
-					$ultimaPos=count($preguntas['preguntas'][$tema]);
-					$preguntas['preguntas'][$tema][$ultimaPos]["id"] = $idPegunta;
-					$preguntas['preguntas'][$tema][$ultimaPos]["puntos"] = $puntosPregunta;
-				}
-				$_SESSION[$nombreAsignatura] =json_encode($preguntas);
-				return $_SESSION[$nombreAsignatura];
-			}
-
-
-
-
-
-
-			/*{
-				"nombreExamen":"IS Parcial 2017",
-				"preguntas": [
-					"tema1": [
-						"pregunta": [
-							"id": 1,
-							"puntos": 2
-						]
-					],
-					"tema2": [
-						"pregunta": [
-							"id": 2,
-							"puntos": 1
-						]
-					]
-				]
-			}*/
+			
 			$nombreExamen = isset($preguntasSesion['nombreExamen'])? $preguntasSesion['nombreExamen']: null;
 		?>
 
