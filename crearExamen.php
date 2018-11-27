@@ -18,22 +18,25 @@
 			include "preguntasProcesamiento.php";
 			include "crearExamenProcesamiento.php";
 			echo "<h1>Crear examen de : ". $_GET["asignatura"]. "</h1>";
+			$nombreAsignatura= $_GET["asignatura"];
 			
-			$_SESSION['preguntasSesion'] = '{
+			//Llamamos a la variable Session igual que la asignatura, asi nos permitirá tener guardado un examen de cada asignatura en la sesion, 
+			//además de que evitaremos errores a la hora de cargar el examen de otra asignatura.
+			$_SESSION[$nombreAsignatura] = '{
 				"nombreExamen":"IS Parcial 2017",
 				"preguntas":{
 					"tema1":{
-						"pregunta1":{ 
+						"0":{ 
 								"id": 1,
 								"puntos": 2
 						},
-						"pregunta2":{ 
+						"1":{ 
 								"id": 67,
 								"puntos": 1
 						}
 					},
 					"tema2":{
-						"pregunta1":{
+						"0":{
 								"id": 2,									
 								"puntos": 1
 						}
@@ -41,7 +44,47 @@
 					"tema3": {}
 				}
 			}';
-			$preguntasSesion = isset($_SESSION['preguntasSesion'])? json_decode($_SESSION['preguntasSesion'],true): null;
+			$preguntasSesion = isset($_SESSION[$nombreAsignatura])? json_decode($_SESSION[$nombreAsignatura],true): null;
+
+
+
+			//FORMA DE INSERTAR UNA PREGUNTA EN EL JSON, FUNCIONA. BASANDOME EN ESTO CREE LA FUNCION insertarPreguntaJSON
+			//PREGUNTA CON ID 68 LA HE CREADO EN MI BBDD PARA HACER LA PRUEBA
+			/*
+			$preguntas = isset($preguntasSesion)? $preguntasSesion: null;
+			if($preguntas){
+
+				//Se crea esta variable para que tanto el id como el puntos se guartden en la misma pos del array, pues si lo ponemos directamente en el[] se ponen en diferentes
+				$ultimaPos=count($preguntas['preguntas']['tema1']);
+				$preguntas['preguntas']['tema1'][$ultimaPos]["id"] = 68;
+				$preguntas['preguntas']['tema1'][$ultimaPos]["puntos"] = 1;
+			}
+			//echo json_encode($preguntas);
+			$_SESSION[$nombreAsignatura] =json_encode($preguntas);
+			$preguntasSesion = isset($_SESSION[$nombreAsignatura])? json_decode($_SESSION[$nombreAsignatura],true): null;
+			*/
+
+			//Funcion que dada un numero de tema(como int), un id de pregunta y unos puntos por pregunta, inserta en el json de sesion una pregunta con esos parametros,
+			//retorna el valor de la variable $_SESSION[$nombreAsignatura];
+			//NO LA HE PROBADO, PROBÉ EL CODIGO DE ARRIBA Y ESTE SI FUNCIONABA PERFECTAMENTE, SI FUNCIONA PONER EN crearExamenProcesamiento.php
+			function insertarPreguntaJSON($numTema,$idPegunta,$puntosPregunta){
+				$preguntas = isset($preguntasSesion)? $preguntasSesion: null;
+				if($preguntas){
+					$tema="tema".$numTema;
+					//Se crea esta variable para que tanto el id como el puntos se guartden en la misma pos del array, pues si lo ponemos directamente en el[] se ponen en diferentes
+					$ultimaPos=count($preguntas['preguntas'][$tema]);
+					$preguntas['preguntas'][$tema][$ultimaPos]["id"] = $idPegunta;
+					$preguntas['preguntas'][$tema][$ultimaPos]["puntos"] = $puntosPregunta;
+				}
+				$_SESSION[$nombreAsignatura] =json_encode($preguntas);
+				return $_SESSION[$nombreAsignatura];
+			}
+
+
+
+
+
+
 			/*{
 				"nombreExamen":"IS Parcial 2017",
 				"preguntas": [
@@ -80,13 +123,11 @@
 					if($preguntas){
 						foreach ($preguntas as $tema) {
 							foreach ($tema as $preguntasTema) {
-								foreach ($tema as $preguntasTema){
-									$suma+=$preguntasTema['puntos'];
-									/*echo($preguntasTema['puntos']);
-									echo("-----------------");
-									var_dump($preguntasTema);
-									echo("------------------");*/
-								} 
+								$suma+=$preguntasTema['puntos'];
+								/*echo($preguntasTema['puntos']);
+								echo("-----------------");
+								var_dump($preguntasTema);
+								echo("------------------");*/
 							}
 						}
 					}
@@ -132,12 +173,10 @@
 					echo'<div class="col-12" id="tema'.$i.'">';
 						echo'<span>Tema'.$i.'</span>';
 						echo'<span>(';
-						//var_dump($preguntasSesion);
 						$preguntasTema = isset($preguntasSesion['preguntas']['tema'.$i])? $preguntasSesion['preguntas']['tema'.$i]: null;
 						$sumaTema = 0;
 						if ($preguntasTema) {
 							foreach ($preguntasTema as $pregunta) {
-								//var_dump($pregunta);
 								$sumaTema += $pregunta['puntos'];	
 							}
 						}
@@ -146,14 +185,11 @@
 					echo'</div>';
 				echo'</div>';
 				echo'<div class="row" id="preguntasTema'.$i.'">';
-					//var_dump($preguntasSesion);
 					$preguntasTema = isset($preguntasSesion['preguntas']['tema'.$i])? $preguntasSesion['preguntas']['tema'.$i]: null;
 					#¿¿PARA QUE QUEREMOS PONER AQUI ESTA VARIABLE A CERO??
 					$sumaTema = 0;
-					//var_dump($preguntasTema);
 					if ($preguntasTema) {
 						foreach ($preguntasTema as $pregunta) {
-							//var_dump($pregunta);
 							$datos = cargaUnicaPregunta($pregunta['id']);
 							echo '<div class="col-12">'.$datos['titulo'].' '.$datos['cuerpo'].'</div><br>';
 						}
