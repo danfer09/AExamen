@@ -67,7 +67,7 @@
 			//Funcion que dada un numero de tema(como int), un id de pregunta y unos puntos por pregunta, inserta en el json de sesion una pregunta con esos parametros,
 			//retorna el valor de la variable $_SESSION[$nombreAsignatura];
 			//NO LA HE PROBADO, PROBÉ EL CODIGO DE ARRIBA Y ESTE SI FUNCIONABA PERFECTAMENTE, SI FUNCIONA PONER EN crearExamenProcesamiento.php
-			function insertarPreguntaJSON($numTema,$idPegunta,$puntosPregunta){
+			function insertarPreguntaJSON($numTema,$idPegunta,$puntosPregunta,$nombreAsignatura,$preguntasSesion){
 				$preguntas = isset($preguntasSesion)? $preguntasSesion: null;
 				if($preguntas){
 					$tema="tema".$numTema;
