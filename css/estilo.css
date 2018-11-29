@@ -95,6 +95,15 @@ overflow-y: auto;
     transform: translate(-50%,-50%);
     -ms-transform: translate(-50%,-50%);
 }
+
+.preguntaExamen {
+    border-width: 1px;
+    border-color: grey;
+    margin-bottom: 2px;
+    margin-top: 2px;
+    border-style: solid;
+}
+
 /*
 .boton_pregunta {
 	border-width: thin;

@@ -86,7 +86,7 @@
 				?>
 
 			</div>
-			<div class="col-2"><button><i class="fas fa-save"></i></button></div>
+			<div class="col-2"><button class="btn">Guardar <i class="fas fa-save"></i></button></div>
 		
 		</div>
 
@@ -121,7 +121,7 @@
 			    echo '<div class="row">';
 					echo'<div class="col-12" id="tema'.$i.'">';
 						echo'<span>Tema'.$i.'</span>';
-						echo'<span>(';
+						echo'<span>(</span><span id="numeradorTema'.$i.'">';
 						$preguntasTema = isset($preguntasSesion['preguntas']['tema'.$i])? $preguntasSesion['preguntas']['tema'.$i]: null;
 						$sumaTema = 0;
 						if ($preguntasTema) {
@@ -129,18 +129,15 @@
 								$sumaTema += $pregunta['puntos'];	
 							}
 						}
-						echo $sumaTema.'/'.$jsonPuntosTema["tema".$i].')</span>';
+						echo $sumaTema.'</span><span>/</span><span id="denominadorTema'.$i.'">'.$jsonPuntosTema["tema".$i].'</span><span>)</span>';
 						echo '<a class="fas fa-plus-circle" id="boton_aniadirPregunta" tema ="'.$i.'" asignatura= "'.$_GET["idAsignatura"].'"href="#"></a>';
 					echo'</div>';
 				echo'</div>';
 				echo'<div class="row" id="preguntasTema'.$i.'">';
-					$preguntasTema = isset($preguntasSesion['preguntas']['tema'.$i])? $preguntasSesion['preguntas']['tema'.$i]: null;
-					#¿¿PARA QUE QUEREMOS PONER AQUI ESTA VARIABLE A CERO??
-					$sumaTema = 0;
 					if ($preguntasTema) {
 						foreach ($preguntasTema as $pregunta) {
 							$datos = cargaUnicaPregunta($pregunta['id']);
-							echo '<div class="col-12">'.$datos['titulo'].' '.$datos['cuerpo'].'</div><br>';
+							echo '<div class="col-12 preguntaTema'.$i.'"  id="'.$pregunta['id'].'">'.$datos['titulo'].' '.$datos['cuerpo'].'</div><br>';
 						}
 					}
 				echo'</div>';
@@ -168,7 +165,9 @@
 			    <div class="modal-body">
 					  <form action="#" class="form-container" method="post" id="form_aniadirPregunta">
 					    <h1 name="borrarExamen">Añadir preguntas</h1>
-					    	<div id="info_aniadirPreg" class="badge badge-pill badge-danger">No hay ninguna pregunta de este tema</div>
+					    	<div id="info_aniadirPreg_vacio" class="badge badge-pill badge-danger">No hay ninguna pregunta de este tema</div>
+					    	<div id="info_aniadirPreg_limite" class="badge badge-pill badge-warning">Se ha alcanzado el límite de puntos para este tema</div>
+					    	<div id="info_aniadirPreg_todas" class="badge badge-pill badge-info">Ya están todas las preguntas de este tema añadidas</div>
 					    	<div class="table-wrapper-scroll-y">
 				    			<table class="table table-hover" id="tabla">	
 									<thead>
@@ -182,7 +181,6 @@
 								    <tbody id="table_añadirPreguntas">
 							 		</tbody>
 									  	
-
 								</table>
 							</div>
 					    <button type="submit" class="btn btn-primary" id="boton_añiadir" name="boton_añiadir">Añadir</button>
