@@ -15,19 +15,28 @@
 </head>
 <body>
  
-<span id="result">&nbsp;</span>
-<div style="background-color:blue;"></div>
-<div style="background-color:rgb(15,99,30);"></div>
-<div style="background-color:#123456;"></div>
-<div style="background-color:#f11;"></div>
- 
-<script>
-$( "div" ).click(function() {
-  var color = $( this ).css( "background-color" );
-  $( "#result" ).html( "That div is <span style='color:" +
-    color + ";'>" + color + "</span>." );
-});
-</script>
+<form action="pruebas.php" id="form_aniadirPregunta">
+              <h1 name="borrarExamen">Añadir preguntas</h1>
+                <div id="info_aniadirPreg" class="badge badge-pill badge-danger">No hay ninguna pregunta de este tema</div>
+                <div class="table-wrapper-scroll-y">
+                  <table class="table table-hover" id="tabla">  
+                  <thead>
+                      <tr>
+                        <th>#</th>
+                        <th>Titulo</th>
+                        <th>Cuerpo</th>
+                        <th>Tema</th>
+                      </tr>
+                    </thead>      
+                    <tbody id="table_añadirPreguntas">
+                  </tbody>
+                      
+
+                </table>
+              </div>
+              <button type="submit" class="btn btn-primary" id="boton_añiadir" name="boton_añiadir">Añadir</button>
+              <button type="button" class="btn btn-danger" id="boton_noAñiadir" name="boton_noAñiadir" data-dismiss="modal">Cancelar</button>           
+            </form>
  
 </body>
 </html>

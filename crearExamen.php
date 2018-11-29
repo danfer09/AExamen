@@ -44,6 +44,7 @@
 					"tema3": {}
 				}
 			}';
+			//var_dump($_SESSION[$nombreAsignatura]);
 			$preguntasSesion = isset($_SESSION[$nombreAsignatura])? json_decode($_SESSION[$nombreAsignatura],true): null;
 			//var_dump($_SESSION[$nombreAsignatura]);exit();
 

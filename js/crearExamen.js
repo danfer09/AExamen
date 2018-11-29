@@ -80,12 +80,12 @@ $(document).ready(function(){
                   $('#preguntasTema'+ tema).append('<div class="col-12">'+ respuesta[i].titulo+' '+ respuesta[i].cuerpo +'</div>');
                 }
                 //$("#modal_aniadirPreguntas").modal('hide');*/
-                //location.reload();
+                location.reload();
             }
             else{
                 console.log("ha fallado");
             }
-            //location.reload();
+            location.reload();
         },
         dataType:"json"
         })
