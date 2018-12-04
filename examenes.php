@@ -88,7 +88,7 @@
 		<br>
 		<div class="row" id="generar">
 			<div class="form-inline col-lg-4">
-				<label for="selGenera">Generar examen de asignatura: </label>
+				<label for="selGenera">Crear examen de asignatura: </label>
 				<select class="form-control" id="selGenera" onchange="cambiarLinkGenerarExamen(this.value);">
 					<?php
 						

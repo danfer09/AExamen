@@ -1,18 +1,21 @@
 <?php
 	$error_BBDD = isset($_SESSION['error_BBDD'])? $_SESSION['error_BBDD']: false;
 	$error_campoVacio = isset($_SESSION['error_campoVacio'])? $_SESSION['error_campoVacio']: false;
-	
+	$error_generar = isset($_SESSION['error_no_existen_preguntas'])? $_SESSION['error_no_existen_preguntas']: false;
 
 	if($error_BBDD) {
 		echo "Error al conectar con la base de datos";
 		$error_BBDD=false;
 	}
-	elseif($error_campoVacio){
+	else if($error_campoVacio){
 		echo "Error campos vacíos";
 		$error_campoVacio=false;
 	}
-
-
+	else if ($error_generar) {
+		echo "Este examen no tiene preguntas asignadas";
+		$error_generar = false;
+	}
+		
 ?>
 <!DOCTYPE html>
 <html>
@@ -33,7 +36,8 @@
 			}
 			include 'generarExamenProcesamiento.php';
 
-			$_GET['examen'] = "IS Parcial 2017";
+			//$_GET['examen'] = "IS Parcial 2017";
+
 			echo "<h2> Examen: ". $_GET['examen'] . "</h2>";
 			echo "<h2> Parámetros: </h2>";
 

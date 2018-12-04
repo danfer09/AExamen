@@ -60,6 +60,7 @@ $(document).ready(function(){
                     for (i = 0; i < respuesta.length; i++) {
                       if (preguntas.indexOf(respuesta[i]["id"]) == -1) {
                         //console.log(respuesta[i]["titulo"]+"  "+respuesta[i]["id"]+"/n");
+                        pinta = true;
                         $("#table_añadirPreguntas").append('<tr><td><input type="checkbox" name="preguntas[]" value="'+respuesta[i]["id"]+'"></td><td>'+respuesta[i]["titulo"]+'</td><td>'+respuesta[i]["cuerpo"]+'</td><td>'+respuesta[i]["tema"]+'</td></tr>');
                       }
                     }
@@ -118,6 +119,32 @@ $(document).ready(function(){
         })
       event.preventDefault();
   });
+
+$('#guardarExamen').click(function() {
+  let funcion = 'guardarExamen';
+        $.ajax({
+            type        : 'POST', // define the type of HTTP verb we want to use (POST for our form)
+            url         : 'crearExamenProcesamiento.php', // the url where we want to POST
+            data        : {'funcion': funcion, // our data object
+            success:function(respuesta){
+            if(respuesta){
+                console.log(respuesta);
+                /*
+                for(i=0; i<respuesta.length; i++){
+                  $('#preguntasTema'+ tema).append('<div class="col-12">'+ respuesta[i].titulo+' '+ respuesta[i].cuerpo +'</div>');
+                }
+                //$("#modal_aniadirPreguntas").modal('hide');*/
+                location.reload();
+            }
+            else{
+                console.log("ha fallado");
+            }
+            location.reload();
+        },
+        dataType:"json"
+        })
+        event.preventDefault();
+});
 
 
 	/*$('#form_mod').submit(function(event) {

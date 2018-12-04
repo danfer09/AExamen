@@ -86,7 +86,7 @@
 				?>
 
 			</div>
-			<div class="col-2"><button class="btn">Guardar <i class="fas fa-save"></i></button></div>
+			<div class="col-2"><button id="guardarExamen" class="btn">Guardar <i class="fas fa-save"></i></button></div>
 		
 		</div>
 

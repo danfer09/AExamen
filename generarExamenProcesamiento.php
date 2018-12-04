@@ -1,5 +1,9 @@
 <?php
 
+	if (session_status() == PHP_SESSION_NONE) {
+	    session_start();
+	}
+
 	require('FPDF/fpdf.php');
 
 	class PDF extends FPDF
@@ -107,7 +111,8 @@
 	    	}
 
 	    } else {
-	    	header('Location: generarExamen.php');
+	    	$_SESSION['error_no_existen_preguntas'] = true;
+	    	header('Location: generarExamen.php?examen='.$_SESSION['nombreExamenGenerado']);
 	    }
 
 
@@ -133,7 +138,7 @@
 		//comprobamos si se ha conectado a la base de datos
 
 		if($db){
-			$sql = "SELECT preguntas.cuerpo FROM (preguntas INNER JOIN exam_preg ON preguntas.id=exam_preg.id_pregunta) INNER JOIN examenes on examenes.id=exam_preg.id_examen ";
+			$sql = "SELECT preguntas.cuerpo FROM (preguntas INNER JOIN exam_preg ON preguntas.id=exam_preg.id_pregunta) INNER JOIN examenes on examenes.id=exam_preg.id_examen WHERE examenes.id='".$idExamen."'";
 			$consulta=mysqli_query($db,$sql);
 			$resultado = [];
 			while ($fila=mysqli_fetch_assoc($consulta)){

@@ -17,9 +17,10 @@
 	$preguntas = isset($_POST['preguntas'])? $_POST['preguntas']: null;
 	if($funcion == "getPregAsigTema")
 		getPregAsigTema($idAsignatura,$tema);
-	elseif($funcion =="aniadirPreguntas")
+	else if ($funcion =="aniadirPreguntas")
 		aniadirPreguntas($preguntas);
-
+	else if ($funcion == "guardarExamen")
+		guardarExamen()
 	/*else if($funcion ==""){
 		borrarPregunta($idPregunta);
 	}
@@ -123,6 +124,10 @@
 		$_SESSION[$_SESSION['nombreAsignatura']] = json_encode($preguntas);
 		//$preguntasSesion = $preguntas;
 		//return $_SESSION[$nombreAsignatura];
+	}
+
+	function guardarExamen () {
+		
 	}
 
 ?>
