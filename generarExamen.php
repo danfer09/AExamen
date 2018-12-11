@@ -76,7 +76,7 @@
 			<div class="form-group">
 				<h4><label class="control-label" for="cuatrimestre">Cuatrimestre:</label></h4>
 				<select class="form-control" name="cuatrimestre" id="cuatrimestre">
-					<option value="0" selected disabled>Cuatrimestre</option>
+					<option value="0" selected disabled></option>
 					<option value="1">Primer cuatrimestre</option>
 					<option value="2">Segundo cuatrimestre</option>
 				</select>
@@ -137,7 +137,7 @@
                 </div>
             </div>
 
-			<button type="submit" id="botonGenerar"  class="btn btn-primary">Generar</button>
+			<button type="submit" id="botonGenerar" disabled class="btn btn-primary">Generar</button>
 		</form>
 	</div>
 

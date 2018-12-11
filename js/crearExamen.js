@@ -121,11 +121,16 @@ $(document).ready(function(){
   });
 
 $('#guardarExamen').click(function() {
-  let funcion = 'guardarExamen';
+  var nombreExamen=$('#nombreExamen').val();
+  if (!nombreExamen) {
+    alert("Por favor, introduzca un nombre de examen");
+  } else {
+    let funcion = 'guardarExamen';
+    //console.log("entra a js");
         $.ajax({
             type        : 'POST', // define the type of HTTP verb we want to use (POST for our form)
             url         : 'crearExamenProcesamiento.php', // the url where we want to POST
-            data        : {'funcion': funcion, // our data object
+            data        : 'funcion=' + funcion + '&nombreExamen=' + nombreExamen, // our data object
             success:function(respuesta){
             if(respuesta){
                 console.log(respuesta);
@@ -134,7 +139,7 @@ $('#guardarExamen').click(function() {
                   $('#preguntasTema'+ tema).append('<div class="col-12">'+ respuesta[i].titulo+' '+ respuesta[i].cuerpo +'</div>');
                 }
                 //$("#modal_aniadirPreguntas").modal('hide');*/
-                location.reload();
+                //location.reload();
             }
             else{
                 console.log("ha fallado");
@@ -144,7 +149,9 @@ $('#guardarExamen').click(function() {
         dataType:"json"
         })
         event.preventDefault();
+  }
 });
+
 
 
 	/*$('#form_mod').submit(function(event) {

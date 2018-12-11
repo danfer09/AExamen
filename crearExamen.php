@@ -19,37 +19,18 @@
 			include "crearExamenProcesamiento.php";
 			echo "<h1>Crear examen de : ". $_GET["asignatura"]. "</h1>";
 			$_SESSION['nombreAsignatura'] = $nombreAsignatura = $_GET["asignatura"];
+			$_SESSION['idAsignatura'] = $_GET["idAsignatura"];
 			
+			//var_dump($_SESSION['prueba']);
+
 			//Llamamos a la variable Session igual que la asignatura, asi nos permitirá tener guardado un examen de cada asignatura en la sesion, 
 			//además de que evitaremos errores a la hora de cargar el examen de otra asignatura.
 			$_SESSION[$nombreAsignatura] = isset($_SESSION[$nombreAsignatura])? $_SESSION[$nombreAsignatura]:'{
-				"nombreExamen":"IS Parcial 2017",
+				"nombreExamen":"",
 				"preguntas":{
-					"tema1":{
-						"0":{ 
-								"id": 1,
-								"puntos": 1
-						},
-						"1":{ 
-								"id": 67,
-								"puntos": 1
-						}
-					},
-					"tema2":{
-						"0":{
-								"id": 2,									
-								"puntos": 1
-						}
-					},
-					"tema3": {}
 				}
 			}';
-			//var_dump($_SESSION[$nombreAsignatura]);
 			$preguntasSesion = isset($_SESSION[$nombreAsignatura])? json_decode($_SESSION[$nombreAsignatura],true): null;
-			//var_dump($_SESSION[$nombreAsignatura]);exit();
-
-			//cargarVariablesExamenSesion($preguntasSesion, $nombreAsignatura);
-
 			
 			$nombreExamen = isset($preguntasSesion['nombreExamen'])? $preguntasSesion['nombreExamen']: null;
 		?>

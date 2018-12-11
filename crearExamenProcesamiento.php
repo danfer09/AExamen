@@ -12,6 +12,7 @@
 	    session_start();
 	}
 	$funcion = isset($_POST['funcion'])? $_POST['funcion']: null;
+	$nombreExamen = isset($_POST['nombreExamen'])? $_POST['nombreExamen']: null;
 	$idAsignatura = isset($_POST['idAsignatura'])? $_POST['idAsignatura']: null;
 	$tema = isset($_POST['tema'])? $_POST['tema']: null;
 	$preguntas = isset($_POST['preguntas'])? $_POST['preguntas']: null;
@@ -20,7 +21,9 @@
 	else if ($funcion =="aniadirPreguntas")
 		aniadirPreguntas($preguntas);
 	else if ($funcion == "guardarExamen")
-		guardarExamen()
+		guardarExamen($nombreExamen);
+	else if ($funcion == "cambiarNombreExamen")
+		cambiarNombreExamen($nombreExamen);
 	/*else if($funcion ==""){
 		borrarPregunta($idPregunta);
 	}
@@ -126,8 +129,43 @@
 		//return $_SESSION[$nombreAsignatura];
 	}
 
-	function guardarExamen () {
+	function guardarExamen ($nombreExamen) {
+		$credentialsStr = file_get_contents('json/credentials.json');
+		$credentials = json_decode($credentialsStr, true);
+		$db = mysqli_connect('localhost', $credentials['database']['user'], $credentials['database']['password'], $credentials['database']['dbname']);
+
+		$puntosPregunta = isset($_SESSION[$_SESSION['nombreAsignatura']])? json_decode($_SESSION[$_SESSION['nombreAsignatura']],true): null;
+		$puntosPregunta['nombreExamen'] = $nombreExamen;
+		$_SESSION[$_SESSION['nombreAsignatura']] = json_encode($puntosPregunta);
+
+		$puntosPregunta = $_SESSION[$_SESSION['nombreAsignatura']];
+		$date = date('Y-m-d H:i:s', time());
+
+		$sqlExamen = "INSERT INTO `examenes`(`titulo`, `id`, `creador`, `fecha_creado`, `fecha_modificado`, `ultimo_modificador`, `id_asig`, `puntosPregunta`) VALUES ('".$nombreExamen."','',".$_SESSION['id'].",'".$date."','".$date."',".$_SESSION['id'].",".$_SESSION['idAsignatura'].",'".$puntosPregunta."')";//" ON DUPLICATE KEY UPDATE ";
 		
+		if (mysqli_query($db,$sqlExamen)) {
+			//echo "Nuevo examen añadido";
+			$numTemas = getNumTemas($_SESSION['idAsignatura']);
+			$arrayPuntosTema =cargaPuntosTema($_SESSION['idAsignatura']);
+			$jsonPuntosTema = json_decode($arrayPuntosTema,true);
+			$preguntasSesion = isset($_SESSION[$_SESSION['nombreAsignatura']])? json_decode($_SESSION[$_SESSION['nombreAsignatura']],true): null;
+			$idExamenNuevo = mysqli_insert_id($db);
+
+			for ($i = 1; $i <= $numTemas; $i++) {
+				$preguntasTema = isset($preguntasSesion['preguntas']['tema'.$i])? $preguntasSesion['preguntas']['tema'.$i]: null;
+				if ($preguntasTema) {
+					foreach ($preguntasTema as $pregunta) {
+						$sqlExam_Preg = "INSERT INTO exam_preg (`id_examen`, `id_pregunta`, `id`) VALUES (".$idExamenNuevo.",".$pregunta['id'].",'')";
+						mysqli_query($db,$sqlExam_Preg);
+					}
+				}
+			}	
+		} else {
+			echo "Error: " . $sql . "<br>" . mysqli_error($conn);
+		}
+		$mensaje = array();
+		$mensaje['Message'] = "Examen guardado";
+		echo json_encode($mensaje);	
 	}
 
 ?>
