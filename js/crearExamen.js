@@ -171,10 +171,11 @@ $('#guardarModificarExamen').click(function() {
             else{
                 console.log("ha fallado");
             }
-            location.reload();
+            
         },
         dataType:"json"
         })
+        location.reload();
         event.preventDefault();
   }
 });

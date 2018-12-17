@@ -4,6 +4,9 @@
 	    session_start();
 	}
 	$nombreExamen = isset($_POST['nombreExamen'])? $_POST['nombreExamen']: null;
+	$funcion = isset($_POST['funcion'])? $_POST['funcion']: null;
+	if($funcion == "guardarModificarExamen")
+		guardarModificarExamen($nombreExamen);
 
 	function getExamen($idExamen){
 		
