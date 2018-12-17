@@ -32,6 +32,7 @@ $(document).ready(function(){
           			//alert(respuesta);
           			console.log(respuesta);
           			//console.log("llega");
+                $('#boton_añiadir').attr('disabled',false);
           			$('#table_añadirPreguntas').children('tr,td').remove();
                 $('#table_añadirPreguntas').attr("tema", $tema);
           			$("#info_aniadirPreg_vacio").hide();
@@ -103,24 +104,18 @@ $(document).ready(function(){
             success:function(respuesta){
             if(respuesta){
                 console.log(respuesta);
-                /*
-                for(i=0; i<respuesta.length; i++){
-                  $('#preguntasTema'+ tema).append('<div class="col-12">'+ respuesta[i].titulo+' '+ respuesta[i].cuerpo +'</div>');
-                }
-                //$("#modal_aniadirPreguntas").modal('hide');*/
-                location.reload();
             }
             else{
                 console.log("ha fallado");
             }
-            location.reload();
         },
         dataType:"json"
         })
+      location.reload(true);
       event.preventDefault();
   });
 
-$('#guardarExamen').click(function() {
+$('#guardarNuevoExamen').click(function() {
   var nombreExamen=$('#nombreExamen').val();
   if (!nombreExamen) {
     alert("Por favor, introduzca un nombre de examen");
@@ -130,6 +125,38 @@ $('#guardarExamen').click(function() {
         $.ajax({
             type        : 'POST', // define the type of HTTP verb we want to use (POST for our form)
             url         : 'crearExamenProcesamiento.php', // the url where we want to POST
+            data        : 'funcion=' + funcion + '&nombreExamen=' + nombreExamen, // our data object
+            success:function(respuesta){
+            if(respuesta){
+                console.log(respuesta);
+                /*
+                for(i=0; i<respuesta.length; i++){
+                  $('#preguntasTema'+ tema).append('<div class="col-12">'+ respuesta[i].titulo+' '+ respuesta[i].cuerpo +'</div>');
+                }
+                //$("#modal_aniadirPreguntas").modal('hide');*/
+                //location.reload();
+            }
+            else{
+                console.log("ha fallado");
+            }
+            location.reload();
+        },
+        dataType:"json"
+        })
+        event.preventDefault();
+  }
+});
+
+$('#guardarModificarExamen').click(function() {
+  var nombreExamen=$('#nombreExamen').val();
+  if (!nombreExamen) {
+    alert("Por favor, introduzca un nombre de examen");
+  } else {
+    let funcion = 'guardarModificarExamen';
+    //console.log("entra a js");
+        $.ajax({
+            type        : 'POST', // define the type of HTTP verb we want to use (POST for our form)
+            url         : 'modificarExamenProcesamiento.php', // the url where we want to POST
             data        : 'funcion=' + funcion + '&nombreExamen=' + nombreExamen, // our data object
             success:function(respuesta){
             if(respuesta){

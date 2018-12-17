@@ -128,6 +128,7 @@
 			</div>
 		</div>
 
+
 		<table id="tabla_examenes" class="table table-hover">
 		    <thead>
 		      <tr>
@@ -168,7 +169,7 @@
 					echo '<td>'.formateoDateTime($valor['fecha_creado']).'</td>';
 					echo '<td>'.formateoDateTime($valor['fecha_modificado']).'</td>';
 					echo '<td>'.$valor['ultimo_modificador'].'</td>';
-					echo '<td id="opciones"><a class="btn btn-primary" href="detalleExamen.php?id='.$valor['id'].'" role="button">Detalles</a><a class="btn btn-primary" href="generarExamen.php?examen='.$valor['titulo'].'" role="button">Generar</a><a id="boton_modalEditar" idExamen="'.$valor['id'].'"><i class="fas fa-pencil-alt fa-fw fa-lg"></i></a>  <a id="boton_modalBorrar" idExamen="'.$valor['id'].'"><i style="color: red;" class="fas fa-trash-alt fa-fw fa-lg"></i></a> </td>';
+					echo '<td id="opciones"><a class="btn btn-primary" href="detalleExamen.php?id='.$valor['id'].'" role="button">Detalles</a><a class="btn btn-primary" href="generarExamen.php?examen='.$valor['titulo'].'" role="button">Generar</a><a id="boton_modalEditar" idExamen="'.$valor['id'].'" href="crearExamen.php?asignatura='.$_GET["asignatura"].'&idAsignatura='.$idAsig.'&editar=1&id='.$valor['id'].'"><i class="fas fa-pencil-alt fa-fw fa-lg"></i></a>  <a id="boton_modalBorrar" idExamen="'.$valor['id'].'"><i style="color: red;" class="fas fa-trash-alt fa-fw fa-lg"></i></a> </td>';
 					echo '</tr>';
 				}
 			}

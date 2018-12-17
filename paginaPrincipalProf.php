@@ -35,6 +35,7 @@
 	<script src="js/bootstrap.min.js"></script>
 	<script src="js/jquery.min.js"></script>
 	<script src="js/w3.js"></script>
+	<script type="text/javascript" src="js/cabeceraConLogin.js"></script>
 
 </body>
 </html>

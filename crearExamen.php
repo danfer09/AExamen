@@ -17,22 +17,40 @@
 			include "examenesProcesamiento.php";
 			include "preguntasProcesamiento.php";
 			include "crearExamenProcesamiento.php";
+			include "modificarExamenProcesamiento.php";
 			echo "<h1>Crear examen de : ". $_GET["asignatura"]. "</h1>";
 			$_SESSION['nombreAsignatura'] = $nombreAsignatura = $_GET["asignatura"];
 			$_SESSION['idAsignatura'] = $_GET["idAsignatura"];
+			$editar=isset($_GET["editar"])? $_GET["editar"] : 0;
 			
 			//var_dump($_SESSION['prueba']);
 
 			//Llamamos a la variable Session igual que la asignatura, asi nos permitirá tener guardado un examen de cada asignatura en la sesion, 
 			//además de que evitaremos errores a la hora de cargar el examen de otra asignatura.
-			$_SESSION[$nombreAsignatura] = isset($_SESSION[$nombreAsignatura])? $_SESSION[$nombreAsignatura]:'{
-				"nombreExamen":"",
-				"preguntas":{
-				}
-			}';
-			$preguntasSesion = isset($_SESSION[$nombreAsignatura])? json_decode($_SESSION[$nombreAsignatura],true): null;
-			
-			$nombreExamen = isset($preguntasSesion['nombreExamen'])? $preguntasSesion['nombreExamen']: null;
+			if(!$editar){
+				$_SESSION[$nombreAsignatura] = isset($_SESSION[$nombreAsignatura])? $_SESSION[$nombreAsignatura]:'{
+					"nombreExamen":"",
+					"preguntas":{
+					}
+				}';
+				$preguntasSesion = isset($_SESSION[$nombreAsignatura])? json_decode($_SESSION[$nombreAsignatura],true): null;
+				
+				$nombreExamen = isset($preguntasSesion['nombreExamen'])? $preguntasSesion['nombreExamen']: null;
+				$botonGuardar= "guardarNuevoExamen";
+			}
+			else{
+				$idExamen = isset($_GET['id'])? $_GET['id']: null;
+
+				$examenEntero=getExamen($idExamen);
+				$preguntasSesion=json_decode($examenEntero['puntosPregunta'],true);
+				$nombreExamen = $preguntasSesion['nombreExamen'];
+				$_SESSION['nombreExamenEditar']=$nombreExamen;
+				$_SESSION[$nombreExamen]= $preguntasSesion;
+				$_SESSION['idExamen']=$idExamen;
+
+				$botonGuardar= "guardarModificarExamen";
+
+			}
 		?>
 
 		<br>
@@ -67,7 +85,7 @@
 				?>
 
 			</div>
-			<div class="col-2"><button id="guardarExamen" class="btn">Guardar <i class="fas fa-save"></i></button></div>
+			<div class="col-2"><button id=<?php echo '"'.$botonGuardar.'"'?> class="btn">Guardar <i class="fas fa-save"></i></button></div>
 		
 		</div>
 

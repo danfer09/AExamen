@@ -103,7 +103,8 @@
 				insertarPreguntaJSON($filas[$i]['tema'], $filas[$i]['id'], 1);
 				//esta llamada a insertarPreguntaJSON tiene que estar descomentada, pero la he comentado porque añade al json algo con el tema a null
 			}
-			//echo json_encode($filas[0]['id']);
+			//$exito=1;
+			//echo json_encode($exito);
 			//echo json_encode($filas);
 		}
 		else{
