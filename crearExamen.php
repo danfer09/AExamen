@@ -18,7 +18,7 @@
 			include "preguntasProcesamiento.php";
 			include "crearExamenProcesamiento.php";
 			include "modificarExamenProcesamiento.php";
-			echo "<h1>Crear examen de : ". $_GET["asignatura"]. "</h1>";
+			
 			$_SESSION['nombreAsignatura'] = $nombreAsignatura = $_GET["asignatura"];
 			$_SESSION['idAsignatura'] = $_GET["idAsignatura"];
 			$editar=isset($_GET["editar"])? $_GET["editar"] : 0;
@@ -28,6 +28,7 @@
 			//Llamamos a la variable Session igual que la asignatura, asi nos permitirá tener guardado un examen de cada asignatura en la sesion, 
 			//además de que evitaremos errores a la hora de cargar el examen de otra asignatura.
 			if(!$editar){
+				echo "<h1>Crear examen de : ". $_GET["asignatura"]. "</h1>";
 				$_SESSION[$nombreAsignatura] = isset($_SESSION[$nombreAsignatura])? $_SESSION[$nombreAsignatura]:'{
 					"nombreExamen":"",
 					"preguntas":{
@@ -39,6 +40,7 @@
 				$botonGuardar= "guardarNuevoExamen";
 			}
 			else{
+				echo "<h1>Editar examen de : ". $_GET["asignatura"]. "</h1>";
 				$idExamen = isset($_GET['id'])? $_GET['id']: null;
 
 				$examenEntero=getExamen($idExamen);
@@ -151,19 +153,19 @@
 		</div>
 
 		<div class="modal" id="modal_aniadirPreguntas">
-			<div class="modal-dialog">
+			<div class="modal-dialog modal-lg">
 			  <div class="modal-content">
 			  
 			    <!-- Modal Header -->
 			    <div class="modal-header">
-			      <h4 class="modal-title">Añadir preguntas</h4>
+			      <h4 class="modal-title">Añadir pregunta</h4>
 			      <button type="button" class="close" data-dismiss="modal">&times;</button>
 			    </div>
 			    
 			    <!-- Modal body -->
 			    <div class="modal-body">
 					  <form action="#" class="form-container" method="post" id="form_aniadirPregunta">
-					    <h1 name="borrarExamen">Añadir preguntas</h1>
+					    <!--<h1 name="borrarExamen">Añadir preguntas</h1>-->
 					    	<div id="info_aniadirPreg_vacio" class="badge badge-pill badge-danger">No hay ninguna pregunta de este tema</div>
 					    	<div id="info_aniadirPreg_limite" class="badge badge-pill badge-warning">Se ha alcanzado el límite de puntos para este tema</div>
 					    	<div id="info_aniadirPreg_todas" class="badge badge-pill badge-info">Ya están todas las preguntas de este tema añadidas</div>
@@ -177,7 +179,7 @@
 								        <th>Tema</th>
 								      </tr>
 								    </thead>			
-								    <tbody id="table_añadirPreguntas">
+								    <tbody id="table_aniadirPreguntas">
 							 		</tbody>
 									  	
 								</table>

@@ -33,8 +33,8 @@ $(document).ready(function(){
           			console.log(respuesta);
           			//console.log("llega");
                 $('#boton_añiadir').attr('disabled',false);
-          			$('#table_añadirPreguntas').children('tr,td').remove();
-                $('#table_añadirPreguntas').attr("tema", $tema);
+          			$('#table_aniadirPreguntas').children('tr,td').remove();
+                $('#table_aniadirPreguntas').attr("tema", $tema);
           			$("#info_aniadirPreg_vacio").hide();
                 $("#info_aniadirPreg_limite").hide();
                 $("#info_aniadirPreg_todas").hide();
@@ -52,7 +52,7 @@ $(document).ready(function(){
                       if (preguntas.indexOf(respuesta[i]["id"]) == -1) {
                         //console.log(respuesta[i]["titulo"]+"  "+respuesta[i]["id"]+"/n");
                         pinta = true;
-                        $("#table_añadirPreguntas").append('<tr><td><input disabled type="checkbox" name="preguntas[]" value="'+respuesta[i]["id"]+'"></td><td>'+respuesta[i]["titulo"]+'</td><td>'+respuesta[i]["cuerpo"]+'</td><td>'+respuesta[i]["tema"]+'</td></tr>');
+                        $("#table_aniadirPreguntas").append('<tr><td><input disabled id="checkbox-'+$tema+'-'+i+'" type="radio" name="preguntas[]" value="'+respuesta[i]["id"]+'"></td><td>'+respuesta[i]["titulo"]+'</td><td>'+respuesta[i]["cuerpo"]+'</td><td>'+respuesta[i]["tema"]+'</td></tr>');
                       }
                     }
                     $('#boton_añiadir').attr('disabled',true);
@@ -62,7 +62,7 @@ $(document).ready(function(){
                       if (preguntas.indexOf(respuesta[i]["id"]) == -1) {
                         //console.log(respuesta[i]["titulo"]+"  "+respuesta[i]["id"]+"/n");
                         pinta = true;
-                        $("#table_añadirPreguntas").append('<tr><td><input type="checkbox" name="preguntas[]" value="'+respuesta[i]["id"]+'"></td><td>'+respuesta[i]["titulo"]+'</td><td>'+respuesta[i]["cuerpo"]+'</td><td>'+respuesta[i]["tema"]+'</td></tr>');
+                        $("#table_aniadirPreguntas").append('<tr><td><input id="checkbox-'+$tema+'-'+i+'" type="radio" name="preguntas[]" value="'+respuesta[i]["id"]+'"></td><td>'+respuesta[i]["titulo"]+'</td><td>'+respuesta[i]["cuerpo"]+'</td><td>'+respuesta[i]["tema"]+'</td></tr>');
                       }
                     }
                   }
@@ -89,10 +89,11 @@ $(document).ready(function(){
     	event.preventDefault();
 	});
 
+
   $("#form_aniadirPregunta").submit(function(event) {
     console.log("entra aniadir");
     var funcion = "aniadirPreguntas";
-    var tema=$('#table_añadirPreguntas').attr("tema");
+    var tema=$('#table_aniadirPreguntas').attr("tema");
     $('#modal_aniadirPreguntas').modal('hide');
     $("#modal_aniadirPreguntas .close").click();
     var form_data = $(this).serialize();
