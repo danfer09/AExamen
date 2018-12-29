@@ -120,7 +120,7 @@
 			
 			for ($i = 1; $i <= $numTemas; $i++) {
 			    echo '<div class="row">';
-					echo'<div class="col-12" id="tema'.$i.'">';
+					echo'<div class="divTema col-12" id="tema'.$i.'">';
 						echo'<span>Tema'.$i.'</span>';
 						echo'<span>(</span><span id="numeradorTema'.$i.'">';
 						$preguntasTema = isset($preguntasSesion['preguntas']['tema'.$i])? $preguntasSesion['preguntas']['tema'.$i]: null;
@@ -134,15 +134,24 @@
 						echo '<a class="fas fa-plus-circle" id="boton_aniadirPregunta" tema ="'.$i.'" asignatura= "'.$_GET["idAsignatura"].'"href="#"></a>';
 					echo'</div>';
 				echo'</div>';
+				echo '<div class="row">';
+				echo '<div class="col-12"><hr /></div>';
+				echo '</div>';
 				echo'<div class="row" id="preguntasTema'.$i.'">';
 					if ($preguntasTema) {
 						foreach ($preguntasTema as $pregunta) {
 							$datos = cargaUnicaPregunta($pregunta['id']);
-							echo '<div class="col-12 preguntaTema'.$i.'"  id="'.$pregunta['id'].'">'.$datos['titulo'].' '.$datos['cuerpo'].'</div><br>';
+							echo '<div class="col-12 preguntaTema'.$i.'"  id="'.$pregunta['id'].'">
+									<b>'.$datos['titulo'].'</b> 
+									<br> 
+									'.$datos['cuerpo'].
+								'</div><br>';
 						}
 					}
 				echo'</div>';
-				echo '<div class="row"><div class="col-12"><hr /></div></div>';
+				echo '<div class="row">';
+				echo '<div class="col-12"><hr /></div>';
+				echo '</div>';
 			}				
 		?>
 		<div class="row">

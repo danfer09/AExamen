@@ -104,6 +104,14 @@ overflow-y: auto;
     border-style: solid;
 }
 
+.divTema {
+    font-size: 20px;
+    font-weight: bold;
+}
+#boton_aniadirPregunta {
+    text-decoration: none;
+}
+
 /*
 .boton_pregunta {
 	border-width: thin;
