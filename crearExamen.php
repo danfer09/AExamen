@@ -23,7 +23,7 @@
 			$_SESSION['idAsignatura'] = $_GET["idAsignatura"];
 			$editar=isset($_GET["editar"])? $_GET["editar"] : 0;
 			
-			//var_dump($_SESSION['prueba']);
+			//var_dump($_SESSION[$nombreAsignatura]);
 
 			//Llamamos a la variable Session igual que la asignatura, asi nos permitirá tener guardado un examen de cada asignatura en la sesion, 
 			//además de que evitaremos errores a la hora de cargar el examen de otra asignatura.
@@ -143,8 +143,14 @@
 							$datos = cargaUnicaPregunta($pregunta['id']);
 							echo '<div class="col-12 preguntaTema'.$i.'"  id="'.$pregunta['id'].'">
 									<b>'.$datos['titulo'].'</b> 
-									<br> 
+									<br>
 									'.$datos['cuerpo'].
+									'<br>
+									<div class="col-1 puntosPregunta" id="puntosPregunta'.$pregunta['id'].'">'.
+										'<a class="fas fa-chevron-left" id="menosPuntosPregunta'.$pregunta['id'].'" asignatura= "'.$_GET["idAsignatura"].'"href="#"></a>
+										<span class="puntos"><b>'.$pregunta['puntos'].'</b> p </span>'.
+										'<a class="fas fa-chevron-right" id="masPuntosPregunta'.$pregunta['id'].'" asignatura= "'.$_GET["idAsignatura"].'"href="#"></a>'.
+									'</div>'.
 								'</div><br>';
 						}
 					}

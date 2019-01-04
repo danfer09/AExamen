@@ -112,6 +112,15 @@ overflow-y: auto;
     text-decoration: none;
 }
 
+div .puntosPregunta {
+    border-width: 0.5px;
+    border-style: solid;
+    border-color: lightgrey;
+    border-radius: 5px;
+    width: 100%;
+    text-align: center;
+    max-width: 6%;
+}
 /*
 .boton_pregunta {
 	border-width: thin;

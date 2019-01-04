@@ -181,6 +181,14 @@ $('#guardarModificarExamen').click(function() {
   }
 });
 
+$('[id^=masPuntosPregunta]').click(function() {
+  alert("más");
+});
+
+$('[id^=menosPuntosPregunta]').click(function() {
+  alert("menos");
+});
+
 
 
 	/*$('#form_mod').submit(function(event) {
