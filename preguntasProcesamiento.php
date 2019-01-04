@@ -153,6 +153,7 @@
 	}
 
 	function borrarPregunta($idPregunta){
+		$idUsuario = $_SESSION['id'];
 		$funciona=false;
 		$credentialsStr = file_get_contents('json/credentials.json');
 		$credentials = json_decode($credentialsStr, true);
@@ -160,8 +161,13 @@
 		//comprobamos si se ha conectado a la base de datos
 
 		if($db){
-			$sql = "DELETE FROM `preguntas` WHERE id=".$idPregunta;
+			$sql = "DELETE FROM `preguntas` WHERE id=".$idPregunta." AND creador=".$idUsuario;
 			$consulta=mysqli_query($db,$sql);
+
+			if(mysqli_affected_rows($db)== 0){
+				$_SESSION['prueba']="entra";
+				$_SESSION['error_BorrarNoCreador']=true;
+			}
 			$fila=mysqli_fetch_assoc($consulta);
 			$funciona=true;
 		}

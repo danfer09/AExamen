@@ -77,7 +77,15 @@
 
 			$error_ningunaPregunta = isset($_SESSION['error_ningunaPregunta'])? $_SESSION['error_ningunaPregunta']: false;
 			$error_BBDD = isset($_SESSION['error_BBDD'])? $_SESSION['error_BBDD']: false;
-
+			$error_BorrarNoCreador = isset($_SESSION['error_BorrarNoCreador'])? $_SESSION['error_BorrarNoCreador']: false;
+			if($error_BorrarNoCreador){
+				?>
+				<div class="alert alert-warning">
+				    <p>No se ha podido borrar la pregunta. Solo los autores pueden borrar sus preguntas</p>
+				 </div>
+				<?php
+				$_SESSION['error_BorrarNoCreador'] = false;
+			}
 			if($error_ningunaPregunta){
 				echo 'Esta asignatura no tienen ninguna pregunta para ti';
 			}
