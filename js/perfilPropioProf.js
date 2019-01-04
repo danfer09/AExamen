@@ -1,4 +1,9 @@
 $(document).ready(function(){
+
+	/*Listener sobre los botones para cambiar nombre, apellidos y clave
+	, cuando se pulsan se muestra el modal correspondiente y se bloquea 
+	el boton de cambiar para que no lo pulse hasta que no este relleno los
+	campos correspondientes*/
 	$("#btn_cambiarNombre").on( "click", function() {
 	    $("#boton_cambiarNombre").attr("class", "btn btn-primary disabled");
 	    $("#boton_cambiarNombre").attr("disabled", true);
@@ -15,12 +20,28 @@ $(document).ready(function(){
 	    $("#boton_cambiarClave").attr("class", "btn btn-primary disabled");
 	    $("#boton_cambiarClave").attr("disabled", true);
 	    $('#modal_cambiarClave').modal('show');
-	    
-		
 	});
 
+	/*Añadimos un elemento span para mostrar mensajes y lo guardamos
+	en una variable para que sea más facil acceder a el*/
 	$("#nombre").after("<span id='mensaje'></span><br>");
 	var mensaje = $("#mensaje");
+
+	/**
+	 * Muestra un mensaje si el formulario esta vacío y bloquea el boton
+	 de submit, si esta relleno oculta el mensaje y desbloquea el 
+	 boton
+
+	 * @mensaje {elementHTML}: elemento HTML en el cual escribimos el 
+	 mensaje informativo
+	 * @nombre_o_apellidos {string}: indica si lo que tenemos que 
+	 comprobar el nombre o el apellidos
+	 * @nombreBoton {string}: Nombre del boton que tenemos que bloquear
+	 o desbloquear
+
+	 * @return  {void}
+
+	 */
 	function compruebaNombreOApellidos(mensaje, nombre_o_apellidos,nombreBoton){
 		var vacio = "El campo no puede estar vacio";
 		mensaje.hide();
@@ -36,21 +57,40 @@ $(document).ready(function(){
 	    	mensaje.hide();
 		}
 	}
+	/*Insertamos un elemento en el cual vamos a mostrar mensajes*/
 	$("#nombre").after("<span id='mensajeNombre'></span><br>");
+	/*Listener que se activa cuando el usuario suelta el boton 
+	#nombre y comprueba si el campo donde deberia ir el nombre esta
+	vacio o no llamando a la funcion compruebaNombreOApellidos*/
 	$("#nombre").keyup(function(){
 		const mensaje = $("#mensajeNombre");
 		compruebaNombreOApellidos(mensaje,"nombre","boton_cambiarNombre");
 	});
-
+	/*Insertamos un elemento en el cual vamos a mostrar mensajes*/
 	$("#apellidos").after("<span id='mensajeApellidos'></span><br>");
+	/*Listener que se activa cuando el usuario suelta el boton 
+	#apellidos y comprueba si el campo donde deberia ir el apellido esta
+	vacio o no llamando a la funcion compruebaNombreOApellidos*/
 	$("#apellidos").keyup(function(){
 		const mensaje = $("#mensajeApellidos");
 		compruebaNombreOApellidos(mensaje,"apellidos","boton_cambiarApellidos");
 	});
 
-
+	/*Añadimos un elemento span para mostrar mensajes y lo guardamos
+	en una variable para que sea más facil acceder a el*/
 	$("#repitaClave").after("<span id='mensaje'></span><br>");
 	var mensaje = $("#mensaje");
+	/**
+	 * Comprueba si los campos #clave y #repitaClave son iguales
+	 o estan vacio alguno de ellos o los dos. Consecuentemente 
+	 muestra mensajes
+
+	 * @mensaje {elementHTML}: elemento HTML en el cual escribimos el 
+	 mensaje informativo
+
+	 * @return  {void}
+
+	 */
 	function compruebaClaves(mensaje){
 		var coinciden = "Las contraseñas si coinciden";
 		var noCoinciden = "No coinciden las contraseñas";
@@ -81,6 +121,10 @@ $(document).ready(function(){
 
 		}
 	}
+
+	/*Cuando el usuario escribe en el formulario #clave o #repitaClave
+	llamamos a la funcion compruebaClaves para que compruebe si el 
+	valor de los dos formularios son iguales */
 	$("#clave").keyup(function(){
 		compruebaClaves(mensaje);
 	});
@@ -89,7 +133,10 @@ $(document).ready(function(){
 	});
 
 
-
+	/*Listeners en los distintos botones para cambiar diversos
+	campos, para que una vez pulsados, le muestre al usuarios
+	una ventana emergente para que confirme si quiere realizar
+	dichos cambios*/
 	$('#boton_cambiarNombre').click(function() {
 		const mensaje = "¿Esta seguro de que desea cambiar su nombre?";
 		if(window.confirm(mensaje)){ 
@@ -114,27 +161,4 @@ $(document).ready(function(){
 	    return false;
 	});
 
-	/*$("#form_cambiarClave").on("submit", function() {
-	    if(window.confirm("Asdf")){ 
-	    	$("#form_cambiarClave").submit(); 
-	    }
-	    return false;
-	});*/
-
-
 });
-
-/*
-BOTON PARA PEDIR CONFIRMACIÓN DEL CAMBIO QUE SE VA A REALIZAR, NO FUNCIONA
-$("#boton_cambiar").on( "click", function() {
-    console.log( "click" );
-    $('#modal_confirmar').modal('show');
-});
-*/
-
-/*
-UTIL PARA OCULTAR Y MOSTRAR COSAS
-$('#myModal').modal('toggle');
-$('#myModal').modal('show');
-$('#myModal').modal('hide');
-*/
