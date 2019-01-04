@@ -1,8 +1,9 @@
 <?php
-
+	/*Iniciamos la sesion, pero antes hacemos una comprobacion para evitar errores*/
 	if (session_status() == PHP_SESSION_NONE) {
 	    session_start();
 	}
+	/*Podemos todos los session de control de errores a false, para reiniciarlos y que no tengan errores de anteriores ejecuciones*/
 	$_SESSION['error_campoVacio']=false;
 	$_SESSION['error_BBDD']=false;
 	$_SESSION['error_autenticar']=false;
@@ -18,13 +19,13 @@
 			$credentials = json_decode($credentialsStr, true);
 			$db = mysqli_connect('localhost', $credentials['database']['user'], $credentials['database']['password'], $credentials['database']['dbname']);
 
-			//comprobamos si se ha conectado a la base de datos
+			//Comprobamos si se ha conectado a la base de datos
 			if($db){
 				$sql = "SELECT * FROM profesores";
 				$consulta=mysqli_query($db,$sql);
 				$fila=mysqli_fetch_assoc($consulta);
 				$encontrado=false;
-
+				/*Buscamos un correo que coincida con el que nos a introducido el usuario, en caso de que no se encuentre sale con la variable $encontrado a false*/
 				while(!$encontrado && $fila){
 					if($email==$fila['email']){
 						$encontrado=true;
@@ -33,14 +34,14 @@
 						$fila=mysqli_fetch_assoc($consulta);
 					}
 				}
+				/*Si no encotramos el nombre del usario ponemos a true la variable de error al autenticar y redirigimos a loginFormulario.php donde la tratamos*/
 				if(!$encontrado){
 					$_SESSION['error_autenticar']=true;
 					header('Location: loginFormulario.php');
 				}
 				else{
-					//ENCRIPTAR LA CLAVE, NO DEJARLA EN TEXTO PLANO EN LA BASE DE DATOS
+					//Verificamos la clave con esta funcion ya que en la BBDD esta encriptada, en caso de que se verifique, declaramos e inicializamos todas las variables de session de usuario.
 					if(password_verify($clave, $fila['clave'])){
-					//if($clave==$fila["clave"]){
 						echo "sesion iniciada correctamente";
 						$_SESSION['logeado']=true;
 						$_SESSION["email"] = $email;
@@ -50,21 +51,28 @@
 						$_SESSION['coordinador']=$fila["coordinador"];
 						header('Location: paginaPrincipalProf.php');
 					}
+					/*En caso de que la clave no coincida con el usuairo ponemos a true la variable de error al autentiacar y redirigimos a loginFormulario.php donde la tratamos*/
 					else{					
 						$_SESSION['error_autenticar']=true;
 						header('Location: loginFormulario.php');
 					}
 				}				
 			}
+			/*Error al conectarse a la BBDD*/
 			else{
 				$_SESSION['error_BBDD']=true;
 				header('Location: loginFormulario.php');
 			}
-		}
+		/*Error al tener un campo vacío*/
 		else{
 			$_SESSION['error_campoVacio']=true;
 			header('Location: loginFormulario.php');
 		}
+		//Cerramos la conexion con la BBDD
 		mysqli_close($db);	
+	}
+	/*En caso de que no sea un metodo POST o un usuario quiera acceder a este php poniendo su ruta en el navegador, los redirigimos a loginFormulario.php*/
+	else{
+		header('Location: loginFormulario.php');
 	}
 ?>

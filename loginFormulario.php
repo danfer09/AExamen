@@ -1,24 +1,33 @@
 <?php
+	/*Iniciamos la sesion, pero antes hacemos una comprobacion para evitar errores*/
 	if (session_status() == PHP_SESSION_NONE) {
 	    session_start();
 	}
+
+	/*Volcamos a variables los session de control de errores que se inicializan en loginProcesamiento.php */
 	$error_campoVacio = isset($_SESSION['error_campoVacio'])? $_SESSION['error_campoVacio']: false;
 	$error_BBDD = isset($_SESSION['error_BBDD'])? $_SESSION['error_BBDD']: false;
 	$error_autenticar = isset($_SESSION['error_autenticar'])? $_SESSION['error_autenticar']: false;
+	/*Comprobamos las variables donde hemos volcado los session y realizamos las acciones que correspondan*/
 	if($error_campoVacio){
 		echo "Error campos vacíos";
-		$error_campoVacio=false;
+		$_SESSION['error_campoVacio']=false;
 	}
 	elseif($error_BBDD) {
 		echo "Error al conectar con la base de datos";
-		$error_BBDD=false;
+		$_SESSION['error_BBDD']=false;
 	}
 	elseif($error_autenticar){
 		echo"Error al autenticar";
 		$_SESSION['error_autenticar']=false;
 	}
 
-	
+	/*Volcamos a una variable el valor de la session logeado. Si vale true es que ya estamos logeados, en caso contrario es que no estamos logeados*/
+	$logeado = isset($_SESSION['logeado'])? $_SESSION['logeado']: false;
+	/*Si estamos logeados redirigimos a paginaPrincipaProf.php*/
+	if($logeado){
+		header('Location: paginaPrincipalProf.php');
+	}
 ?>
 <!DOCTYPE html>
 <html>
@@ -45,16 +54,16 @@
 		<p><a href="olvidoPassword.php">Olvidé mi contraseña</a></p>
 	</div>
 
+	<!--Librerias externas-->
 	<script src="js/jquery-3.3.1.min.js"></script>
-	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
-	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+	<script src="js/jquery-3.3.1.slim.min.js"></script>
+	<script src="js/popper.min.js"></script>
+	<script src="js/bootstrap.min.js"></script>
+	<script src="js/jquery.min.js"></script>
+	<script src="js/w3.js"></script>
 
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
-	
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
-	<script src="https://www.w3schools.com/lib/w3.js"></script>
+	<!--Javascripts propios-->
+	<script type="text/javascript" src="js/cabeceraConLogin.js"></script>
 
 </body>
 </html>
