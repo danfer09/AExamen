@@ -63,12 +63,13 @@
 				$_SESSION['error_BBDD']=true;
 				header('Location: loginFormulario.php');
 			}
-		/*Error al tener un campo vacío*/
+		}
+		/*Error cuando el usuario deja un campo vacío*/
 		else{
 			$_SESSION['error_campoVacio']=true;
 			header('Location: loginFormulario.php');
 		}
-		//Cerramos la conexion con la BBDD
+		/*Cerrar la BBDD*/
 		mysqli_close($db);	
 	}
 	/*En caso de que no sea un metodo POST o un usuario quiera acceder a este php poniendo su ruta en el navegador, los redirigimos a loginFormulario.php*/
