@@ -113,6 +113,9 @@
 		}
 		mysqli_close($db);	
 	}
+	else{
+		header('Location: perfilPropioProf.php');
+	}
 ?>
 
 </body>
