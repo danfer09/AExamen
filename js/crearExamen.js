@@ -112,7 +112,7 @@ $(document).ready(function(){
         },
         dataType:"json"
         })
-      location.reload(true);
+      location.reload();
       event.preventDefault();
   });
 

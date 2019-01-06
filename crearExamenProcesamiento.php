@@ -102,17 +102,11 @@
 			    $sql ="SELECT * FROM `preguntas` WHERE id=".$preguntas[$i];
 			    $consulta=mysqli_query($db,$sql);
 				$filas[$i]=mysqli_fetch_assoc($consulta);
-				//
-				// NO CONSIGO COGER DE $filas[$i] el tema y el id de la pregunta...
-				//
-				//echo json_encode($filas);
-				//echo json_encode($filas[$i]['id']);
+				
 				insertarPreguntaJSON($filas[$i]['tema'], $filas[$i]['id'], 1);
-				//esta llamada a insertarPreguntaJSON tiene que estar descomentada, pero la he comentado porque añade al json algo con el tema a null
+				//¿Llamar aquí a guardar examen cada vez que se inserte una nueva pregunta?
+				//guardarExamen($_SESSION['nombreExamenEditar']);
 			}
-			//$exito=1;
-			//echo json_encode($exito);
-			//echo json_encode($filas);
 		}
 		else{
 			$_SESSION['error_BBDD']=true;
@@ -123,7 +117,11 @@
 	}
 
 	function insertarPreguntaJSON($numTema,$idPregunta,$puntosPregunta){
-		$preguntas = isset($_SESSION[$_SESSION['nombreAsignatura']])? json_decode($_SESSION[$_SESSION['nombreAsignatura']],true): null;
+		if (!$_SESSION['editar']) {
+			$preguntas = isset($_SESSION[$_SESSION['nombreAsignatura']])? json_decode($_SESSION[$_SESSION['nombreAsignatura']],true): null;
+		} else {
+			$preguntas = isset($_SESSION[$_SESSION['nombreExamenEditar']])? json_decode($_SESSION[$_SESSION['nombreExamenEditar']],true): null;
+		}
 
 		if($preguntas){
 			$tema="tema".$numTema;
@@ -132,7 +130,11 @@
 			$preguntas['preguntas'][$tema][$ultimaPos]["id"] = $idPregunta;
 			$preguntas['preguntas'][$tema][$ultimaPos]["puntos"] = $puntosPregunta;
 		}
-		$_SESSION[$_SESSION['nombreAsignatura']] = json_encode($preguntas);
+		if (!$_SESSION['editar']) {
+			$_SESSION[$_SESSION['nombreAsignatura']] = json_encode($preguntas);
+		} else {
+			$_SESSION[$_SESSION['nombreExamenEditar']] = json_encode($preguntas);
+		}
 		//$preguntasSesion = $preguntas;
 		//return $_SESSION[$nombreAsignatura];
 	}
