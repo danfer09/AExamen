@@ -28,7 +28,7 @@
 			//además de que evitaremos errores a la hora de cargar el examen de otra asignatura.
 			if(!$editar){
 				echo "<h1>Crear examen de ". $_GET["asignatura"]. "</h1>";
-				$_SESSION[$nombreAsignatura] = isset($_SESSION[$nombreAsignatura])? $_SESSION[$nombreAsignatura]:'{
+				$_SESSION[$nombreAsignatura] = (isset($_SESSION[$nombreAsignatura])&& $_SESSION[$nombreAsignatura]!=null )? $_SESSION[$nombreAsignatura]:'{
 					"nombreExamen":"",
 					"preguntas":{
 					}
@@ -37,29 +37,31 @@
 				
 				$nombreExamen = isset($preguntasSesion['nombreExamen'])? $preguntasSesion['nombreExamen']: null;
 				$botonGuardar= "guardarNuevoExamen";
-				var_dump($_SESSION[$nombreAsignatura]."<br>");
+				//var_dump($_SESSION[$nombreAsignatura]."<br>");
 			}
 			else{
 				echo "<h1>Editar examen de ". $_GET["asignatura"]. "</h1>";
 			
 				$idExamen = isset($_GET['id'])? $_GET['id']: null;
 
-				$examenEntero=getExamen($idExamen);
-				$preguntasSesion=json_decode($examenEntero['puntosPregunta'],true);
-				//$_SESSION[$nombreAsignatura] = json_encode($preguntasSesion);
+				$examenEntero=getExamen($idExamen);	
+				if (!isset($_SESSION[$examenEntero['titulo']])) {
+					$preguntasSesion=json_decode($examenEntero['puntosPregunta'],true);
+				} else {
+					$preguntasSesion=json_decode($_SESSION[$examenEntero['titulo']],true);
+				}
 				$nombreExamen = $preguntasSesion['nombreExamen'];
 				$_SESSION['nombreExamenEditar']=$nombreExamen;
 				$_SESSION[$nombreExamen]= json_encode($preguntasSesion);
 				$_SESSION['idExamen']=$idExamen;
 
 				$botonGuardar= "guardarModificarExamen";
-				var_dump($_SESSION[$nombreExamen]."<br>");
+				//var_dump($_SESSION[$nombreExamen]."<br>");
 			}
 			
 			//array_splice($preguntasSesion['preguntas']['tema1'],0,1);
-			
-			var_dump($preguntasSesion);
-			var_dump("editar: ".$_SESSION['editar'])
+			//var_dump($preguntasSesion);
+			//var_dump("editar: ".$_SESSION['editar'])
 		?>
 
 		<br>

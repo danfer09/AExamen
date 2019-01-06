@@ -104,12 +104,24 @@ overflow-y: auto;
     border-style: solid;
 }
 
+#boton_modalBorrar .fa-trash-alt{
+    color: red;
+}
+#boton_modalBorrar .fa-trash-alt:hover {
+    color: #c40707;
+    cursor: pointer;
+}
+
 .divTema {
     font-size: 20px;
     font-weight: bold;
 }
 #boton_aniadirPregunta {
     text-decoration: none;
+}
+
+#modal_borrarExamen_body {
+    text-align: center;
 }
 
 div .puntosPregunta {

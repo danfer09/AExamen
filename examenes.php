@@ -169,7 +169,11 @@
 					echo '<td>'.formateoDateTime($valor['fecha_creado']).'</td>';
 					echo '<td>'.formateoDateTime($valor['fecha_modificado']).'</td>';
 					echo '<td>'.$valor['ultimo_modificador'].'</td>';
-					echo '<td id="opciones"><a class="btn btn-primary" href="detalleExamen.php?id='.$valor['id'].'" role="button">Detalles</a><a class="btn btn-primary" href="generarExamen.php?examen='.$valor['titulo'].'" role="button">Generar</a><a id="boton_modalEditar" idExamen="'.$valor['id'].'" href="crearExamen.php?asignatura='.$_GET["asignatura"].'&idAsignatura='.$idAsig.'&editar=1&id='.$valor['id'].'"><i class="fas fa-pencil-alt fa-fw fa-lg"></i></a>  <a id="boton_modalBorrar" idExamen="'.$valor['id'].'"><i style="color: red;" class="fas fa-trash-alt fa-fw fa-lg"></i></a> </td>';
+					echo '<td id="opciones">
+							<a class="btn btn-primary btn-sm" href="detalleExamen.php?id='.$valor['id'].'" role="button">Detalles</a>
+							<a class="btn btn-primary btn-sm" href="generarExamen.php?examen='.$valor['titulo'].'" role="button">Generar</a>
+							<a id="boton_modalEditar" idExamen="'.$valor['id'].'" href="crearExamen.php?asignatura='.$valor['nombreAsignatura'].'&idAsignatura='.$valor['idAsignatura'].'&editar=1&id='.$valor['id'].'"><i class="fas fa-pencil-alt fa-fw fa-lg"></i></a> 
+							 <a id="boton_modalBorrar" idExamen="'.$valor['id'].'"><i class="fas fa-trash-alt fa-fw fa-lg"></i></a> </td>';
 					echo '</tr>';
 				}
 			}
@@ -183,16 +187,15 @@
 			  
 			    <!-- Modal Header -->
 			    <div class="modal-header">
-			      <h4 class="modal-title">Borrar examen</h4>
+			      <h4 class="modal-title">¿Borrar examen?</h4>
 			      <button type="button" class="close" data-dismiss="modal">&times;</button>
 			    </div>
 			    
 			    <!-- Modal body -->
-			    <div class="modal-body">
+			    <div class="modal-body" id="modal_borrarExamen_body">
 					  <form action="servidor.php" class="form-container" method="post" id="form_delete">
-					    <h1 name="borrarExamen">Borrar examen</h1>
-					    <button type="submit" class="btn btn-primary" id="boton_borrar" name="boton_borrar">Si</button>
-					    <button type="button" class="btn btn-danger" id="boton_noBorrar" name="boton_noBorrar" data-dismiss="modal">No</button>					  
+					    <button type="submit" class="btn btn-danger btn-lg" id="boton_borrar" name="boton_borrar">Sí</button>
+					    <button type="button" class="btn btn-secondary btn-lg" id="boton_noBorrar" name="boton_noBorrar" data-dismiss="modal">No</button>					  
 					  </form>
 			    </div>
 			    

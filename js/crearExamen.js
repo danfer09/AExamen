@@ -140,7 +140,7 @@ $('#guardarNuevoExamen').click(function() {
             else{
                 console.log("ha fallado");
             }
-            location.reload();
+            window.location = 'examenes.php?asignatura=todas&autor=todos';
         },
         dataType:"json"
         })
@@ -172,11 +172,11 @@ $('#guardarModificarExamen').click(function() {
             else{
                 console.log("ha fallado");
             }
-            
+            window.location = 'examenes.php?asignatura=todas&autor=todos';
         },
         dataType:"json"
         })
-        location.reload();
+        window.location = 'examenes.php?asignatura=todas&autor=todos';
         event.preventDefault();
   }
 });
