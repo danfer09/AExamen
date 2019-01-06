@@ -22,13 +22,12 @@
 			$_SESSION['nombreAsignatura'] = $nombreAsignatura = $_GET["asignatura"];
 			$_SESSION['idAsignatura'] = $_GET["idAsignatura"];
 			$editar=isset($_GET["editar"])? $_GET["editar"] : 0;
-			
-			//var_dump($_SESSION[$nombreAsignatura]);
+			$_SESSION['editar'] = $editar;
 
 			//Llamamos a la variable Session igual que la asignatura, asi nos permitirá tener guardado un examen de cada asignatura en la sesion, 
 			//además de que evitaremos errores a la hora de cargar el examen de otra asignatura.
 			if(!$editar){
-				echo "<h1>Crear examen de : ". $_GET["asignatura"]. "</h1>";
+				echo "<h1>Crear examen de ". $_GET["asignatura"]. "</h1>";
 				$_SESSION[$nombreAsignatura] = isset($_SESSION[$nombreAsignatura])? $_SESSION[$nombreAsignatura]:'{
 					"nombreExamen":"",
 					"preguntas":{
@@ -38,21 +37,29 @@
 				
 				$nombreExamen = isset($preguntasSesion['nombreExamen'])? $preguntasSesion['nombreExamen']: null;
 				$botonGuardar= "guardarNuevoExamen";
+				var_dump($_SESSION[$nombreAsignatura]."<br>");
 			}
 			else{
-				echo "<h1>Editar examen de : ". $_GET["asignatura"]. "</h1>";
+				echo "<h1>Editar examen de ". $_GET["asignatura"]. "</h1>";
+			
 				$idExamen = isset($_GET['id'])? $_GET['id']: null;
 
 				$examenEntero=getExamen($idExamen);
 				$preguntasSesion=json_decode($examenEntero['puntosPregunta'],true);
+				//$_SESSION[$nombreAsignatura] = json_encode($preguntasSesion);
 				$nombreExamen = $preguntasSesion['nombreExamen'];
 				$_SESSION['nombreExamenEditar']=$nombreExamen;
-				$_SESSION[$nombreExamen]= $preguntasSesion;
+				$_SESSION[$nombreExamen]= json_encode($preguntasSesion);
 				$_SESSION['idExamen']=$idExamen;
 
 				$botonGuardar= "guardarModificarExamen";
-
+				var_dump($_SESSION[$nombreExamen]."<br>");
 			}
+			
+			//array_splice($preguntasSesion['preguntas']['tema1'],0,1);
+			
+			var_dump($preguntasSesion);
+			var_dump("editar: ".$_SESSION['editar'])
 		?>
 
 		<br>
@@ -67,7 +74,7 @@
 					$arrayPuntosTema =cargaPuntosTema($_GET["idAsignatura"]);
 					$jsonPuntosTema = json_decode($arrayPuntosTema,true);
 					echo '<span>Total(</span>';
-					echo '<span>';
+					echo '<span id="numeradorTotal">';
 					$preguntas = isset($preguntasSesion['preguntas'])? $preguntasSesion['preguntas']: null;
 					$suma = 0;
 					if($preguntas){
@@ -82,8 +89,8 @@
 						}
 					}
 					echo $suma;
-					echo '/</span>';
-					echo '<span>'.$jsonPuntosTema['maximoPuntos'].')</span>'
+					echo '</span><span>/</span>';
+					echo '<span id="denominadorTotal">'.$jsonPuntosTema['maximoPuntos'].')</span>'
 				?>
 
 			</div>
@@ -141,17 +148,22 @@
 					if ($preguntasTema) {
 						foreach ($preguntasTema as $pregunta) {
 							$datos = cargaUnicaPregunta($pregunta['id']);
-							echo '<div class="col-12 preguntaTema'.$i.'"  id="'.$pregunta['id'].'">
+							echo '<div class="col-12 preguntaTema'.$i.'" puntos="'.$pregunta['puntos'].'"  id="'.$pregunta['id'].'">
 									<b>'.$datos['titulo'].'</b> 
 									<br>
 									'.$datos['cuerpo'].
 									'<br>
-									<div class="col-1 puntosPregunta" id="puntosPregunta'.$pregunta['id'].'">'.
-										'<a class="fas fa-chevron-left" id="menosPuntosPregunta'.$pregunta['id'].'" asignatura= "'.$_GET["idAsignatura"].'"href="#"></a>
-										<span class="puntos"><b>'.$pregunta['puntos'].'</b> p </span>'.
-										'<a class="fas fa-chevron-right" id="masPuntosPregunta'.$pregunta['id'].'" asignatura= "'.$_GET["idAsignatura"].'"href="#"></a>'.
+									<div class="row botonesPregunta">
+										<div class="col-1 puntosPregunta" id="puntosPregunta'.$pregunta['id'].'">'.
+											'<a class="fas fa-chevron-left" id="menosPuntosPregunta'.$pregunta['id'].'" asignatura= "'.$_GET["idAsignatura"].'"href="#"></a>
+											<span class="puntos"><b>'.$pregunta['puntos'].'</b></span><span> p </span>'.
+											'<a class="fas fa-chevron-right" id="masPuntosPregunta'.$pregunta['id'].'" asignatura= "'.$_GET["idAsignatura"].'"href="#"></a>'.
+										'</div>'.
+										'<div >'.
+											'<a class="fas  fa-times boton-eliminar" pregunta="'.$pregunta['id'].'" id="boton-eliminar" asignatura= "'.$_GET["idAsignatura"].'"href="#"></a>'.
+										'</div>'.
 									'</div>'.
-								'</div><br>';
+								'</div>';
 						}
 					}
 				echo'</div>';

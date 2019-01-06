@@ -33,7 +33,6 @@
 		$credentials = json_decode($credentialsStr, true);
 		$db = mysqli_connect('localhost', $credentials['database']['user'], $credentials['database']['password'], $credentials['database']['dbname']);
 
-		$puntosPregunta = $_SESSION[$_SESSION['nombreAsignatura']];
 		$date = date('Y-m-d H:i:s', time());
 		$nombreExamen=$_SESSION['nombreExamenEditar'];
 		$preguntasJsonArray=$_SESSION[$nombreExamen];

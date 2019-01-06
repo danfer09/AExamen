@@ -182,13 +182,109 @@ $('#guardarModificarExamen').click(function() {
 });
 
 $('[id^=masPuntosPregunta]').click(function() {
-  alert("más");
+  //alert($(this).parent().find('.puntos').text());
+  let idFull = $(this).parent().attr('id');
+  let idPregunta = idFull.substring(14, 14+(idFull.length-14));
+  let puntosPregunta = $(this).parent().find('.puntos').text();
+  let str = $(this).parent().parent().parent().parent().attr('id');
+  let tema = str.substring(13, 13+(str.length-13));
+  let numerador = $('#numeradorTema'+tema).text();
+  let denominador = $('#denominadorTema'+tema).text();
+  let funcion = "cambiarPuntosPregunta";
+  if (Number(numerador)+1 <= Number(denominador)) {
+    $(this).parent().find('.puntos').html("<b>"+(Number(puntosPregunta)+1)+"</b>");
+    $('#numeradorTema'+tema).text(Number(numerador)+1);
+    $('#numeradorTotal').text(Number($('#numeradorTotal').text())+1);
+    $.ajax({
+            type        : 'POST', // define the type of HTTP verb we want to use (POST for our form)
+            url         : 'crearExamenProcesamiento.php', // the url where we want to POST
+            data        : 'funcion=' + funcion + '&idPregunta=' + idPregunta + '&puntos=' + (Number(puntosPregunta)+1) + '&tema=' + tema, // our data object
+            success:function(respuesta){
+            if(respuesta){
+                console.log(respuesta);
+            }
+            else{
+                console.log("ha fallado");
+            }
+            
+        },
+        dataType:"json"
+        })
+        //location.reload();
+        event.preventDefault();
+  }
+
 });
 
 $('[id^=menosPuntosPregunta]').click(function() {
-  alert("menos");
+  //alert($(this).parent().find('.puntos').text());
+  let idFull = $(this).parent().attr('id');
+  let idPregunta = idFull.substring(14, 14+(idFull.length-14));
+  let puntosPregunta = $(this).parent().find('.puntos').text();
+  let str = $(this).parent().parent().parent().parent().attr('id');
+  let tema = str.substring(13, 13+(str.length-13));
+  let numerador = $('#numeradorTema'+tema).text();
+  let denominador = $('#denominadorTema'+tema).text();
+  let funcion = "cambiarPuntosPregunta";
+  if (Number(puntosPregunta)-1 >= 1) {
+    $(this).parent().find('.puntos').html("<b>"+(Number(puntosPregunta)-1)+"</b>");
+    $('#numeradorTema'+tema).text(Number(numerador)-1);
+    $('#numeradorTotal').text(Number($('#numeradorTotal').text())-1);
+    $.ajax({
+            type        : 'POST', // define the type of HTTP verb we want to use (POST for our form)
+            url         : 'crearExamenProcesamiento.php', // the url where we want to POST
+            data        : 'funcion=' + funcion + '&idPregunta=' + idPregunta + '&puntos=' + (Number(puntosPregunta)-1) + '&tema=' + tema, // our data object
+            success:function(respuesta){
+            if(respuesta){
+                console.log(respuesta);
+            }
+            else{
+                console.log("ha fallado");
+            }
+            
+        },
+        dataType:"json"
+        })
+        //location.reload();
+        event.preventDefault();
+  }
 });
 
+
+$('[id^=boton-eliminar]').click(function() {
+  var r = confirm("¿Estás seguro de querer eliminar esta pregunta?");
+  if (r == true) {
+    let str = $(this).parent().parent().parent().parent().attr('id');
+    let tema = str.substring(13, 13+(str.length-13));
+    let numerador = $('#numeradorTema'+tema).text();
+    let puntosPregunta = $(this).parent().parent().parent().attr('puntos');
+    $('#numeradorTema'+tema).text(Number(numerador)-puntosPregunta);
+    $('#numeradorTotal').text(Number($('#numeradorTotal').text())-puntosPregunta);
+    let idPregunta = $(this).attr('pregunta');
+    let div = document.getElementById(idPregunta);
+    div.parentNode.removeChild(div);
+    let funcion = 'eliminarPregunta';
+    $.ajax({
+            type        : 'POST', // define the type of HTTP verb we want to use (POST for our form)
+            url         : 'crearExamenProcesamiento.php', // the url where we want to POST
+            data        : 'funcion=' + funcion + '&idPregunta=' + idPregunta + '&tema=' + tema, // our data object
+            success:function(respuesta){
+            if(respuesta){
+                console.log(respuesta);
+                
+            }
+            else{
+                console.log("ha fallado");
+            }
+            
+        },
+        dataType:"json"
+        })
+        //location.reload();
+        event.preventDefault();
+
+  }
+});
 
 
 	/*$('#form_mod').submit(function(event) {

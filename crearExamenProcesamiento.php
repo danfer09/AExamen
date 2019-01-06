@@ -16,6 +16,9 @@
 	$idAsignatura = isset($_POST['idAsignatura'])? $_POST['idAsignatura']: null;
 	$tema = isset($_POST['tema'])? $_POST['tema']: null;
 	$preguntas = isset($_POST['preguntas'])? $_POST['preguntas']: null;
+	$idPregunta = isset($_POST['idPregunta'])? $_POST['idPregunta']: null;
+	$puntos = isset($_POST['puntos'])? $_POST['puntos']: null;
+	$tema = isset($_POST['tema'])? $_POST['tema']: null;
 	if($funcion == "getPregAsigTema")
 		getPregAsigTema($idAsignatura,$tema);
 	else if ($funcion =="aniadirPreguntas")
@@ -24,6 +27,10 @@
 		guardarExamen($nombreExamen);
 	else if ($funcion == "cambiarNombreExamen")
 		cambiarNombreExamen($nombreExamen);
+	else if ($funcion == "cambiarPuntosPregunta")
+		cambiarPuntosPregunta($idPregunta, $puntos, $tema);
+	else if ($funcion == "eliminarPregunta")
+		eliminarPregunta($idPregunta, $tema);
 	/*else if($funcion ==""){
 		borrarPregunta($idPregunta);
 	}
@@ -167,6 +174,56 @@
 		$mensaje = array();
 		$mensaje['Message'] = "Examen guardado";
 		echo json_encode($mensaje);	
+	}
+
+	function cambiarPuntosPregunta($idPregunta, $puntos, $tema) {
+		if (!$_SESSION['editar']) {
+			$preguntas = isset($_SESSION[$_SESSION['nombreAsignatura']])? json_decode($_SESSION[$_SESSION['nombreAsignatura']],true): null;
+		} else {
+			$preguntas = isset($_SESSION[$_SESSION['nombreExamenEditar']])? json_decode($_SESSION[$_SESSION['nombreExamenEditar']],true): null;
+		}
+		
+		$temaNombre="tema".$tema;
+		if($preguntas){
+				$preguntasTema = isset($preguntas['preguntas'][$temaNombre])? $preguntas['preguntas'][$temaNombre]: null;
+				if ($preguntasTema) {
+					$i = 0;
+					foreach ($preguntasTema as $pregunta) {
+						if ($pregunta['id']==$idPregunta) {
+							$preguntas['preguntas'][$temaNombre][$i]["puntos"] = $puntos;
+						}
+						$i++;
+					}
+				}	
+			//$preguntas['preguntas'][$tema][$ultimaPos]["puntos"] = $puntosPregunta;
+		}
+
+		if (!$_SESSION['editar']) {
+			$_SESSION[$_SESSION['nombreAsignatura']] = json_encode($preguntas);
+		} else {
+			$_SESSION[$_SESSION['nombreExamenEditar']] = json_encode($preguntas);
+		}
+		
+	}
+
+	function eliminarPregunta($idPregunta, $tema) {
+		$preguntas = isset($_SESSION[$_SESSION['nombreAsignatura']])? json_decode($_SESSION[$_SESSION['nombreAsignatura']],true): null;
+		$temaNombre="tema".$tema;
+		if($preguntas){
+				$preguntasTema = isset($preguntas['preguntas'][$temaNombre])? $preguntas['preguntas'][$temaNombre]: null;
+				if ($preguntasTema) {
+					$i = 0;
+					foreach ($preguntasTema as $pregunta) {
+						if ($pregunta['id']==$idPregunta) {
+							array_splice($preguntas['preguntas'][$temaNombre],$i,1);
+						}
+						$i++;
+					}
+				}	
+				echo implode(" ",$preguntas['preguntas'][$temaNombre][0]);
+			//$preguntas['preguntas'][$tema][$ultimaPos]["puntos"] = $puntosPregunta;
+		}
+		$_SESSION[$_SESSION['nombreAsignatura']] = json_encode($preguntas);
 	}
 
 ?>

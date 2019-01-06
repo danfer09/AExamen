@@ -117,10 +117,28 @@ div .puntosPregunta {
     border-style: solid;
     border-color: lightgrey;
     border-radius: 5px;
-    width: 100%;
     text-align: center;
-    max-width: 6%;
+    width: 6%;
+    margin-left: 15px;
 }
+
+.botonesPregunta {
+    margin-bottom: 15px;
+}
+
+#boton-eliminar {
+    color: red;
+    font-size: 25px;
+    margin-left: 2px;
+    text-decoration: none;
+}
+#boton-eliminar:hover {
+    color: #ff3a3a;
+    font-size: 25px;
+    margin-left: 2px;
+    text-decoration: none;
+}
+
 /*
 .boton_pregunta {
 	border-width: thin;
