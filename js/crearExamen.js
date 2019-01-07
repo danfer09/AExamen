@@ -286,34 +286,51 @@ $('[id^=boton-eliminar]').click(function() {
   }
 });
 
-
-	/*$('#form_mod').submit(function(event) {
-    	var funcion = "editarPregunta";
-    	var form_data = $(this).serialize();
-    	/*var formDataAndFunction = {
-            'titulo'              : $('input[name=titulo]').val(),
-            'cuerpo'              : $('input[name=cuerpo]').val(),
-            'funcion'			  : $('input[name=cuerpo]').val(),
-            'tema'                : $('input[name=tema]').val()
-        };
-        //$('#myForm').serialize() + "&moredata=" + morevalue
-        $.ajax({
+$('#nombreExamen').on('change mouseup mousedown mouseout keydown', function() {
+  let funcion = 'guardarNombreExamenJSON';
+  let nombre = $(this).val();
+  var interval = 600;  // 1000 = 1 second, 3000 = 3 seconds
+  function doAjax() {
+      $.ajax({
+              type        : 'POST', // define the type of HTTP verb we want to use (POST for our form)
+              url         : 'crearExamenProcesamiento.php', // the url where we want to POST
+              data        : 'funcion=' + funcion + '&nombreExamen=' + nombre, // our data object
+              dataType: 'json',
+              success: function (respuesta) {
+                if(respuesta){
+                console.log(respuesta);
+                    
+                }
+                else{
+                    console.log("ha fallado");
+                }
+                
+              },
+              complete: function (data) {
+                      // Schedule the next
+                      setTimeout(doAjax, interval);
+              }
+      });
+  }
+  setTimeout(doAjax, interval);
+    /*$.ajax({
             type        : 'POST', // define the type of HTTP verb we want to use (POST for our form)
-            url         : 'preguntasProcesamiento.php', // the url where we want to POST
-            data        : form_data + '&funcion=' + funcion + '&id_pregunta=' + $("#boton_editar").attr("id_pregunta"), // our data object
-            success: function(respuesta) {
-          		if(respuesta){
-          			//alert("Editada con exito");
-          			location.reload();
-          		}
-          		else{
-          			//alert("Fallo al editar");
-          			location.reload();
-          		}
-			}
+            url         : 'crearExamenProcesamiento.php', // the url where we want to POST
+            data        : 'funcion=' + funcion + '&nombreExamen=' + nombre, // our data object
+            success:function(respuesta){
+            if(respuesta){
+                console.log(respuesta);
+                
+            }
+            else{
+                console.log("ha fallado");
+            }
+            
+        },
+        dataType:"json"
         })
-    	event.preventDefault();
-
-    });*/
-	//fas fa-plus-circle
+        //location.reload();
+        event.preventDefault();*/
+});
+	
 });

@@ -83,10 +83,7 @@
 						foreach ($preguntas as $tema) {
 							foreach ($tema as $preguntasTema) {
 								$suma+=$preguntasTema['puntos'];
-								/*echo($preguntasTema['puntos']);
-								echo("-----------------");
-								var_dump($preguntasTema);
-								echo("------------------");*/
+								
 							}
 						}
 					}

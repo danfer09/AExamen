@@ -31,6 +31,8 @@
 		cambiarPuntosPregunta($idPregunta, $puntos, $tema);
 	else if ($funcion == "eliminarPregunta")
 		eliminarPregunta($idPregunta, $tema);
+	else if ($funcion == 'guardarNombreExamenJSON')
+		guardarNombreExamenJSON($nombreExamen);
 	/*else if($funcion ==""){
 		borrarPregunta($idPregunta);
 	}
@@ -170,6 +172,11 @@
 					}
 				}
 			}	
+			$_SESSION[$_SESSION['nombreAsignatura']] = '{
+					"nombreExamen":"",
+					"preguntas":{
+					}
+				}';
 		} else {
 			echo "Error: " . $sql . "<br>" . mysqli_error($conn);
 		}
@@ -235,6 +242,22 @@
 		} else {
 			$_SESSION[$_SESSION['nombreExamenEditar']] = json_encode($preguntas);
 		}		
+	}
+
+	function guardarNombreExamenJSON($nombreExamen) {
+		if (!$_SESSION['editar']) {
+			$preguntas = isset($_SESSION[$_SESSION['nombreAsignatura']])? json_decode($_SESSION[$_SESSION['nombreAsignatura']],true): null;
+		} else {
+			$preguntas = isset($_SESSION[$_SESSION['nombreExamenEditar']])? json_decode($_SESSION[$_SESSION['nombreExamenEditar']],true): null;
+		}
+
+		$preguntas['nombreExamen'] = $nombreExamen;
+
+		if (!$_SESSION['editar']) {
+			$_SESSION[$_SESSION['nombreAsignatura']] = json_encode($preguntas);
+		} else {
+			$_SESSION[$_SESSION['nombreExamenEditar']] = json_encode($preguntas);
+		}	
 	}
 
 ?>
