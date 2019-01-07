@@ -8,8 +8,15 @@
 	UPDATE `asignaturas` SET `puntos_tema`='"numeroTemas": 3, "tema1": 2, "tema2": 3, "tema3": 2 ' WHERE 1
 */
 
+	/*Iniciamos la sesion, pero antes hacemos una comprobacion para evitar errores*/
 	if (session_status() == PHP_SESSION_NONE) {
 	    session_start();
+	}
+	//Si existe $_SESSION['logeado'] volcamos su valor a la variable, si no existe volcamos false. Si vale true es que estamos logeado.
+	$logeado = isset($_SESSION['logeado'])? $_SESSION['logeado']: false;
+	/*En caso de no este logeado redirigimos a index.php*/
+	if (!$logeado) {
+		header('Location: index.php');
 	}
 	$funcion = isset($_POST['funcion'])? $_POST['funcion']: null;
 	$nombreExamen = isset($_POST['nombreExamen'])? $_POST['nombreExamen']: null;
