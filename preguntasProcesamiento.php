@@ -21,9 +21,9 @@
 	else if($funcion =="borrarPregunta"){
 		borrarPregunta($idPregunta);
 	}
-	else if($funcion == "editarPregunta")
-		//if($titulo)
+	else if($funcion == "editarPregunta"){
 		editarPregunta($titulo,$cuerpo,$tema,$idPregunta);
+	}
 	/*else{
 		return false;
 	}*/
@@ -90,6 +90,34 @@
 		mysqli_close($db);
 		return $fila;
 	}
+
+	function cargaHistorialPregunta($idPregunta){
+		$_SESSION['error_BBDD']=false;
+		//Comprobamos que ninguna de las variables este a null
+		//Conectamos la base de datos
+		$credentialsStr = file_get_contents('json/credentials.json');
+		$credentials = json_decode($credentialsStr, true);
+		$db = mysqli_connect('localhost', $credentials['database']['user'], $credentials['database']['password'], $credentials['database']['dbname']);
+		//comprobamos si se ha conectado a la base de datos
+		if($db){
+			$sql = "SELECT `id`, `idPregunta`, `idModificador`, `fecha_modificacion` FROM `preguntas_historial` WHERE `idPregunta`=".$idPregunta;
+			$consulta=mysqli_query($db,$sql);
+			$fila=mysqli_fetch_assoc($consulta);
+			$historial=array();
+			$i=0;
+			while($fila){
+				$historial[$i]=$fila;
+				$i++;
+				$fila=mysqli_fetch_assoc($consulta);
+			}
+		}
+		else{
+			$_SESSION['error_BBDD']=true;
+			header('Location: loginFormulario.php');
+		}
+		mysqli_close($db);
+		return $historial;
+	}
 	function cargaAutorPregunta($idPregunta){
 		$_SESSION['error_BBDD']=false;
 		//Comprobamos que ninguna de las variables este a null
@@ -109,6 +137,28 @@
 		}
 		mysqli_close($db);
 		return $fila['autor'];
+		
+	}
+
+	function cargaNombreApellidosAutor($idUsuario){
+		$_SESSION['error_BBDD']=false;
+		//Comprobamos que ninguna de las variables este a null
+		//Conectamos la base de datos
+		$credentialsStr = file_get_contents('json/credentials.json');
+		$credentials = json_decode($credentialsStr, true);
+		$db = mysqli_connect('localhost', $credentials['database']['user'], $credentials['database']['password'], $credentials['database']['dbname']);
+		//comprobamos si se ha conectado a la base de datos
+		if($db){
+			$sql = "SELECT `nombre`,`apellidos` FROM `profesores` WHERE id=".$idUsuario;
+			$consulta=mysqli_query($db,$sql);
+			$fila=mysqli_fetch_assoc($consulta);
+		}
+		else{
+			$_SESSION['error_BBDD']=true;
+			header('Location: loginFormulario.php');
+		}
+		mysqli_close($db);
+		return $fila;
 		
 	}
 	function cargaModificadorPregunta($idPregunta){
@@ -146,6 +196,13 @@
 			$sql = "INSERT INTO `preguntas`(`id`, `titulo`, `cuerpo`, `tema`, `creador`, `fecha_creacion`, `ult_modificador`, `fecha_modificado`, `asignatura`) VALUES ('','".$titulo."','".$cuerpo."','".$tema."','".$_SESSION['id']."','".$date."','".$_SESSION['id']."','".$date."','".$_SESSION['idAsignatura']."')";
 			$consulta=mysqli_query($db,$sql);
 			$fila=mysqli_fetch_assoc($consulta);
+
+			$idPreguntaNueva = mysqli_insert_id($db);
+
+			$sql = "INSERT INTO `preguntas_historial`(`id`, `idPregunta`, `idModificador`, `fecha_modificacion`) VALUES ('',".$idPreguntaNueva.",".$_SESSION['id'].",'".$date."')";
+			$consulta=mysqli_query($db,$sql);
+			$fila=mysqli_fetch_assoc($consulta);
+
 			$funciona=true;
 		}
 		else{
@@ -171,7 +228,6 @@
 			$consulta=mysqli_query($db,$sql);
 
 			if(mysqli_affected_rows($db)== 0){
-				$_SESSION['prueba']="entra";
 				$_SESSION['error_BorrarNoCreador']=true;
 			}
 			$fila=mysqli_fetch_assoc($consulta);
@@ -197,10 +253,29 @@
 		if($db){
 			date_default_timezone_set('Europe/Berlin');
 			$date = date('Y-m-d H:i:s', time());
-			$sql = "UPDATE `preguntas` SET `titulo`='".$titulo."',`cuerpo`='".$cuerpo."',`tema`=".$tema.",`ult_modificador`=".$_SESSION['id'].",`fecha_modificado`='".$date."'WHERE id=".$idPregunta;
+			$sql = "UPDATE `preguntas` SET ";
+			if($titulo != ''){
+				$sql = $sql."`titulo`='".$titulo."'";
+				$entraTitulo = true;
+			}
+			if($cuerpo != ''){
+				$sql = ($entraTitulo)?$sql.",`cuerpo`='".$cuerpo."'": $sql."`cuerpo`='".$cuerpo."'";
+				$entraCuerpo=true;
+			}
+			if($tema != '')
+				$sql =  ($entraTitulo||$entraCuerpo)? $sql.",`tema`=".(int)$tema."": $sql."`tema`=".(int)$tema."";
+
+			$sql= $sql.",`ult_modificador`=".$_SESSION['id'].",`fecha_modificado`='".$date."'WHERE id=".$idPregunta;
 			$consulta=mysqli_query($db,$sql);
 			$fila=mysqli_fetch_assoc($consulta);
 			$funciona=true;
+
+			
+
+			$sql = "INSERT INTO `preguntas_historial`(`id`, `idPregunta`, `idModificador`, `fecha_modificacion`) VALUES ('',".$idPregunta.",".$_SESSION['id'].",'".$date."')";
+			$consulta=mysqli_query($db,$sql);
+			$fila=mysqli_fetch_assoc($consulta);
+
 		}
 		else{
 			$_SESSION['error_BBDD']=true;

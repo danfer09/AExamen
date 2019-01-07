@@ -53,11 +53,13 @@ $(document).ready(function(){
           		if(respuesta){
           			//alert("Editada con exito");
           			location.reload();
+                
           		}
           		else{
           			//alert("Fallo al editar");
           			location.reload();
           		}
+
 			}
         })
     	event.preventDefault();

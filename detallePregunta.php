@@ -25,6 +25,7 @@
 			}
 			include "preguntasProcesamiento.php";
 			$pregunta=cargaUnicaPregunta($_GET['id']);
+			$historial=cargaHistorialPregunta($_GET['id']);
 			echo "<h1>Preguntas de ". $pregunta['titulo']. "</h1>";
 			
 		?>
@@ -39,7 +40,41 @@
 			echo "<p>Fecha de creacion: ".$pregunta['fecha_creacion']."</p>";
 			echo "<p>Ultimo usuario en modificarla: ".cargaModificadorPregunta($pregunta['id'])."</p>";
 			echo "<p>Fecha de ultima modificación: ".$pregunta['fecha_modificado']."</p>";
+
+
 		?>
+
+		<div class="table-wrapper-scroll-y">
+	    			<table class="table table-hover" id="tabla">	
+						<thead>
+					      <tr>
+					        <th>Nombre</th>
+					        <th>Apellido</th>
+					        <th>Fecha</th>
+					      </tr>
+					    </thead>			
+					    <tbody>
+					   
+
+		<?php
+			foreach ($historial as $pos => $valor) {
+				echo "<tr>";
+				echo "<td>".cargaNombreApellidosAutor($valor['idModificador'])['nombre']."</td>";
+				echo "<td>".cargaNombreApellidosAutor($valor['idModificador'])['apellidos']."</td>";
+				echo "<td>".$valor['fecha_modificacion']."</td>";
+				
+				/*echo "<td>Autor: ".cargaAutorPregunta($valor['id_pregunta'])."</td>";
+				echo "<td>Fecha de creacion: ".$valor['fecha_creado_preguntas']."</td>";
+				echo "<td>Ultimo usuario en modificarla: ".cargaModificadorPregunta($valor['id_pregunta'])."</td>";
+				echo "<td>Fecha de ultima modificación: ".$valor['fecha_modificado_pregunta']."</td>";*/
+				echo "<tr>";
+			}
+		?>
+		 </tbody>
+				  	
+
+	</table>
+	</div>
 		
 	</div>
 
