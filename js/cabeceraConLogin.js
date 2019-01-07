@@ -1,6 +1,6 @@
 $(document).ready(function(){
 
   $(function(){
-      $("#header").load("cabeceraConLogin.html"); 
+      $("#header").load("cabeceraConLogin.php"); 
     });
 });

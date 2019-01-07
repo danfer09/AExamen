@@ -1,9 +1,15 @@
 <?php 
 //error_reporting(0); // Disable all errors.
 
-//HACER COMPROBACION DE QUE EL USUARIO ESTA LOGEADO, SI NO LO ESTA REDIRIGIRLO A OTRA PÁGINA
+	/*Iniciamos la sesion, pero antes hacemos una comprobacion para evitar errores*/
 	if (session_status() == PHP_SESSION_NONE) {
 	    session_start();
+	}
+	//Si existe $_SESSION['logeado'] volcamos su valor a la variable, si no existe volcamos false. Si vale true es que estamos logeado.
+	$logeado = isset($_SESSION['logeado'])? $_SESSION['logeado']: false;
+	/*En caso de no este logeado redirigimos a index.php, en caso contrario le damos la bienvenida*/
+	if (!$logeado) {
+		header('Location: index.php');
 	}
 	$titulo = isset($_POST['titulo'])? $_POST['titulo']: null;
 	$cuerpo = isset($_POST['cuerpo'])? $_POST['cuerpo']: null;

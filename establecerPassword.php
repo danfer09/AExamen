@@ -1,6 +1,9 @@
 <?php
 	
-	session_start();
+	/*Iniciamos la sesion, pero antes hacemos una comprobacion para evitar errores*/
+	if (session_status() == PHP_SESSION_NONE) {
+	    session_start();
+	}
 
 	$nombreTemp = isset($_SESSION['nombreTemp'])? $_SESSION['nombreTemp']: null;
 	$apellidosTemp = isset($_SESSION['apellidosTemp'])? $_SESSION['apellidosTemp']: null;
@@ -30,9 +33,10 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
-	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+	<!--css externos-->
+	<link rel="stylesheet" type="text/css" href="css/w3.css">
+	<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="css/all.css">
 </head>
 <body>
 	<div class="container">

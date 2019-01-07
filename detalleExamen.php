@@ -2,17 +2,27 @@
 
 <html>
 <head>
+	<!--css propio -->
 	<link rel="stylesheet" type="text/css" href="css/estilo.css">
-	<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
-	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+	<!--css externos-->
+	<link rel="stylesheet" type="text/css" href="css/w3.css">
+	<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="css/all.css">
+	
 </head>
 <body>
 	<div class="header" id="header"></div>
 	<div class="container">
 		<?php 
+			/*Iniciamos la sesion, pero antes hacemos una comprobacion para evitar errores*/
 			if (session_status() == PHP_SESSION_NONE) {
 			    session_start();
+			}
+			//Si existe $_SESSION['logeado'] volcamos su valor a la variable, si no existe volcamos false. Si vale true es que estamos logeado.
+			$logeado = isset($_SESSION['logeado'])? $_SESSION['logeado']: false;
+			/*En caso de no este logeado redirigimos a index.php, en caso contrario le damos la bienvenida*/
+			if (!$logeado) {
+				header('Location: index.php');
 			}
 			include "examenesProcesamiento.php";
 			include "preguntasProcesamiento.php";

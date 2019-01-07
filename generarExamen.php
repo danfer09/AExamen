@@ -1,4 +1,15 @@
 <?php
+	/*Iniciamos la sesion, pero antes hacemos una comprobacion para evitar errores*/
+	if (session_status() == PHP_SESSION_NONE) {
+	    session_start();
+	}
+	//Si existe $_SESSION['logeado'] volcamos su valor a la variable, si no existe volcamos false. Si vale true es que estamos logeado.
+	$logeado = isset($_SESSION['logeado'])? $_SESSION['logeado']: false;
+	/*En caso de no este logeado redirigimos a index.php, en caso contrario le damos la bienvenida*/
+	if (!$logeado) {
+		header('Location: index.php');
+	}
+
 	$error_BBDD = isset($_SESSION['error_BBDD'])? $_SESSION['error_BBDD']: false;
 	$error_campoVacio = isset($_SESSION['error_campoVacio'])? $_SESSION['error_campoVacio']: false;
 	$error_generar = isset($_SESSION['error_no_existen_preguntas'])? $_SESSION['error_no_existen_preguntas']: false;
@@ -20,20 +31,20 @@
 <!DOCTYPE html>
 <html>
 <head>
+	<!--css propio -->
 	<link rel="stylesheet" type="text/css" href="css/estilo.css">
-	<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
-	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.0-alpha14/css/tempusdominus-bootstrap-4.min.css" />
+	<!--css externos-->
+	<link rel="stylesheet" type="text/css" href="css/w3.css">
+	<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="css/all.css">
+	<link rel="stylesheet" type="text/css" href="css/tempusdominus-bootstrap-4.min.css">
+
 </head>
 <body>
 	<div class="header" id="header"></div>
 	<div class="container">
 		<h1>Generar examen</h1>
 		<?php 
-			if (session_status() == PHP_SESSION_NONE) {
-			    session_start();
-			}
 			include 'generarExamenProcesamiento.php';
 
 			//$_GET['examen'] = "IS Parcial 2017";
