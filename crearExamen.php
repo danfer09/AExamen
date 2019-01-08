@@ -26,7 +26,7 @@
 			include "examenesProcesamiento.php";
 			include "preguntasProcesamiento.php";
 			include "crearExamenProcesamiento.php";
-			include "modificarExamenProcesamiento.php";
+			
 			
 			$_SESSION['nombreAsignatura'] = $nombreAsignatura = $_GET["asignatura"];
 			$_SESSION['idAsignatura'] = $_GET["idAsignatura"];
@@ -54,11 +54,11 @@
 				$idExamen = isset($_GET['id'])? $_GET['id']: null;
 
 				$examenEntero=getExamen($idExamen);	
-				if (!isset($_SESSION[$examenEntero['titulo']])) {
+				//if (!isset($_SESSION[$examenEntero['titulo']]) || $_SESSION[$examenEntero['titulo']] == null) {
 					$preguntasSesion=json_decode($examenEntero['puntosPregunta'],true);
-				} else {
-					$preguntasSesion=json_decode($_SESSION[$examenEntero['titulo']],true);
-				}
+				//} else {
+				//	$preguntasSesion=json_decode($_SESSION[$examenEntero['titulo']],true);
+				//}
 				$nombreExamen = $preguntasSesion['nombreExamen'];
 				$_SESSION['nombreExamenEditar']=$nombreExamen;
 				$_SESSION[$nombreExamen]= json_encode($preguntasSesion);
@@ -70,7 +70,8 @@
 			
 			//array_splice($preguntasSesion['preguntas']['tema1'],0,1);
 			//var_dump($preguntasSesion);
-			//var_dump("editar: ".$_SESSION['editar'])
+			//var_dump("editar: ".$_SESSION['editar']);
+			//var_dump($nombreExamen);
 		?>
 
 		<br>

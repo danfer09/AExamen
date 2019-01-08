@@ -24,9 +24,10 @@
 				header('Location: index.php');
 			}
 			include "preguntasProcesamiento.php";
+			include 'funcionesServidor.php';
 			$pregunta=cargaUnicaPregunta($_GET['id']);
 			$historial=cargaHistorialPregunta($_GET['id']);
-			echo "<h1>Preguntas de ". $pregunta['titulo']. "</h1>";
+			echo '<h1>Pregunta "'. $pregunta['titulo']. '"</h1>';
 			
 		?>
 
@@ -37,20 +38,20 @@
 			echo "<p>Cuerpo: ".$pregunta['cuerpo']."</p>";
 			echo "<p>Tema: ".$pregunta['tema']."</p>";
 			echo "<p>Autor: ".cargaAutorPregunta($pregunta['id'])."</p>";
-			echo "<p>Fecha de creacion: ".$pregunta['fecha_creacion']."</p>";
-			echo "<p>Ultimo usuario en modificarla: ".cargaModificadorPregunta($pregunta['id'])."</p>";
-			echo "<p>Fecha de ultima modificación: ".$pregunta['fecha_modificado']."</p>";
+			echo "<p>Fecha de creacion: ".formateoDateTime($pregunta['fecha_creacion'])."</p>";
+			//echo "<p>Ultimo usuario en modificarla: ".cargaModificadorPregunta($pregunta['id'])."</p>";
+			//echo "<p>Fecha de ultima modificación: ".$pregunta['fecha_modificado']."</p>";
 
 
 		?>
-
+		<p>Historial de modificaciones:</p>
 		<div class="table-wrapper-scroll-y">
-	    			<table class="table table-hover" id="tabla">	
+	    			<table class="table table-hover" id="tabla_historial">	
 						<thead>
 					      <tr>
-					        <th>Nombre</th>
-					        <th>Apellido</th>
-					        <th>Fecha</th>
+					        <th onclick="w3.sortHTML('#tabla_historial', '.item', 'td:nth-child(1)')" style="cursor:pointer;">Nombre</th>
+					        <th onclick="w3.sortHTML('#tabla_historial', '.item', 'td:nth-child(2)')" style="cursor:pointer;">Apellido</th>
+					        <th onclick="w3.sortHTML('#tabla_historial', '.item', 'td:nth-child(4)')" style="cursor:pointer;">Fecha</th>
 					      </tr>
 					    </thead>			
 					    <tbody>
@@ -58,10 +59,11 @@
 
 		<?php
 			foreach ($historial as $pos => $valor) {
-				echo "<tr>";
+				echo "<tr class='item'>";
 				echo "<td>".cargaNombreApellidosAutor($valor['idModificador'])['nombre']."</td>";
 				echo "<td>".cargaNombreApellidosAutor($valor['idModificador'])['apellidos']."</td>";
-				echo "<td>".$valor['fecha_modificacion']."</td>";
+				echo "<td>".formateoDateTime($valor['fecha_modificacion'])."</td>";
+				echo '<td hidden=true;>'.$valor['fecha_modificacion'].'</td>';
 				
 				/*echo "<td>Autor: ".cargaAutorPregunta($valor['id_pregunta'])."</td>";
 				echo "<td>Fecha de creacion: ".$valor['fecha_creado_preguntas']."</td>";

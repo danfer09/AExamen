@@ -228,7 +228,7 @@
 		if($db){
 			$sql = "DELETE FROM examenes WHERE id=".$idExamen;
 			$consulta=mysqli_query($db,$sql);
-			$fila=mysqli_fetch_assoc($consulta);
+			//$fila=mysqli_fetch_assoc($consulta);
 			$funciona=true;
 		}
 		else{
@@ -239,6 +239,34 @@
 
 		echo $funciona;
 		//INSERT INTO `preguntas`(`id`, `titulo`, `cuerpo`, `tema`, `creador`, `fecha_creacion`, `ult_modificador`, `fecha_modificado`, `asignatura`) VALUES ('','Titulo pregunta insertada','Cuerpo pregunta insertada','3','3','','3','','2')
+	}
+
+	function cargaHistorialExamen($idExamen) {
+		$_SESSION['error_BBDD']=false;
+		//Comprobamos que ninguna de las variables este a null
+		//Conectamos la base de datos
+		$credentialsStr = file_get_contents('json/credentials.json');
+		$credentials = json_decode($credentialsStr, true);
+		$db = mysqli_connect('localhost', $credentials['database']['user'], $credentials['database']['password'], $credentials['database']['dbname']);
+		//comprobamos si se ha conectado a la base de datos
+		if($db){
+			$sql = "SELECT `id`, `idExamen`, `idModificador`, `fecha_modificacion` FROM `examenes_historial` WHERE `idExamen`=".$idExamen;
+			$consulta=mysqli_query($db,$sql);
+			$fila=mysqli_fetch_assoc($consulta);
+			$historial=array();
+			$i=0;
+			while($fila){
+				$historial[$i]=$fila;
+				$i++;
+				$fila=mysqli_fetch_assoc($consulta);
+			}
+		}
+		else{
+			$_SESSION['error_BBDD']=true;
+			header('Location: detalleExamen.php?id='.$idExamen);
+		}
+		mysqli_close($db);
+		return $historial;
 	}
 
 ?>

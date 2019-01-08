@@ -91,7 +91,7 @@ $(document).ready(function(){
 
 
   $("#form_aniadirPregunta").submit(function(event) {
-    console.log("entra aniadir");
+    //console.log("entra aniadir");
     var funcion = "aniadirPreguntas";
     var tema=$('#table_aniadirPreguntas').attr("tema");
     $('#modal_aniadirPreguntas').modal('hide');
@@ -140,16 +140,18 @@ $('#guardarNuevoExamen').click(function() {
             else{
                 console.log("ha fallado");
             }
-            window.location = 'examenes.php?asignatura=todas&autor=todos';
+            //window.location = 'examenes.php?asignatura=todas&autor=todos';
         },
         dataType:"json"
         })
+        window.location = 'examenes.php?asignatura=todas&autor=todos';
         event.preventDefault();
   }
 });
 
 $('#guardarModificarExamen').click(function() {
   var nombreExamen=$('#nombreExamen').val();
+  console.log(nombreExamen);
   if (!nombreExamen) {
     alert("Por favor, introduzca un nombre de examen");
   } else {
@@ -172,7 +174,7 @@ $('#guardarModificarExamen').click(function() {
             else{
                 console.log("ha fallado");
             }
-            window.location = 'examenes.php?asignatura=todas&autor=todos';
+            //window.location = 'examenes.php?asignatura=todas&autor=todos';
         },
         dataType:"json"
         })
@@ -286,20 +288,20 @@ $('[id^=boton-eliminar]').click(function() {
   }
 });
 
-$('#nombreExamen').on('change mouseup mousedown mouseout keydown', function() {
+/*$('#nombreExamen').bind('change keydown keyup', function() {
   let funcion = 'guardarNombreExamenJSON';
   let nombre = $(this).val();
-  var interval = 600;  // 1000 = 1 second, 3000 = 3 seconds
-  function doAjax() {
+  let idExamen = getUrlParameter('id');
+  console.log($('#nombreExamen').val());  
       $.ajax({
               type        : 'POST', // define the type of HTTP verb we want to use (POST for our form)
               url         : 'crearExamenProcesamiento.php', // the url where we want to POST
-              data        : 'funcion=' + funcion + '&nombreExamen=' + nombre, // our data object
+              data        : 'funcion=' + funcion + '&nombreExamen=' + nombre + '&idExamen' + idExamen, // our data object
               dataType: 'json',
               success: function (respuesta) {
                 if(respuesta){
-                console.log(respuesta);
-                    
+                //console.log(respuesta);
+                   
                 }
                 else{
                     console.log("ha fallado");
@@ -308,29 +310,54 @@ $('#nombreExamen').on('change mouseup mousedown mouseout keydown', function() {
               },
               complete: function (data) {
                       // Schedule the next
+              }
+      });
+  });
+
+var getUrlParameter = function getUrlParameter(sParam) {
+    var sPageURL = window.location.search.substring(1),
+        sURLVariables = sPageURL.split('&'),
+        sParameterName,
+        i;
+
+    for (i = 0; i < sURLVariables.length; i++) {
+        sParameterName = sURLVariables[i].split('=');
+
+        if (sParameterName[0] === sParam) {
+            return sParameterName[1] === undefined ? true : decodeURIComponent(sParameterName[1]);
+        }
+    }
+};*/
+
+/*$('#nombreExamen').bind('change mouseup mousedown mouseout keydown keyup', function() {
+  let funcion = 'guardarNombreExamenJSON';
+  let nombre = $(this).val();
+  //console.log($('#nombreExamen').val());
+  var interval = 500;  // 1000 = 1 second, 3000 = 3 seconds
+  function doAjax() {
+      $.ajax({
+              type        : 'POST', // define the type of HTTP verb we want to use (POST for our form)
+              url         : 'crearExamenProcesamiento.php', // the url where we want to POST
+              data        : 'funcion=' + funcion + '&nombreExamen=' + nombre, // our data object
+              dataType: 'json',
+              success: function (respuesta) {
+                if(respuesta){
+                //console.log(respuesta);
+                   
+                }
+                else{
+                    console.log("ha fallado");
+                }
+                
+              },
+              complete: function (data) {
+                      // Schedule the next
+                      
                       setTimeout(doAjax, interval);
               }
       });
   }
   setTimeout(doAjax, interval);
-    /*$.ajax({
-            type        : 'POST', // define the type of HTTP verb we want to use (POST for our form)
-            url         : 'crearExamenProcesamiento.php', // the url where we want to POST
-            data        : 'funcion=' + funcion + '&nombreExamen=' + nombre, // our data object
-            success:function(respuesta){
-            if(respuesta){
-                console.log(respuesta);
-                
-            }
-            else{
-                console.log("ha fallado");
-            }
-            
-        },
-        dataType:"json"
-        })
-        //location.reload();
-        event.preventDefault();*/
-});
+});*/
 	
 });

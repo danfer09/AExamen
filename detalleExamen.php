@@ -26,6 +26,7 @@
 			}
 			include "examenesProcesamiento.php";
 			include "preguntasProcesamiento.php";
+			include "funcionesServidor.php";
 			$examen=cargaUnicoExamenInfo($_GET['id']);
 			echo "<h1>Examen: ". $examen['titulo']. "</h1>";
 			
@@ -36,16 +37,16 @@
 		<?php
 			echo "<p>Titulo Examen: ".$examen['titulo']."</p>";
 			echo "<p>Autor: ".cargaAutorExamen($examen['id'])."</p>";
-			echo "<p>Fecha de creacion: ".$examen['fecha_creado']."</p>";
-			echo "<p>Ultimo usuario en modificarla: ".cargaModificadorExamen($examen['id'])."</p>";
-			echo "<p>Fecha de ultima modificación: ".$examen['fecha_modificado']."</p>";
+			echo "<p>Fecha de creacion: ".formateoDateTime($examen['fecha_creado'])."</p>";
+			//echo "<p>Ultimo usuario en modificarla: ".cargaModificadorExamen($examen['id'])."</p>";
+			//echo "<p>Fecha de ultima modificación: ".$examen['fecha_modificado']."</p>";
 			echo "<p>Preguntas:</p>";
 
 			$pregunta=cargaUnicoExamenPreguntas($_GET['id']);
-
+			$historial=cargaHistorialExamen($_GET['id']);
 		?>
 		<div class="table-wrapper-scroll-y">
-	    			<table class="table table-hover" id="tabla">	
+	    			<table class="table table-hover" id="tabla_preguntas_examen">	
 						<thead>
 					      <tr>
 					        <th>Titulo</th>
@@ -69,14 +70,47 @@
 				echo "<tr>";
 			}
 		?>
+		 				</tbody>
+				  	
+
+					</table>
+		</div>
+
+		<p>Historial de modificaciones:</p>
+		<div class="table-wrapper-scroll-y">
+	    			<table class="table table-hover" id="tabla_historial_examen">	
+						<thead>
+					      <tr>
+					        <th onclick="w3.sortHTML('#tabla_historial_examen', '.item', 'td:nth-child(1)')" style="cursor:pointer;">Nombre</th>
+					        <th onclick="w3.sortHTML('#tabla_historial_examen', '.item', 'td:nth-child(2)')" style="cursor:pointer;">Apellido</th>
+					        <th onclick="w3.sortHTML('#tabla_historial_examen', '.item', 'td:nth-child(4)')" style="cursor:pointer;">Fecha</th>
+					      </tr>
+					    </thead>			
+					    <tbody>
+					   
+
+		<?php
+			foreach ($historial as $pos => $valor) {
+				echo "<tr class='item'>";
+				echo "<td>".cargaNombreApellidosAutor($valor['idModificador'])['nombre']."</td>";
+				echo "<td>".cargaNombreApellidosAutor($valor['idModificador'])['apellidos']."</td>";
+				echo "<td>".formateoDateTime($valor['fecha_modificacion'])."</td>";
+				echo '<td hidden=true;>'.$valor['fecha_modificacion'].'</td>';
+				
+				/*echo "<td>Autor: ".cargaAutorPregunta($valor['id_pregunta'])."</td>";
+				echo "<td>Fecha de creacion: ".$valor['fecha_creado_preguntas']."</td>";
+				echo "<td>Ultimo usuario en modificarla: ".cargaModificadorPregunta($valor['id_pregunta'])."</td>";
+				echo "<td>Fecha de ultima modificación: ".$valor['fecha_modificado_pregunta']."</td>";*/
+				echo "<tr>";
+			}
+		?>
 		 </tbody>
 				  	
 
 	</table>
 	</div>
+
     </div>
-		
-	</div>
 
 	<script src="js/jquery-3.3.1.min.js"></script>
 	<script src="js/jquery-3.3.1.slim.min.js"></script>

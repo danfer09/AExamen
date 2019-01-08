@@ -102,7 +102,7 @@
 			}
 			else{
 				foreach ($asignaturas as $pos => $valor) {
-					echo '<tr class="item" style="cursor:pointer;">';
+					echo '<tr class="item" >';
 					//Esto es para que muestre los detalles cuando se pulsa en al fila,pero si se activa, no funcionan los demás botones
 					//echo '<td><a href="'.$valor['id_preguntas'].'"></a>'.$valor['titulo'].'</td>';
 					echo '<td>'.$valor['titulo'].'</td>';

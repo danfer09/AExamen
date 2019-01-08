@@ -12,6 +12,7 @@
 	if (session_status() == PHP_SESSION_NONE) {
 	    session_start();
 	}
+	include "modificarExamenProcesamiento.php";
 	//Si existe $_SESSION['logeado'] volcamos su valor a la variable, si no existe volcamos false. Si vale true es que estamos logeado.
 	$logeado = isset($_SESSION['logeado'])? $_SESSION['logeado']: false;
 	/*En caso de no este logeado redirigimos a index.php*/
@@ -20,6 +21,7 @@
 	}
 	$funcion = isset($_POST['funcion'])? $_POST['funcion']: null;
 	$nombreExamen = isset($_POST['nombreExamen'])? $_POST['nombreExamen']: null;
+	$idExamen = isset($_POST['idExamen'])? $_POST['idExamen']: null;
 	$idAsignatura = isset($_POST['idAsignatura'])? $_POST['idAsignatura']: null;
 	$tema = isset($_POST['tema'])? $_POST['tema']: null;
 	$preguntas = isset($_POST['preguntas'])? $_POST['preguntas']: null;
@@ -39,7 +41,7 @@
 	else if ($funcion == "eliminarPregunta")
 		eliminarPregunta($idPregunta, $tema);
 	else if ($funcion == 'guardarNombreExamenJSON')
-		guardarNombreExamenJSON($nombreExamen);
+		guardarNombreExamenJSON($nombreExamen, $idExamen);
 	/*else if($funcion ==""){
 		borrarPregunta($idPregunta);
 	}
@@ -114,7 +116,12 @@
 				
 				insertarPreguntaJSON($filas[$i]['tema'], $filas[$i]['id'], 1);
 				//¿Llamar aquí a guardar examen cada vez que se inserte una nueva pregunta?
-				//guardarExamen($_SESSION['nombreExamenEditar']);
+				if (!$_SESSION['editar']) {
+					guardarExamen($_SESSION['nombreAsignatura']);
+				} else {
+					guardarModificarExamen($_SESSION['nombreExamenEditar']);
+				}
+				
 			}
 		}
 		else{
@@ -165,8 +172,8 @@
 		if (mysqli_query($db,$sqlExamen)) {
 			//echo "Nuevo examen añadido";
 			$numTemas = getNumTemas($_SESSION['idAsignatura']);
-			$arrayPuntosTema =cargaPuntosTema($_SESSION['idAsignatura']);
-			$jsonPuntosTema = json_decode($arrayPuntosTema,true);
+			//$arrayPuntosTema =cargaPuntosTema($_SESSION['idAsignatura']);
+			//$jsonPuntosTema = json_decode($arrayPuntosTema,true);
 			$preguntasSesion = isset($_SESSION[$_SESSION['nombreAsignatura']])? json_decode($_SESSION[$_SESSION['nombreAsignatura']],true): null;
 			$idExamenNuevo = mysqli_insert_id($db);
 
@@ -178,7 +185,13 @@
 						mysqli_query($db,$sqlExam_Preg);
 					}
 				}
-			}	
+			}
+
+			$sql = "INSERT INTO `examenes_historial`(`id`, `idExamen`, `idModificador`, `fecha_modificacion`) VALUES ('',".$idExamenNuevo.",".$_SESSION['id'].",'".$date."')";
+			$consulta=mysqli_query($db,$sql);
+			//$fila=mysqli_fetch_assoc($consulta);
+
+
 			$_SESSION[$_SESSION['nombreAsignatura']] = '{
 					"nombreExamen":"",
 					"preguntas":{
@@ -251,7 +264,7 @@
 		}		
 	}
 
-	function guardarNombreExamenJSON($nombreExamen) {
+	function guardarNombreExamenJSON($nombreExamen, $idExamen) {
 		if (!$_SESSION['editar']) {
 			$preguntas = isset($_SESSION[$_SESSION['nombreAsignatura']])? json_decode($_SESSION[$_SESSION['nombreAsignatura']],true): null;
 		} else {
