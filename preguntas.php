@@ -26,6 +26,9 @@
 			if (!$logeado) {
 				header('Location: index.php');
 			}
+
+
+
 			echo "<h1>Preguntas de ". $_GET['nombreAsignatura']. "</h1>";
 			$_SESSION['idAsignatura']=$_GET['idAsignatura'];
 			include "preguntasProcesamiento.php";
@@ -85,6 +88,7 @@
 			$error_ningunaPregunta = isset($_SESSION['error_ningunaPregunta'])? $_SESSION['error_ningunaPregunta']: false;
 			$error_BBDD = isset($_SESSION['error_BBDD'])? $_SESSION['error_BBDD']: false;
 			$error_BorrarNoCreador = isset($_SESSION['error_BorrarNoCreador'])? $_SESSION['error_BorrarNoCreador']: false;
+			$error_noPoderBorrar = isset($_SESSION['error_no_poder_borrar'])? $_SESSION['error_no_poder_borrar']: false;
 			if($error_BorrarNoCreador){
 				?>
 				<div class="alert alert-warning">
@@ -93,10 +97,19 @@
 				<?php
 				$_SESSION['error_BorrarNoCreador'] = false;
 			}
+
+			if($error_noPoderBorrar){
+				?>
+				<div class="alert alert-warning">
+				    <p>No se ha podido borrar la pregunta. Esta pregunta está en uno o más exámenes. Para borrarla quítala primero de el/los exámenes.</p>
+				 </div>
+				<?php
+				$_SESSION['error_no_poder_borrar'] = false;
+			}
+			
 			if($error_ningunaPregunta){
 				echo 'Esta asignatura no tienen ninguna pregunta para ti';
 			}
-
 			else if($error_BBDD){
 				echo 'Error con la BBDD, contacte con el administrador';
 			}

@@ -161,6 +161,7 @@
 		$db = mysqli_connect('localhost', $credentials['database']['user'], $credentials['database']['password'], $credentials['database']['dbname']);
 
 		$puntosPregunta = isset($_SESSION[$_SESSION['nombreAsignatura']])? json_decode($_SESSION[$_SESSION['nombreAsignatura']],true): null;
+		$preguntasSesion = $puntosPregunta;
 		$puntosPregunta['nombreExamen'] = $nombreExamen;
 		$_SESSION[$_SESSION['nombreAsignatura']] = json_encode($puntosPregunta);
 
@@ -183,6 +184,9 @@
 					foreach ($preguntasTema as $pregunta) {
 						$sqlExam_Preg = "INSERT INTO exam_preg (`id_examen`, `id_pregunta`, `id`) VALUES (".$idExamenNuevo.",".$pregunta['id'].",'')";
 						mysqli_query($db,$sqlExam_Preg);
+
+						$sqlReferencia = "UPDATE `preguntas` SET `referencias` = `referencias` + 1 WHERE id=".$pregunta['id'];
+						mysqli_query($db,$sqlReferencia);
 					}
 				}
 			}
@@ -240,6 +244,14 @@
 			$preguntas = isset($_SESSION[$_SESSION['nombreAsignatura']])? json_decode($_SESSION[$_SESSION['nombreAsignatura']],true): null;
 		} else {
 			$preguntas = isset($_SESSION[$_SESSION['nombreExamenEditar']])? json_decode($_SESSION[$_SESSION['nombreExamenEditar']],true): null;
+		}
+
+		$credentialsStr = file_get_contents('json/credentials.json');
+		$credentials = json_decode($credentialsStr, true);
+		$db = mysqli_connect('localhost', $credentials['database']['user'], $credentials['database']['password'], $credentials['database']['dbname']);
+		if ($db) {
+			$sqlReferencia = "UPDATE `preguntas` SET `referencias` = `referencias` - 1 WHERE id=".$pregunta['id'];
+			mysqli_query($db,$sqlReferencia);
 		}
 		
 		$temaNombre="tema".$tema;

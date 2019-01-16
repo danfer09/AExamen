@@ -71,6 +71,9 @@
 
 							if(!mysqli_query($db,$sqlExam_Preg))
 								$_SESSION['error1'] = "Error: " . $sqlDelete .' '. mysqli_error($db);
+
+							$sqlReferencia = "UPDATE `preguntas` SET `referencias` = `referencias` + 1 WHERE id=".$pregunta['id'];
+							mysqli_query($db,$sqlReferencia);
 						}
 					}
 				}	

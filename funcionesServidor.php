@@ -86,10 +86,10 @@
 		}
 
 		if ((date("j")==date('j',$time))) {
-			return date('G:i',$time);
+			return date('H:i',$time);
 		}
 
-		$newformat = date('d/m/Y H:i',$time);
+		$newformat = date('H:i - d/m/Y',$time);
 	
 		return $newformat;
 	}

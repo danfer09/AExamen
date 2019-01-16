@@ -69,7 +69,7 @@
 			}
 			
 			//array_splice($preguntasSesion['preguntas']['tema1'],0,1);
-			//var_dump($preguntasSesion);
+			var_dump($preguntasSesion);
 			//var_dump("editar: ".$_SESSION['editar']);
 			//var_dump($nombreExamen);
 		?>

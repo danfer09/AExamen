@@ -216,6 +216,7 @@
 	}
 
 	function borrarPregunta($idPregunta){
+		$_SESSION['error_no_poder_borrar'] = false;
 		$idUsuario = $_SESSION['id'];
 		$funciona=false;
 		$credentialsStr = file_get_contents('json/credentials.json');
@@ -224,14 +225,23 @@
 		//comprobamos si se ha conectado a la base de datos
 
 		if($db){
-			$sql = "DELETE FROM `preguntas` WHERE id=".$idPregunta." AND creador=".$idUsuario;
+			$sql = "SELECT `referencias` FROM `preguntas` WHERE id=".$idPregunta;
 			$consulta=mysqli_query($db,$sql);
-
-			if(mysqli_affected_rows($db)== 0){
-				$_SESSION['error_BorrarNoCreador']=true;
-			}
 			$fila=mysqli_fetch_assoc($consulta);
-			$funciona=true;
+			$numRef = $fila['referencias'];
+
+			if ($numRef == 0) {
+				$sql = "DELETE FROM `preguntas` WHERE id=".$idPregunta." AND creador=".$idUsuario;
+				$consulta=mysqli_query($db,$sql);
+
+				if(mysqli_affected_rows($db)== 0){
+					$_SESSION['error_BorrarNoCreador']=true;
+				}
+				$fila=mysqli_fetch_assoc($consulta);
+				$funciona=true;
+			} else {
+				$_SESSION['error_no_poder_borrar'] = true;
+			}
 		}
 		else{
 			$_SESSION['error_BBDD']=true;
