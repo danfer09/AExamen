@@ -55,6 +55,8 @@
 		
 		if (mysqli_query($db,$sqlExamen)) {
 			//echo "Nuevo examen añadido";
+
+
 			$numTemas = getNumTemasModificar($_SESSION['idAsignatura']);
 			//$arrayPuntosTema =cargaPuntosTemaModificar($_SESSION['idAsignatura']);
 			//$jsonPuntosTema = json_decode($arrayPuntosTema,true);

@@ -116,11 +116,11 @@
 				
 				insertarPreguntaJSON($filas[$i]['tema'], $filas[$i]['id'], 1);
 				//¿Llamar aquí a guardar examen cada vez que se inserte una nueva pregunta?
-				if (!$_SESSION['editar']) {
+				/*if (!$_SESSION['editar']) {
 					guardarExamen($_SESSION['nombreAsignatura']);
 				} else {
 					guardarModificarExamen($_SESSION['nombreExamenEditar']);
-				}
+				}*/
 				
 			}
 		}
@@ -172,6 +172,13 @@
 		
 		if (mysqli_query($db,$sqlExamen)) {
 			//echo "Nuevo examen añadido";
+
+			$_SESSION[$_SESSION['nombreAsignatura']] = '{
+					"nombreExamen":"",
+					"preguntas":{
+					}
+				}';
+
 			$numTemas = getNumTemas($_SESSION['idAsignatura']);
 			//$arrayPuntosTema =cargaPuntosTema($_SESSION['idAsignatura']);
 			//$jsonPuntosTema = json_decode($arrayPuntosTema,true);
@@ -195,14 +202,8 @@
 			$consulta=mysqli_query($db,$sql);
 			//$fila=mysqli_fetch_assoc($consulta);
 
-
-			$_SESSION[$_SESSION['nombreAsignatura']] = '{
-					"nombreExamen":"",
-					"preguntas":{
-					}
-				}';
 		} else {
-			echo "Error: " . $sql . "<br>" . mysqli_error($conn);
+			echo "Error: " . $sqlExamen . "<br>" . mysqli_error($db);
 		}
 		$mensaje = array();
 		$mensaje['Message'] = "Examen guardado";
@@ -250,7 +251,7 @@
 		$credentials = json_decode($credentialsStr, true);
 		$db = mysqli_connect('localhost', $credentials['database']['user'], $credentials['database']['password'], $credentials['database']['dbname']);
 		if ($db) {
-			$sqlReferencia = "UPDATE `preguntas` SET `referencias` = `referencias` - 1 WHERE id=".$pregunta['id'];
+			$sqlReferencia = "UPDATE `preguntas` SET `referencias` = `referencias` - 1 WHERE id=".$idPregunta;
 			mysqli_query($db,$sqlReferencia);
 		}
 		

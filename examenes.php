@@ -182,7 +182,7 @@
 					echo '<td id="opciones">
 							<a class="btn btn-primary btn-sm" href="detalleExamen.php?id='.$valor['id'].'" role="button">Detalles</a>
 							<a class="btn btn-primary btn-sm" href="generarExamen.php?examen='.$valor['titulo'].'" role="button">Generar</a>
-							<a id="boton_modalEditar" idExamen="'.$valor['id'].'" href="crearExamen.php?asignatura='.$valor['nombreAsignatura'].'&idAsignatura='.$valor['idAsignatura'].'&editar=1&id='.$valor['id'].'"><i class="fas fa-pencil-alt fa-fw fa-lg"></i></a> 
+							<a id="boton_modalEditar" idExamen="'.$valor['id'].'" href="crearExamen.php?asignatura='.$valor['asignatura'].'&idAsignatura='.$valor['idAsignatura'].'&editar=1&id='.$valor['id'].'"><i class="fas fa-pencil-alt fa-fw fa-lg"></i></a> 
 							 <a id="boton_modalBorrar" idExamen="'.$valor['id'].'"><i class="fas fa-trash-alt fa-fw fa-lg"></i></a> </td>';
 					echo '</tr>';
 				}

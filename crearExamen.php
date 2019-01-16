@@ -44,7 +44,7 @@
 				}';
 				$preguntasSesion = isset($_SESSION[$nombreAsignatura])? json_decode($_SESSION[$nombreAsignatura],true): null;
 				
-				$nombreExamen = isset($preguntasSesion['nombreExamen'])? $preguntasSesion['nombreExamen']: null;
+				//$nombreExamen = isset($preguntasSesion['nombreExamen'])? $preguntasSesion['nombreExamen']: null;
 				$botonGuardar= "guardarNuevoExamen";
 				//var_dump($_SESSION[$nombreAsignatura]."<br>");
 			}
@@ -69,7 +69,10 @@
 			}
 			
 			//array_splice($preguntasSesion['preguntas']['tema1'],0,1);
-			var_dump($preguntasSesion);
+			//var_dump($preguntasSesion);
+			echo "sesion nombreAsignatura: ".$_SESSION['nombreAsignatura'];
+			echo "<br>"."SESSION[SESSION['nombreAsignatura']]: ".$_SESSION[$_SESSION['nombreAsignatura']];
+			echo "<br><br>SESSION nombreExamen: ".$_SESSION[$nombreExamen];
 			//var_dump("editar: ".$_SESSION['editar']);
 			//var_dump($nombreExamen);
 		?>
