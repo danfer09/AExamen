@@ -60,7 +60,9 @@
 			$numTemas = getNumTemasModificar($_SESSION['idAsignatura']);
 			//$arrayPuntosTema =cargaPuntosTemaModificar($_SESSION['idAsignatura']);
 			//$jsonPuntosTema = json_decode($arrayPuntosTema,true);
-			$preguntasSesion = isset($_SESSION[$nombreExamen])? json_decode($_SESSION[$nombreExamen],true): null;
+			
+
+			$_SESSION['prueba1']=$preguntasSesion;
 		
 			$sqlDelete= "DELETE FROM `exam_preg` WHERE id_examen=".$idExamen;
 			
@@ -73,17 +75,33 @@
 
 							if(!mysqli_query($db,$sqlExam_Preg))
 								$_SESSION['error1'] = "Error: " . $sqlDelete .' '. mysqli_error($db);
+						}
+					}
 
-							$sqlReferencia = "UPDATE `preguntas` SET `referencias` = `referencias` + 1 WHERE id=".$pregunta['id'];
-							mysqli_query($db,$sqlReferencia);
+
+					$preguntasEditadasAhora = isset($_SESSION['editarExamenCambios'])? json_decode($_SESSION['editarExamenCambios'],true): null;
+					$_SESSION['prueba1']=$preguntasEditadasAhora;
+					if ($preguntasEditadasAhora) {
+						foreach ($preguntasEditadasAhora as $id => $value) {
+
+							if($value){
+								//$sqlReferencia = "UPDATE `preguntas` SET `referencias` = `referencias` + 1 WHERE id=".$id;
+								//mysqli_query($db,$sqlReferencia);
+							}
+							else{
+								//$sqlReferencia = "UPDATE `preguntas` SET `referencias` = `referencias` - 1 WHERE id=".$id;
+								//mysqli_query($db,$sqlReferencia);
+							}
 						}
 					}
 				}	
 			} else {
-				
 			}
 			$sql = "INSERT INTO `examenes_historial`(`id`, `idExamen`, `idModificador`, `fecha_modificacion`) VALUES ('',".$idExamen.",".$_SESSION['id'].",'".$date."')";
 			$consulta=mysqli_query($db,$sql);
+			$_SESSION['editarExamenCambios'] = "{}";
+
+
 			//$fila=mysqli_fetch_assoc($consulta);
 
 		} else {

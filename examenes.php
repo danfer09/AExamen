@@ -28,6 +28,18 @@
 			echo "<h2> Examenes </h2>";
 			include "examenesProcesamiento.php";
 			include 'funcionesServidor.php';
+
+
+			echo "<br>prueba: ".$_SESSION['prueba'];
+			$_SESSION['prueba'] = "inicializadoooooo";
+
+			echo "<br>prueba1: ";
+			print_r($_SESSION['prueba1']);
+			//var_dump($_SESSION['prueba1']);
+			$_SESSION['prueba1'] = "inicializadoo11111";
+
+			echo "<br>prueba2: ".$_SESSION['prueba2'];
+			$_SESSION['prueba2'] = "inicializadooo222";
 		?>
 		<br>
 		<div class="row" id="filtros">

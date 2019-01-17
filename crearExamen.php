@@ -42,6 +42,8 @@
 					"preguntas":{
 					}
 				}';
+
+
 				$preguntasSesion = isset($_SESSION[$nombreAsignatura])? json_decode($_SESSION[$nombreAsignatura],true): null;
 				
 				//$nombreExamen = isset($preguntasSesion['nombreExamen'])? $preguntasSesion['nombreExamen']: null;
@@ -50,6 +52,9 @@
 			}
 			else{
 				echo "<h1>Editar examen de ". $_GET["asignatura"]. "</h1>";
+
+				$_SESSION["editarExamenCambios"] = (isset($_SESSION["editarExamenCambios"]))? $_SESSION["editarExamenCambios"]:'{}';
+
 			
 				$idExamen = isset($_GET['id'])? $_GET['id']: null;
 
@@ -70,12 +75,13 @@
 			
 			//array_splice($preguntasSesion['preguntas']['tema1'],0,1);
 			//var_dump($preguntasSesion);
-			echo "sesion nombreAsignatura: ".$_SESSION['nombreAsignatura'];
+			/*echo "sesion nombreAsignatura: ".$_SESSION['nombreAsignatura'];
 			echo "<br>"."SESSION[SESSION['nombreAsignatura']]: ".$_SESSION[$_SESSION['nombreAsignatura']];
 			echo "<br><br>SESSION Examen a editar: ".$_SESSION[$nombreExamen];
-			echo "<br>editar: ".$_SESSION['editar'];
-			echo "<br>prueba1: ".$_SESSION['prueba1'];
-			echo "<br>prueba2: ".$_SESSION['prueba2'];
+			echo "<br>editar: ".$_SESSION['editar'];*/
+			echo "<br>prueba: ".$_SESSION['prueba'];
+			//$_SESSION['prueba'] = ;
+			//echo "<br>prueba2: ".$_SESSION['prueba2'];
 			//$_SESSION['prueba'] = false;
 			//var_dump($nombreExamen);
 		?>
