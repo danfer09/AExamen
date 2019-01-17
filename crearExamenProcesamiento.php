@@ -214,6 +214,7 @@
 		if (!$_SESSION['editar']) {
 			$preguntas = isset($_SESSION[$_SESSION['nombreAsignatura']])? json_decode($_SESSION[$_SESSION['nombreAsignatura']],true): null;
 		} else {
+			//$_SESSION['prueba'] = true;
 			$preguntas = isset($_SESSION[$_SESSION['nombreExamenEditar']])? json_decode($_SESSION[$_SESSION['nombreExamenEditar']],true): null;
 		}
 		
@@ -229,7 +230,6 @@
 						$i++;
 					}
 				}	
-			//$preguntas['preguntas'][$tema][$ultimaPos]["puntos"] = $puntosPregunta;
 		}
 
 		if (!$_SESSION['editar']) {
