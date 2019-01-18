@@ -115,6 +115,10 @@
 				$filas[$i]=mysqli_fetch_assoc($consulta);
 				
 				insertarPreguntaJSON($filas[$i]['tema'], $filas[$i]['id'], 1);
+
+				//$sqlReferencia = "UPDATE `preguntas` SET `referencias` = `referencias` + 1 WHERE id=".$preguntas[$i];
+				//mysqli_query($db,$sqlReferencia);
+			
 				//¿Llamar aquí a guardar examen cada vez que se inserte una nueva pregunta?
 				/*if (!$_SESSION['editar']) {
 					guardarExamen($_SESSION['nombreAsignatura']);
@@ -152,10 +156,10 @@
 		if (!$_SESSION['editar']) {
 			$_SESSION[$_SESSION['nombreAsignatura']] = json_encode($preguntas);
 		} else {
-			$preguntasEditar[$idPregunta] = true;
 			$_SESSION[$_SESSION['nombreExamenEditar']] = json_encode($preguntas);
+			$preguntasEditar[$idPregunta] = isset($preguntasEditar[$idPregunta])? null: true;
 			$_SESSION['editarExamenCambios'] = json_encode($preguntasEditar);
-			$_SESSION['prueba'] = $_SESSION['editarExamenCambios'];
+			//$_SESSION['prueba'] = $_SESSION['editarExamenCambios'];
 		}
 		//$preguntasSesion = $preguntas;
 		//return $_SESSION[$nombreAsignatura];
@@ -250,15 +254,16 @@
 			$preguntas = isset($_SESSION[$_SESSION['nombreAsignatura']])? json_decode($_SESSION[$_SESSION['nombreAsignatura']],true): null;
 		} else {
 			$preguntas = isset($_SESSION[$_SESSION['nombreExamenEditar']])? json_decode($_SESSION[$_SESSION['nombreExamenEditar']],true): null;
+			$preguntasEditar =  isset($_SESSION['editarExamenCambios'])? json_decode($_SESSION['editarExamenCambios'],true): null;
 		}
 
-		$credentialsStr = file_get_contents('json/credentials.json');
+		/*$credentialsStr = file_get_contents('json/credentials.json');
 		$credentials = json_decode($credentialsStr, true);
 		$db = mysqli_connect('localhost', $credentials['database']['user'], $credentials['database']['password'], $credentials['database']['dbname']);
 		if ($db) {
 			$sqlReferencia = "UPDATE `preguntas` SET `referencias` = `referencias` - 1 WHERE id=".$idPregunta;
 			mysqli_query($db,$sqlReferencia);
-		}
+		}*/
 		
 		$temaNombre="tema".$tema;
 		if($preguntas){
@@ -279,6 +284,8 @@
 			$_SESSION[$_SESSION['nombreAsignatura']] = json_encode($preguntas);
 		} else {
 			$_SESSION[$_SESSION['nombreExamenEditar']] = json_encode($preguntas);
+			$preguntasEditar[$idPregunta] = isset($preguntasEditar[$idPregunta])? null: false;
+			$_SESSION['editarExamenCambios'] = json_encode($preguntasEditar);
 		}		
 	}
 

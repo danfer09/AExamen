@@ -45,7 +45,7 @@
 
 		$preguntasJsonArray = isset($_SESSION[$nombreExamenEditar])? json_decode($_SESSION[$nombreExamenEditar],true): null;
 		$preguntasJsonArray['nombreExamen'] = $nombreExamen;
-		$_SESSION[$nombreExamenEditar] = json_encode($preguntasJsonArray);
+		//$_SESSION[$nombreExamenEditar] = json_encode($preguntasJsonArray);
 		$_SESSION[$nombreExamen] = json_encode($preguntasJsonArray);
 
 		$preguntasJsonArray=$_SESSION[$nombreExamen];
@@ -60,9 +60,7 @@
 			$numTemas = getNumTemasModificar($_SESSION['idAsignatura']);
 			//$arrayPuntosTema =cargaPuntosTemaModificar($_SESSION['idAsignatura']);
 			//$jsonPuntosTema = json_decode($arrayPuntosTema,true);
-			
-
-			$_SESSION['prueba1']=$preguntasSesion;
+			$preguntasSesion = isset($preguntasJsonArray)? json_decode($preguntasJsonArray,true): null;
 		
 			$sqlDelete= "DELETE FROM `exam_preg` WHERE id_examen=".$idExamen;
 			
@@ -76,25 +74,25 @@
 							if(!mysqli_query($db,$sqlExam_Preg))
 								$_SESSION['error1'] = "Error: " . $sqlDelete .' '. mysqli_error($db);
 						}
-					}
-
-
-					$preguntasEditadasAhora = isset($_SESSION['editarExamenCambios'])? json_decode($_SESSION['editarExamenCambios'],true): null;
-					$_SESSION['prueba1']=$preguntasEditadasAhora;
+					}					
+				}	
+				$preguntasEditadasAhora = isset($_SESSION['editarExamenCambios'])? json_decode($_SESSION['editarExamenCambios'],true): null;
 					if ($preguntasEditadasAhora) {
+						$_SESSION['prueba1'] = $preguntasEditadasAhora;
+						$varPrueba= 0;
 						foreach ($preguntasEditadasAhora as $id => $value) {
-
+							$varPrueba++;
 							if($value){
-								//$sqlReferencia = "UPDATE `preguntas` SET `referencias` = `referencias` + 1 WHERE id=".$id;
-								//mysqli_query($db,$sqlReferencia);
+								$sqlReferencia = "UPDATE `preguntas` SET `referencias` = `referencias` + 1 WHERE id=".$id;
+								mysqli_query($db,$sqlReferencia);
 							}
-							else{
-								//$sqlReferencia = "UPDATE `preguntas` SET `referencias` = `referencias` - 1 WHERE id=".$id;
-								//mysqli_query($db,$sqlReferencia);
+							else if(($value!==null)){
+								$sqlReferencia = "UPDATE `preguntas` SET `referencias` = `referencias` - 1 WHERE id=".$id;
+								mysqli_query($db,$sqlReferencia);
 							}
 						}
+						$_SESSION['prueba']= $varPrueba;
 					}
-				}	
 			} else {
 			}
 			$sql = "INSERT INTO `examenes_historial`(`id`, `idExamen`, `idModificador`, `fecha_modificacion`) VALUES ('',".$idExamen.",".$_SESSION['id'].",'".$date."')";
