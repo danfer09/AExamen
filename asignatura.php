@@ -23,9 +23,18 @@
 			if (!$logeado) {
 				header('Location: index.php');
 			}
+
+			include "asignaturaProcesamiento.php";
+			$idAsignatura=$_GET['id'];
+			$idProfesor=$_SESSION['id'];
+			$nombreAsig=$_GET["nombre"];
+			
 			echo '<h1>Asignatura: '. $_GET["nombre"]. '</h1>';
 			echo '<a class="btn btn-primary" href="preguntas.php?nombreAsignatura='.$_GET["nombre"].'&idAsignatura='.$_GET["id"].'&autor=todos" role="button">Ver preguntas</a>';
 			echo '<a class="btn btn-primary" href="examenes.php?asignatura='.$_GET['siglas'].'&autor=todos" role="button">Ver exámenes</a>';
+			if(esCoordinador($idAsignatura,$idProfesor)){
+				echo '<a class="btn btn-primary" href="profesoresDeUnaAsig.php?idAsig='.$_GET['id'].'&nombreAsig='.$nombreAsig.'" role="button">Ver profesores</a>';
+			}
 
 
 		?>

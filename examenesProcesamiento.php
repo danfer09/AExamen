@@ -168,7 +168,6 @@
 					$resultado[] = $fila;
 				}
 			} else {
-				echo "No hay exámenes";
 				$resultado = null;
 			}
 			mysqli_close($db);

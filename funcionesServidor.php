@@ -19,26 +19,6 @@
 		header('Location: index.php');
 	}
 
-	/*
-		Comprueba si un determinado profesor con el $id pasado por parámetro es coordinador de alguna asignatura
-	*/
-	function esCoordinador ($db, $id) {
-		if($db){
-			$sql = "SELECT * FROM profesores WHERE id='".$id."'";
-			$consulta=mysqli_query($db,$sql);
-			if($consulta->num_rows > 0){
-				$fila=mysqli_fetch_assoc($consulta);
-				return $fila['coordinador'];
-			} else {
-				echo "No existe el profesor con id ".$id;
-				return null;
-			}
-		} else {
-			echo "Conexión fallida";
-		}
-	}
-
-
 	function smtpmailer($to, $from, $fromName, $subject, $body, $googleUser, $googlePassword) { 
 		global $error;
 		$mail = new PHPMailer();  // create a new object
