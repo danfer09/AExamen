@@ -29,6 +29,7 @@
 		?>
 		<a href="perfilPropioProf.php"> Editar perfil </a>
 		<a href="asignaturasProfesor.php"> Ver mis asignaturas </a>
+		<a href="definirParametrosExam.php">definirParametrosExam(para debug)</a>
 		<br>
 		<a href="cerrarSesion.php">Salir</a>
 	</div>
