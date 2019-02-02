@@ -34,6 +34,7 @@
 			echo '<a class="btn btn-primary" href="examenes.php?asignatura='.$_GET['siglas'].'&autor=todos" role="button">Ver exámenes</a>';
 			if(esCoordinador($idAsignatura,$idProfesor)){
 				echo '<a class="btn btn-primary" href="profesoresDeUnaAsig.php?idAsig='.$_GET['id'].'&nombreAsig='.$nombreAsig.'" role="button">Ver profesores</a>';
+				echo '<a class="btn btn-primary" href="definirParametrosExam.php?idAsig='.$_GET['id'].'" role="button">Parametros de exámenes</a>';
 			}
 
 

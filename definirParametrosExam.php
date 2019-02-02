@@ -11,6 +11,7 @@
 	if (!$logeado) {
 		header('Location: index.php');
 	}
+	include "definirParametrosExamProcesamiento.php";
 ?>
 
 <html>
@@ -26,32 +27,55 @@
 <body>
 <div class="header" id="header"></div>
 <div class="container">
-<h1>Pagina de coordinador</h1>
-		<form>
+<?php
+	echo'<h1 idAsig="'.$_GET['idAsig'].'" >Pagina de coordinador</h1>';
+	$idAsig=$_GET['idAsig'];
+	$paramExam = selectParametrosAsig($idAsig);
+	$puntosTema = json_decode($paramExam['puntos_tema'], true);
+	
+
+	var_dump($_SESSION['pruebaParam']);
+
+	var_dump($_SESSION['pruebaParam2']);
+
+
+?>
+		<form class="form-container" method="post" id="formParametros">
 			<div class="row">
 				<div class="form-group col-11"></div>
 				<div class="form-group col-1">
-					<button type="submit" class="btn btn-primary">Guardar</button>
+					<button type="submit" class="btn btn-primary" id="botonGuardar">Guardar</button>
 				</div>
 			</div>
 			<div class="panel-group">
 				<!--Formulario para meter puntos por tema-->
 				<div class="panel panel-primary">
 					<div class="panel-heading"><h5>Puntos por tema</h5></div>
+					<span id='mensajePuntosPorTema'></span><br>
 					<div class="panel-body">
 						<div class="row">
-							<div class="form-group col-4">
-							    <label>Tema 1:</label>
-							    <input type="number" class="form-control" id="">
-							</div>
-							<div class="form-group col-4">
-							    <label>Tema 2:</label>
-							    <input type="number" class="form-control" id="">
-							</div>
-							<div class="form-group col-4">
-							    <label>Tema 3:</label>
-							    <input type="number" class="form-control" id="">
-							</div>
+							<?php
+							foreach ($puntosTema as $pos => $valor) {
+								if($pos=="numeroTemas"){
+									echo'<div class="form-group col-4">';
+									  echo'<label>Numero total de temas:</label>';
+									  echo'<input type="number" class="form-control" id="'.$pos.'" value="'.$valor.'">';
+									echo'</div>';
+								}
+								else if($pos=="maximoPuntos"){
+									echo'<div class="form-group col-4">';
+									  echo'<label>Puntos por exámen:</label>';
+									  echo'<input type="number" class="form-control" id="'.$pos.'" value="'.$valor.'">';
+									echo'</div>';
+								}
+								else{
+									echo'<div class="form-group col-4">';
+									  echo'<label>Tema '.$pos[4].':</label>';
+									  echo'<input type="number" class="form-control puntosTemaForm" id="'.$pos.'" value="'.$valor.'">';
+									echo'</div>';
+								}
+							}
+							?>
 						</div>
 					</div>
 				</div>
@@ -142,9 +166,8 @@
 <script src="js/w3.js"></script>
 
 <!--Javascripts propios-->
-<script type="text/javascript" src="js/asignaturasProfesor.js"></script>
 <script type="text/javascript" src="js/cabeceraConLogin.js"></script>
+<script type="text/javascript" src="js/definirParametrosExam.js"></script>
 
 </body>
 </html>
-
