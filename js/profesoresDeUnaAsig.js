@@ -47,45 +47,75 @@ $(document).ready(function(){
 
     $(".fa-plus-circle").click(function() {
         $idAsig=$('h2').attr("idAsig");
-        //console.log("entra al click");
-        console.log($idAsig);
         var funcion = "getProfesoresFueraAsig";
+        let idProfesores = [];
+        let i = 0;
+        $('#tabla_profesores > tbody > tr #idProfesor').each(function(){
+            idProfesores[i] = $(this).text();
+            i++;
+        });
   
         $.ajax({
             type        : 'POST', // define the type of HTTP verb we want to use (POST for our form)
             url         : 'profesoresDeUnaAsigProcesamiento.php', // the url where we want to POST
-            data        : 'funcion=' + funcion + '&idAsig=' + $idAsig, // our data object
+            data        : 'funcion=' + funcion + '&idAsig=' + $idAsig + '&idProfesores=' + idProfesores, // our data object
             success:function(respuesta){
+                console.log(respuesta);
                 if(respuesta){
                     //alert(respuesta);
                     console.log(respuesta);
                     //console.log("llega");
                     $('#boton_aniadir').attr('disabled',false);
                     $('#tableAniadirProfesor').children('tr,td').remove();
-                    $('#tableAniadirProfesor').attr("tema", $tema);
                     $("#infoTodosProfAdd").hide();
                     //console.log($('#numeradorTema'+$tema).text()+'  '+$('#denominadorTema'+$tema).text());
                     if(respuesta.length>0){
                         var pinta = false;
                         for (i = 0; i < respuesta.length; i++) {
-                            $("#tableAniadirProfesor").append('<tr><td><input type="radio" value="'+respuesta[i]["id"]+'"></td><td>'+respuesta[i]["nombre"]+'</td><td>'+respuesta[i]["apellidos"]+'</td><td>'+respuesta[i]["correo"]+'</td></tr>');
+                            $("#tableAniadirProfesor").append('<tr><td><input type="radio" name="profesor" value="'+respuesta[i]["id"]+'"></td><td>'+respuesta[i]["nombre"]+'</td><td>'+respuesta[i]["apellidos"]+'</td><td>'+respuesta[i]["email"]+'</td></tr>');
                         }
-                        $('#modalAniadirProfesor').modal('show');
                     }
                     else{
-                        $("#info_aniadirPreg_vacio").show();
+                        $("#infoTodosProfAdd").show();
                         //$("#info_aniadirPreg").text('No hay ninguna pregunta de este tema').addClass('badge badge-pill badge-danger');
                     }
+                    $('#modalAniadirProfesor').modal('show');
                 }
                 else{
                     //alert("Fallo al editar");
                     console.log("falla");
-                    location.reload();
+                    //location.reload();
                 }
             },
             dataType:"json"
         })
         event.preventDefault();
     });
+
+    $("#formAniadirProfesor").submit(function(event) {
+    //console.log("entra aniadir");
+    $idAsig=$('h2').attr("idAsig");
+    var funcion = "aniadirProfesor";
+    $('#modalAniadirProfesor').modal('hide');
+    $("#modalAniadirProfesor .close").click();
+    var form_data = $(this).serialize();
+  
+        $.ajax({
+            type        : 'POST', // define the type of HTTP verb we want to use (POST for our form)
+            url         : 'profesoresDeUnaAsigProcesamiento.php', // the url where we want to POST
+            data        : form_data + '&funcion=' + funcion + '&idAsig=' + $idAsig, // our data object
+            success:function(respuesta){
+            if(respuesta){
+                console.log(respuesta);
+            }
+            else{
+                console.log("ha fallado");
+            }
+        },
+        dataType:"json"
+        })
+      location.reload();
+      event.preventDefault();
+  });
 
 });

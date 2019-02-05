@@ -51,7 +51,7 @@
 			<div class="form-inline col-lg-4">
 				<label for="selAniadir">Añadir profesor a la asignatura: </label>
 				<?php
-					print('<a class="fas fa-plus-circle" style="text-decoration: none;" id="boton_modalAñadir"></a>');					
+					print('<a class="fas fa-plus-circle" style="text-decoration: none; cursor: pointer;" id="boton_modalAñadir"></a>');					
 				?>
 			</div>
 		</div>
@@ -82,6 +82,7 @@
 				foreach ($profesores as $pos => $valor) {
 					echo '<tr class="item">';
 					echo '<td> <i class="fas fa-user fa-fw fa-lg"></i> </td>';
+					echo '<td id="idProfesor" hidden="true">'.$valor['id'].'</td>';
 					echo '<td>'.$valor['nombre'].'</td>';
 					echo '<td>'.$valor['apellidos'].'</td>';
 					echo '<td>'.$valor['email'].'</td>';
