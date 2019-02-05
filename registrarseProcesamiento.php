@@ -33,7 +33,7 @@
 						$_SESSION['emailTemp'] = $email;
 						$_SESSION['nombreTemp'] = $nombre;
 						$_SESSION['apellidosTemp'] = $apellidos;
-						echo "Debug: perfil temporal creado";
+						echo "Perfil temporal creado";
 					}
 					if (!empty($error)) echo $error;
 				}

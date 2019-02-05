@@ -42,7 +42,7 @@
 	*/
 	function insertProfesor($db, $nombre, $apellidos, $email, $clave) {
 		if($db) {
-			$sql = "INSERT INTO profesores (nombre, apellidos, email, id, clave, coordinador) VALUES ('".$nombre."','".$apellidos."','".$email."',null,'".$clave."',false)";
+			$sql = "INSERT INTO profesores (nombre, apellidos, email, id, clave) VALUES ('".$nombre."','".$apellidos."','".$email."',null,'".$clave."')";
 			if (mysqli_query($db,$sql)) {
 				echo "Nuevo profesor añadido";
 			} else {
