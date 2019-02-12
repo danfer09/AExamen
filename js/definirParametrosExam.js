@@ -26,15 +26,15 @@ $(document).ready(function(){
         jsonNuevo["numeroTemas"] = $("#numeroTemas").attr("value");
         jsonNuevo["maximoPuntos"] = $("#maximoPuntos").attr("value");
         $( ".puntosTemaForm" ).each(function() {
-		  jsonNuevo[$( this ).attr("id")] = $(this).val();
-		});
-		console.log(jsonNuevo);
+    		  jsonNuevo[$( this ).attr("id")] = $(this).val();
+    		});
+        console.log(jsonNuevo);
 		var idAsig = $('h1').attr("idAsig");
         var form_data = $(this).serialize();
       $.ajax({
           type        : 'POST', // define the type of HTTP verb we want to use (POST for our form)
           url         : 'definirParametrosExamProcesamiento.php', // the url where we want to POST
-          data        : form_data + '&funcion=' + funcion + '&jsonParametros=' + jsonNuevo + "&idAsig=" + idAsig, // our data object
+          data        : form_data + '&funcion=' + funcion + '&jsonParametros=' +  JSON.stringify(jsonNuevo) + "&idAsig=" + idAsig, // our data object
           success: function(respuesta) {
                 if(respuesta){
                     console.log(respuesta);

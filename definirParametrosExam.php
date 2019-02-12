@@ -33,10 +33,15 @@
 	$paramExam = selectParametrosAsig($idAsig);
 	$puntosTema = json_decode($paramExam['puntos_tema'], true);
 	
-
+	echo "pruebaParam: ";
 	var_dump($_SESSION['pruebaParam']);
-
-	var_dump($_SESSION['pruebaParam2']);
+	//$pruebaParamDecode = json_decode($_SESSION['pruebaParam']);
+	echo"<br>";
+	echo "pruebaParam2: ";
+	//var_dump($_SESSION['pruebaParam2']);
+	echo($_SESSION['pruebaParam2']);
+	//echo "PruebaParamDecode: ";
+	//var_dump($pruebaParamDecode);*/
 
 
 ?>
