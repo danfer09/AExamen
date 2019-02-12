@@ -27,7 +27,7 @@
 				header('Location: index.php');
 			}
 
-
+			echo $_SESSION['coordinador'];
 
 			echo "<h1>Preguntas de ". $_GET['nombreAsignatura']. "</h1>";
 			$_SESSION['idAsignatura']=$_GET['idAsignatura'];

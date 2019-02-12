@@ -225,22 +225,35 @@
 		//comprobamos si se ha conectado a la base de datos
 
 		if($db){
-			$sql = "SELECT `referencias` FROM `preguntas` WHERE id=".$idPregunta;
+			$sql = "SELECT `referencias`,`asignatura` FROM `preguntas` WHERE id=".$idPregunta;
 			$consulta=mysqli_query($db,$sql);
 			$fila=mysqli_fetch_assoc($consulta);
 			$numRef = $fila['referencias'];
+			$asignatura = $fila['asignatura'];
 
-			if ($numRef == 0) {
-				$sql = "DELETE FROM `preguntas` WHERE id=".$idPregunta." AND creador=".$idUsuario;
-				$consulta=mysqli_query($db,$sql);
+			if (esCoordinador($asignatura, $idUsuario)) {
+				if ($numRef == 0) {
+					$sql = "DELETE FROM `preguntas` WHERE id=".$idPregunta;
+					$consulta=mysqli_query($db,$sql);
 
-				if(mysqli_affected_rows($db)== 0){
-					$_SESSION['error_BorrarNoCreador']=true;
+					$fila=mysqli_fetch_assoc($consulta);
+					$funciona=true;
+				} else {
+					$_SESSION['error_no_poder_borrar'] = true;
 				}
-				$fila=mysqli_fetch_assoc($consulta);
-				$funciona=true;
 			} else {
-				$_SESSION['error_no_poder_borrar'] = true;
+				if ($numRef == 0) {
+					$sql = "DELETE FROM `preguntas` WHERE id=".$idPregunta." AND creador=".$idUsuario;
+					$consulta=mysqli_query($db,$sql);
+
+					if(mysqli_affected_rows($db)== 0){
+						$_SESSION['error_BorrarNoCreador']=true;
+					}
+					$fila=mysqli_fetch_assoc($consulta);
+					$funciona=true;
+				} else {
+					$_SESSION['error_no_poder_borrar'] = true;
+				}
 			}
 		}
 		else{
@@ -251,6 +264,19 @@
 
 		echo $funciona;
 		//INSERT INTO `preguntas`(`id`, `titulo`, `cuerpo`, `tema`, `creador`, `fecha_creacion`, `ult_modificador`, `fecha_modificado`, `asignatura`) VALUES ('','Titulo pregunta insertada','Cuerpo pregunta insertada','3','3','','3','','2')
+	}
+
+	function esCoordinador($idAsig, $idProfesor){
+		$credentialsStr = file_get_contents('json/credentials.json');
+		$credentials = json_decode($credentialsStr, true);
+		$db = mysqli_connect('localhost', $credentials['database']['user'], $credentials['database']['password'], $credentials['database']['dbname']);
+		$result=false;
+		if($db){
+			$sql = "SELECT coordinador FROM `prof_asig_coord` WHERE `id_profesor` =".$idProfesor." and `id_asignatura`=".$idAsig;
+			$consulta = mysqli_query($db,$sql);
+			$result= mysqli_fetch_assoc($consulta);
+		}
+		return $result['coordinador'];
 	}
 
 	function editarPregunta($titulo,$cuerpo,$tema,$idPregunta){

@@ -23,7 +23,7 @@
 			if (!$logeado) {
 				header('Location: index.php');
 			}
-
+			//include "funcionesServidor.php";
 			include "asignaturaProcesamiento.php";
 			$idAsignatura=$_GET['id'];
 			$idProfesor=$_SESSION['id'];
