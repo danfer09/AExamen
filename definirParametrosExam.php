@@ -12,6 +12,12 @@
 		header('Location: index.php');
 	}
 	include "definirParametrosExamProcesamiento.php";
+
+	$esCoordinador = esCoordinador($_GET['idAsig'], $_SESSION['id']);
+	/*En caso de no este logeado redirigimos a index.php, en caso contrario le damos la bienvenida*/
+	if (!$esCoordinador) {
+		header('Location: index.php');
+	}
 ?>
 
 <html>

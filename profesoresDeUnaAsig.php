@@ -29,7 +29,11 @@
 			include "profesoresDeUnaAsigProcesamiento.php";
 			include 'funcionesServidor.php';
 			
-
+			$esCoordinador = esCoordinador($idAsignatura, $_SESSION['id']);
+			/*En caso de no este logeado redirigimos a index.php, en caso contrario le damos la bienvenida*/
+			if (!$esCoordinador) {
+				header('Location: index.php');
+			}
 
 			/*echo "<br>prueba: ".$_SESSION['prueba'];
 			$_SESSION['prueba'] = "inicializadoooooo";
