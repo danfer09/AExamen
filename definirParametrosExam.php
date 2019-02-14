@@ -34,18 +34,20 @@
 <div class="header" id="header"></div>
 <div class="container">
 <?php
-	echo'<h1 idAsig="'.$_GET['idAsig'].'" >Pagina de coordinador</h1>';
+	echo'<h1 class="idAsignatura" idAsig="'.$_GET['idAsig'].'" >Pagina de coordinador</h1>';
 	$idAsig=$_GET['idAsig'];
 	$paramExam = selectParametrosAsig($idAsig);
 	$puntosTema = json_decode($paramExam['puntos_tema'], true);
-	
-	echo "pruebaParam: ";
-	var_dump($_SESSION['pruebaParam']);
+	$espaciado = $paramExam['espaciado_defecto'];
+	$textoInicial = $paramExam['texto_inicial'];
+
+	//echo "pruebaParam: ";
+	//var_dump($_SESSION['pruebaParam']);
 	//$pruebaParamDecode = json_decode($_SESSION['pruebaParam']);
-	echo"<br>";
-	echo "pruebaParam2: ";
+	//echo"<br>";
+	//echo "pruebaParam2: ";
 	//var_dump($_SESSION['pruebaParam2']);
-	echo($_SESSION['pruebaParam2']);
+	//var_dump($_SESSION['pruebaParam2']);
 	//echo "PruebaParamDecode: ";
 	//var_dump($pruebaParamDecode);*/
 
@@ -125,7 +127,8 @@
 						<div class="row">
 							<div class="form-group col-4">
 								<div class="form-check">
-								  <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="option1" checked>
+								  <input class="form-check-input espaciado" type="radio" name="exampleRadios" id="exampleRadios1" value="pequenio" 
+								  <?php if($espaciado == 5) echo("checked") ?>>
 								  <label class="form-check-label" for="exampleRadios1">
 								    Pequeño
 								  </label>
@@ -133,7 +136,7 @@
 							</div>
 							<div class="form-group col-4">
 								<div class="form-check">
-								  <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="option1">
+								  <input class="form-check-input espaciado" type="radio" name="exampleRadios" id="exampleRadios1" value="medio" <?php if($espaciado == 10) echo("checked") ?>>
 								  <label class="form-check-label" for="exampleRadios1">
 								    Medio
 								  </label>
@@ -141,7 +144,7 @@
 							</div>
 							<div class="form-group col-4">
 								<div class="form-check">
-								  <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="option1">
+								  <input class="form-check-input espaciado" type="radio" name="exampleRadios" id="exampleRadios1" value="grande"<?php if($espaciado == 15) echo("checked") ?>>
 								  <label class="form-check-label" for="exampleRadios1">
 								    Grande
 								  </label>
@@ -158,7 +161,7 @@
 						<div class="row">
 							<div class="form-group col-12">
 								<div class="form-group">
-							    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"placeholder="Escribe aquí"></textarea>
+							    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"placeholder="Escribe aquí" ><?php echo($textoInicial)?></textarea>
 							  </div>
 							</div>
 						</div>

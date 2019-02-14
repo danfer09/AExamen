@@ -14,9 +14,10 @@
 $funcion = isset($_POST['funcion'])? $_POST['funcion']: null;
 $jsonParametros = isset($_POST['jsonParametros'])? json_decode($_POST['jsonParametros']): null;
 $idAsig = isset($_POST['idAsig'])? $_POST['idAsig']: null;
+$espaciado = isset($_POST['espaciado'])? $_POST['espaciado']: null;
 if($funcion == "updateParametrosAsig"){
 	$_SESSION['pruebaParam'] = $jsonParametros;
-	updateParametrosAsig($jsonParametros, $idAsig);
+	updateParametrosAsig($jsonParametros, $idAsig, $espaciado);
 }
 
 function selectParametrosAsig($idAsig) {
@@ -35,23 +36,28 @@ function selectParametrosAsig($idAsig) {
 	return $fila;
 }
 
-function updateParametrosAsig($jsonParametros, $idAsig){
+function updateParametrosAsig($jsonParametros, $idAsig, $espaciado){
 	$credentialsStr = file_get_contents('json/credentials.json');
 	$credentials = json_decode($credentialsStr, true);
 	$db = mysqli_connect('localhost', $credentials['database']['user'], $credentials['database']['password'], $credentials['database']['dbname']);
 	//$_SESSION['pruebaParam'] = $jsonParametros;
-	$jsonParametrosString = json_encode($jsonParametros);
-	$_SESSION['pruebaParam2'] = $jsonParametrosString;
-	$_SESSION['pruebaParam2'] = "'".$jsonParametrosString."'";
-	$jsonParametrosString = "'".$jsonParametrosString."'";
+	//$jsonParametrosString = json_encode($jsonParametros);
+	$espaciadoInt = (int)$espaciado;
+	$idAsigInt = (int)$idAsig;
+	$_SESSION['pruebaParam'] = $espaciadoInt;
+	$_SESSION['pruebaParam2'] = $idAsigInt;
+	//$jsonParametrosString = "'".$jsonParametrosString."'";
 	if($db){
-		$sql = "UPDATE `asignaturas` SET `puntos_tema`= ".$jsonParametrosString." WHERE id=".$idAsig;
+		return true;
+		//$sql = "UPDATE `asignaturas` SET`espaciado_defecto`=".$espaciadoInt." WHERE id=".$idAsigInt;
+		//$consulta=mysqli_query($db,$sql);
+		//$sql = "UPDATE `asignaturas` SET `puntos_tema`= ".$jsonParametrosString." WHERE id=".$idAsig;
 		//UPDATE `asignaturas` SET `puntos_tema`='{"numeroTemas":"3","maximoPuntos":"10","tema1":"5","tema2":"3","tema3":"2"}' WHERE id=1
 		//UPDATE `asignaturas` SET `puntos_tema`= "{'numeroTemas':'3','maximoPuntos':'10','tema1':'4','tema2':'3','tema3':'3'}" WHERE id=1
-		$consulta=mysqli_query($db,$sql);
+		
 	} else {
 		echo "Conexión fallida";
-		return false;
+		return true;
 	}
 	mysqli_close($db);
 	return true;

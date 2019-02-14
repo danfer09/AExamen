@@ -29,12 +29,24 @@ $(document).ready(function(){
     		  jsonNuevo[$( this ).attr("id")] = $(this).val();
     		});
         console.log(jsonNuevo);
-		var idAsig = $('h1').attr("idAsig");
+        let espaciado = $(".espaciado:checked").val();
+        console.log(espaciado);
+        if(espaciado == "pequenio"){
+          espaciado = 5;
+        }
+        else if(espaciado == "medio"){
+          espaciado = 10;
+        }
+        else{
+          espaciado = 15;
+        }
+		    var idAsig = $(".idAsignatura").attr("idAsig");
+        console.log(idAsig);
         var form_data = $(this).serialize();
       $.ajax({
           type        : 'POST', // define the type of HTTP verb we want to use (POST for our form)
           url         : 'definirParametrosExamProcesamiento.php', // the url where we want to POST
-          data        : form_data + '&funcion=' + funcion + '&jsonParametros=' +  JSON.stringify(jsonNuevo) + "&idAsig=" + idAsig, // our data object
+          data        : form_data + '&funcion=' + funcion + '&jsonParametros=' +  JSON.stringify(jsonNuevo) + "&idAsig=" + idAsig + "&espaciado=" + espaciado, // our data object
           success: function(respuesta) {
                 if(respuesta){
                     console.log(respuesta);
