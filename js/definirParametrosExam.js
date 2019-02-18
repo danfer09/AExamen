@@ -33,13 +33,13 @@ $(document).ready(function(){
         let espaciado = $(".espaciado:checked").val();
         console.log(espaciado);
         if(espaciado == "pequenio"){
-          espaciado = 5;
+          espaciado = 2;
         }
         else if(espaciado == "medio"){
           espaciado = 10;
         }
         else{
-          espaciado = 15;
+          espaciado = 100;
         }
 		    var idAsig = $(".idAsignatura").attr("idAsig");
         console.log(idAsig);
