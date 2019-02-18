@@ -28,7 +28,8 @@ $(document).ready(function(){
         $( ".puntosTemaForm" ).each(function() {
     		  jsonNuevo[$( this ).attr("id")] = $(this).val();
     		});
-        console.log(jsonNuevo);
+        let textoInicial = $("#textoInicialForm").val();
+        console.log(textoInicial);
         let espaciado = $(".espaciado:checked").val();
         console.log(espaciado);
         if(espaciado == "pequenio"){
@@ -46,17 +47,17 @@ $(document).ready(function(){
       $.ajax({
           type        : 'POST', // define the type of HTTP verb we want to use (POST for our form)
           url         : 'definirParametrosExamProcesamiento.php', // the url where we want to POST
-          data        : form_data + '&funcion=' + funcion + '&jsonParametros=' +  JSON.stringify(jsonNuevo) + "&idAsig=" + idAsig + "&espaciado=" + espaciado, // our data object
+          data        : form_data + '&funcion=' + funcion + '&jsonParametros=' +  JSON.stringify(jsonNuevo) + "&idAsig=" + idAsig + "&espaciado=" + espaciado + "&textoInicial=" + textoInicial, // our data object
           success: function(respuesta) {
                 if(respuesta){
                     console.log(respuesta);
                     console.log("hola");
-                    //location.reload();
+                    location.reload();
                 }
                 else{
                 	console.log("falla");
                     //alert("Fallo al borrar");
-                    //location.reload();
+                    location.reload();
                 }
              }
       })

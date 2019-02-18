@@ -15,9 +15,10 @@ $funcion = isset($_POST['funcion'])? $_POST['funcion']: null;
 $jsonParametros = isset($_POST['jsonParametros'])? json_decode($_POST['jsonParametros']): null;
 $idAsig = isset($_POST['idAsig'])? $_POST['idAsig']: null;
 $espaciado = isset($_POST['espaciado'])? $_POST['espaciado']: null;
+$textoInicial = isset($_POST['textoInicial'])? $_POST['textoInicial']: null;
 if($funcion == "updateParametrosAsig"){
 	$_SESSION['pruebaParam'] = $jsonParametros;
-	updateParametrosAsig($jsonParametros, $idAsig, $espaciado);
+	updateParametrosAsig($jsonParametros, $idAsig, $espaciado, $textoInicial);
 }
 
 function selectParametrosAsig($idAsig) {
@@ -36,31 +37,34 @@ function selectParametrosAsig($idAsig) {
 	return $fila;
 }
 
-function updateParametrosAsig($jsonParametros, $idAsig, $espaciado){
+function updateParametrosAsig($jsonParametros, $idAsig, $espaciado, $textoInicial){
 	$credentialsStr = file_get_contents('json/credentials.json');
 	$credentials = json_decode($credentialsStr, true);
 	$db = mysqli_connect('localhost', $credentials['database']['user'], $credentials['database']['password'], $credentials['database']['dbname']);
 	//$_SESSION['pruebaParam'] = $jsonParametros;
-	//$jsonParametrosString = json_encode($jsonParametros);
+	$jsonParametrosString = json_encode($jsonParametros);
 	$espaciadoInt = (int)$espaciado;
 	$idAsigInt = (int)$idAsig;
-	$_SESSION['pruebaParam'] = $espaciadoInt;
-	$_SESSION['pruebaParam2'] = $idAsigInt;
-	//$jsonParametrosString = "'".$jsonParametrosString."'";
+	//$_SESSION['pruebaParam'] = $espaciadoInt;
+	//$_SESSION['pruebaParam2'] = $textoInicial;
+	$jsonParametrosString = "'".$jsonParametrosString."'";
 	if($db){
-		return true;
-		//$sql = "UPDATE `asignaturas` SET`espaciado_defecto`=".$espaciadoInt." WHERE id=".$idAsigInt;
+		$sql = "UPDATE `asignaturas` SET`espaciado_defecto`=".$espaciadoInt.", `texto_inicial`= '".$textoInicial."', `puntos_tema`= ".$jsonParametrosString." WHERE id=".$idAsigInt;
+		$consulta=mysqli_query($db,$sql);
+		//$sql = "UPDATE `asignaturas` SET  WHERE id=".$idAsig;
 		//$consulta=mysqli_query($db,$sql);
-		//$sql = "UPDATE `asignaturas` SET `puntos_tema`= ".$jsonParametrosString." WHERE id=".$idAsig;
+		//$sql = "UPDATE `asignaturas` SET  WHERE id=".$idAsig;
+		//$consulta=mysqli_query($db,$sql);
+		//UPDATE `asignaturas` SET `texto_inicial`='asdfasdfa' WHERE id=1
 		//UPDATE `asignaturas` SET `puntos_tema`='{"numeroTemas":"3","maximoPuntos":"10","tema1":"5","tema2":"3","tema3":"2"}' WHERE id=1
 		//UPDATE `asignaturas` SET `puntos_tema`= "{'numeroTemas':'3','maximoPuntos':'10','tema1':'4','tema2':'3','tema3':'3'}" WHERE id=1
 		
 	} else {
-		echo "Conexión fallida";
-		return true;
+		//echo "Conexión fallida";
+		echo false;
 	}
 	mysqli_close($db);
-	return true;
+	echo true;
 }
 
 function esCoordinador($idAsig, $idProfesor){

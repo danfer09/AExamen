@@ -91,34 +91,7 @@
 							?>
 						</div>
 					</div>
-				</div>
-				<br>
-				<!-- Formulario para definir cabecera del examen-->
-				<div class="panel panel-primary">
-					<div class="panel-heading"><h5>Cabecera de exámen</h5></div>
-				  <div class="panel-body">
-						<div class="row">
-							<div class="form-group col-6">
-							  <div class="custom-file">
-							  	<label>Logo de la Facultad</label>
-							     <select class="form-control" id="exampleFormControlSelect1">
-							      <option>Universidad Complutense</option>
-							      <option>Facultad de Informática</option>
-							    </select>
-							  </div>
-							</div>
-							<div class="form-group col-6">
-								<div class="form-group">
-							    <label>Cuatrimestre</label>
-							    <select class="form-control" id="exampleFormControlSelect1">
-							      <option>Primer Cuatrimetre</option>
-							      <option>Segundo Cuatrimestre</option>
-							    </select>
-							  </div>
-						  </div>
-						</div>
-					</div>
-				</div>
+				</div>				
 				<br>
 				<!-- Formulario para definir espacio entre preguntas-->
 				<div class="panel panel-primary">
@@ -161,7 +134,7 @@
 						<div class="row">
 							<div class="form-group col-12">
 								<div class="form-group">
-							    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"placeholder="Escribe aquí" ><?php echo($textoInicial)?></textarea>
+							    <textarea class="form-control" id="textoInicialForm" rows="3"placeholder="Escribe aquí" ><?php echo($textoInicial)?></textarea>
 							  </div>
 							</div>
 						</div>
