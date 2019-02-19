@@ -26,7 +26,7 @@ function selectParametrosAsig($idAsig) {
 	$credentials = json_decode($credentialsStr, true);
 	$db = mysqli_connect('localhost', $credentials['database']['user'], $credentials['database']['password'], $credentials['database']['dbname']);
 	if($db){
-		$sql = "SELECT `puntos_tema`, `texto_inicial`, `espaciado_defecto`, `cabecera` FROM `asignaturas` WHERE id=".$idAsig;
+		$sql = "SELECT `puntos_tema`, `texto_inicial`, `espaciado_defecto` FROM `asignaturas` WHERE id=".$idAsig;
 		$consulta=mysqli_query($db,$sql);
 		$fila=mysqli_fetch_assoc($consulta);
 	} else {

@@ -1,11 +1,17 @@
 $(document).ready(function(){
 
-	$(".puntosTemaForm").change(function() {
+  $('#botonRestablecer').click(function(){
+    location.reload();
+  });
+
+	$(".puntosTemaForm, .puntosExamenTotal, .numTemasForm").bind('change keyup mouseup', function() {
 		let sumaPuntos = 0;
 		$( ".puntosTemaForm" ).each(function() {
-		  console.log($( this ).val());
+		  //console.log($( this ).val());
 		  sumaPuntos += parseInt($( this ).val(), 10);
 		});
+    console.log(sumaPuntos);
+    console.log($( "#maximoPuntos" ).val());
 		if($( "#maximoPuntos" ).val() != sumaPuntos){
 			$("#botonGuardar").attr("class", "btn btn-primary disabled");
 	    $("#botonGuardar").attr("disabled", true);
@@ -19,12 +25,41 @@ $(document).ready(function(){
 		}
 	});
 
+  $('.numTemasForm').bind('keyup mouseup',function() {
+    let contadorTemas = 0;
+    $( ".puntosTemaForm" ).each(function() {
+      contadorTemas += 1;
+    });
+    if ($(this).val()>contadorTemas) {
+      let dif = $(this).val()-contadorTemas;
+      for (var i = 0; i < dif; i++) {
+        $('#filaPuntosPorTema').append('<div id="div_tema'+(contadorTemas+1+i)+'" class="form-group col-4">'+
+        '<label>Tema '+(contadorTemas+1+i)+':</label>'+
+        '<input type="number" class="form-control puntosTemaForm" id="tema'+(contadorTemas+1+i)+'" value="0">'+
+        '</div>');
+      }
+    } else if ($(this).val()<contadorTemas) {
+      while($(this).val()!=contadorTemas){
+        $('#div_tema'+contadorTemas).remove();
+        contadorTemas--;
+      }
+    }
+  });
+
+  $('#formParametros').on('keyup keypress', function(e) {
+    var keyCode = e.keyCode || e.which;
+    if (keyCode === 13) { 
+      e.preventDefault();
+      return false;
+    }
+  });
+
 
 	$('#formParametros').submit(function(event) {
         var funcion = "updateParametrosAsig";
         var jsonNuevo = new Object();
-        jsonNuevo["numeroTemas"] = $("#numeroTemas").attr("value");
-        jsonNuevo["maximoPuntos"] = $("#maximoPuntos").attr("value");
+        jsonNuevo["numeroTemas"] = $("#numeroTemas").val();
+        jsonNuevo["maximoPuntos"] = $("#maximoPuntos").val();
         $( ".puntosTemaForm" ).each(function() {
     		  jsonNuevo[$( this ).attr("id")] = $(this).val();
     		});

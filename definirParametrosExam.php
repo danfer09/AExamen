@@ -55,9 +55,9 @@
 ?>
 		<form class="form-container" method="post" id="formParametros">
 			<div class="row">
-				<div class="form-group col-11"></div>
-				<div class="form-group col-1">
-					<button type="submit" class="btn btn-primary" id="botonGuardar">Guardar</button>
+				<div class="form-group col-10"></div>
+				<div class="form-group col-2">
+					<button type="button" class="btn btn-info" id="botonRestablecer">Restablecer valores</button>
 				</div>
 			</div>
 			<div class="panel-group">
@@ -66,24 +66,24 @@
 					<div class="panel-heading"><h5>Puntos por tema</h5></div>
 					<span id='mensajePuntosPorTema'></span><br>
 					<div class="panel-body">
-						<div class="row">
+						<div id="filaPuntosPorTema" class="row">
 							<?php
 							foreach ($puntosTema as $pos => $valor) {
 								if($pos=="numeroTemas"){
 									echo'<div class="form-group col-4">';
 									  echo'<label>Numero total de temas:</label>';
-									  echo'<input type="number" class="form-control" id="'.$pos.'" value="'.$valor.'">';
+									  echo'<input type="number" class="form-control numTemasForm" id="'.$pos.'" value="'.$valor.'">';
 									echo'</div>';
 								}
 								else if($pos=="maximoPuntos"){
 									echo'<div class="form-group col-4">';
 									  echo'<label>Puntos por exámen:</label>';
-									  echo'<input type="number" class="form-control" id="'.$pos.'" value="'.$valor.'">';
+									  echo'<input type="number" class="form-control puntosExamenTotal" id="'.$pos.'" value="'.$valor.'">';
 									echo'</div>';
 								}
 								else{
-									echo'<div class="form-group col-4">';
-									  echo'<label>Tema '.$pos[4].':</label>';
+									echo'<div id="div_'.$pos.'" class="form-group col-4">';
+									  echo'<label>Tema '.substr($pos,4).':</label>';
 									  echo'<input type="number" class="form-control puntosTemaForm" id="'.$pos.'" value="'.$valor.'">';
 									echo'</div>';
 								}
@@ -139,6 +139,12 @@
 							</div>
 						</div>
 					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="form-group col-11"></div>
+				<div class="form-group col-1">
+					<button type="submit" class="btn btn-primary" id="botonGuardar">Guardar</button>
 				</div>
 			</div>
 		</form>

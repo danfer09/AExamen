@@ -30,7 +30,7 @@
 			include 'funcionesServidor.php';
 
 
-			echo "<br>prueba: ".$_SESSION['prueba'];
+			/*echo "<br>prueba: ".$_SESSION['prueba'];
 			$_SESSION['prueba'] = "inicializadoooooo";
 
 			echo "<br>prueba1: ";
@@ -39,7 +39,7 @@
 			$_SESSION['prueba1'] = "inicializadoo11111";
 
 			echo "<br>prueba2: ".$_SESSION['prueba2'];
-			$_SESSION['prueba2'] = "inicializadooo222";
+			$_SESSION['prueba2'] = "inicializadooo222";*/
 		?>
 		<br>
 		<div class="row" id="filtros">
