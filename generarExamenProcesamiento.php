@@ -12,6 +12,7 @@
 	}
 
 	require('FPDF/fpdf.php');
+	include "crearExamenProcesamiento.php";
 
 	class PDF extends FPDF
 	{
@@ -103,7 +104,7 @@
 	    	$i=1;
 	    	foreach ($preguntas as $pregunta) {
 	    		$pdf->Cell(5,5,$i.")","",0,'R');
-	    		$pdf->MultiCell(0,5,"(X puntos) ".$pregunta['cuerpo']);
+	    		$pdf->MultiCell(0,5,"(".intval($pregunta['puntos'])." puntos) ".utf8_decode($pregunta['pregunta']));
 	    		//$pdf->Cell(70,20,$pregunta['cuerpo'],"",0,'L');
 	    		if ($_POST['espaciado'] == 2) {
 	    			$pdf->Ln(30);
@@ -143,13 +144,30 @@
 		$credentials = json_decode($credentialsStr, true);
 		$db = mysqli_connect('localhost', $credentials['database']['user'], $credentials['database']['password'], $credentials['database']['dbname']);
 		//comprobamos si se ha conectado a la base de datos
-
 		if($db){
+			$resultado = [];
+			
+			$examenEntero=getExamen($idExamen);
+			$preguntasSesion=json_decode($examenEntero['puntosPregunta'],true);
+			$numTemas = getNumTemas($examenEntero['id_asig']);
+			for ($i = 1; $i <= $numTemas; $i++) {
+				$preguntasTema = isset($preguntasSesion['preguntas']['tema'.$i])? $preguntasSesion['preguntas']['tema'.$i]: null;
+				$sumaTema = 0;
+				if ($preguntasTema) {
+					foreach ($preguntasTema as $pregunta) {
+						$resultado[] = json_decode('{"puntos": '.$pregunta["puntos"].', "pregunta": ""}', true);
+					}
+				}
+			}
+
+			$n = count($resultado);
+			$i = 0;
 			$sql = "SELECT preguntas.cuerpo FROM (preguntas INNER JOIN exam_preg ON preguntas.id=exam_preg.id_pregunta) INNER JOIN examenes on examenes.id=exam_preg.id_examen WHERE examenes.id='".$idExamen."'";
 			$consulta=mysqli_query($db,$sql);
-			$resultado = [];
+			
 			while ($fila=mysqli_fetch_assoc($consulta)){
-				$resultado[] = $fila;
+				$resultado[$i]['pregunta'] = $fila['cuerpo'];
+				$i++;
 			}
 			return $resultado;
 		}

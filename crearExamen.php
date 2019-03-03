@@ -79,7 +79,7 @@
 			echo "<br>"."SESSION[SESSION['nombreAsignatura']]: ".$_SESSION[$_SESSION['nombreAsignatura']];
 			echo "<br><br>SESSION Examen a editar: ".$_SESSION[$nombreExamen];
 			echo "<br>editar: ".$_SESSION['editar'];*/
-			echo "<br>prueba: ".$_SESSION['prueba'];
+			//echo "<br>prueba: ".$_SESSION['prueba'];
 			//$_SESSION['prueba'] = ;
 			//echo "<br>prueba2: ".$_SESSION['prueba2'];
 			//$_SESSION['prueba'] = false;
