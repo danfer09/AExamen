@@ -34,21 +34,36 @@
 						$fila=mysqli_fetch_assoc($consulta);
 					}
 				}
+				$sql = "SELECT * FROM administradores";
+				$consulta=mysqli_query($db,$sql);
+				$filaAdmin=mysqli_fetch_assoc($consulta);
+				$encontradoAdmin=false;
+				/*Buscamos un correo que coincida con el que nos a introducido el usuario, en caso de que no se encuentre sale con la variable $encontrado a false*/
+				while(!$encontradoAdmin && $filaAdmin){
+					if($email==$filaAdmin['email']){
+						$encontradoAdmin=true;
+					}
+					else{
+						$filaAdmin=mysqli_fetch_assoc($consulta);
+					}
+				}
 				/*Si no encotramos el nombre del usario ponemos a true la variable de error al autenticar y redirigimos a loginFormulario.php donde la tratamos*/
-				if(!$encontrado){
+
+				if(!$encontrado && !$encontradoAdmin){
 					$_SESSION['error_autenticar']=true;
 					header('Location: loginFormulario.php');
 				}
 				else{
 					//Verificamos la clave con esta funcion ya que en la BBDD esta encriptada, en caso de que se verifique, declaramos e inicializamos todas las variables de session de usuario.
-					if(password_verify($clave, $fila['clave'])){
+					$datos = ($encontrado) ? $fila : $filaAdmin;
+					if(password_verify($clave, $datos['clave'])){
 						echo "sesion iniciada correctamente";
 						$_SESSION['logeado']=true;
 						$_SESSION["email"] = $email;
-						$_SESSION["nombre"]=$fila['nombre'];
-						$_SESSION['apellidos']=$fila['apellidos'];
-						$_SESSION['id']=$fila['id'];
-						$_SESSION['coordinador']=$fila["coordinador"];
+						$_SESSION["nombre"]=$datos['nombre'];
+						$_SESSION['apellidos']=$datos['apellidos'];
+						$_SESSION['id']=$datos['id'];
+						$_SESSION['administrador'] = $encontradoAdmin;
 						header('Location: paginaPrincipalProf.php');
 					}
 					/*En caso de que la clave no coincida con el usuairo ponemos a true la variable de error al autentiacar y redirigimos a loginFormulario.php donde la tratamos*/

@@ -13,6 +13,7 @@
 		<h1>Pagina principal del profesor</h1>
 		<?php 
 			/*Iniciamos la sesion, pero antes hacemos una comprobacion para evitar errores*/
+
 			if (session_status() == PHP_SESSION_NONE) {
 			    session_start();
 			}
@@ -26,9 +27,16 @@
 				header('Location: index.php');
 			}
 
+
 		?>
 		<a href="perfilPropioProf.php"> Editar perfil </a>
-		<a href="asignaturasProfesor.php"> Ver mis asignaturas </a>
+
+		<?php
+		if($_SESSION['administrador'])
+			echo('<a href="asignaturasAdmin.php"> Ver asignaturas </a>');//PHP NO CREADO AUN
+		else
+			echo('<a href="asignaturasProfesor.php"> Ver mis asignaturas </a>');
+		?>
 		<br>
 		<a href="cerrarSesion.php">Salir</a>
 	</div>
