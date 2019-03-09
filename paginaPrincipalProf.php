@@ -33,7 +33,7 @@
 
 		<?php
 		if($_SESSION['administrador'])
-			echo('<a href="asignaturasAdmin.php"> Ver asignaturas </a>');//PHP NO CREADO AUN
+			echo('<a href="gestionarAsigAdmin.php"> Ver todas las asignaturas </a>');
 		else
 			echo('<a href="asignaturasProfesor.php"> Ver mis asignaturas </a>');
 		?>
