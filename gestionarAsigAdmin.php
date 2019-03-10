@@ -51,6 +51,7 @@
 	        <th onclick="w3.sortHTML('#tabla_asignaturas', '.item', 'td:nth-child(2)')" style="cursor:pointer;">Nombre asignatura</th>
 	        <th onclick="w3.sortHTML('#tabla_asignaturas', '.item', 'td:nth-child(3)')" style="cursor:pointer;">Número Profesores</th>
 	        <th onclick="w3.sortHTML('#tabla_asignaturas', '.item', 'td:nth-child(4)')" style="cursor:pointer;">Nombre/s coordinador/es</th>
+	        <th>Opciones</th>
 	      </tr>
 	    </thead>
 	    <tbody>
@@ -74,29 +75,77 @@
 		else{
 			foreach ($asignaturas as $pos => $valor) {
 				echo '<tr class="item" style="cursor:pointer;">';
-				echo '<td><a href="asignatura.php?id='.$valor['id'].'&nombre='.$valor['nombre'].'&siglas='.$valor['siglas'].'"></a>'.$valor['siglas'].'</td>';
-				echo '<td>'.$valor['nombre'].'</td>';
-				echo '<td>'.getNumeroProfesoresAsig($valor['id'])['numero_profesores']."</td>";
+				echo '<td class="asigClick"><a href="asignatura.php?id='.$valor['id'].'&nombre='.$valor['nombre'].'&siglas='.$valor['siglas'].'"></a>'.$valor['siglas'].'</td>';
+				echo '<td class="asigClick">'.$valor['nombre'].'</td>';
+				echo '<td class="asigClick">'.getNumeroProfesoresAsig($valor['id'])['numero_profesores']."</td>";
 				//echo '<td>'.foreach (getCoordinadores($valor['id']) as $pos => $valor) $valor.'</td>';
+				echo '<td class="asigClick"></td>';
+				echo '<td><a class="fas fa-plus-circle botonCoordinadores"  idAsig="'.$valor['id'].'" href="#"></a>';
 				echo '</tr>';
 			}
 		}
+
+
 	?>
 		</tbody>
 	</table>
+	<div class="modal" id="modalCoordinadorAsig">
+		<div class="modal-dialog modal-lg">
+		  <div class="modal-content">
+		  
+		    <!-- Modal Header -->
+		    <div class="modal-header">
+		      <h4 class="modal-title">Añadir pregunta</h4>
+		      <button type="button" class="close" data-dismiss="modal">&times;</button>
+		    </div>
+		    
+		    <!-- Modal body -->
+		    <div class="modal-body">
+				  <form action="#" class="form-container" method="post" id="form_aniadirPregunta">
+				    <!--<h1 name="borrarExamen">Añadir preguntas</h1>-->
+				    	<!--<div id="info_aniadirPreg_vacio" class="badge badge-pill badge-danger">No hay ninguna pregunta de este tema</div>
+				    	<div id="info_aniadirPreg_limite" class="badge badge-pill badge-warning">Se ha alcanzado el límite de puntos para este tema</div>
+				    	<div id="info_aniadirPreg_todas" class="badge badge-pill badge-info">Ya están todas las preguntas de este tema añadidas</div>   ERRORES PARA MOSTRAR, MIRAR MAS TARDE-->
+				    	<div class="table-wrapper-scroll-y">
+			    			<table class="table table-hover" id="tabla">	
+								<thead>
+							      <tr>
+							      	<th>#</th>
+							        <th>Nombre</th>
+							        <th>Apellidos</th>
+							       	<th>Correo</th>
+							      </tr>
+							    </thead>			
+							    <tbody id="tableCoordinadores">
+						 		</tbody>
+								  	
+							</table>
+						</div>
+				    <button type="submit" class="btn btn-primary" id="boton_aniadir" name="boton_aniadir">Añadir</button>
+				    <button type="button" class="btn btn-danger" id="boton_noAniadir" name="boton_noAniadir" data-dismiss="modal">Cancelar</button>					  
+				  </form>
+		    </div>
+		    
+		    <!-- Modal footer -->
+		    <div class="modal-footer">
+		      <!--<button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>-->
+		    </div>
+		    
+		  </div>
+		</div>
+	</div>
 		
 </div>
 
+
 <!--Librerias externas-->
 <script src="js/jquery-3.3.1.min.js"></script>
-<script src="js/jquery-3.3.1.slim.min.js"></script>
 <script src="js/popper.min.js"></script>
 <script src="js/bootstrap.min.js"></script>
-<script src="js/jquery.min.js"></script>
 <script src="js/w3.js"></script>
 
 <!--Javascripts propios-->
-<script type="text/javascript" src="js/asignaturasProfesor.js"></script><!--CUIDADO, ES UN JS DE OTRO PHP, PODEMOS BASARNOS EN EL-->
+<script type="text/javascript" src="js/gestionarAsigAdmin.js"></script><!--CUIDADO, ES UN JS DE OTRO PHP, PODEMOS BASARNOS EN EL-->
 <script type="text/javascript" src="js/cabeceraConLogin.js"></script>
 
 </body>
