@@ -10,6 +10,12 @@
 	if (!$logeado) {
 		header('Location: index.php');
 	}
+
+
+	$funcion = isset($_POST['funcion'])? $_POST['funcion']: null;
+	$idAsig = isset($_POST['idAsig'])? $_POST['idAsig']: null;
+	if($funcion == "getProfesoresAdmin")
+		getProfesoresAdmin($idAsig);
 	
 
 	/*Funcion que devuelve todas las asignaturas de la plataforma*/
@@ -117,4 +123,52 @@
 		return $profesores_coord;
 	}
 	//$sql = "SELECT prof_asig_coord.coordinador AS coordinador, profesores.nombre AS nombre_profesor, asignaturas.nombre AS nombre_asignatura, asignaturas.siglas AS siglas_asignatura, asignaturas.id AS id_asignatura FROM ((prof_asig_coord INNER JOIN profesores ON prof_asig_coord.id_profesor = profesores.id) INNER JOIN asignaturas ON prof_asig_coord.id_asignatura = asignaturas.id) WHERE id_asignatura=".$idAsig." AND coordinador=1";
+
+
+	function esCoordinador($idAsig, $idProfesor){
+		$credentialsStr = file_get_contents('json/credentials.json');
+		$credentials = json_decode($credentialsStr, true);
+		$db = mysqli_connect('localhost', $credentials['database']['user'], $credentials['database']['password'], $credentials['database']['dbname']);
+		$result=false;
+		if($db){
+			$sql = "SELECT coordinador FROM `prof_asig_coord` WHERE `id_profesor` =".$idProfesor." and `id_asignatura`=".$idAsig;
+			$consulta = mysqli_query($db,$sql);
+			$result= mysqli_fetch_assoc($consulta);
+		}
+		return $result['coordinador'];
+	}
+
+	function getProfesoresAdmin($idAsig) {
+		$credentialsStr = file_get_contents('json/credentials.json');
+		$credentials = json_decode($credentialsStr, true);
+		$_SESSION['error_BBDD']=false;
+		
+		$db = mysqli_connect('localhost', $credentials['database']['user'], $credentials['database']['password'], $credentials['database']['dbname']);
+		if($db){
+			$sql = 'SELECT `nombre`, `apellidos`, `email`, `id` FROM `profesores`';
+			$consulta=mysqli_query($db,$sql);
+			$profNoCoord = [];
+			$profSiCoord = [];
+			if($consulta->num_rows > 0){
+				while ($fila=mysqli_fetch_assoc($consulta)){
+					if(esCoordinador($idAsig, $fila['id']))
+						$profSiCoord[] = $fila;
+					else
+						$profNoCoord[] = $fila;
+				}
+			} else {
+				$resultado = null;
+			}
+			mysqli_close($db);
+			$resultado['profSiCoord']= $profSiCoord;
+			$resultado['profNoCoord']= $profNoCoord;
+			echo json_encode($resultado);
+		} else {
+			echo "Conexión fallida";
+			$_SESSION['error_BBDD']=true;
+			echo false;
+		}
+	}
+
+
 ?>
