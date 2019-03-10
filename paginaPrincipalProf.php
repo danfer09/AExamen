@@ -32,8 +32,10 @@
 		<a href="perfilPropioProf.php"> Editar perfil </a>
 
 		<?php
-		if($_SESSION['administrador'])
+		if($_SESSION['administrador']){
 			echo('<a href="gestionarAsigAdmin.php"> Ver todas las asignaturas </a>');
+			echo '<a href="profesoresAdmin.php"> Ver profesores </a>';
+		}
 		else
 			echo('<a href="asignaturasProfesor.php"> Ver mis asignaturas </a>');
 		?>
