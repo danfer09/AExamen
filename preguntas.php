@@ -83,7 +83,7 @@
 		    </thead>
 		    <tbody>
 		<?php
-			$asignaturas=cargaPreguntas($_GET['idAsignatura'], $_GET['autor']);
+			$preguntas=cargaPreguntas($_GET['idAsignatura'], $_GET['autor']);
 
 			$error_ningunaPregunta = isset($_SESSION['error_ningunaPregunta'])? $_SESSION['error_ningunaPregunta']: false;
 			$error_BBDD = isset($_SESSION['error_BBDD'])? $_SESSION['error_BBDD']: false;
@@ -92,7 +92,7 @@
 			if($error_BorrarNoCreador){
 				?>
 				<div class="alert alert-warning">
-				    <p>No se ha podido borrar la pregunta. Solo los autores pueden borrar sus preguntas</p>
+				    <p>No se ha podido borrar la pregunta. Solo los autores pueden borrar sus preguntas.</p>
 				 </div>
 				<?php
 				$_SESSION['error_BorrarNoCreador'] = false;
@@ -108,13 +108,18 @@
 			}
 			
 			if($error_ningunaPregunta){
-				echo 'Esta asignatura no tienen ninguna pregunta para ti';
+				?>
+				<div class="alert alert-warning">
+				    <p>Esta asignatura no tiene ninguna pregunta para ti.</p>
+				 </div>
+				<?php
+				$_SESSION['error_ningunaPregunta'] = false;
 			}
 			else if($error_BBDD){
 				echo 'Error con la BBDD, contacte con el administrador';
 			}
 			else{
-				foreach ($asignaturas as $pos => $valor) {
+				foreach ($preguntas as $pos => $valor) {
 					echo '<tr class="item" >';
 					//Esto es para que muestre los detalles cuando se pulsa en al fila,pero si se activa, no funcionan los demás botones
 					//echo '<td><a href="'.$valor['id_preguntas'].'"></a>'.$valor['titulo'].'</td>';

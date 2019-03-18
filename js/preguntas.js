@@ -120,8 +120,8 @@ $(document).ready(function(){
 
 
     function validarInsert($mensaje){
-    	var camposVacios = "Hay campos vacios, rellenelos";
-    	var temaNoNumero = "Es tema no es un numero, ponga un numero para continuar";
+    	var camposVacios = "Hay campos vacíos, rellénelos";
+    	var temaNoNumero = "El tema debe ser un número, ponga un número para continuar";
     	if($("#titulo").val()=="" || $("#cuerpo").val()=="" || $("#tema").val()==""){
     		$("#boton_añadir").attr("class", "btn btn-primary disabled");
 	    	$("#boton_añadir").attr("disabled", true);

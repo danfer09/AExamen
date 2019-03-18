@@ -11,6 +11,41 @@
 		header('Location: index.php');
 	}
 
+	$funcion = isset($_POST['funcion'])? $_POST['funcion']: null;
+	$idProfesor = isset($_POST['idProfesor'])? $_POST['idProfesor']: null;
+
+	if($funcion == "borrarProfesor")
+		borrarProfesor($idProfesor);
+
+	function borrarProfesor($id) {
+		$_SESSION['error_no_poder_borrar'] = false;
+		$funciona=false;
+		$admin = $_SESSION['administrador'];
+		$credentialsStr = file_get_contents('json/credentials.json');
+		$credentials = json_decode($credentialsStr, true);
+		$db = mysqli_connect('localhost', $credentials['database']['user'], $credentials['database']['password'], $credentials['database']['dbname']);
+		//comprobamos si se ha conectado a la base de datos
+
+		if($db){
+			if ($admin) {
+				$sql = 'DELETE FROM profesores WHERE id='.$id;
+				$consulta=mysqli_query($db,$sql);
+
+				$fila=mysqli_fetch_assoc($consulta);
+				$funciona = true;
+			} else {
+				$_SESSION['error_no_poder_borrar'] = true;
+			}
+		}
+		else{
+			$_SESSION['error_BBDD']=true;
+			$funciona=false;
+		}
+		mysqli_close($db);
+
+		echo $funciona;
+	}
+
 	function getProfesoresAdmin() {
 		$credentialsStr = file_get_contents('json/credentials.json');
 		$credentials = json_decode($credentialsStr, true);

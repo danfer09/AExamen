@@ -13,9 +13,9 @@ $(document).ready(function(){
 
 
     $('#form_delete').submit(function(event) {
-        var funcion = "borrarProfesorDeAsig";
+        var funcion = "borrarProfesor";
         var form_data = $(this).serialize();
-      $.ajax({
+        $.ajax({
           type        : 'POST', // define the type of HTTP verb we want to use (POST for our form)
           url         : 'profesoresAdminProcesamiento.php', // the url where we want to POST
           data        : form_data + '&funcion=' + funcion + '&idProfesor=' + $("#boton_borrar").attr("id_profesor"), // our data object
@@ -29,14 +29,13 @@ $(document).ready(function(){
                     location.reload();
                 }
              }
-      })
+        })
         event.preventDefault();
-
     });
 
 
   $('#boton_borrar').click(function() {
-    const mensaje = "¿Esta accion no se puede retornar, está seguro de que desea quitar este profesor de la asignatura?";
+    const mensaje = "Esta acción no se puede retornar, ¿está seguro de que desea eliminar este profesor?";
     if(window.confirm(mensaje)){ 
         $("#form_delete").submit(); 
       }

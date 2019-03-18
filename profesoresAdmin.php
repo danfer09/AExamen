@@ -107,10 +107,10 @@
 			    
 			    <!-- Modal body -->
 			    <div class="modal-body" id="modal_borrarProfesor_body">
-					  <form action="servidor.php" class="form-container" method="post" id="form_delete">
-					    <button type="submit" class="btn btn-danger btn-lg" id="boton_borrar" name="boton_borrar">Sí</button>
-					    <button type="button" class="btn btn-secondary btn-lg" id="boton_noBorrar" name="boton_noBorrar" data-dismiss="modal">No</button>					  
-					  </form>
+					<form action="profesoresAdminProcesamiento.php" class="form-container" method="post" id="form_delete">
+						<button type="submit" class="btn btn-danger btn-lg" id="boton_borrar" name="boton_borrar">Sí</button>
+						<button type="button" class="btn btn-secondary btn-lg" id="boton_noBorrar" name="boton_noBorrar" data-dismiss="modal">No</button>					  
+					</form>
 			    </div>
 			    
 			    <!-- Modal footer -->
@@ -138,22 +138,7 @@
 			    <div class="modal-body">
 					  <form action="#" class="form-container" method="post" id="formAniadirProfesor">
 					    <!--<h1 name="borrarExamen">Añadir preguntas</h1>-->
-					    	<div id="infoTodosProfAdd" class="badge badge-pill badge-info">Ya están todos los profesores añadidos</div>
-					    	<div class="table-wrapper-scroll-y">
-				    			<table class="table table-hover" id="tabla">	
-									<thead>
-								      <tr>
-								      	<th>#</th>
-								        <th>Nombre</th>
-								        <th>Apellidos</th>
-								        <th>Correo</th>
-								      </tr>
-								    </thead>			
-								    <tbody id="tableAniadirProfesor">
-							 		</tbody>
-									  	
-								</table>
-							</div>
+					    	
 					    <button type="submit" class="btn btn-primary" id="boton_aniadir" name="boton_aniadir">Añadir</button>
 					    <button type="button" class="btn btn-danger" id="boton_noAniadir" name="boton_noAniadir" data-dismiss="modal">Cancelar</button>					  
 					  </form>
