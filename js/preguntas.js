@@ -155,7 +155,7 @@ $(document).ready(function(){
 
 
   $('#boton_borrar').click(function() {
-    const mensaje = "¿Esta seguro de que desea borrar esta pregunta?";
+    const mensaje = "¿Está seguro de que desea borrar esta pregunta?";
     if(window.confirm(mensaje)){ 
         $("#form_delete").submit(); 
       }
@@ -163,7 +163,7 @@ $(document).ready(function(){
   });
 
   $('#boton_editar').click(function() {
-    const mensaje = "¿Esta seguro de que desea editar esta pregunta?";
+    const mensaje = "¿Está seguro de que desea editar esta pregunta?";
     if(window.confirm(mensaje)){ 
         $("#form_mod").submit(); 
       }

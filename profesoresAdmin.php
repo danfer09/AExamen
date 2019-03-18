@@ -82,12 +82,12 @@
 					echo '<tr class="item">';
 					echo '<td> <i class="fas fa-user fa-fw fa-lg"></i> </td>';
 					echo '<td id="idProfesor" hidden="true">'.$valor['id'].'</td>';
-					echo '<td>'.$valor['nombre'].'</td>';
-					echo '<td>'.$valor['apellidos'].'</td>';
-					echo '<td>'.$valor['email'].'</td>';
+					echo '<td id="nombreProfesor'.$valor['id'].'">'.$valor['nombre'].'</td>';
+					echo '<td id="apellidosProfesor'.$valor['id'].'">'.$valor['apellidos'].'</td>';
+					echo '<td id="emailProfesor'.$valor['id'].'">'.$valor['email'].'</td>';
 					echo '<td id="opciones">
-						<a id="boton_modalEditar" idProfesor="'.$valor['id'].'" ><i class="fas fa-pencil-alt fa-fw fa-lg"></i></a>
-						<a id="boton_modalBorrar" idProfesor="'.$valor['id'].'"><i class="fas fa-trash-alt fa-fw fa-lg"></i></a> </td>';
+						<a id="boton_modalEditar" href="#" idProfesor="'.$valor['id'].'" ><i class="fas fa-pencil-alt fa-fw fa-lg"></i></a>
+						<a id="boton_modalBorrar" href="#" idProfesor="'.$valor['id'].'"><i class="fas fa-trash-alt fa-fw fa-lg"></i></a> </td>';
 					echo '</tr>';
 				}
 			}
@@ -121,16 +121,54 @@
 			  </div>
 			</div>
 		</div>
-		
-	</div>
 
-	<div class="modal" id="modalAniadirProfesor">
+		<!-- Modal de editar profesor -->
+		<div class="modal" id="modal_editarProfesor">
+			<div class="modal-dialog">
+			  <div class="modal-content">
+			  
+			    <!-- Modal Header -->
+			    <div class="modal-header">
+			      <h4 class="modal-title">Editar profesor</h4>
+			      <button type="button" class="close" data-dismiss="modal">&times;</button>
+			    </div>
+			    
+			    <!-- Modal body -->
+			    <div class="modal-body">
+					  <form action="profesoresAdminProcesamiento.php" class="form-container" method="post" id="form_mod">
+					  	<div class="form-group">
+					  		<label for="nombre">Nombre</label>
+					    	<input type="text" class="form-control" placeholder="Introduzca el nombre" name="nombre" id="nombre">
+						</div>
+						<div class="form-group">
+					    	<label for="apellidos">Apellidos</label>
+					    	<input type="text" class="form-control" placeholder="Introduzca los apellidos" name="apellidos" id="apellidos">
+						</div>
+						<div class="form-group">
+						    <label for="email">Email</label>
+						    <input type="email" class="form-control" placeholder="Introduzca el email" name="email" id="email">
+						</div>
+						<br>
+					  </form>
+			    </div>
+			    
+			    <!-- Modal footer -->
+			    <div class="modal-footer">
+			    	<button type="submit" class="btn btn-success" id="boton_editar" name="boton_editar">Actualizar</button>
+			    	<button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
+			    </div>
+			    
+			  </div>
+			</div>
+		</div>
+		
+		<div class="modal" id="modalAniadirProfesor">
 			<div class="modal-dialog modal-lg">
 			  <div class="modal-content">
 			  
 			    <!-- Modal Header -->
 			    <div class="modal-header">
-			      <h4 class="modal-title">Añadir profesor</h4>
+			      <h4 class="modal-title">Enviar invitación a profesor</h4>
 			      <button type="button" class="close" data-dismiss="modal">&times;</button>
 			    </div>
 			    
@@ -139,7 +177,7 @@
 					  <form action="#" class="form-container" method="post" id="formAniadirProfesor">
 					    <!--<h1 name="borrarExamen">Añadir preguntas</h1>-->
 					    	
-					    <button type="submit" class="btn btn-primary" id="boton_aniadir" name="boton_aniadir">Añadir</button>
+					    <button type="submit" class="btn btn-primary" id="boton_aniadir" name="boton_aniadir">Enviar</button>
 					    <button type="button" class="btn btn-danger" id="boton_noAniadir" name="boton_noAniadir" data-dismiss="modal">Cancelar</button>					  
 					  </form>
 			    </div>
@@ -152,6 +190,10 @@
 			  </div>
 			</div>
 		</div>
+
+	</div>
+
+	
 
 	<script src="js/jquery-3.3.1.min.js"></script>
 	<script type="text/javascript" src="js/cabeceraConLogin.js"></script>
