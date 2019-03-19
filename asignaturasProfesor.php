@@ -11,6 +11,9 @@
 	if (!$logeado) {
 		header('Location: index.php');
 	}
+
+
+	
 ?>
 
 <html>
