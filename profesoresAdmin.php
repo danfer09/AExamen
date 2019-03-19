@@ -41,6 +41,7 @@
 			echo "<br>prueba2: ".$_SESSION['prueba2'];
 			$_SESSION['prueba2'] = "inicializadooo222";*/
 		?>
+		
 		<br>
 		<div class="row" id="filtros">
 			<input oninput="w3.filterHTML('#tabla_admin_profesores', '.item', this.value)" class="w3-input col-12" placeholder="Buscar...">
