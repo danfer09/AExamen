@@ -74,7 +74,7 @@
 						echo '
 							<div class="col-4">'.$peticion['nombre'].' '.$peticion['apellidos'].'</div>
 							<div class="col-4">'.$peticion['email'].'</div>
-							<div class="col-2"><button idPeticion="'.$peticion['id'].'" type="button" class="btn btn-info masInfo" data-toggle="modal" data-target="#infoPeticion">Más info.</button></div>
+							<div class="col-2"><button fechaPeticion="'.formateoDateTime($peticion['fecha']).'" idPeticion="'.$peticion['id'].'" type="button" class="btn btn-info masInfo" data-toggle="modal" data-target="#infoPeticion">Más info.</button></div>
 							<div class="col-2" style="text-align: right;">
 								<button class="btn btn-success"><i class="fas fa-check"></i></button>
 								<button class="btn btn-danger"><i class="fas fa-times"></i></button>
@@ -85,7 +85,7 @@
 				}
 			?>
 
-			<!-- Modal <i class="fas fa-info-clock"></i>'.formateoDateTime($peticion['fecha']).' -->
+			<!-- Modal <i class="fas fa-info-clock"></i> -->
 			<div id="infoPeticion" class="modal fade" role="dialog">
 			  <div class="modal-dialog">
 
