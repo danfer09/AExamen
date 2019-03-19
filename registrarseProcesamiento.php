@@ -12,6 +12,7 @@
 		$email = isset($_POST['email'])? $_POST['email']: null;
 		$nombre = isset($_POST['nombre'])? $_POST['nombre']: null;
 		$apellidos = isset($_POST['apellidos'])? $_POST['apellidos']: null;
+		$texto = isset($_POST['texto'])? $_POST['texto']: null;
 		//Comprobamos que ninguna de las variables este a null
 		if($email!=null && $apellidos!=null && $nombre!=null){
 			//Conectamos la base de datos
@@ -28,14 +29,11 @@
 					header('Location: registrarseFormulario.php');
 					exit();
 				} else {
-					if (smtpmailer($email, $credentials['webMail']['mail'], 'AExamen Web', 'Confirme su email', 'mailRegistro.html', $credentials['webMail']['mail'], $credentials['webMail']['password'])) {
-						$_SESSION['confirmado'] = false;
-						$_SESSION['emailTemp'] = $email;
-						$_SESSION['nombreTemp'] = $nombre;
-						$_SESSION['apellidosTemp'] = $apellidos;
-						echo "Perfil temporal creado";
-					}
-					if (!empty($error)) echo $error;
+					date_default_timezone_set('Europe/Berlin');
+					$date = date('Y-m-d H:i:s', time());
+					$sql = "INSERT INTO `peticiones_registro`(`id`, `nombre`, `apellidos`, `email`, `fecha`, `texto`) VALUES ('','".$nombre."','".$apellidos."','".$email."','".$date."', '".$texto."')";
+					$consulta=mysqli_query($db,$sql);
+					$fila=mysqli_fetch_assoc($consulta);
 				}
 			}
 			else{

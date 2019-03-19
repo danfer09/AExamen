@@ -39,14 +39,17 @@
 			<br>
 			Email:<br>
 			<input type="text" name="email" id="email">
+			<br>
+			Texto (opcional):<br>
+			<textarea cols="50" rows="4" name="texto" id="texto"></textarea>
 			<br><br>
 
-			<span>*Usted recibirá un correo de validación para establecer su contraseña</span>
+			<span>*Usted recibirá un correo de validación para establecer su contraseña en cuanto el administrador acepte su solicitud</span>
 			<br><br>
 
 			<input type="submit" value="Registrarse" id="logear" name="logear">
 		</form> 
-		<p><a href="loginFormulario.php">Iniciar sesión</a></p>
+		<p><a href="loginFormulario.php">Volver a Iniciar sesión</a></p>
 	</div>
 
 
@@ -55,9 +58,7 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
 
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
 	
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
 	<script src="https://www.w3schools.com/lib/w3.js"></script>
 

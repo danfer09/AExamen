@@ -35,6 +35,7 @@
 		if($_SESSION['administrador']){
 			echo('<a href="gestionarAsigAdmin.php"> Ver todas las asignaturas </a>');
 			echo '<a href="profesoresAdmin.php"> Ver profesores </a>';
+			echo '<a href="panelControl.php"> Panel de control </a>';
 		}
 		else
 			echo('<a href="asignaturasProfesor.php"> Ver mis asignaturas </a>');
