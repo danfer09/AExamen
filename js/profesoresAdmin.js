@@ -71,7 +71,6 @@ $(document).ready(function(){
     });
 
 
-
   $('#boton_borrar').click(function() {
     const mensaje = "Esta acción no se puede retornar, ¿está seguro de que desea eliminar este profesor?";
     if(window.confirm(mensaje)){ 
