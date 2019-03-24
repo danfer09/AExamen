@@ -15,7 +15,53 @@
 	$idPeticion = isset($_POST['idPeticion'])? $_POST['idPeticion']: null;
 	if($funcion == "getPeticion")
 		getPeticion($idPeticion);
+	else if($funcion == "borrarPeticion")
+		borrarPeticion($idPeticion);
+	else if($funcion == "aceptarPeticion")
+		aceptarPeticion($idPeticion);
 
+
+	function aceptarPeticion($id) {
+		$credentialsStr = file_get_contents('json/credentials.json');
+		$credentials = json_decode($credentialsStr, true);
+		$_SESSION['error_BBDD']=false;
+		
+		$db = mysqli_connect('localhost', $credentials['database']['user'], $credentials['database']['password'], $credentials['database']['dbname']);
+		if($db){
+			$peticion = getPeticionReturn($id);
+			$sql = 'DELETE FROM `peticiones_registro` WHERE id='.$id;
+			$consulta=mysqli_query($db,$sql);
+			$fila=mysqli_fetch_assoc($consulta);
+			/*echo "<pre>";
+			var_dump($peticion);
+			die();*/
+			$sql = "INSERT INTO `profesores`(`nombre`, `apellidos`, `email`, `id`, `clave`) VALUES ('".$peticion['nombre']."','".$peticion['apellidos']."','".$peticion['email']."','','".$peticion['clave']."')";
+			$consulta=mysqli_query($db,$sql);
+			$fila=mysqli_fetch_assoc($consulta);
+
+			$resultado = true;
+		} else {
+			$resultado = false;
+		}
+		echo $resultado;
+	}
+
+	function borrarPeticion($id) {
+		$credentialsStr = file_get_contents('json/credentials.json');
+		$credentials = json_decode($credentialsStr, true);
+		$_SESSION['error_BBDD']=false;
+		
+		$db = mysqli_connect('localhost', $credentials['database']['user'], $credentials['database']['password'], $credentials['database']['dbname']);
+		if($db){
+			$sql = 'DELETE FROM `peticiones_registro` WHERE id='.$id;
+			$consulta=mysqli_query($db,$sql);
+			$fila=mysqli_fetch_assoc($consulta);
+			$resultado = true;
+		} else {
+			$resultado = false;
+		}
+		echo json_encode($resultado);
+	}
 
 	function getPeticion($id) {
 		$credentialsStr = file_get_contents('json/credentials.json');
@@ -40,6 +86,31 @@
 			echo "Conexión fallida";
 			$_SESSION['error_BBDD']=true;
 			echo false;
+		}
+	}
+
+	function getPeticionReturn($id) {
+		$credentialsStr = file_get_contents('json/credentials.json');
+		$credentials = json_decode($credentialsStr, true);
+		$_SESSION['error_BBDD']=false;
+		
+		$db = mysqli_connect('localhost', $credentials['database']['user'], $credentials['database']['password'], $credentials['database']['dbname']);
+		if($db){
+			$sql = 'SELECT * FROM `peticiones_registro` WHERE id='.$id;
+			$consulta=mysqli_query($db,$sql);
+			$resultado = [];
+			if($consulta->num_rows > 0){
+				while ($fila=mysqli_fetch_assoc($consulta)){
+					$resultado[] = $fila;
+				}
+			} else {
+				$resultado = null;
+			}
+			mysqli_close($db);
+			return $resultado[0];
+		} else {
+			echo "Conexión fallida";
+			return false;
 		}
 	}
 

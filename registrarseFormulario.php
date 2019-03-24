@@ -31,20 +31,26 @@
 		<h1>Registrarse</h1>
 
 		<form action="registrarseProcesamiento.php" id="formulario_registrarse" method="post">
-			Nombre:<br>
+			<span>Nombre:</span><br>
 			<input type="text" name="nombre" id="nombre">
 			<br>
-			Apellidos:<br>
+			<span>Apellidos:</span><br>
 			<input type="text" name="apellidos" id="apellidos">
 			<br>
-			Email:<br>
-			<input type="text" name="email" id="email">
+			<span>Email:</span><br>
+			<input type="email" name="email" id="email">
 			<br>
-			Texto (opcional):<br>
+			<span>Contraseña:</span><br>
+			<input type="password" name="clave" id="clave">
+			<br>
+			<span>Repetir la contraseña:</span><br>
+			<input type="password" name="repetirClave" id="repetirClave">
+			<br>
+			<span>Texto (opcional):</span><br>
 			<textarea cols="50" rows="4" name="texto" id="texto"></textarea>
 			<br><br>
 
-			<span>*Usted recibirá un correo de validación para establecer su contraseña en cuanto el administrador acepte su solicitud</span>
+			<span>*Usted recibirá un correo de confirmación en cuanto el administrador acepte su solicitud</span>
 			<br><br>
 
 			<input type="submit" value="Registrarse" id="logear" name="logear">

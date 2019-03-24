@@ -13,8 +13,10 @@
 		$nombre = isset($_POST['nombre'])? $_POST['nombre']: null;
 		$apellidos = isset($_POST['apellidos'])? $_POST['apellidos']: null;
 		$texto = isset($_POST['texto'])? $_POST['texto']: null;
+		$clave = isset($_POST['clave'])? $_POST['clave']: null;
+		$repetirClave = isset($_POST['repetirClave'])? $_POST['repetirClave']: null;
 		//Comprobamos que ninguna de las variables este a null
-		if($email!=null && $apellidos!=null && $nombre!=null){
+		if($email!=null && $apellidos!=null && $nombre!=null && $clave!=null && $repetirClave!=null && ($clave == $repetirClave) ){
 			//Conectamos la base de datos
 			$credentialsStr = file_get_contents('json/credentials.json');
 			$credentials = json_decode($credentialsStr, true);
@@ -31,7 +33,8 @@
 				} else {
 					date_default_timezone_set('Europe/Berlin');
 					$date = date('Y-m-d H:i:s', time());
-					$sql = "INSERT INTO `peticiones_registro`(`id`, `nombre`, `apellidos`, `email`, `fecha`, `texto`) VALUES ('','".$nombre."','".$apellidos."','".$email."','".$date."', '".$texto."')";
+					$claveHash = password_hash($clave, PASSWORD_BCRYPT);
+					$sql = "INSERT INTO `peticiones_registro`(`id`, `nombre`, `apellidos`, `email`, `fecha`, `texto`, `clave`) VALUES ('','".$nombre."','".$apellidos."','".$email."','".$date."', '".$texto."', '".$claveHash."')";
 					$consulta=mysqli_query($db,$sql);
 					$fila=mysqli_fetch_assoc($consulta);
 				}

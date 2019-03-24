@@ -11,7 +11,8 @@ $(document).ready(function(){
                 if(respuesta){
                     $("#modalFecha").html('');
                     $("#modalFecha").append('<p>'+fecha+'</p>');
-                    if (respuesta[0]['texto'] == null) {
+                    $("#modalFecha").append('<hr>');
+                    if (respuesta[0]['texto'] == null || respuesta[0]['texto'] == "") {
                         $("#modalFecha").append('<p>Sin texto</p>');
                     } else {
                         $("#modalFecha").append('<p>"'+respuesta[0]['texto']+'"</p>');
@@ -25,6 +26,48 @@ $(document).ready(function(){
             },
             dataType:"json"
         })
+    });
+
+    $('.opciones button').click(function(){
+        var idPeticion = $(this).attr("idPeticion");
+        var aceptar = $(this).attr("aceptar");
+        if (aceptar == 0) {
+            const mensaje = "¿Está seguro de que desea denegar la petición de registro?";
+            if(window.confirm(mensaje)){ 
+                let funcion = "borrarPeticion"
+                $.ajax({
+                    type        : 'POST', // define the type of HTTP verb we want to use (POST for our form)
+                    url         : 'panelControlProcesamiento.php', // the url where we want to POST
+                    data        : 'funcion=' + funcion + '&idPeticion=' + idPeticion, // our data object
+                    success: function(respuesta) {
+                        if (respuesta) {
+                            location.reload();
+                        } else {
+                            location.reload();
+                        }
+                    }
+                })
+                event.preventDefault();
+            }
+        } else {
+            const mensaje = "¿Está seguro de que desea aceptar la petición de registro?";
+            if(window.confirm(mensaje)){ 
+                let funcion = "aceptarPeticion"
+                $.ajax({
+                    type        : 'POST', // define the type of HTTP verb we want to use (POST for our form)
+                    url         : 'panelControlProcesamiento.php', // the url where we want to POST
+                    data        : 'funcion=' + funcion + '&idPeticion=' + idPeticion, // our data object
+                    success: function(respuesta) {
+                        if (respuesta) {
+                            location.reload();
+                        } else {
+                            location.reload();
+                        }
+                    }
+                })
+                event.preventDefault();
+            }
+        }
     });
 
 });

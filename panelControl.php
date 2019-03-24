@@ -65,8 +65,9 @@
 				if ($peticiones == null) {
 					echo 'No hay peticiones.';
 				} else {
+					$i=0;
 					foreach ($peticiones as $peticion) {
-						if ($peticion['id']%2 == 0) {
+						if ($i%2 == 0) {
 							echo '<div class="col-lg-12 row" idPeticion="'.$peticion['id'].'" style="padding-top: 5px; padding-bottom: 5px; margin-top: 5px; margin-left: 0px; background-color: lightgrey;">';
 						} else {
 							echo '<div class="col-lg-12 row" id="peticion'.$peticion['id'].'" style="padding-top: 5px; padding-bottom: 5px; margin-top: 5px; margin-left: 0px;">';
@@ -74,13 +75,14 @@
 						echo '
 							<div class="col-4">'.$peticion['nombre'].' '.$peticion['apellidos'].'</div>
 							<div class="col-4">'.$peticion['email'].'</div>
-							<div class="col-2"><button fechaPeticion="'.formateoDateTime($peticion['fecha']).'" idPeticion="'.$peticion['id'].'" type="button" class="btn btn-info masInfo" data-toggle="modal" data-target="#infoPeticion">Más info.</button></div>
-							<div class="col-2" style="text-align: right;">
-								<button class="btn btn-success"><i class="fas fa-check"></i></button>
-								<button class="btn btn-danger"><i class="fas fa-times"></i></button>
+							<div class="col-2"><button fechaPeticion="'.formateoDateTime($peticion['fecha']).'" idPeticion="'.$peticion['id'].'" type="button" class="btn btn-info masInfo" data-toggle="modal" data-target="#infoPeticion"><i class="fas fa-info"></i></button></div>
+							<div class="opciones" class="col-2" style="text-align: right;">
+								<button aceptar="1" idPeticion="'.$peticion['id'].'" class="btn btn-success"><i class="fas fa-check"></i></button>
+								<button aceptar="0" idPeticion="'.$peticion['id'].'" class="btn btn-danger"><i class="fas fa-times"></i></button>
 							</div>
 						</div>
 						<br>';
+						$i++;
 					}
 				}
 			?>
