@@ -7,9 +7,10 @@ $(document).ready(function(){
         	//alert($(this).attr("idExamens"));
         	//alert($("#boton_borrar").attr("id_Examen"));
         	$('#modal_borrarProfesor').modal('show');
-        }
-        
+        } 
     });
+
+    $()
 
 
     $('#form_delete').submit(function(event) {
@@ -54,6 +55,7 @@ $(document).ready(function(){
             idProfesores[i] = $(this).text();
             i++;
         });
+        
   
         $.ajax({
             type        : 'POST', // define the type of HTTP verb we want to use (POST for our form)

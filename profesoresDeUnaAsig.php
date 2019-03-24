@@ -55,7 +55,7 @@
 			<div class="form-inline col-lg-4">
 				<label for="selAniadir">Añadir profesor a la asignatura: </label>
 				<?php
-					print('<a class="fas fa-plus-circle" style="text-decoration: none; cursor: pointer;" id="boton_modalAñadir"></a>');					
+					print('<a class="fas fa-plus-circle" style="text-decoration: none; cursor: pointer;" id="boton_modalAniadir"></a>');					
 				?>
 			</div>
 		</div>
