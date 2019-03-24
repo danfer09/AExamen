@@ -51,7 +51,7 @@
 	        <th onclick="w3.sortHTML('#tabla_asignaturas', '.item', 'td:nth-child(2)')" style="cursor:pointer;">Nombre asignatura</th>
 	        <th onclick="w3.sortHTML('#tabla_asignaturas', '.item', 'td:nth-child(3)')" style="cursor:pointer;">Número Profesores</th>
 	        <th onclick="w3.sortHTML('#tabla_asignaturas', '.item', 'td:nth-child(4)')" style="cursor:pointer;">Nombre/s coordinador/es</th>
-	        <th>Opciones</th>
+	        <th>Añadir coordinadores</th>
 	      </tr>
 	    </thead>
 	    <tbody>
@@ -101,7 +101,7 @@
 		    
 		    <!-- Modal body -->
 		    <div class="modal-body">
-				  <form action="#" class="form-container" method="post" id="form_aniadirPregunta">
+				  <form action="#" class="form-container" method="post" id="formAsigCoord">
 				    <!--<h1 name="borrarExamen">Añadir preguntas</h1>-->
 				    	<!--<div id="info_aniadirPreg_vacio" class="badge badge-pill badge-danger">No hay ninguna pregunta de este tema</div>
 				    	<div id="info_aniadirPreg_limite" class="badge badge-pill badge-warning">Se ha alcanzado el límite de puntos para este tema</div>

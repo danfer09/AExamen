@@ -14,8 +14,60 @@
 
 	$funcion = isset($_POST['funcion'])? $_POST['funcion']: null;
 	$idAsig = isset($_POST['idAsig'])? $_POST['idAsig']: null;
+	$idProfSelect = isset($_POST['idProfSelect'])? $_POST['idProfSelect']: null;
+	$idProfNoSelect = isset($_POST['idProfNoSelect'])? $_POST['idProfNoSelect']: null;
 	if($funcion == "getProfesoresAdmin")
 		getProfesoresAdmin($idAsig);
+	else if ($funcion == "setCoodinadores")
+		setCoordinadores($idAsig, $idProfSelect, $idProfNoSelect);
+
+
+	function setCoordinadores($idAsig, $idProfSelect, $idProfNoSelect){
+		$credentialsStr = file_get_contents('json/credentials.json');
+		$credentials = json_decode($credentialsStr, true);
+		$db = mysqli_connect('localhost', $credentials['database']['user'], $credentials['database']['password'], $credentials['database']['dbname']);
+		if($db){
+			
+
+			$arrayIdProfSelect = json_decode($idProfSelect);
+			$arrayIdProfNoSelect = json_decode($idProfNoSelect);
+
+
+			for($i=0; $i < count($arrayIdProfSelect); $i++) {
+				$sql= 'SELECT count(`id_profesor`) as `existe` FROM `prof_asig_coord` WHERE `id_profesor`='.$arrayIdProfSelect[$i].' and`id_asignatura`='.$idAsig;
+				$consulta=mysqli_query($db,$sql);
+				$fila=mysqli_fetch_assoc($consulta);
+				if($fila['existe']){
+					$sql= 'UPDATE `prof_asig_coord` SET `coordinador`=1 WHERE `id_profesor`='.$arrayIdProfSelect[$i].' and`id_asignatura`='.$idAsig;
+					$consulta=mysqli_query($db,$sql);	
+				}else{
+					$sql = "INSERT INTO `prof_asig_coord`(`id_profesor`, `id_asignatura`, `coordinador`, `id`) VALUES (".$arrayIdProfSelect[$i].",".$idAsig.",1,'')";
+					$consulta=mysqli_query($db,$sql);
+				}
+				
+			}
+
+			$arrayIdProfNoSelect = json_decode($idProfNoSelect);
+
+			for($i=0; $i < count($arrayIdProfNoSelect); $i++) {
+				$sql= 'SELECT count(`id_profesor`) as `existe` FROM `prof_asig_coord` WHERE `id_profesor`='.$arrayIdProfNoSelect[$i].' and`id_asignatura`='.$idAsig;
+				$consulta=mysqli_query($db,$sql);
+				$fila=mysqli_fetch_assoc($consulta);
+				if($fila['existe']){
+					$sql= 'UPDATE `prof_asig_coord` SET `coordinador`=0 WHERE `id_profesor`='.$arrayIdProfNoSelect[$i].' and`id_asignatura`='.$idAsig;
+					$consulta=mysqli_query($db,$sql);	
+				}				
+			}
+
+		}
+		else{
+			$_SESSION['error_BBDD']=true;
+			header('Location: loginFormulario.php');
+		}
+		mysqli_close($db);
+		echo "guay";
+	}
+
 	
 
 	/*Funcion que devuelve todas las asignaturas de la plataforma*/
@@ -34,7 +86,7 @@
 		$asignaturas=array();
 		//comprobamos si se ha conectado a la base de datos
 		if($db){
-			$sql = "SELECT * FROM `asignaturas` WHERE 1";
+			$sql = "SELECT * FROM `asignaturas`";
 			$consulta=mysqli_query($db,$sql);
 			$fila=mysqli_fetch_assoc($consulta);
 			/*Recorremos la consulta y vamos guardando sus resultados en un array*/
