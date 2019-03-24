@@ -62,7 +62,7 @@
 		}
 		else{
 			$_SESSION['error_BBDD']=true;
-			header('Location: loginFormulario.php');
+			//header('Location: loginFormulario.php');
 		}
 		mysqli_close($db);
 		echo "guay";

@@ -87,7 +87,8 @@
 					echo '<td id="emailProfesor'.$valor['id'].'">'.$valor['email'].'</td>';
 					echo '<td id="opciones">
 						<a id="boton_modalEditar" href="#" idProfesor="'.$valor['id'].'" ><i class="fas fa-pencil-alt fa-fw fa-lg"></i></a>
-						<a id="boton_modalBorrar" href="#" idProfesor="'.$valor['id'].'"><i class="fas fa-trash-alt fa-fw fa-lg"></i></a> </td>';
+						<a id="boton_modalBorrar" href="#" idProfesor="'.$valor['id'].'"><i class="fas fa-trash-alt fa-fw fa-lg"></i></a> 
+						<button type="button" class="btn btn-primary modalAsignaturas" idProfesor = "'.$valor['id'].'">Asignaturas</button></td>';
 					echo '</tr>';
 				}
 			}
@@ -190,6 +191,51 @@
 			  </div>
 			</div>
 		</div>
+
+		<div class="modal" id="modalAsignaturas">
+		<div class="modal-dialog modal-lg">
+		  <div class="modal-content">
+		  
+		    <!-- Modal Header -->
+		    <div class="modal-header">
+		      <h4 class="modal-title">Asignaturas que coordina</h4>
+		      <button type="button" class="close" data-dismiss="modal">&times;</button>
+		    </div>
+		    
+		    <!-- Modal body -->
+		    <div class="modal-body">
+				  <form action="#" class="form-container" method="post" id="formAsigCoord">
+				    <!--<h1 name="borrarExamen">Añadir preguntas</h1>-->
+				    	<!--<div id="info_aniadirPreg_vacio" class="badge badge-pill badge-danger">No hay ninguna pregunta de este tema</div>
+				    	<div id="info_aniadirPreg_limite" class="badge badge-pill badge-warning">Se ha alcanzado el límite de puntos para este tema</div>
+				    	<div id="info_aniadirPreg_todas" class="badge badge-pill badge-info">Ya están todas las preguntas de este tema añadidas</div>   ERRORES PARA MOSTRAR, MIRAR MAS TARDE-->
+				    	<div class="table-wrapper-scroll-y">
+			    			<table class="table table-hover" id="tabla">	
+								<thead>
+							      <tr>
+							      	<th>#</th>
+							        <th>Siglas</th>
+							        <th>Nombre</th>
+							      </tr>
+							    </thead>			
+							    <tbody id="tableAsignaturas">
+						 		</tbody>
+								  	
+							</table>
+						</div>
+				    <button type="submit" class="btn btn-primary" id="boton_aniadir" name="boton_aniadir">Añadir</button>
+				    <button type="button" class="btn btn-danger" id="boton_noAniadir" name="boton_noAniadir" data-dismiss="modal">Cancelar</button>					  
+				  </form>
+		    </div>
+		    
+		    <!-- Modal footer -->
+		    <div class="modal-footer">
+		      <!--<button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>-->
+		    </div>
+		    
+		  </div>
+		</div>
+	</div>
 
 	</div>
 
