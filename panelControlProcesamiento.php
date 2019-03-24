@@ -11,6 +11,8 @@
 		header('Location: index.php');
 	}
 
+	include_once 'funcionesServidor.php';
+
 	$funcion = isset($_POST['funcion'])? $_POST['funcion']: null;
 	$idPeticion = isset($_POST['idPeticion'])? $_POST['idPeticion']: null;
 	if($funcion == "getPeticion")
@@ -39,6 +41,12 @@
 			$consulta=mysqli_query($db,$sql);
 			$fila=mysqli_fetch_assoc($consulta);
 
+			$_SESSION['error_envio_mail'] = false;
+			if (smtpmailer($peticion['email'], $credentials['webMail']['mail'], 'AExamen Web', 'Solicitud de registro aceptada (AExamen)', 'solicitudAceptada.html', $credentials['webMail']['mail'], $credentials['webMail']['password'])) {
+			} else {
+				$_SESSION['error_envio_mail'] = true;
+			}
+
 			$resultado = true;
 		} else {
 			$resultado = false;
@@ -53,9 +61,17 @@
 		
 		$db = mysqli_connect('localhost', $credentials['database']['user'], $credentials['database']['password'], $credentials['database']['dbname']);
 		if($db){
+			$peticion = getPeticionReturn($id);
 			$sql = 'DELETE FROM `peticiones_registro` WHERE id='.$id;
 			$consulta=mysqli_query($db,$sql);
 			$fila=mysqli_fetch_assoc($consulta);
+
+			$_SESSION['error_envio_mail'] = false;
+			if (smtpmailer($peticion['email'], $credentials['webMail']['mail'], 'AExamen Web', 'Solicitud de registro aceptada (AExamen)', 'solicitudDenegada.html', $credentials['webMail']['mail'], $credentials['webMail']['password'])) {
+			} else {
+				$_SESSION['error_envio_mail'] = true;
+			}
+
 			$resultado = true;
 		} else {
 			$resultado = false;

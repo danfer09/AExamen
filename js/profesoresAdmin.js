@@ -17,6 +17,10 @@ $(document).ready(function(){
         
     });
 
+    $('#boton_modalAñadir').click(function(){
+        $('#modalAniadirProfesor').modal('show');
+    });
+
 
     $('#form_delete').submit(function(event) {
         var funcion = "borrarProfesor";

@@ -31,22 +31,22 @@
 		<h1>Registrarse</h1>
 
 		<form action="registrarseProcesamiento.php" id="formulario_registrarse" method="post">
-			<span>Nombre:</span><br>
-			<input type="text" name="nombre" id="nombre">
+			<span>Nombre:*</span><br>
+			<input type="text" name="nombre" id="nombre" required>
 			<br>
 			<span>Apellidos:</span><br>
 			<input type="text" name="apellidos" id="apellidos">
 			<br>
-			<span>Email:</span><br>
-			<input type="email" name="email" id="email">
+			<span>Email:*</span><br>
+			<input type="email" name="email" id="email" required>
 			<br>
-			<span>Contraseña:</span><br>
-			<input type="password" name="clave" id="clave">
+			<span>Contraseña:*</span><br>
+			<input type="password" name="clave" id="clave" required>
 			<br>
-			<span>Repetir la contraseña:</span><br>
-			<input type="password" name="repetirClave" id="repetirClave">
+			<span>Repetir la contraseña:*</span><br>
+			<input type="password" name="repetirClave" id="repetirClave" required>
 			<br>
-			<span>Texto (opcional):</span><br>
+			<span>Observaciones (opcional):</span><br>
 			<textarea cols="50" rows="4" name="texto" id="texto"></textarea>
 			<br><br>
 
@@ -60,6 +60,9 @@
 
 
 	<script src="js/jquery-3.3.1.min.js"></script>
+
+	<script type="text/javascript" src="js/registrarseFormulario.js"></script>
+
 	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>

@@ -24,10 +24,14 @@
 				header('Location: index.php');
 			}
 			include 'profesoresAdminProcesamiento.php';
-			include 'funcionesServidor.php';
 			
 			if (!$_SESSION['administrador']){
 				header('Location: index.php');
+			}
+
+			$error_envio_mail = isset($_SESSION['error_envio_mail'])? $_SESSION['error_envio_mail']: null;
+			if ($error_envio_mail) {
+				echo 'Error al enviar el email al profesor.';
 			}
 
 			/*echo "<br>prueba: ".$_SESSION['prueba'];
@@ -47,14 +51,18 @@
 		</div>
 		<br>
 		<div class="row" id="aniadir">
-			<div class="form-inline col-lg-4">
-				<label for="selAniadir">Invitar profesor</label>
+			<div class="form-inline col-lg-2">
+				<label for="boton_modalAñadir">Invitar profesor</label>
 				<?php
 					print('<a class="fas fa-plus-circle" style="text-decoration: none; cursor: pointer;" id="boton_modalAñadir"></a>');					
 				?>
 			</div>
+			<div class="form-inline col-lg-2">
+				<button type="button" onclick="window.location='panelControl.php';" class="btn">Peticiones de registro <i class="fas fa-external-link-alt"></i></button>
+			</div>
 		</div>
 
+		<br>
 
 		<table id="tabla_admin_profesores" class="table table-hover">
 		    <thead>
@@ -164,7 +172,7 @@
 		</div>
 		
 		<div class="modal" id="modalAniadirProfesor">
-			<div class="modal-dialog modal-lg">
+			<div class="modal-dialog">
 			  <div class="modal-content">
 			  
 			    <!-- Modal Header -->
@@ -175,9 +183,15 @@
 			    
 			    <!-- Modal body -->
 			    <div class="modal-body">
-					  <form action="#" class="form-container" method="post" id="formAniadirProfesor">
+					  <form action="profesoresAdminProcesamiento.php" class="form-container" method="post" id="formAniadirProfesor">
 					    <!--<h1 name="borrarExamen">Añadir preguntas</h1>-->
-					    	
+					    <div class="row">
+					    	<div class="col-md-8">
+					    		<label for="email" >Email:</label>
+					    		<input type="email" class="form-control" name="email" id="email">
+					    	</div>
+					    </div>
+					    <br>
 					    <button type="submit" class="btn btn-primary" id="boton_aniadir" name="boton_aniadir">Enviar</button>
 					    <button type="button" class="btn btn-danger" id="boton_noAniadir" name="boton_noAniadir" data-dismiss="modal">Cancelar</button>					  
 					  </form>

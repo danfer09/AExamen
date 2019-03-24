@@ -45,15 +45,33 @@
 			$_SESSION['prueba2'] = "inicializadooo222";*/
 		?>
 
-		<div>
-			<h2>Log</h2>
+		<div class="row" style="border-width: 1px; border-style: solid; border-color: black; padding: 5px;">
+			<div class="col-lg-12">
+				<h2><b>Log</b></h2>
+			</div>
+			<div class="col-lg-6">
+				<h3>Últ. vez modificado: <u>hace 5 min.</u></h3>
+			</div>
+			<div class="col-lg-6">
+				<h3>Últ. vez reiniciado: <u>20:23 - 20/03/2019</u></h3>
+			</div>
+			<br><br><br>
+			<div class="col-lg-4" style="text-align: center;">
+				<button class="btn btn-success"><i class="fas fa-download"></i> Descargar (132 KB)</button>
+			</div>
+			<div class="col-lg-4" style="text-align: center;">
+				<button class="btn"><i class="fas fa-redo-alt"></i> Reiniciar</button>
+			</div>
+			<div class="col-lg-4" style="text-align: center;">
+				<button class="btn btn-danger"><i class="fas fa-trash-alt"></i> Eliminar</button>
+			</div>
 		</div>
 
 		<br><hr><br>
 
 		<div class="row" style="border-width: 1px; border-style: solid; border-color: black; padding: 5px;">
 			<div class="col-lg-10">
-				<h2>Peticiones de registro</h2>
+				<h2><b>Peticiones de registro</b></h2>
 			</div>
 			<div class="col-lg-2" style="padding-top: 1%; text-align: center;">
 				<a class="fas fa-sync-alt" onclick="location.reload()" style="text-decoration: none; cursor: pointer;" id="recargaPeticiones"></a>

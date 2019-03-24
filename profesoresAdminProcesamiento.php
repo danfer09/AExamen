@@ -11,6 +11,9 @@
 		header('Location: index.php');
 	}
 
+	include 'funcionesServidor.php';
+
+
 	$nombre = isset($_POST['nombre'])? $_POST['nombre']: null;
 	$apellidos = isset($_POST['apellidos'])? $_POST['apellidos']: null;
 	$email = isset($_POST['email'])? $_POST['email']: null;
@@ -19,7 +22,9 @@
 	$idAsigSelect = isset($_POST['idAsigSelect'])? $_POST['idAsigSelect']: null;
 	$idAsigNoSelect = isset($_POST['idAsigNoSelect'])? $_POST['idAsigNoSelect']: null;
 
-	
+	if ($email && $funcion==null) {
+		invitarProfesor($email);
+	}
 
 	if($funcion == "borrarProfesor")
 		borrarProfesor($idProfesor);
@@ -31,7 +36,17 @@
 		setCoordinadores($idProfesor, $idAsigSelect, $idAsigNoSelect);
 
 
-
+	function invitarProfesor($email) {
+		$_SESSION['error_envio_mail'] = false;
+		$credentialsStr = file_get_contents('json/credentials.json');
+		$credentials = json_decode($credentialsStr, true);
+		if (smtpmailer($email, $credentials['webMail']['mail'], 'AExamen Web', 'Invitación AExamen', 'invitacion.html', $credentials['webMail']['mail'], $credentials['webMail']['password'])) {
+			header('Location: profesoresAdmin.php');
+		} else {
+			$_SESSION['error_envio_mail'] = true;
+			header('Location: profesoresAdmin.php');
+		}
+	}
 
 	function setCoordinadores($idProf, $idAsigSelect, $idAsigNoSelect){
 		$credentialsStr = file_get_contents('json/credentials.json');
