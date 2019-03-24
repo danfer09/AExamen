@@ -26,6 +26,8 @@
 		$nuevoNombre = isset($_POST['nombre'])? $_POST['nombre']: null;
 		$nuevoApellidos = isset($_POST['apellidos'])? $_POST['apellidos']: null;
 		$nuevoClave = isset($_POST['clave'])? $_POST['clave']: null;
+		$nuevoCorreo = isset($_POST['correo'])? $_POST['correo']: null;
+
 		//Si nuevoNombre no esta a null es que el usuario quiere cambiar el nombre, por lo tanto procedemos a cambiarlo
 		if($nuevoNombre!=null){
 			//Conectamos la base de datos
@@ -106,6 +108,59 @@
 				header('Location: perfilPropioProf.php');
 			}
 		}
+		//Si nuevoClave no esta a null es que el usuario quiere cambiar el clave, por lo tanto procedemos a cambiarlo
+		elseif($nuevoClave!=null){
+			//Haseamos la nueva clave, que nos llega en texto plano
+			$hashed_clave = password_hash($nuevoClave, PASSWORD_BCRYPT);
+			//Conectamos la base de datos
+			$credentialsStr = file_get_contents('json/credentials.json');
+			$credentials = json_decode($credentialsStr, true);
+			$db = mysqli_connect('localhost', $credentials['database']['user'], $credentials['database']['password'], $credentials['database']['dbname']);
+			//comprobamos si se ha conectado a la base de datos
+			if($db){
+				$sql = "UPDATE profesores SET clave= '".$hashed_clave."' WHERE id=".$_SESSION['id'];
+				$consulta=mysqli_query($db,$sql);
+				//Comprobamos los distintos errores que se pueden producir y ponemos a true los session que corresponden
+				if(mysqli_affected_rows($db) == -1){
+					$_SESSION['error_ejecuccionConsulta']=true;
+				}
+				elseif(!(mysqli_affected_rows($db))){
+					$_SESSION['error_noFilasConCondicion']=true;
+				}
+				header('Location: perfilPropioProf.php');				
+			}
+			else{
+				$_SESSION['error_BBDD']=true;
+				header('Location: perfilPropioProf.php');
+			}
+		}
+
+		//Si $nuevoCorreo no esta a null es que el usuario quiere cambiar el clave, por lo tanto procedemos a cambiarlo
+		elseif($nuevoCorreo!=null){
+			//Conectamos la base de datos
+			$credentialsStr = file_get_contents('json/credentials.json');
+			$credentials = json_decode($credentialsStr, true);
+			$db = mysqli_connect('localhost', $credentials['database']['user'], $credentials['database']['password'], $credentials['database']['dbname']);
+			//comprobamos si se ha conectado a la base de datos
+			if($db){
+				$sql = "UPDATE `administradores` SET `email`='".$nuevoCorreo."' WHERE `id`=".$_SESSION['id'];
+				$consulta=mysqli_query($db,$sql);
+				//Comprobamos los distintos errores que se pueden producir y ponemos a true los session que corresponden
+				if(mysqli_affected_rows($db) == -1){
+					$_SESSION['error_ejecuccionConsulta']=true;
+				}
+				elseif(!(mysqli_affected_rows($db))){
+					$_SESSION['error_noFilasConCondicion']=true;
+				}
+				$_SESSION["email"] = $nuevoCorreo;
+				header('Location: perfilPropioProf.php');				
+			}
+			else{
+				$_SESSION['error_BBDD']=true;
+				header('Location: perfilPropioProf.php');
+			}
+		}
+
 
 		else{
 			$_SESSION['error_campoVacio']=true;

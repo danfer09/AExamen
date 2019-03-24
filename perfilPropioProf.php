@@ -54,7 +54,9 @@
 			echo "<h2> Bienvenido ". $_SESSION['nombre'] . "</h2>";
 			echo '<p>Nombre: ' . $_SESSION['nombre']. ' <button type="button" class="btn btn-primary" data-toggle="modal" id="btn_cambiarNombre">Cambiar nombre</button></p>';		
 			echo "<p>Apellidos: " . $_SESSION['apellidos']. ' <button type="button" class="btn btn-primary" data-toggle="modal" id="btn_cambiarApellidos">Cambiar apellidos</button></p>';
-			echo "<p>correo: " . $_SESSION['email'] . "</p>";
+
+			echo "<p>correo: " . $_SESSION['email'];
+			echo ($_SESSION['administrador']) ?"<button type='button' class='btn btn-primary' data-toggle='modal' id='btn_cambiarCorreo'>Cambiar correo </button></p>" : "</p>";
 			echo "<p><button type='button' class='btn btn-primary' data-toggle='modal' id='btn_cambiarClave'>Cambiar contraseña</button></p>";
 		?>
 	  
@@ -142,6 +144,36 @@
 		        </div>
 		        
 		        <!-- Modal footer de Clave -->
+		        <div class="modal-footer">
+		          <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
+		        </div>
+		        
+		      </div>
+		    </div>
+	  	</div>
+
+	  	<!-- Modal de Correo -->
+		<div class="modal" id="modal_cambiarCorreo">
+		    <div class="modal-dialog">
+		      <div class="modal-content">
+		      
+		        <!-- Modal Header de Correo -->
+		        <div class="modal-header">
+		          <h4 class="modal-title">Cambiar correo</h4>
+		          <button type="button" class="close" data-dismiss="modal">&times;</button>
+		        </div>
+		        
+		        <!-- Modal body de Correo -->
+		        <div class="modal-body">
+					  <form action="perfPropProfProcesamiento.php" class="form-container" method="post" id="form_cambiarCorreo">
+
+					    <input type="email" placeholder="Introduzca el nuevo correo" name="correo" id="correo">
+
+					    <input type="submit" class="btn" id="boton_cambiarCorreo" name="boton_cambiarCorreo" value="Cambiar">
+					  </form>
+		        </div>
+		        
+		        <!-- Modal footer de Correo -->
 		        <div class="modal-footer">
 		          <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
 		        </div>

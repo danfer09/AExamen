@@ -22,6 +22,12 @@ $(document).ready(function(){
 	    $('#modal_cambiarClave').modal('show');
 	});
 
+	$("#btn_cambiarCorreo").on( "click", function() {
+	    //$("#boton_cambiarCorreo").attr("class", "btn btn-primary disabled");
+	    //$("#boton_cambiarCorreo").attr("disabled", true);
+	    $('#modal_cambiarCorreo').modal('show');
+	});
+
 	/*Añadimos un elemento span para mostrar mensajes y lo guardamos
 	en una variable para que sea más facil acceder a el*/
 	$("#nombre").after("<span id='mensaje'></span><br>");
@@ -160,5 +166,14 @@ $(document).ready(function(){
 	    }
 	    return false;
 	});
+
+	$('#boton_cambiarCorreo').click(function() {
+		const mensaje = "¿Esta seguro de que desea cambiar el correo?";
+		if(window.confirm(mensaje)){ 
+	    	$("#form_cambiarCorreo").submit(); 
+	    }
+	    return false;
+	});
+	
 
 });
