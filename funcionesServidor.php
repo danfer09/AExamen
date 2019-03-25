@@ -74,5 +74,14 @@
 		return $newformat;
 	}
 
+	/* Meter algo al log (ejemplo de admin)
+	//Something to write to txt log
+			$log  = '['.date("d/m/Y, H:i:s").'] : '.PHP_EOL."User (admin) ".$_SESSION['id'].' - '.$_SESSION['nombre'].', '.$_SESSION['apellidos'].PHP_EOL.
+			        "Action: Denegar petición #".$id.' de '.$peticion['email'].' - '.$peticion['apellidos'].', '.$peticion['nombre'].PHP_EOL.
+			        "-------------------------".PHP_EOL;
+			//Save string to log, use FILE_APPEND to append.
+			file_put_contents('./log/log_AExamen.log', utf8_decode($log), FILE_APPEND);
+	*/
+
 
 ?>

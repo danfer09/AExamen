@@ -50,20 +50,21 @@
 				<h2><b>Log</b></h2>
 			</div>
 			<div class="col-lg-6">
-				<h3>Últ. vez modificado: <u>hace 5 min.</u></h3>
+				<h3>Últ. vez modificado: <u><?php echo formateoDateTime(date("Y-m-d H:i:s", filemtime('./log/log_AExamen.log'))); ?></u></h3>
 			</div>
 			<div class="col-lg-6">
-				<h3>Últ. vez reiniciado: <u>20:23 - 20/03/2019</u></h3>
+				<h3>Últ. vez eliminado: <u><?php echo formateoDateTime(date("Y-m-d H:i:s", filectime('./log/log_AExamen.log'))); ?></u></h3>
 			</div>
 			<br><br><br>
 			<div class="col-lg-4" style="text-align: center;">
-				<button class="btn btn-success"><i class="fas fa-download"></i> Descargar (132 KB)</button>
+				<a href="downloadLog.php?file=log_AExamen.log"><button class="btn btn-success" id="descargarLog"><i class="fas fa-download"></i> Descargar .log (<?php echo round(floatval(filesize('./log/log_AExamen.log')/(1024)),3).' KB'; ?>)</button></a>
+				<a target="_blank" href="./log/log_AExamen.log"><button class="btn btn-success"><i class="fas fa-eye"></i> Ver</button></a>
 			</div>
 			<div class="col-lg-4" style="text-align: center;">
-				<button class="btn"><i class="fas fa-redo-alt"></i> Reiniciar</button>
+				<button class="btn" id="reiniciarLog"><i class="fas fa-redo-alt"></i> Reiniciar</button>
 			</div>
 			<div class="col-lg-4" style="text-align: center;">
-				<button class="btn btn-danger"><i class="fas fa-trash-alt"></i> Eliminar</button>
+				<button class="btn btn-danger" id="eliminarLog"><i class="fas fa-trash-alt"></i> Eliminar</button>
 			</div>
 		</div>
 
@@ -74,7 +75,7 @@
 				<h2><b>Peticiones de registro</b></h2>
 			</div>
 			<div class="col-lg-2" style="padding-top: 1%; text-align: center;">
-				<a class="fas fa-sync-alt" onclick="location.reload()" style="text-decoration: none; cursor: pointer;" id="recargaPeticiones"></a>
+				<a class="fas fa-sync-alt" onclick="location.reload();" style="text-decoration: none; cursor: pointer;" id="recargaPeticiones"></a>
 			</div>
 			<hr>
 			<!-- PETICIONES -->

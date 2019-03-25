@@ -64,6 +64,14 @@
 						$_SESSION['apellidos']=$datos['apellidos'];
 						$_SESSION['id']=$datos['id'];
 						$_SESSION['administrador'] = $encontradoAdmin;
+
+						//Something to write to txt log
+						$log  = '['.date("d/m/Y - H:i:s").'] : '."USER --> id ".$_SESSION['id'].' - '.$_SESSION['apellidos'].', '.$_SESSION['nombre'].
+						        " | ACTION --> Inicio de sesión ".' de '.$_SESSION['email'].PHP_EOL.
+						        "-----------------------------------------------------------------".PHP_EOL;
+						//Save string to log, use FILE_APPEND to append.
+						file_put_contents('./log/log_AExamen.log', utf8_decode($log), FILE_APPEND);
+
 						header('Location: paginaPrincipalProf.php');
 					}
 					/*En caso de que la clave no coincida con el usuairo ponemos a true la variable de error al autentiacar y redirigimos a loginFormulario.php donde la tratamos*/

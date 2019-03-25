@@ -21,7 +21,49 @@
 		borrarPeticion($idPeticion);
 	else if($funcion == "aceptarPeticion")
 		aceptarPeticion($idPeticion);
+	else if($funcion == "reiniciarLog")
+		reiniciarLog();
+	else if($funcion == "eliminarLog")
+		eliminarLog();
+	else if($funcion == "descargarLog")
+		descargarLog();
 
+
+	function eliminarLog() {
+		if (!unlink('./log/log_AExamen.log')){
+			echo "Error deleting file!";
+		} else {
+			$log  = "  ___  _____                               
+ / _ \|  ___|                              
+/ /_\ \ |____  ____ _ _ __ ___   ___ _ __  
+|  _  |  __\ \/ / _` | '_ ` _ \ / _ \ '_ \ 
+| | | | |___>  < (_| | | | | | |  __/ | | |
+\_| |_|____/_/\_\__,_|_| |_| |_|\___|_| |_|
+                                           ".PHP_EOL."-------------------------LOG STARTS HERE-------------------------".PHP_EOL.PHP_EOL.
+				'['.date("d/m/Y - H:i:s").'] : '."USER --> id ".$_SESSION['id'].' - '.$_SESSION['apellidos'].', '.$_SESSION['nombre'].
+		        " | ACTION --> Eliminar log ".PHP_EOL.
+		        "-----------------------------------------------------------------".PHP_EOL;
+			//Save string to log, use FILE_APPEND to append.
+			file_put_contents('./log/log_AExamen.log', utf8_decode($log));
+			echo "Log eliminado correctamente";
+		}
+	}
+
+	function reiniciarLog() {
+		$log  = "  ___  _____                               
+ / _ \|  ___|                              
+/ /_\ \ |____  ____ _ _ __ ___   ___ _ __  
+|  _  |  __\ \/ / _` | '_ ` _ \ / _ \ '_ \ 
+| | | | |___>  < (_| | | | | | |  __/ | | |
+\_| |_|____/_/\_\__,_|_| |_| |_|\___|_| |_|
+                                           ".PHP_EOL."-------------------------LOG STARTS HERE-------------------------".PHP_EOL.PHP_EOL.
+				'['.date("d/m/Y - H:i:s").'] : '."USER --> id ".$_SESSION['id'].' - '.$_SESSION['apellidos'].', '.$_SESSION['nombre'].
+		        " | ACTION --> Reiniciar log ".PHP_EOL.
+		        "-----------------------------------------------------------------".PHP_EOL;
+		//Save string to log, use FILE_APPEND to append.
+		file_put_contents('./log/log_AExamen.log', utf8_decode($log));
+		echo "Log reiniciado correctamente";
+	}
 
 	function aceptarPeticion($id) {
 		$credentialsStr = file_get_contents('json/credentials.json');
@@ -40,6 +82,13 @@
 			$sql = "INSERT INTO `profesores`(`nombre`, `apellidos`, `email`, `id`, `clave`) VALUES ('".$peticion['nombre']."','".$peticion['apellidos']."','".$peticion['email']."','','".$peticion['clave']."')";
 			$consulta=mysqli_query($db,$sql);
 			$fila=mysqli_fetch_assoc($consulta);
+
+			//Something to write to txt log
+			$log  = '['.date("d/m/Y - H:i:s").'] : '."USER --> id ".$_SESSION['id'].' - '.$_SESSION['apellidos'].', '.$_SESSION['nombre'].
+			        " | ACTION --> Aceptar petición #".$id.' de '.$peticion['email'].' - '.$peticion['apellidos'].', '.$peticion['nombre'].PHP_EOL.
+			        "-----------------------------------------------------------------".PHP_EOL;
+			//Save string to log, use FILE_APPEND to append.
+			file_put_contents('./log/log_AExamen.log', utf8_decode($log), FILE_APPEND);
 
 			$_SESSION['error_envio_mail'] = false;
 			if (smtpmailer($peticion['email'], $credentials['webMail']['mail'], 'AExamen Web', 'Solicitud de registro aceptada (AExamen)', 'solicitudAceptada.html', $credentials['webMail']['mail'], $credentials['webMail']['password'])) {
@@ -65,6 +114,13 @@
 			$sql = 'DELETE FROM `peticiones_registro` WHERE id='.$id;
 			$consulta=mysqli_query($db,$sql);
 			$fila=mysqli_fetch_assoc($consulta);
+
+			//Something to write to txt log
+			$log  = '['.date("d/m/Y - H:i:s").'] : '."USER --> id ".$_SESSION['id'].' - '.$_SESSION['apellidos'].', '.$_SESSION['nombre'].
+			        " | ACTION --> Denegar petición #".$id.' de '.$peticion['email'].' - '.$peticion['apellidos'].', '.$peticion['nombre'].PHP_EOL.
+			        "-----------------------------------------------------------------".PHP_EOL;
+			//Save string to log, use FILE_APPEND to append.
+			file_put_contents('./log/log_AExamen.log', utf8_decode($log), FILE_APPEND);
 
 			$_SESSION['error_envio_mail'] = false;
 			if (smtpmailer($peticion['email'], $credentials['webMail']['mail'], 'AExamen Web', 'Solicitud de registro aceptada (AExamen)', 'solicitudDenegada.html', $credentials['webMail']['mail'], $credentials['webMail']['password'])) {

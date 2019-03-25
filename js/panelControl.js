@@ -70,4 +70,46 @@ $(document).ready(function(){
         }
     });
 
+    $('button#reiniciarLog').click(function(){
+        const mensaje = "¿Está seguro de que desea REINICIAR el archivo de log? Esta acción no se puede deshacer.";
+        if(window.confirm(mensaje)){ 
+            let funcion = "reiniciarLog";
+            $.ajax({
+                type        : 'POST', // define the type of HTTP verb we want to use (POST for our form)
+                url         : 'panelControlProcesamiento.php', // the url where we want to POST
+                data        : 'funcion=' + funcion, // our data object
+                success: function(respuesta) {
+                    if (respuesta) {
+                        location.reload();
+                    } else {
+                        location.reload();
+                    }
+                }
+            })
+            event.preventDefault();
+        }
+    });
+
+    $('button#eliminarLog').click(function(){
+        const mensaje = "¿Está seguro de que desea ELIMINAR el archivo de log? Esta acción no se puede deshacer.";
+        if(window.confirm(mensaje)){ 
+            let funcion = "eliminarLog";
+            $.ajax({
+                type        : 'POST', // define the type of HTTP verb we want to use (POST for our form)
+                url         : 'panelControlProcesamiento.php', // the url where we want to POST
+                data        : 'funcion=' + funcion, // our data object
+                success: function(respuesta) {
+                    if (respuesta) {
+                        location.reload();
+                    } else {
+                        location.reload();
+                    }
+                }
+            })
+            event.preventDefault();
+        }
+    });
+
+    
+
 });
