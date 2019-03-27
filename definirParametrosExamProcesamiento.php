@@ -51,6 +51,14 @@ function updateParametrosAsig($jsonParametros, $idAsig, $espaciado, $textoInicia
 	if($db){
 		$sql = "UPDATE `asignaturas` SET`espaciado_defecto`=".$espaciadoInt.", `texto_inicial`= '".$textoInicial."', `puntos_tema`= ".$jsonParametrosString." WHERE id=".$idAsigInt;
 		$consulta=mysqli_query($db,$sql);
+
+		//Something to write to txt log
+			$log  = '['.date("d/m/Y - H:i:s").'] : '."USER --> id ".$_SESSION['id'].' - '.$_SESSION['apellidos'].', '.$_SESSION['nombre'].', '.$_SESSION['email'].
+			        " | ACTION --> Parámetros de la asignatura con id ".$idAsig." modificados".PHP_EOL.
+			        "-----------------------------------------------------------------".PHP_EOL;
+			//Save string to log, use FILE_APPEND to append.
+			file_put_contents('./log/log_AExamen.log', utf8_decode($log), FILE_APPEND);
+
 		//$sql = "UPDATE `asignaturas` SET  WHERE id=".$idAsig;
 		//$consulta=mysqli_query($db,$sql);
 		//$sql = "UPDATE `asignaturas` SET  WHERE id=".$idAsig;

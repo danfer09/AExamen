@@ -46,6 +46,14 @@
 					$_SESSION['error_noFilasConCondicion']=true;
 				}
 				else{
+
+					//Something to write to txt log
+					$log  = '['.date("d/m/Y - H:i:s").'] : '."USER --> id ".$_SESSION['id'].' - '.$_SESSION['apellidos'].', '.$_SESSION['nombre'].' (nombre anterior)'.
+					        " | ACTION --> Cambio de nombre a ".$nuevoNombre.PHP_EOL.
+					        "-----------------------------------------------------------------".PHP_EOL;
+					//Save string to log, use FILE_APPEND to append.
+					file_put_contents('./log/log_AExamen.log', utf8_decode($log), FILE_APPEND);
+
 					$_SESSION['nombre']=$nuevoNombre;
 				}
 				header('Location: perfilPropioProf.php');				
@@ -73,6 +81,14 @@
 					$_SESSION['error_noFilasConCondicion']=true;
 				}
 				else{
+
+					//Something to write to txt log
+					$log  = '['.date("d/m/Y - H:i:s").'] : '."USER --> id ".$_SESSION['id'].' - '.$_SESSION['apellidos'].' (apellidos anteriores), '.$_SESSION['nombre'].
+					        " | ACTION --> Cambio de apellidos a ".$nuevoApellidos.PHP_EOL.
+					        "-----------------------------------------------------------------".PHP_EOL;
+					//Save string to log, use FILE_APPEND to append.
+					file_put_contents('./log/log_AExamen.log', utf8_decode($log), FILE_APPEND);
+
 					$_SESSION['apellidos']=$nuevoApellidos;
 				}
 				header('Location: perfilPropioProf.php');				
@@ -101,6 +117,14 @@
 				elseif(!(mysqli_affected_rows($db))){
 					$_SESSION['error_noFilasConCondicion']=true;
 				}
+
+				//Something to write to txt log
+				$log  = '['.date("d/m/Y - H:i:s").'] : '."USER --> id ".$_SESSION['id'].' - '.$_SESSION['apellidos'].', '.$_SESSION['nombre'].
+				        " | ACTION --> Cambio de contraseña".PHP_EOL.
+				        "-----------------------------------------------------------------".PHP_EOL;
+				//Save string to log, use FILE_APPEND to append.
+				file_put_contents('./log/log_AExamen.log', utf8_decode($log), FILE_APPEND);
+
 				header('Location: perfilPropioProf.php');				
 			}
 			else{
@@ -127,6 +151,14 @@
 				elseif(!(mysqli_affected_rows($db))){
 					$_SESSION['error_noFilasConCondicion']=true;
 				}
+
+				//Something to write to txt log
+				$log  = '['.date("d/m/Y - H:i:s").'] : '."USER --> id ".$_SESSION['id'].' - '.$_SESSION['apellidos'].', '.$_SESSION['nombre'].
+				        " | ACTION --> Cambio de contraseña".PHP_EOL.
+				        "-----------------------------------------------------------------".PHP_EOL;
+				//Save string to log, use FILE_APPEND to append.
+				file_put_contents('./log/log_AExamen.log', utf8_decode($log), FILE_APPEND);
+				
 				header('Location: perfilPropioProf.php');				
 			}
 			else{

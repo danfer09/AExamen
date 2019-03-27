@@ -187,6 +187,14 @@
 			//$jsonPuntosTema = json_decode($arrayPuntosTema,true);
 			$preguntasSesion = isset($_SESSION[$_SESSION['nombreAsignatura']])? json_decode($_SESSION[$_SESSION['nombreAsignatura']],true): null;
 			$idExamenNuevo = mysqli_insert_id($db);
+
+			//Something to write to txt log
+			$log  = '['.date("d/m/Y - H:i:s").'] : '."USER --> id ".$_SESSION['id'].' - '.$_SESSION['apellidos'].', '.$_SESSION['nombre'].', '.$_SESSION['email'].
+			        " | ACTION --> Nuevo examen de ".$_SESSION['nombreAsignatura']." creado con id ".$idExamenNuevo.PHP_EOL.
+			        "-----------------------------------------------------------------".PHP_EOL;
+			//Save string to log, use FILE_APPEND to append.
+			file_put_contents('./log/log_AExamen.log', utf8_decode($log), FILE_APPEND);
+
 			for ($i = 1; $i <= $numTemas; $i++) {
 				$preguntasTema = isset($preguntasSesion['preguntas']['tema'.$i])? $preguntasSesion['preguntas']['tema'.$i]: null;
 
