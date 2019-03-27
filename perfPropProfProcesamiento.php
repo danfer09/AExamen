@@ -124,40 +124,6 @@
 				        "-----------------------------------------------------------------".PHP_EOL;
 				//Save string to log, use FILE_APPEND to append.
 				file_put_contents('./log/log_AExamen.log', utf8_decode($log), FILE_APPEND);
-
-				header('Location: perfilPropioProf.php');				
-			}
-			else{
-				$_SESSION['error_BBDD']=true;
-				header('Location: perfilPropioProf.php');
-			}
-		}
-		//Si nuevoClave no esta a null es que el usuario quiere cambiar el clave, por lo tanto procedemos a cambiarlo
-		elseif($nuevoClave!=null){
-			//Haseamos la nueva clave, que nos llega en texto plano
-			$hashed_clave = password_hash($nuevoClave, PASSWORD_BCRYPT);
-			//Conectamos la base de datos
-			$credentialsStr = file_get_contents('json/credentials.json');
-			$credentials = json_decode($credentialsStr, true);
-			$db = mysqli_connect('localhost', $credentials['database']['user'], $credentials['database']['password'], $credentials['database']['dbname']);
-			//comprobamos si se ha conectado a la base de datos
-			if($db){
-				$sql = "UPDATE profesores SET clave= '".$hashed_clave."' WHERE id=".$_SESSION['id'];
-				$consulta=mysqli_query($db,$sql);
-				//Comprobamos los distintos errores que se pueden producir y ponemos a true los session que corresponden
-				if(mysqli_affected_rows($db) == -1){
-					$_SESSION['error_ejecuccionConsulta']=true;
-				}
-				elseif(!(mysqli_affected_rows($db))){
-					$_SESSION['error_noFilasConCondicion']=true;
-				}
-
-				//Something to write to txt log
-				$log  = '['.date("d/m/Y - H:i:s").'] : '."USER --> id ".$_SESSION['id'].' - '.$_SESSION['apellidos'].', '.$_SESSION['nombre'].
-				        " | ACTION --> Cambio de contraseña".PHP_EOL.
-				        "-----------------------------------------------------------------".PHP_EOL;
-				//Save string to log, use FILE_APPEND to append.
-				file_put_contents('./log/log_AExamen.log', utf8_decode($log), FILE_APPEND);
 				
 				header('Location: perfilPropioProf.php');				
 			}

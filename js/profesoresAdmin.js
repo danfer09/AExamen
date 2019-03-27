@@ -8,14 +8,54 @@ $(document).ready(function(){
         	$('#modal_borrarProfesor').modal('show');
         } else if (id == "boton_modalEditar") {
             $("#boton_editar").attr("id_profesor",$(this).attr("idProfesor"));
-            $("#nombre").val($('#nombreProfesor'+$(this).attr("idProfesor")).text());
-            $("#apellidos").val($('#apellidosProfesor'+$(this).attr("idProfesor")).text());
-            $("#email").val($('#emailProfesor'+$(this).attr("idProfesor")).text());
+            $("#nombreForm").val($('#nombreProfesor'+$(this).attr("idProfesor")).text());
+            $("#apellidosForm").val($('#apellidosProfesor'+$(this).attr("idProfesor")).text());
+            $("#emailForm").val($('#emailProfesor'+$(this).attr("idProfesor")).text());
 
             $('#modal_editarProfesor').modal('show');
         }
         
+
     });
+
+    function comprobarCamposRellenados(){
+        let resultado=true;
+        if($("#nombreForm").val()==""||$("#apellidosForm").val()=="" ||$("#emailForm").val()=="")
+            resultado=false;
+        return resultado;
+    }
+
+    function comprobarEmailValido(){
+        var caract = new RegExp(/^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/);
+        const email = $("#emailForm").val();
+        let resultado=true;
+        if (caract.test(email) == false)
+            resultado=false;
+        return resultado;  
+    }
+
+    $('#nombreForm,#apellidosForm,#emailForm').keyup(function() {
+        if(comprobarEmailValido() && comprobarCamposRellenados()){
+            $("#boton_editar").attr("class", "btn btn-primary active");
+            $("#boton_editar").attr("disabled", false);
+            $("#mensajeEditar").hide();
+        }
+        else if(!comprobarCamposRellenados()){
+            $("#boton_editar").attr("class", "btn btn-primary disabled");
+            $("#boton_editar").attr("disabled", true);
+            $("#mensajeEditar").show();
+            $("#mensajeEditar").text("No puede dejar ningún campo vacío").addClass('badge badge-pill badge-danger');
+        }
+        else if(!comprobarEmailValido()){
+            $("#boton_editar").attr("class", "btn btn-primary disabled");
+            $("#boton_editar").attr("disabled", true);
+            $("#mensajeEditar").show();
+            $("#mensajeEditar").text("El correo electrónico tiene que ser valido").addClass('badge badge-pill badge-danger');
+        }
+
+    });
+
+    
 
     $('#boton_modalAñadir').click(function(){
         $('#modalAniadirProfesor').modal('show');
@@ -75,8 +115,10 @@ $(document).ready(function(){
     });
 
 
+
+
   $('#boton_borrar').click(function() {
-    const mensaje = "Esta acción no se puede retornar, ¿está seguro de que desea eliminar este profesor?";
+    const mensaje = "Esta acción no se puede revertir, ¿está seguro de que desea eliminar este profesor?";
     if(window.confirm(mensaje)){ 
         $("#form_delete").submit(); 
       }

@@ -141,21 +141,21 @@
 			      <h4 class="modal-title">Editar profesor</h4>
 			      <button type="button" class="close" data-dismiss="modal">&times;</button>
 			    </div>
-			    
+			    <span id='mensajeEditar'></span><br>
 			    <!-- Modal body -->
 			    <div class="modal-body">
 					  <form action="profesoresAdminProcesamiento.php" class="form-container" method="post" id="form_mod">
 					  	<div class="form-group">
 					  		<label for="nombre">Nombre</label>
-					    	<input type="text" class="form-control" placeholder="Introduzca el nombre" name="nombre" id="nombre">
+					    	<input type="text" class="form-control" placeholder="Introduzca el nombre" name="nombre" id="nombreForm">
 						</div>
 						<div class="form-group">
 					    	<label for="apellidos">Apellidos</label>
-					    	<input type="text" class="form-control" placeholder="Introduzca los apellidos" name="apellidos" id="apellidos">
+					    	<input type="text" class="form-control" placeholder="Introduzca los apellidos" name="apellidos" id="apellidosForm">
 						</div>
 						<div class="form-group">
 						    <label for="email">Email</label>
-						    <input type="email" class="form-control" placeholder="Introduzca el email" name="email" id="email">
+						    <input type="email" class="form-control" placeholder="Introduzca el email" name="email" id="emailForm">
 						</div>
 						<br>
 					  </form>
@@ -163,7 +163,7 @@
 			    
 			    <!-- Modal footer -->
 			    <div class="modal-footer">
-			    	<button type="submit" class="btn btn-success" id="boton_editar" name="boton_editar">Actualizar</button>
+			    	<button type="submit" class="btn btn-primary" id="boton_editar" name="boton_editar">Actualizar</button>
 			    	<button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
 			    </div>
 			    
