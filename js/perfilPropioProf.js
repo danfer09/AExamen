@@ -23,8 +23,8 @@ $(document).ready(function(){
 	});
 
 	$("#btn_cambiarCorreo").on( "click", function() {
-	    //$("#boton_cambiarCorreo").attr("class", "btn btn-primary disabled");
-	    //$("#boton_cambiarCorreo").attr("disabled", true);
+	    $("#boton_cambiarCorreo").attr("class", "btn btn-primary disabled");
+	    $("#boton_cambiarCorreo").attr("disabled", true);
 	    $('#modal_cambiarCorreo').modal('show');
 	});
 
@@ -174,6 +174,67 @@ $(document).ready(function(){
 	    }
 	    return false;
 	});
+
+
+
+	function comprobarCamposRellenados(){
+        let resultado=true;
+        if($("#correo").val()=="")
+            resultado=false;
+        return resultado;
+    }
+
+    function comprobarEmailValido(){
+        var caract = new RegExp(/^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/);
+        const correo = $("#correo").val();
+        let resultado=true;
+        if (caract.test(correo) == false)
+            resultado=false;
+        return resultado;  
+    }
+
+    $('#correo').keyup(function() {
+        if(comprobarEmailValido() && comprobarCamposRellenados()){
+            $("#boton_cambiarCorreo").attr("class", "btn btn-primary active");
+            $("#boton_cambiarCorreo").attr("disabled", false);
+            $("#mensajeEditarCorreo").hide();
+        }
+        else if(!comprobarCamposRellenados()){
+            $("#boton_cambiarCorreo").attr("class", "btn btn-primary disabled");
+            $("#boton_cambiarCorreo").attr("disabled", true);
+            $("#mensajeEditarCorreo").show();
+            $("#mensajeEditarCorreo").text("No puede dejar el campo vacío").addClass('badge badge-pill badge-danger');
+        }
+        else if(!comprobarEmailValido()){
+            $("#boton_cambiarCorreo").attr("class", "btn btn-primary disabled");
+            $("#boton_cambiarCorreo").attr("disabled", true);
+            $("#mensajeEditarCorreo").show();
+            $("#mensajeEditarCorreo").text("El correo electrónico tiene que ser valido").addClass('badge badge-pill badge-danger');
+        }
+
+    });
+
+
+    $('#form_delete').submit(function(event) {
+        var funcion = "borrarProfesor";
+        var form_data = $(this).serialize();
+        $.ajax({
+          type        : 'POST', // define the type of HTTP verb we want to use (POST for our form)
+          url         : 'profesoresAdminProcesamiento.php', // the url where we want to POST
+          data        : form_data + '&funcion=' + funcion + '&idProfesor=' + $("#boton_borrar").attr("id_profesor"), // our data object
+          success: function(respuesta) {
+                if(respuesta){
+                    //alert("Borrada con exito");
+                    location.reload();
+                }
+                else{
+                    //alert("Fallo al borrar");
+                    location.reload();
+                }
+             }
+        })
+        event.preventDefault();
+    });
 	
 
 });

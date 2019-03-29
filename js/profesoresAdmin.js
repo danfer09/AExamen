@@ -165,11 +165,11 @@ $('.modalAsignaturas').click(function() {
 
                 for (var i = 0; i< respuesta['asigSiCoord'].length; i++) {
                     console.log(respuesta['asigSiCoord'][i]);
-                    $("#tableAsignaturas").append('<tr><td><input type="checkbox" checked name="asignatura" value="'+respuesta['asigSiCoord'][i]["id"]+'"></td><td>'+respuesta['asigSiCoord'][i]["siglas"]+'</td><td>'+respuesta['asigSiCoord'][i]["nombre"]);
+                    $("#tableAsignaturas").append('<tr><td><input type="checkbox" checked name="asignatura" value="'+respuesta['asigSiCoord'][i]["id"]+'" class="asigCheckbox"></td><td>'+respuesta['asigSiCoord'][i]["siglas"]+'</td><td>'+respuesta['asigSiCoord'][i]["nombre"]);
                 }
                 for (var i = 0; i< respuesta['asigNoCoord'].length; i++) {
                     console.log(respuesta['asigNoCoord'][i]);
-                    $("#tableAsignaturas").append('<tr><td><input type="checkbox" name="asignatura" value="'+respuesta['asigNoCoord'][i]["id"]+'"></td><td>'+respuesta['asigNoCoord'][i]["siglas"]+'</td><td>'+respuesta['asigNoCoord'][i]["nombre"]);
+                    $("#tableAsignaturas").append('<tr><td><input type="checkbox" name="asignatura" value="'+respuesta['asigNoCoord'][i]["id"]+'" class="asigCheckbox"></td><td>'+respuesta['asigNoCoord'][i]["siglas"]+'</td><td>'+respuesta['asigNoCoord'][i]["nombre"]);
 
                 }
                 //$("#tableAsignaturas").append('<input type="submit" value="Submit">');
@@ -246,5 +246,17 @@ $('.modalAsignaturas').click(function() {
 
       event.preventDefault();
     });
+
+
+
+  $('#formAsig :checkbox').change(function() {
+    // this will contain a reference to the checkbox   
+    alert("Hello! I am an alert box!");
+    if (this.checked) {
+        // the checkbox is now checked 
+    } else {
+        // the checkbox is now no longer checked
+    }
+});
 
 });

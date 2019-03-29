@@ -19,3 +19,35 @@
 -----------------------------------------------------------------
 [27/03/2019 - 19:30:12] : USER --> id 1 - nu?ez, Fernando | ACTION --> Inicio de sesión  de fernu@gmail.com
 -----------------------------------------------------------------
+[29/03/2019 - 20:47:38] : USER --> id 1 - nu?ez, Fernando | ACTION --> Inicio de sesión  de fernu@gmail.com
+-----------------------------------------------------------------
+[29/03/2019 - 21:26:50] : USER --> id 1 - nu?ez, Fernando | ACTION --> Cambio de contraseña
+-----------------------------------------------------------------
+[29/03/2019 - 21:26:57] : USER --> id 1 - nu?ez, Fernando | ACTION --> Cambio de contraseña
+-----------------------------------------------------------------
+[29/03/2019 - 21:26:58] : USER --> id  - ,  | ACTION --> Cierre de sesión  de 
+-----------------------------------------------------------------
+[29/03/2019 - 21:27:02] : USER --> id 1 - nu?ez, Fernando | ACTION --> Inicio de sesión  de fernu@gmail.com
+-----------------------------------------------------------------
+[29/03/2019 - 21:27:06] : USER --> id  - ,  | ACTION --> Cierre de sesión  de 
+-----------------------------------------------------------------
+[29/03/2019 - 21:27:17] : USER --> id 1 - nu?ez, Fernando | ACTION --> Inicio de sesión  de fernu@gmail.com
+-----------------------------------------------------------------
+[29/03/2019 - 21:27:25] : USER --> id 1 - nu?ez, Fernando | ACTION --> Cambio de contraseña
+-----------------------------------------------------------------
+[29/03/2019 - 21:33:04] : USER --> id 1 - nu?ez (apellidos anteriores), Fernando | ACTION --> Cambio de apellidos a asdf
+-----------------------------------------------------------------
+[29/03/2019 - 21:33:51] : USER --> id 1 - asdf, Fernando | ACTION --> Cambio de contraseña
+-----------------------------------------------------------------
+[29/03/2019 - 21:33:53] : USER --> id  - ,  | ACTION --> Cierre de sesión  de 
+-----------------------------------------------------------------
+[29/03/2019 - 21:33:58] : USER --> id 1 - asdf, Fernando | ACTION --> Inicio de sesión  de fernu@gmail.com
+-----------------------------------------------------------------
+[29/03/2019 - 21:34:03] : USER --> id 1 - asdf, Fernando | ACTION --> Cambio de contraseña
+-----------------------------------------------------------------
+[29/03/2019 - 21:35:15] : USER --> id 1 - asdf (apellidos anteriores), Fernando | ACTION --> Cambio de apellidos a asdfsd
+-----------------------------------------------------------------
+[29/03/2019 - 21:36:18] : USER --> id 1 - asdfsd, Fernando (nombre anterior) | ACTION --> Cambio de nombre a asdfad
+-----------------------------------------------------------------
+[29/03/2019 - 21:36:22] : USER --> id 1 - asdfsd, asdfad (nombre anterior) | ACTION --> Cambio de nombre a fdseace
+-----------------------------------------------------------------

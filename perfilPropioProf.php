@@ -162,7 +162,7 @@
 		          <h4 class="modal-title">Cambiar correo</h4>
 		          <button type="button" class="close" data-dismiss="modal">&times;</button>
 		        </div>
-		        
+		        <span id='mensajeEditarCorreo'></span><br>
 		        <!-- Modal body de Correo -->
 		        <div class="modal-body">
 					  <form action="perfPropProfProcesamiento.php" class="form-container" method="post" id="form_cambiarCorreo">

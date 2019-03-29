@@ -218,7 +218,7 @@
 		    
 		    <!-- Modal body -->
 		    <div class="modal-body">
-				  <form action="#" class="form-container" method="post" id="formAsigCoord">
+				  <form action="#" class="form-container" method="post" id="formAsig">
 				    <!--<h1 name="borrarExamen">Añadir preguntas</h1>-->
 				    	<!--<div id="info_aniadirPreg_vacio" class="badge badge-pill badge-danger">No hay ninguna pregunta de este tema</div>
 				    	<div id="info_aniadirPreg_limite" class="badge badge-pill badge-warning">Se ha alcanzado el límite de puntos para este tema</div>

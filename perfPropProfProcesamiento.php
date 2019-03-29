@@ -36,7 +36,11 @@
 			$db = mysqli_connect('localhost', $credentials['database']['user'], $credentials['database']['password'], $credentials['database']['dbname']);
 			//comprobamos si se ha conectado a la base de datos
 			if($db){
-				$sql = "UPDATE profesores SET nombre= '".$nuevoNombre."' WHERE id=".$_SESSION['id'];
+				if(!$_SESSION['administrador'])
+					$sql = "UPDATE profesores SET nombre= '".$nuevoNombre."' WHERE id=".$_SESSION['id'];
+				else
+					$sql = "UPDATE administradores SET nombre= '".$nuevoNombre."' WHERE id=".$_SESSION['id'];
+				
 				$consulta=mysqli_query($db,$sql);
 				//Comprobamos los distintos errores que se pueden producir y ponemos a true los session que corresponden
 				if(mysqli_affected_rows($db) == -1){
@@ -71,7 +75,12 @@
 			$db = mysqli_connect('localhost', $credentials['database']['user'], $credentials['database']['password'], $credentials['database']['dbname']);
 			//comprobamos si se ha conectado a la base de datos
 			if($db){
-				$sql = "UPDATE profesores SET apellidos= '".$nuevoApellidos."' WHERE id=".$_SESSION['id'];
+				if(!$_SESSION['administrador']){
+					$sql = "UPDATE profesores SET apellidos= '".$nuevoApellidos."' WHERE id=".$_SESSION['id'];
+				}
+				else{
+					$sql = "UPDATE administradores SET apellidos= '".$nuevoApellidos."' WHERE id=".$_SESSION['id'];
+				}
 				$consulta=mysqli_query($db,$sql);
 				//Comprobamos los distintos errores que se pueden producir y ponemos a true los session que corresponden
 				if(mysqli_affected_rows($db) == -1){
@@ -108,7 +117,12 @@
 			$db = mysqli_connect('localhost', $credentials['database']['user'], $credentials['database']['password'], $credentials['database']['dbname']);
 			//comprobamos si se ha conectado a la base de datos
 			if($db){
-				$sql = "UPDATE profesores SET clave= '".$hashed_clave."' WHERE id=".$_SESSION['id'];
+				if(!$_SESSION['administrador']){
+					$sql = "UPDATE profesores SET clave= '".$hashed_clave."' WHERE id=".$_SESSION['id'];
+				}
+				else{
+					$sql = "UPDATE `administradores` SET `clave`= '".$hashed_clave."' WHERE id=".$_SESSION['id'];					
+				}
 				$consulta=mysqli_query($db,$sql);
 				//Comprobamos los distintos errores que se pueden producir y ponemos a true los session que corresponden
 				if(mysqli_affected_rows($db) == -1){
