@@ -2,11 +2,22 @@
 se pincha en una de ellas redirige a la asignatura
 de la fila que se haya clickado*/
 $(document).ready(function(){
-	$('#tabla_asignaturas td.asigClick').click(function() {
-        var href = $(this).find("a").attr("href");
+    $('#tableAsignaturas').children("tr").children("td").click(function() {
+        //alert($(this).attr('class'));
+        //alert($(this).attr("href"));
+        if($(this).attr('class')!="botonCoordinadores"){
+            var href = $(this).attr("href");
+            if(href) {
+                window.location = href;
+            }
+        }
+    });
+    $('#idPrueba').click(function() {
+        alert("dedse"+ $('#idPrueba').attr('class'));
+        /*var href = $(this).find("a").attr("href");
         if(href) {
             window.location = href;
-        }
+        }*/
     });
 
 	$('.botonCoordinadores').click(function() {

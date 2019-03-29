@@ -54,8 +54,12 @@
 	        <th>Añadir coordinadores</th>
 	      </tr>
 	    </thead>
-	    <tbody>
+	    <tbody id="tableAsignaturas">
 	<?php
+		/*echo"<pre>";
+
+		var_dump(getCoordinadores(2));
+		die();*/
 		/*Llama a una función que dado un id de un usuario, en este caso el
 		que esta logeado, devuelve las asignaturas que tiene ese usuario*/
 		$asignaturas=cargaTodasAsignaturas();
@@ -63,7 +67,6 @@
 		$error_ningunaAsignatura = isset($_SESSION['error_ningunaAsignatura'])? $_SESSION['error_ningunaAsignatura']: false;
 		$error_BBDD = isset($_SESSION['error_BBDD'])? $_SESSION['error_BBDD']: false;
 		/*Tratamiento de errores en caso de que se haya producido alguno*/
-		getCoordinadores(2);
 		if($error_ningunaAsignatura){
 			echo 'No hay asignaturas dadas de alta en la plataforma';
 		}
@@ -75,15 +78,16 @@
 		else{
 			foreach ($asignaturas as $pos => $valor) {
 				echo '<tr class="item" style="cursor:pointer;">';
-				echo '<td class="asigClick"><a href="asignatura.php?id='.$valor['id'].'&nombre='.$valor['nombre'].'&siglas='.$valor['siglas'].'"></a>'.$valor['siglas'].'</td>';
-				echo '<td class="asigClick">'.$valor['nombre'].'</td>';
-				echo '<td class="asigClick">'.getNumeroProfesoresAsig($valor['id'])['numero_profesores']."</td>";
+				echo '<td class="asigClick" href="asignatura.php?id='.$valor['id'].'&nombre='.$valor['nombre'].'&siglas='.$valor['siglas'].'">'.$valor['siglas'].'</td>';
+				echo '<td class="asigClick" href="asignatura.php?id='.$valor['id'].'&nombre='.$valor['nombre'].'&siglas='.$valor['siglas'].'">'.$valor['nombre'].'</td>';
+				echo '<td class="asigClick" href="asignatura.php?id='.$valor['id'].'&nombre='.$valor['nombre'].'&siglas='.$valor['siglas'].'">'.getNumeroProfesoresAsig($valor['id'])['numero_profesores']."</td>";
 				//echo '<td>'.foreach (getCoordinadores($valor['id']) as $pos => $valor) $valor.'</td>';
-				echo '<td class="asigClick"></td>';
-				echo '<td><a class="fas fa-plus-circle botonCoordinadores"  idAsig="'.$valor['id'].'" href="#"></a>';
+				echo '<td class="asigClick" href="asignatura.php?id='.$valor['id'].'&nombre='.$valor['nombre'].'&siglas='.$valor['siglas'].'">'.getCoordinadores($valor['id'])[0]["nombre"].'</td>';
+				echo '<td class="botonCoordinadores" href="asignatura.php?id='.$valor['id'].'&nombre='.$valor['nombre'].'&siglas='.$valor['siglas'].'"><a class="fas fa-plus-circle botonCoordinadores"  idAsig="'.$valor['id'].'" href="#"></a>';
 				echo '</tr>';
 			}
 		}
+		echo "<p id='idPrueba' class='botonCoordinadores'>hooalll</p>";
 
 
 	?>
