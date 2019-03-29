@@ -27,7 +27,7 @@
 				header('Location: index.php');
 			}
 
-			echo $_SESSION['coordinador'];
+			//echo $_SESSION['coordinador'];
 
 			echo "<h1>Preguntas de ". $_GET['nombreAsignatura']. "</h1>";
 			$_SESSION['idAsignatura']=$_GET['idAsignatura'];
@@ -69,7 +69,9 @@
 			<input oninput="w3.filterHTML('#tabla_preguntas', '.item', this.value)" class="w3-input col-lg-7" placeholder="Buscar...">
 		</div>
 		<br>
-		<a class="fas fa-plus-circle" id="boton_modalAñadir"></a>
+		<?php
+			echo (!$_SESSION['administrador'])?'<a class="fas fa-plus-circle" id="boton_modalAñadir"></a>':'';
+		?>
 		<table class="table table-hover" id="tabla_preguntas">
 		    <thead>
 		      <tr>
@@ -130,7 +132,11 @@
 					echo '<td hidden=true;>'.$valor['fecha_modificado'].'</td>';
 					echo '<td>'.formateoDateTime($valor['fecha_creacion']).'</td>';
 					echo '<td>'.formateoDateTime($valor['fecha_modificado']).'</td>';
-					echo '<td id="opciones"><a class="btn btn-primary" href="detallePregunta.php?id='.$valor['id_preguntas'].'" role="button">Detalles</a><a class="fas fa-edit" id="boton_modalEditar" idPreguntas="'.$valor['id_preguntas'].'"></a><a class="fas fa-trash-alt" id="boton_modalBorrar" idPreguntas="'.$valor['id_preguntas'].'"></a></td>';
+					echo '<td id="opciones">';
+						echo '<a class="btn btn-primary" href="detallePregunta.php?id='.$valor['id_preguntas'].'" role="button">Detalles</a>';
+						echo (!$_SESSION['administrador'])? '<a class="fas fa-edit" id="boton_modalEditar" idPreguntas="'.$valor['id_preguntas'].'"></a>': '';
+						echo '<a class="fas fa-trash-alt" id="boton_modalBorrar" idPreguntas="'.$valor['id_preguntas'].'"></a>';
+					echo '</td>';
 					echo '</tr>';
 					
 				}

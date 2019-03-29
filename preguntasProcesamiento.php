@@ -231,7 +231,7 @@
 			$numRef = $fila['referencias'];
 			$asignatura = $fila['asignatura'];
 
-			if (esCoordinador($asignatura, $idUsuario)) {
+			if (esCoordinador($asignatura, $idUsuario) || $_SESSION['administrador']) {
 				if ($numRef == 0) {
 					$sql = "DELETE FROM `preguntas` WHERE id=".$idPregunta;
 					$consulta=mysqli_query($db,$sql);
