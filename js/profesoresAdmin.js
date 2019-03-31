@@ -194,8 +194,30 @@ $('.modalAsignaturas').click(function() {
     
 });
 
-/*AJAX para cuando hace submit al formulario que de las asignaturas*/
-  $( "#formAsigCoord" ).submit(function( event ) {
+
+    $(document).on('click', '#tableAsignaturas input[type="checkbox"]',function() {
+        let contSelect = 0;
+        let contNoSelect = 0;
+        $(":checkbox").each(function () {
+            var ischecked = $(this).is(":checked");
+            if (ischecked) {
+                contSelect++;
+            }
+            else if (!ischecked) {
+                contNoSelect++;
+            }
+        });
+        console.log("check: "+contSelect+" NOTcheck: "+contNoSelect);//-----------NO CAMBIA EL BOTON AÑADIR CORRECTAMENTE
+
+        if (contSelect == 0) {
+            $('#boton_aniadir').attr('disabled',true);
+        } else {
+            $('#boton_aniadir').attr('disabled',false);
+        }
+    });
+
+    /*AJAX para cuando hace submit al formulario que de las asignaturas*/
+    $( "#formAsigCoord" ).submit(function( event ) {
         let idAsigSelect = [];
         let idAsigNoSelect = [];
         let contSelect = 0;
@@ -248,15 +270,5 @@ $('.modalAsignaturas').click(function() {
     });
 
 
-
-  $('#formAsig :checkbox').change(function() {
-    // this will contain a reference to the checkbox   
-    alert("Hello! I am an alert box!");
-    if (this.checked) {
-        // the checkbox is now checked 
-    } else {
-        // the checkbox is now no longer checked
-    }
-});
 
 });

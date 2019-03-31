@@ -125,6 +125,25 @@ $(document).ready(function(){
       event.preventDefault();
     });
 
+    $(document).on('click', '#tableCoordinadores input[type="checkbox"]',function() {
+        let contSelect = 0;
+        let contNoSelect = 0;
+        $(":checkbox").each(function () {
+            var ischecked = $(this).is(":checked");
+            if (ischecked) {
+                contSelect++;
+            }
+            else if (!ischecked) {
+                contNoSelect++;
+            }
+        });
+        //console.log("check: "+contSelect+" NOTcheck: "+contNoSelect);
+        if (contSelect <= 0) {
+            $('#boton_aniadir').attr('disabled',true);
+        } else {
+            $('#boton_aniadir').attr('disabled',false);
+        }
+    });
 
 
 });

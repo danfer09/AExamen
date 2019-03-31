@@ -82,12 +82,20 @@
 				echo '<td class="asigClick" href="asignatura.php?id='.$valor['id'].'&nombre='.$valor['nombre'].'&siglas='.$valor['siglas'].'">'.$valor['nombre'].'</td>';
 				echo '<td class="asigClick" href="asignatura.php?id='.$valor['id'].'&nombre='.$valor['nombre'].'&siglas='.$valor['siglas'].'">'.getNumeroProfesoresAsig($valor['id'])['numero_profesores']."</td>";
 				//echo '<td>'.foreach (getCoordinadores($valor['id']) as $pos => $valor) $valor.'</td>';
-				echo '<td class="asigClick" href="asignatura.php?id='.$valor['id'].'&nombre='.$valor['nombre'].'&siglas='.$valor['siglas'].'">'.getCoordinadores($valor['id'])[0]["nombre"].'</td>';
-				echo '<td class="botonCoordinadores" href="asignatura.php?id='.$valor['id'].'&nombre='.$valor['nombre'].'&siglas='.$valor['siglas'].'"><a class="fas fa-plus-circle botonCoordinadores"  idAsig="'.$valor['id'].'" href="#"></a>';
+				echo '<td class="asigClick" href="asignatura.php?id='.$valor['id'].'&nombre='.$valor['nombre'].'&siglas='.$valor['siglas'].'">';
+				$coordinadores = getCoordinadores($valor['id']);
+				for ($i=0; $i < count($coordinadores); $i++) { 
+					echo $coordinadores[$i]["nombre"];
+					if ($i < count($coordinadores)-1) {
+						echo ', ';
+					}
+				}
+				echo '</td>';
+				echo '<td class="botonCoordinadores" idAsig="'.$valor['id'].'" href="asignatura.php?id='.$valor['id'].'&nombre='.$valor['nombre'].'&siglas='.$valor['siglas'].'"><a class="fas fa-plus-circle botonCoordinadores"  idAsig="'.$valor['id'].'" href="#"></a>';
 				echo '</tr>';
 			}
 		}
-		echo "<p id='idPrueba' class='botonCoordinadores'>hooalll</p>";
+		//echo "<p id='idPrueba' class='botonCoordinadores'>hooalll</p>";
 
 
 	?>
@@ -99,7 +107,7 @@
 		  
 		    <!-- Modal Header -->
 		    <div class="modal-header">
-		      <h4 class="modal-title">Añadir pregunta</h4>
+		      <h4 class="modal-title">Añadir coordinadores</h4>
 		      <button type="button" class="close" data-dismiss="modal">&times;</button>
 		    </div>
 		    
