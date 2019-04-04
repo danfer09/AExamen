@@ -151,13 +151,8 @@ $('.modalAsignaturas').click(function() {
                 $("#formAsigCoord").attr("idProfesor", idProfesor);
                 //alert(respuesta);
                 console.log(respuesta);
-                //console.log("llega");
-                
-
-
-                
-
-                $('#boton_aniadir').attr('disabled',false);
+                console.log("llega");
+                    
                 $('#tableAsignaturas').children('tr,td').remove();
                 //$("#infoTodosProfAdd").hide();
                 //console.log($('#numeradorTema'+$tema).text()+'  '+$('#denominadorTema'+$tema).text());
@@ -177,10 +172,6 @@ $('.modalAsignaturas').click(function() {
 
                         //$("#tableAsignaturas").append('<tr><td><input type="radio" name="profesor" value="'+respuesta[i]["id"]+'"></td><td>'+respuesta[i]["nombre"]+'</td><td>'+respuesta[i]["apellidos"]+'</td><td>'+respuesta[i]["email"]+'</td></tr>');
 
-
-
-
-              
             }
             else{
                 //alert("Fallo al editar");
@@ -195,7 +186,7 @@ $('.modalAsignaturas').click(function() {
 });
 
 
-    $(document).on('click', '#tableAsignaturas input[type="checkbox"]',function() {
+    $(document).on('click', '#tableAsignaturas input.asigCheckbox',function() {
         let contSelect = 0;
         let contNoSelect = 0;
         $(":checkbox").each(function () {
@@ -210,9 +201,9 @@ $('.modalAsignaturas').click(function() {
         console.log("check: "+contSelect+" NOTcheck: "+contNoSelect);//-----------NO CAMBIA EL BOTON AÑADIR CORRECTAMENTE
 
         if (contSelect == 0) {
-            $('#boton_aniadir').attr('disabled',true);
+            $('#boton_aniadir_asig').attr('disabled',true);
         } else {
-            $('#boton_aniadir').attr('disabled',false);
+            $('#boton_aniadir_asig').attr('disabled',false);
         }
     });
 

@@ -237,7 +237,7 @@
 								  	
 							</table>
 						</div>
-				    <button type="submit" class="btn btn-primary" id="boton_aniadir" name="boton_aniadir">Añadir</button>
+				    <button type="submit" class="btn btn-primary" id="boton_aniadir_asig" name="boton_aniadir_asig">Añadir</button>
 				    <button type="button" class="btn btn-danger" id="boton_noAniadir" name="boton_noAniadir" data-dismiss="modal">Cancelar</button>					  
 				  </form>
 		    </div>
