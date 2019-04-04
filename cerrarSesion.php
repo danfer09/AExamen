@@ -10,7 +10,15 @@ if (!$logeado) {
 	header('Location: index.php');
 }
 
+//Something to write to txt log
+$log  = '['.date("d/m/Y - H:i:s").'] : '."USER --> id ".$_SESSION['id'].' - '.$_SESSION['apellidos'].', '.$_SESSION['nombre'].
+        " | ACTION --> Cierre de sesión ".' de '.$_SESSION['email'].PHP_EOL.
+        "-----------------------------------------------------------------".PHP_EOL;
+//Save string to log, use FILE_APPEND to append.
+file_put_contents('./log/log_AExamen.log', utf8_decode($log), FILE_APPEND);
+
 $_SESSION = array();
+
 
 if (ini_get("session.use_cookies")) {
     $params = session_get_cookie_params();
@@ -19,13 +27,6 @@ if (ini_get("session.use_cookies")) {
         $params["secure"], $params["httponly"]
     );
 }
-
-//Something to write to txt log
-$log  = '['.date("d/m/Y - H:i:s").'] : '."USER --> id ".$_SESSION['id'].' - '.$_SESSION['apellidos'].', '.$_SESSION['nombre'].
-        " | ACTION --> Cierre de sesión ".' de '.$_SESSION['email'].PHP_EOL.
-        "-----------------------------------------------------------------".PHP_EOL;
-//Save string to log, use FILE_APPEND to append.
-file_put_contents('./log/log_AExamen.log', utf8_decode($log), FILE_APPEND);
 
 session_destroy();
 header("Location: loginFormulario.php");
