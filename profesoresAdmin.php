@@ -11,7 +11,7 @@
 	<div class="header" id="header"></div>
 	<div class="container">
 		<h1>Profesores del sistema</h1>
-		<?php 
+		<?php
 			/*Iniciamos la sesion, pero antes hacemos una comprobacion para evitar errores*/
 			if (session_status() == PHP_SESSION_NONE) {
 			    session_start();
@@ -24,7 +24,7 @@
 				header('Location: index.php');
 			}
 			include 'profesoresAdminProcesamiento.php';
-			
+
 			if (!$_SESSION['administrador']){
 				header('Location: index.php');
 			}
@@ -54,7 +54,7 @@
 			<div class="form-inline col-lg-2">
 				<label for="boton_modalAñadir">Invitar profesor</label>
 				<?php
-					print('<a class="fas fa-plus-circle" style="text-decoration: none; cursor: pointer;" id="boton_modalAñadir"></a>');					
+					print('<a class="fas fa-plus-circle" style="text-decoration: none; cursor: pointer;" id="boton_modalAñadir"></a>');
 				?>
 			</div>
 			<div class="form-inline col-lg-2">
@@ -95,7 +95,7 @@
 					echo '<td id="emailProfesor'.$valor['id'].'">'.$valor['email'].'</td>';
 					echo '<td id="opciones">
 						<a id="boton_modalEditar" href="#" idProfesor="'.$valor['id'].'" ><i class="fas fa-pencil-alt fa-fw fa-lg"></i></a>
-						<a id="boton_modalBorrar" href="#" idProfesor="'.$valor['id'].'"><i class="fas fa-trash-alt fa-fw fa-lg"></i></a> 
+						<a id="boton_modalBorrar" href="#" idProfesor="'.$valor['id'].'"><i class="fas fa-trash-alt fa-fw fa-lg"></i></a>
 						<button type="button" class="btn btn-primary modalAsignaturas" idProfesor = "'.$valor['id'].'">Asignaturas</button></td>';
 					echo '</tr>';
 				}
@@ -107,26 +107,26 @@
 		<div class="modal" id="modal_borrarProfesor">
 			<div class="modal-dialog">
 			  <div class="modal-content">
-			  
+
 			    <!-- Modal Header -->
 			    <div class="modal-header">
 			      <h4 class="modal-title">¿Borrar profesor del sistema?</h4>
 			      <button type="button" class="close" data-dismiss="modal">&times;</button>
 			    </div>
-			    
+
 			    <!-- Modal body -->
 			    <div class="modal-body" id="modal_borrarProfesor_body">
 					<form action="profesoresAdminProcesamiento.php" class="form-container" method="post" id="form_delete">
 						<button type="submit" class="btn btn-danger btn-lg" id="boton_borrar" name="boton_borrar">Sí</button>
-						<button type="button" class="btn btn-secondary btn-lg" id="boton_noBorrar" name="boton_noBorrar" data-dismiss="modal">No</button>					  
+						<button type="button" class="btn btn-secondary btn-lg" id="boton_noBorrar" name="boton_noBorrar" data-dismiss="modal">No</button>
 					</form>
 			    </div>
-			    
+
 			    <!-- Modal footer -->
 			    <div class="modal-footer">
 			      <!--<button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>-->
 			    </div>
-			    
+
 			  </div>
 			</div>
 		</div>
@@ -135,7 +135,7 @@
 		<div class="modal" id="modal_editarProfesor">
 			<div class="modal-dialog">
 			  <div class="modal-content">
-			  
+
 			    <!-- Modal Header -->
 			    <div class="modal-header">
 			      <h4 class="modal-title">Editar profesor</h4>
@@ -160,27 +160,27 @@
 						<br>
 					  </form>
 			    </div>
-			    
+
 			    <!-- Modal footer -->
 			    <div class="modal-footer">
 			    	<button type="submit" class="btn btn-primary" id="boton_editar" name="boton_editar">Actualizar</button>
 			    	<button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
 			    </div>
-			    
+
 			  </div>
 			</div>
 		</div>
-		
+
 		<div class="modal" id="modalAniadirProfesor">
 			<div class="modal-dialog">
 			  <div class="modal-content">
-			  
+
 			    <!-- Modal Header -->
 			    <div class="modal-header">
 			      <h4 class="modal-title">Enviar invitación a profesor</h4>
 			      <button type="button" class="close" data-dismiss="modal">&times;</button>
 			    </div>
-			    
+
 			    <!-- Modal body -->
 			    <div class="modal-body">
 					  <form action="profesoresAdminProcesamiento.php" class="form-container" method="post" id="formAniadirProfesor">
@@ -188,20 +188,20 @@
 					    <div class="row">
 					    	<div class="col-md-8">
 					    		<label for="email" >Email:</label>
-					    		<input type="email" class="form-control" name="email" id="email">
+					    		<input type="email" required class="form-control" name="email" id="email">
 					    	</div>
 					    </div>
 					    <br>
 					    <button type="submit" class="btn btn-primary" id="boton_aniadir" name="boton_aniadir">Enviar</button>
-					    <button type="button" class="btn btn-danger" id="boton_noAniadir" name="boton_noAniadir" data-dismiss="modal">Cancelar</button>					  
+					    <button type="button" class="btn btn-danger" id="boton_noAniadir" name="boton_noAniadir" data-dismiss="modal">Cancelar</button>
 					  </form>
 			    </div>
-			    
+
 			    <!-- Modal footer -->
 			    <div class="modal-footer">
 			      <!--<button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>-->
 			    </div>
-			    
+
 			  </div>
 			</div>
 		</div>
@@ -209,13 +209,13 @@
 		<div class="modal" id="modalAsignaturas">
 		<div class="modal-dialog modal-lg">
 		  <div class="modal-content">
-		  
+
 		    <!-- Modal Header -->
 		    <div class="modal-header">
 		      <h4 class="modal-title">Asignaturas que coordina</h4>
 		      <button type="button" class="close" data-dismiss="modal">&times;</button>
 		    </div>
-		    
+
 		    <!-- Modal body -->
 		    <div class="modal-body">
 				  <form action="#" class="form-container" method="post" id="formAsig">
@@ -224,36 +224,36 @@
 				    	<div id="info_aniadirPreg_limite" class="badge badge-pill badge-warning">Se ha alcanzado el límite de puntos para este tema</div>
 				    	<div id="info_aniadirPreg_todas" class="badge badge-pill badge-info">Ya están todas las preguntas de este tema añadidas</div>   ERRORES PARA MOSTRAR, MIRAR MAS TARDE-->
 				    	<div class="table-wrapper-scroll-y">
-			    			<table class="table table-hover" id="tabla">	
+			    			<table class="table table-hover" id="tabla">
 								<thead>
 							      <tr>
 							      	<th>#</th>
 							        <th>Siglas</th>
 							        <th>Nombre</th>
 							      </tr>
-							    </thead>			
+							    </thead>
 							    <tbody id="tableAsignaturas">
 						 		</tbody>
-								  	
+
 							</table>
 						</div>
 				    <button type="submit" class="btn btn-primary" id="boton_aniadir_asig" name="boton_aniadir_asig">Añadir</button>
-				    <button type="button" class="btn btn-danger" id="boton_noAniadir" name="boton_noAniadir" data-dismiss="modal">Cancelar</button>					  
+				    <button type="button" class="btn btn-danger" id="boton_noAniadir" name="boton_noAniadir" data-dismiss="modal">Cancelar</button>
 				  </form>
 		    </div>
-		    
+
 		    <!-- Modal footer -->
 		    <div class="modal-footer">
 		      <!--<button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>-->
 		    </div>
-		    
+
 		  </div>
 		</div>
 	</div>
 
 	</div>
 
-	
+
 
 	<script src="js/jquery-3.3.1.min.js"></script>
 	<script type="text/javascript" src="js/cabeceraConLogin.js"></script>
