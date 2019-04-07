@@ -31,6 +31,13 @@
 					header('Location: registrarseFormulario.php');
 					exit();
 				} else {
+
+					$_SESSION['error_envio_mail'] = false;
+					if (smtpmailer($email, $credentials['webMail']['mail'], 'AExamen Web', 'Solicitud de registro AExamen', 'registroAExamen-mail.html', $credentials['webMail']['mail'], $credentials['webMail']['password'])) {
+					} else {
+						$_SESSION['error_envio_mail'] = true;
+					}
+
 					date_default_timezone_set('Europe/Berlin');
 					$date = date('Y-m-d H:i:s', time());
 					$claveHash = password_hash($clave, PASSWORD_BCRYPT);

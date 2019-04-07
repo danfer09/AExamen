@@ -123,7 +123,7 @@
 			file_put_contents('./log/log_AExamen.log', utf8_decode($log), FILE_APPEND);
 
 			$_SESSION['error_envio_mail'] = false;
-			if (smtpmailer($peticion['email'], $credentials['webMail']['mail'], 'AExamen Web', 'Solicitud de registro aceptada (AExamen)', 'solicitudDenegada.html', $credentials['webMail']['mail'], $credentials['webMail']['password'])) {
+			if (smtpmailer($peticion['email'], $credentials['webMail']['mail'], 'AExamen Web', 'Solicitud de registro denegada (AExamen)', 'solicitudDenegada.html', $credentials['webMail']['mail'], $credentials['webMail']['password'])) {
 			} else {
 				$_SESSION['error_envio_mail'] = true;
 			}

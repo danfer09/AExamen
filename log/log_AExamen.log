@@ -109,3 +109,27 @@
 -----------------------------------------------------------------
 [07/04/2019 - 17:51:54] : USER --> id 1 - asdfsd, fdseace | ACTION --> Inicio de sesión  de fernu@gmail.com
 -----------------------------------------------------------------
+[07/04/2019 - 21:19:09] : USER --> id 3 - Fernández, Paco | ACTION --> Inicio de sesión  de pafer@gmail.com
+-----------------------------------------------------------------
+[07/04/2019 - 21:19:12] : USER --> id 3 - Fernández, Paco | ACTION --> Cierre de sesión  de pafer@gmail.com
+-----------------------------------------------------------------
+[07/04/2019 - 21:19:16] : USER --> id 1 - nuñez, Fernando | ACTION --> Inicio de sesión  de fernu@gmail.com
+-----------------------------------------------------------------
+[07/04/2019 - 21:19:21] : USER --> id 1 - nuñez, Fernando | ACTION --> Aceptar petición #2 de samugarcia9696@gmail.com - MORENO, FATIMA
+-----------------------------------------------------------------
+[07/04/2019 - 21:19:48] : USER --> id 1 - nuñez, Fernando | ACTION --> Cierre de sesión  de fernu@gmail.com
+-----------------------------------------------------------------
+[07/04/2019 - 21:27:19] : USER --> id 1 - nuñez, Fernando | ACTION --> Inicio de sesión  de fernu@gmail.com
+-----------------------------------------------------------------
+[07/04/2019 - 21:39:57] : USER --> id 1 - nuñez, Fernando | ACTION --> Cierre de sesión  de fernu@gmail.com
+-----------------------------------------------------------------
+[07/04/2019 - 21:40:30] : USER --> id 1 - nuñez, Fernando | ACTION --> Inicio de sesión  de fernu@gmail.com
+-----------------------------------------------------------------
+[07/04/2019 - 21:40:34] : USER --> id 1 - nuñez, Fernando | ACTION --> Aceptar petición #4 de samugarcia9696a@gmail.com - MORENO, FATIMA
+-----------------------------------------------------------------
+[07/04/2019 - 21:40:41] : USER --> id 1 - nuñez, Fernando | ACTION --> Cierre de sesión  de fernu@gmail.com
+-----------------------------------------------------------------
+[07/04/2019 - 21:40:45] : USER --> id 18 - MORENO, FATIMA | ACTION --> Inicio de sesión  de samugarcia9696a@gmail.com
+-----------------------------------------------------------------
+[07/04/2019 - 21:40:47] : USER --> id 18 - MORENO, FATIMA | ACTION --> Cierre de sesión  de samugarcia9696a@gmail.com
+-----------------------------------------------------------------
