@@ -186,7 +186,7 @@ $('.modalAsignaturas').click(function() {
     
 });
 
-
+    const asigConCoord = [];
     $(document).on('click', '#tableAsignaturas input.asigCheckbox',function() {
         const isCheck = $(this).is(":checked")
         //console.log($(this).val());
@@ -204,12 +204,33 @@ $('.modalAsignaturas').click(function() {
                 if(respuesta){
                     console.log(respuesta);
                     if(respuesta == 0 && isCheck){
-                        $('#boton_aniadir_asig').attr('disabled',false);
                         console.log("entra primero");
+                        console.log(asigConCoord);
+                        asigConCoord [idAsig] = 1;
+                        let todasAsigConCoord = true;
+
+                        asigConCoord.forEach(element => {
+                            if(element==0){
+                                todasAsigConCoord = false;
+                            }
+                        });
+
+                        if(todasAsigConCoord){
+                            $('#boton_aniadir_asig').attr('disabled',false);
+
+                        }
+                        else{
+                            $('#boton_aniadir_asig').attr('disabled',true);
+                        }
+                       
                     }
-                    else if (respuesta == 0 && !isCheck){
-                        $('#boton_aniadir_asig').attr('disabled',true);
+                    else if (respuesta == 0 && !isCheck){                  
                         console.log("entra segundo");
+                        console.log(asigConCoord);
+                        
+                        asigConCoord [idAsig] = 0;
+                        
+                        $('#boton_aniadir_asig').attr('disabled',true);
                     }
                     console.log("llega");  
                     //location.reload();
