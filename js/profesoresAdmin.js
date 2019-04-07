@@ -188,25 +188,48 @@ $('.modalAsignaturas').click(function() {
 
 
     $(document).on('click', '#tableAsignaturas input.asigCheckbox',function() {
-        let contSelect = 0;
-        let contNoSelect = 0;
-        $(":checkbox").each(function () {
-            var ischecked = $(this).is(":checked");
-            if (ischecked) {
-                contSelect++;
-            }
-            else if (!ischecked) {
-                contNoSelect++;
-            }
-        });
-        console.log("check: "+contSelect+" NOTcheck: "+contNoSelect);//-----------NO CAMBIA EL BOTON AÑADIR CORRECTAMENTE
+        const isCheck = $(this).is(":checked")
+        //console.log($(this).val());
+        let idAsig =$(this).val();
 
-        if (contSelect == 0) {
-            $('#boton_aniadir_asig').attr('disabled',true);
-        } else {
-            $('#boton_aniadir_asig').attr('disabled',false);
-        }
+        let funcion = 'isAsigWithCoord';
+        let idProfesor = $("#formAsig").attr("idProfesor");
+        //console.log(idProfesor);
+
+        $.ajax({
+            type        : 'POST', // define the type of HTTP verb we want to use (POST for our form)
+            url         : 'profesoresAdminProcesamiento.php', // the url where we want to POST
+            data        : 'funcion=' + funcion + '&idAsig=' + idAsig + '&idProfesor=' + idProfesor, // our data object
+            success:function(respuesta){
+                if(respuesta){
+                    console.log(respuesta);
+                    if(respuesta == 0 && isCheck){
+                        $('#boton_aniadir_asig').attr('disabled',false);
+                        console.log("entra primero");
+                    }
+                    else if (respuesta == 0 && !isCheck){
+                        $('#boton_aniadir_asig').attr('disabled',true);
+                        console.log("entra segundo");
+                    }
+                    console.log("llega");  
+                    //location.reload();
+                    /*if (unaAsigSinCoord) {
+                        $('#boton_aniadir_asig').attr('disabled',true);
+                    } else {
+                        $('#boton_aniadir_asig').attr('disabled',false);
+                    }*/
+                
+                }
+                else{
+                    console.log("falla");
+                    //location.reload();
+                }
+            }
+        })
+    
     });
+
+
 
     /*AJAX para cuando hace submit al formulario que de las asignaturas*/
     $( "#formAsig" ).submit(function( event ) {

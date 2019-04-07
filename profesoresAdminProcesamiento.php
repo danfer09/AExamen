@@ -21,6 +21,8 @@
 	$idProfesor = isset($_POST['idProfesor'])? $_POST['idProfesor']: null;
 	$idAsigSelect = isset($_POST['idAsigSelect'])? $_POST['idAsigSelect']: null;
 	$idAsigNoSelect = isset($_POST['idAsigNoSelect'])? $_POST['idAsigNoSelect']: null;
+	$idAsig = isset($_POST['idAsig'])? $_POST['idAsig']: null;
+
 
 	if ($email && $funcion==null) {
 		invitarProfesor($email);
@@ -33,9 +35,10 @@
 	else if($funcion == "getAsignaturas")
 		getAsignaturas($idProfesor);
 	else if($funcion == "setCoordinadores"){
-		echo $idProfesor;
 		setCoordinadores($idProfesor, $idAsigSelect, $idAsigNoSelect);
-
+	}
+	else if($funcion == "isAsigWithCoord"){
+		isAsigWithCoord($idAsig, $idProfesor);
 	}
 
 
@@ -122,6 +125,36 @@
 			mysqli_close($db);
 			$resultado['asigSiCoord']= $asigSiCoord;
 			$resultado['asigNoCoord']= $asigNoCoord;
+			echo json_encode($resultado);
+		} else {
+			echo "Conexión fallida";
+			$_SESSION['error_BBDD']=true;
+			echo false;
+		}
+	}
+	/*Funcion que pasandole el id de una asignartura y el id de un profesor nos devuelve 0 si no hay ningun coordinador en esa asignatura salvo el profesor que le pasamos por parametor o mas de 0 en caso de que haya más coordinadores para esta asignatura ademas de el que le pasamos por parametro*/
+	function isAsigWithCoord($idAsig, $idProfesor) {
+		$credentialsStr = file_get_contents('json/credentials.json');
+		$credentials = json_decode($credentialsStr, true);
+		$_SESSION['error_BBDD']=false;
+		
+		$db = mysqli_connect('localhost', $credentials['database']['user'], $credentials['database']['password'], $credentials['database']['dbname']);
+		if($db){
+			$sql = 'SELECT id_asignatura, coordinador, COUNT(coordinador) AS number_coord 
+					FROM `prof_asig_coord`
+					WHERE id_asignatura = '.$idAsig.' AND id_profesor <> '.$idProfesor.'
+					GROUP BY coordinador, id_asignatura
+					HAVING coordinador = 1';
+			//echo $sql;
+			//die();
+			$consulta=mysqli_query($db,$sql);
+			//$resultado=mysqli_fetch_assoc($consulta);
+			//echo $resultado['id_asignatura'];
+			//die();
+			$row_cnt = mysqli_num_rows($consulta);
+			echo $row_cnt;
+			die();
+			mysqli_close($db);
 			echo json_encode($resultado);
 		} else {
 			echo "Conexión fallida";
