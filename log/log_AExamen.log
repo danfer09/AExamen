@@ -101,3 +101,11 @@
 -----------------------------------------------------------------
 [07/04/2019 - 13:53:34] : USER --> id 1 - asdfsd, fdseace | ACTION --> Inicio de sesión  de fernu@gmail.com
 -----------------------------------------------------------------
+[07/04/2019 - 17:50:45] : USER --> id 1 - asdfsd, fdseace | ACTION --> Cierre de sesión  de fernu@gmail.com
+-----------------------------------------------------------------
+[07/04/2019 - 17:50:50] : USER --> id 3 - Fernández, Paco | ACTION --> Inicio de sesión  de pafer@gmail.com
+-----------------------------------------------------------------
+[07/04/2019 - 17:51:50] : USER --> id 3 - Fernández, Paco | ACTION --> Cierre de sesión  de pafer@gmail.com
+-----------------------------------------------------------------
+[07/04/2019 - 17:51:54] : USER --> id 1 - asdfsd, fdseace | ACTION --> Inicio de sesión  de fernu@gmail.com
+-----------------------------------------------------------------
