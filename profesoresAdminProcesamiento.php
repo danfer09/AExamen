@@ -32,8 +32,11 @@
 		editarProfesor($nombre,$apellidos,$email,$idProfesor);
 	else if($funcion == "getAsignaturas")
 		getAsignaturas($idProfesor);
-	else if($funcion == "setCoordinadores")
+	else if($funcion == "setCoordinadores"){
+		echo $idProfesor;
 		setCoordinadores($idProfesor, $idAsigSelect, $idAsigNoSelect);
+
+	}
 
 
 	function invitarProfesor($email) {
@@ -61,6 +64,7 @@
 
 			for($i=0; $i < count($arrayIdAsigSelect); $i++) {
 				$sql= 'SELECT count(`id_profesor`) as `existe` FROM `prof_asig_coord` WHERE `id_asignatura`='.$arrayIdAsigSelect[$i].' and`id_profesor`='.$idProf;
+
 				$consulta=mysqli_query($db,$sql);
 				$fila=mysqli_fetch_assoc($consulta);
 				if($fila['existe']){

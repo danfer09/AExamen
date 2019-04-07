@@ -44,6 +44,8 @@
 
 			echo "<br>prueba2: ".$_SESSION['prueba2'];
 			$_SESSION['prueba2'] = "inicializadooo222";*/
+			//setCoordinadores(3, 1, 2);
+			//die();
 		?>
 		<br>
 		<div class="row" id="filtros">

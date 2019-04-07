@@ -148,7 +148,8 @@ $('.modalAsignaturas').click(function() {
         data        : 'funcion=' + funcion + '&idProfesor=' + idProfesor, // our data object
         success:function(respuesta){
             if(respuesta){
-                $("#formAsigCoord").attr("idProfesor", idProfesor);
+                console.log(idProfesor);
+                $("#formAsig").attr("idProfesor", idProfesor);
                 //alert(respuesta);
                 console.log(respuesta);
                 console.log("llega");
@@ -208,7 +209,7 @@ $('.modalAsignaturas').click(function() {
     });
 
     /*AJAX para cuando hace submit al formulario que de las asignaturas*/
-    $( "#formAsigCoord" ).submit(function( event ) {
+    $( "#formAsig" ).submit(function( event ) {
         let idAsigSelect = [];
         let idAsigNoSelect = [];
         let contSelect = 0;
@@ -229,15 +230,18 @@ $('.modalAsignaturas').click(function() {
         console.log(idAsigSelect);
         console.log('Id asignaturas no seleccionadas');
         console.log(idAsigNoSelect);
+        
         //Obtenemos el id de la asignatura, de un atributo del formulario del modal. Este atributo se lo
         //ponemos en $('.botonCoordinadores').click(function()
-        const idProfesor = $("#formAsigCoord").attr("idProfesor");
+        const idProfesor = $("#formAsig").attr("idProfesor");
         console.log(idProfesor);
         //Definimos el nombre de la funcion a la que vamos a llamar en el PHP
         const funcion = 'setCoordinadores';
 
         var idAsigSelectParam = JSON.stringify(idAsigSelect);
         var idAsigNoSelectParam = JSON.stringify(idAsigNoSelect);
+
+        console.log(idProfesor);
 
         $.ajax({
             type        : 'POST', // define the type of HTTP verb we want to use (POST for our form)
@@ -246,7 +250,7 @@ $('.modalAsignaturas').click(function() {
             success:function(respuesta){
                 if(respuesta){
                     console.log(respuesta);
-                    //console.log("llega");  
+                    console.log("llega");  
                     location.reload();
                 
                 }
