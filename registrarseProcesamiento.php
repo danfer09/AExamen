@@ -44,6 +44,8 @@
 					$sql = "INSERT INTO `peticiones_registro`(`id`, `nombre`, `apellidos`, `email`, `fecha`, `texto`, `clave`) VALUES ('','".$nombre."','".$apellidos."','".$email."','".$date."', '".$texto."', '".$claveHash."')";
 					$consulta=mysqli_query($db,$sql);
 					$fila=mysqli_fetch_assoc($consulta);
+
+					header('Location: registroAExamen-pagina.html');
 				}
 			}
 			else{
