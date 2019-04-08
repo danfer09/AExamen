@@ -39,6 +39,7 @@
 	<link rel="stylesheet" type="text/css" href="css/all.css">
 	<link rel="stylesheet" type="text/css" href="css/tempusdominus-bootstrap-4.min.css">
 
+	<meta charset="UTF-8">
 </head>
 <body>
 	<div class="header" id="header"></div>

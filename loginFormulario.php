@@ -37,6 +37,7 @@
 	<!--css externos-->
 	<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
 	<link rel="stylesheet" type="text/css" href="css/all.css">
+	<meta charset="UTF-8">
 </head>
 <body>
 	<div class="container">

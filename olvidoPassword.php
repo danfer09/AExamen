@@ -26,6 +26,7 @@
 	<!--css externos-->
 	<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
 	<link rel="stylesheet" type="text/css" href="css/all.css">
+	<meta charset="UTF-8">
 </head>
 <body>
 	<div class="container">
@@ -35,7 +36,7 @@
 
 		<form action="olvidoPasswordProcesamiento.php" id="formulario_olvido" method="post">
 			Email:<br>
-			<input type="text" name="email" id="email">
+			<input type="text" name="email" id="email" required>
 			<br><br>
 			<input type="submit" value="Enviar" id="olvido" name="olvido">
 		</form> 
