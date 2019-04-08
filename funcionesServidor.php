@@ -45,6 +45,32 @@
 		}
 	}
 
+	function smtpmailerRaw($to, $from, $fromName, $subject, $body, $googleUser, $googlePassword) { 
+		global $error;
+		$mail = new PHPMailer();  // create a new object
+		$mail->IsSMTP(); // enable SMTP
+		$mail->SMTPDebug = 0;  // debugging: 1 = errors and messages, 2 = messages only
+		$mail->SMTPAuth = true;  // authentication enabled
+		$mail->SMTPSecure = 'ssl'; // secure transfer enabled REQUIRED for GMail
+		$mail->Host = 'smtp.gmail.com';
+		$mail->Port = 465; 
+		$mail->Username = $googleUser;  
+		$mail->Password = $googlePassword;           
+		$mail->SetFrom($from, $fromName);
+		$mail->Subject = $subject;
+		$mail->Body = $body;
+		$mail->AddAddress($to);
+		$mail->CharSet = 'ISO-8859';
+		$mail->isHTML(true);
+		if(!$mail->Send()) {
+			$error = 'Mail error: '.$mail->ErrorInfo; 
+			return false;
+		} else {
+			$error = "\nMessage sent to ".$to."!";
+			return true;
+		}
+	}
+
 	function formateoDateTime ($fecha) {
 		$time = strtotime($fecha);
 

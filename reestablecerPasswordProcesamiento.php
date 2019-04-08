@@ -11,7 +11,7 @@
 		$pass2 = isset($_POST['pass2'])? $_POST['pass2']: null;
 		$passOld = isset($_POST['passOld'])? $_POST['passOld']: null;
 
-		if ( ($pass1 != null && $pass2 != null) && $pass1 == $pass2) {
+		if ( $pass1 != null && $pass2 != null && $pass1 == $pass2) {
 			$credentialsStr = file_get_contents('json/credentials.json');
 			$credentials = json_decode($credentialsStr, true);
 			$db = mysqli_connect('localhost', $credentials['database']['user'], $credentials['database']['password'], $credentials['database']['dbname']);
@@ -25,7 +25,6 @@
 			}
 		} else {
 			$_SESSION['password_diferente'] = true;
-			session_write_close();
 			header('Location: reestablecerPassword.php');
 			exit();
 		}

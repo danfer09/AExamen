@@ -143,3 +143,25 @@
 -----------------------------------------------------------------
 [08/04/2019 - 23:38:02] : USER --> id 3 - Fernández, Paco | ACTION --> Cierre de sesión  de pafer@gmail.com
 -----------------------------------------------------------------
+[08/04/2019 - 23:44:05] : USER --> id 3 - Fernández, Paco | ACTION --> Inicio de sesión  de pafer@gmail.com
+-----------------------------------------------------------------
+[08/04/2019 - 23:44:15] : USER --> id 3 - Fernández (apellidos anteriores), Paco | ACTION --> Cambio de apellidos a Fernándezñ
+-----------------------------------------------------------------
+[08/04/2019 - 23:44:21] : USER --> id 3 - Fernándezñ (apellidos anteriores), Paco | ACTION --> Cambio de apellidos a Fernández
+-----------------------------------------------------------------
+[08/04/2019 - 23:44:33] : USER --> id 3 - Fernández, Paco | ACTION --> Cierre de sesión  de pafer@gmail.com
+-----------------------------------------------------------------
+[08/04/2019 - 23:46:02] : USER --> id 1 - nuñez, Fernando | ACTION --> Inicio de sesión  de fernu@gmail.com
+-----------------------------------------------------------------
+[08/04/2019 - 23:46:07] : USER --> id 1 - nuñez, Fernando | ACTION --> Aceptar petición #1 de samugarcia9696a@gmail.com - Moreno, Samuel
+-----------------------------------------------------------------
+[08/04/2019 - 23:46:38] : USER --> id 1 - nuñez, Fernando | ACTION --> Cierre de sesión  de fernu@gmail.com
+-----------------------------------------------------------------
+[09/04/2019 - 00:03:20] : USER --> id 5 - Moreno, Samuel | ACTION --> Inicio de sesión  de samugarcia9696a@gmail.com
+-----------------------------------------------------------------
+[09/04/2019 - 00:03:47] : USER --> id 5 - Moreno, Samuel | ACTION --> Cierre de sesión  de samugarcia9696a@gmail.com
+-----------------------------------------------------------------
+[09/04/2019 - 00:08:46] : USER --> id 5 - Moreno, Samuel | ACTION --> Inicio de sesión  de samugarcia9696a@gmail.com
+-----------------------------------------------------------------
+[09/04/2019 - 00:08:48] : USER --> id 5 - Moreno, Samuel | ACTION --> Cierre de sesión  de samugarcia9696a@gmail.com
+-----------------------------------------------------------------

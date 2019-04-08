@@ -1,5 +1,5 @@
 <?php
-	include 'servidor.php';
+	include 'funcionesServidor.php';
 
 	if (session_status() == PHP_SESSION_NONE) {
 	    session_start();
@@ -29,9 +29,28 @@
 					header('Location: olvidoPassword.php');
 					exit();
 				} else if ($consulta->num_rows == 1) {
-					if (smtpmailer($email, $credentials['webMail']['mail'], 'AExamen Web', 'Reestablecer la contraseña', 'mailReestablecer.html', $credentials['webMail']['mail'], $credentials['webMail']['password'])) {
+					$codigo = password_hash($email, PASSWORD_BCRYPT);
+					if (smtpmailerRaw($email, $credentials['webMail']['mail'], 'AExamen Web', 'Reestablecer la contraseña', '<!DOCTYPE html>
+<html>
+<head>
+	<title>Reestablecer contraseña</title>
+	<!--css externos-->
+	<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+	<meta charset="UTF-8">
+</head>
+<body>
+	<div class="row">
+		<h2 class="col-lg-12">Haga click sobre el siguiente enlace para reestablecer su contraseña:</h2>
+		<span class="col-lg-2"></span>
+		<a class="col-lg-4" href="localhost/reestablecerPassword.php?authenticate='.$codigo.'">REESTABLECER</a>
+		<span class="col-lg-6"></span>
+		<p class="col-lg-12">¡Gracias!</p>
+	</div>
+</body>
+</html>', $credentials['webMail']['mail'], $credentials['webMail']['password'])) {
 						$_SESSION['confirmado'] = false;
 						$_SESSION['emailTemp'] = $email;
+						$_SESSION['emailTempClave'] = $codigo;
 						echo "<p>Debug: perfil temporal creado \n</p>";
 					}
 					if (!empty($error)) echo $error;

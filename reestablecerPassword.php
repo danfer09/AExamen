@@ -20,6 +20,9 @@
 	if (!isset($_SESSION['emailTemp']) || $_SESSION['emailTemp'] == null) {
 		header('Location: registrarseFormulario.php');
 		exit();
+	} else if (!isset($_GET['authenticate']) || ($_GET['authenticate'] != $_SESSION['emailTempClave'])) {
+		header('Location: registrarseFormulario.php');
+		exit();
 	}
 
 	if ($error_campo_vacio) {
@@ -46,24 +49,19 @@
 	<span>Reestablezca la contraseña para el email <?php echo $_SESSION['emailTemp']; ?></span>
 	<form action="reestablecerPasswordProcesamiento.php" id="formulario_establecer_password" method="post">
 	  Nueva contraseña:<br>
-	  <input type="password" name="pass1" id="pass1">
+	  <input type="password" name="pass1" id="pass1" required>
 	  <br>
 	  Escriba de nuevo la contraseña:<br>
-	  <input type="password" name="pass2" id="pass2">
+	  <input type="password" name="pass2" id="pass2" required>
 	  <br><br>
 	  <input type="submit" value="Confirmar" id="reestablecerPasswordSubmit" name="reestablecerPasswordSubmit">
 	</form> 
 
 	<script src="js/jquery-3.3.1.min.js"></script>
-	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
-	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
-
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
-	
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
-	<script src="https://www.w3schools.com/lib/w3.js"></script>
+	<script type="text/javascript" src="js/reestablecerPassword.js"></script>
+	<script type="text/javascript" src="js/cabeceraConLogin.js"></script>
+	<script src="js/bootstrap.min.js"></script>
+	<script src="js/w3.js"></script>
 
 </body>
 </html>
