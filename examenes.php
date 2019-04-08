@@ -108,11 +108,16 @@
 			<input oninput="w3.filterHTML('#tabla_examenes', '.item', this.value)" class="w3-input col-lg-5" placeholder="Buscar...">
 		</div>
 		<br>
+		<?php 
+			if (!$_SESSION['administrador']) {
+		?>
 		<div class="row" id="generar">
 			<div class="form-inline col-lg-4">
 				<label for="selGenera">Crear examen de asignatura: </label>
-				<select class="form-control" id="selGenera" onchange="cambiarLinkGenerarExamen(this.value);">
+				
 					<?php
+						
+						echo '<select class="form-control" id="selGenera" onchange="cambiarLinkGenerarExamen(this.value);">';
 						
 						$hidden = false;
 						if ($_GET['asignatura'] == "todas") {
@@ -140,6 +145,7 @@
 					?>
 				</select>
 				<?php
+
 					if ($hidden) {
 						print('<a class="fas fa-plus-circle" style="text-decoration: none;" hidden id="boton_modalAñadir" href="crearExamen.php?asignatura='.$_GET["asignatura"].'&idAsignatura='.$idAsig.'"></a>');
 					} else {
@@ -149,7 +155,9 @@
 				?>
 			</div>
 		</div>
-
+		<?php 
+			}
+		?>
 
 		<table id="tabla_examenes" class="table table-hover">
 		    <thead>
@@ -192,10 +200,12 @@
 					echo '<td>'.formateoDateTime($valor['fecha_modificado']).'</td>';
 					echo '<td>'.$valor['ultimo_modificador'].'</td>';
 					echo '<td id="opciones">
-							<a class="btn btn-primary btn-sm" href="detalleExamen.php?id='.$valor['id'].'" role="button">Detalles</a>
-							<a class="btn btn-primary btn-sm" href="generarExamen.php?examen='.$valor['titulo'].'" role="button">Generar</a>
-							<a id="boton_modalEditar" idExamen="'.$valor['id'].'" href="crearExamen.php?asignatura='.$valor['asignatura'].'&idAsignatura='.$valor['idAsignatura'].'&editar=1&id='.$valor['id'].'"><i class="fas fa-pencil-alt fa-fw fa-lg"></i></a> 
-							 <a id="boton_modalBorrar" idExamen="'.$valor['id'].'"><i class="fas fa-trash-alt fa-fw fa-lg"></i></a> </td>';
+							<a class="btn btn-primary btn-sm" href="detalleExamen.php?id='.$valor['id'].'" role="button">Detalles</a>';
+					if (!$_SESSION['administrador']) {
+						echo '<a class="btn btn-primary btn-sm" href="generarExamen.php?examen='.$valor['titulo'].'" role="button">Generar</a>';
+						echo '<a id="boton_modalEditar" idExamen="'.$valor['id'].'" href="crearExamen.php?asignatura='.$valor['asignatura'].'&idAsignatura='.$valor['idAsignatura'].'&editar=1&id='.$valor['id'].'"><i class="fas fa-pencil-alt fa-fw fa-lg"></i></a>';
+					}
+					echo '<a id="boton_modalBorrar" idExamen="'.$valor['id'].'"><i class="fas fa-trash-alt fa-fw fa-lg"></i></a> </td>';
 					echo '</tr>';
 				}
 			}
