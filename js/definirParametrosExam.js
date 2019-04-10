@@ -4,7 +4,7 @@ $(document).ready(function(){
     location.reload();
   });
 
-	$(".puntosTemaForm, .puntosExamenTotal, .numTemasForm").bind('change keyup mouseup', function() {
+	$(document).bind("change keyup mouseup", ".puntosTemaForm, .puntosExamenTotal, .numTemasForm", function() {
 		let sumaPuntos = 0;
 		$( ".puntosTemaForm" ).each(function() {
 		  //console.log($( this ).val());
