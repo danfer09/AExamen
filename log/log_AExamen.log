@@ -167,3 +167,25 @@
 -----------------------------------------------------------------
 [10/04/2019 - 19:09:35] : USER --> id 3 - Fernández, Paco | ACTION --> Inicio de sesión  de pafer@gmail.com
 -----------------------------------------------------------------
+[10/04/2019 - 19:40:58] : USER --> id 3 - Fernández, Paco | ACTION --> Cierre de sesión  de pafer@gmail.com
+-----------------------------------------------------------------
+[10/04/2019 - 19:41:02] : USER --> id 1 - asdfsd, fdseace | ACTION --> Inicio de sesión  de fernu@gmail.com
+-----------------------------------------------------------------
+[10/04/2019 - 19:44:24] : USER --> id 1 - asdfsd, fdseace | ACTION --> Cierre de sesión  de fernu@gmail.com
+-----------------------------------------------------------------
+[10/04/2019 - 19:44:30] : USER --> id 3 - Fernández, Paco | ACTION --> Inicio de sesión  de pafer@gmail.com
+-----------------------------------------------------------------
+[10/04/2019 - 19:44:48] : USER --> id 3 - Fernández, Paco | ACTION --> Cierre de sesión  de pafer@gmail.com
+-----------------------------------------------------------------
+[10/04/2019 - 19:45:52] : USER --> id 3 - Fernández, Paco | ACTION --> Inicio de sesión  de pafer@gmail.com
+-----------------------------------------------------------------
+[10/04/2019 - 19:55:04] : USER --> id 3 - Fernández, Paco | ACTION --> Cierre de sesión  de pafer@gmail.com
+-----------------------------------------------------------------
+[10/04/2019 - 19:55:08] : USER --> id 3 - Fernández, Paco | ACTION --> Inicio de sesión  de pafer@gmail.com
+-----------------------------------------------------------------
+[10/04/2019 - 20:04:41] : USER --> id 3 - Fernández, Paco | ACTION --> Cierre de sesión  de pafer@gmail.com
+-----------------------------------------------------------------
+[10/04/2019 - 20:04:45] : USER --> id 1 - asdfsd, fdseace | ACTION --> Inicio de sesión  de fernu@gmail.com
+-----------------------------------------------------------------
+[10/04/2019 - 20:05:31] : USER --> id 1 - asdfsd, fdseace (nombre anterior) | ACTION --> Cambio de nombre a asdfas
+-----------------------------------------------------------------

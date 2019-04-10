@@ -35,7 +35,7 @@ $(document).ready(function(){
       for (var i = 0; i < dif; i++) {
         $('#filaPuntosPorTema').append('<div id="div_tema'+(contadorTemas+1+i)+'" class="form-group col-4">'+
         '<label>Tema '+(contadorTemas+1+i)+':</label>'+
-        '<input type="number" class="form-control puntosTemaForm" id="tema'+(contadorTemas+1+i)+'" value="0">'+
+        '<input type="number" class="form-control puntosTemaForm" id="tema'+(contadorTemas+1+i)+'" value="0" min="0">'+
         '</div>');
       }
     } else if ($(this).val()<contadorTemas) {

@@ -167,7 +167,7 @@
 					    <br>
 					    <input type="text" placeholder="Introduzca el cuerpo" name="cuerpo" id="cuerpo">
 					    <br>
-					    <input type="text" placeholder="Introduzca el tema" name="tema" id="tema">
+					    <input type="number" placeholder="Introduzca el tema" name="tema" id="tema" min="0">
 					    <br>
 					    <button type="submit" class="btn" id="boton_añadir" name="boton_añadir">Insertar</button>
 					  </form>
@@ -231,7 +231,7 @@
 					    <br>
 					    <input type="text" placeholder="Introduzca el cuerpo" name="cuerpo" id="cuerpo">
 					    <br>
-					    <input type="text" placeholder="Introduzca el tema" name="tema" id="tema">
+					    <input type="number" min="0" placeholder="Introduzca el tema" name="tema" id="tema">
 					    <br>
 					    <button type="submit" class="btn" id="boton_editar" name="boton_editar">Editar</button>
 					  </form>

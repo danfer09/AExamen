@@ -73,19 +73,19 @@
 								if($pos=="numeroTemas"){
 									echo'<div class="form-group col-4">';
 									  echo'<label>Numero total de temas:</label>';
-									  echo'<input type="number" class="form-control numTemasForm" id="'.$pos.'" value="'.$valor.'">';
+									  echo'<input type="number" class="form-control numTemasForm" id="'.$pos.'" value="'.$valor.'" min="0">';
 									echo'</div>';
 								}
 								else if($pos=="maximoPuntos"){
 									echo'<div class="form-group col-4">';
 									  echo'<label>Puntos por exámen:</label>';
-									  echo'<input type="number" class="form-control puntosExamenTotal" id="'.$pos.'" value="'.$valor.'">';
+									  echo'<input type="number" class="form-control puntosExamenTotal" id="'.$pos.'" value="'.$valor.'" min="0">';
 									echo'</div>';
 								}
 								else{
 									echo'<div id="div_'.$pos.'" class="form-group col-4">';
 									  echo'<label>Tema '.substr($pos,4).':</label>';
-									  echo'<input type="number" class="form-control puntosTemaForm" id="'.$pos.'" value="'.$valor.'">';
+									  echo'<input type="number" class="form-control puntosTemaForm" id="'.$pos.'" value="'.$valor.'" min="0">';
 									echo'</div>';
 								}
 							}
