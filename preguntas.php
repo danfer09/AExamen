@@ -38,7 +38,11 @@
 		?>
 		<br>
 		<div class="row" id="filtros">
-			<div class="col-lg-1"></div>
+			<div class="form-inline col-lg-1">
+				<?php
+					echo (!$_SESSION['administrador'])?'<a class="fas fa-plus-circle" id="boton_modalAñadir"></a>':'';
+				?>
+			</div>
 			<div class="form-inline col-lg-4">
 				<label for="sel1">Autor </label>
 				<select class="form-control" id="sel1" onchange="location = this.value;">
@@ -70,9 +74,6 @@
 			<input oninput="w3.filterHTML('#tabla_preguntas', '.item', this.value)" class="w3-input col-lg-7" placeholder="Buscar...">
 		</div>
 		<br>
-		<?php
-			echo (!$_SESSION['administrador'])?'<a class="fas fa-plus-circle" id="boton_modalAñadir"></a>':'';
-		?>
 		<table class="table table-hover" id="tabla_preguntas">
 		    <thead>
 		      <tr>
@@ -95,7 +96,8 @@
 			if($error_BorrarNoCreador){
 				?>
 				<div class="alert alert-warning">
-				    <p>No se ha podido borrar la pregunta. Solo los autores pueden borrar sus preguntas.</p>
+					<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+				    No se ha podido borrar la pregunta. Solo los autores pueden borrar sus preguntas.
 				 </div>
 				<?php
 				$_SESSION['error_BorrarNoCreador'] = false;
@@ -104,7 +106,8 @@
 			if($error_noPoderBorrar){
 				?>
 				<div class="alert alert-warning">
-				    <p>No se ha podido borrar la pregunta. Esta pregunta está en uno o más exámenes. Para borrarla quítala primero de el/los exámenes.</p>
+					<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+				    No se ha podido borrar la pregunta. Esta pregunta está en uno o más exámenes. Para borrarla quítala primero de el/los exámenes.
 				 </div>
 				<?php
 				$_SESSION['error_no_poder_borrar'] = false;
@@ -113,13 +116,19 @@
 			if($error_ningunaPregunta){
 				?>
 				<div class="alert alert-warning">
-				    <p>Esta asignatura no tiene ninguna pregunta para ti.</p>
+					<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+				    Esta asignatura no tiene ninguna pregunta para ti.
 				 </div>
 				<?php
 				$_SESSION['error_ningunaPregunta'] = false;
 			}
 			else if($error_BBDD){
-				echo 'Error con la BBDD, contacte con el administrador';
+				$error_BBDD=false;
+				$_SESSION['error_BBDD'] = false;
+				echo '<div class="alert alert-warning">
+							<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+						    No se ha podido conectar con la base de datos
+						 </div>';
 			}
 			else{
 				foreach ($preguntas as $pos => $valor) {

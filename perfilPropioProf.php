@@ -15,23 +15,7 @@
 	$error_noFilasConCondicion = isset($_SESSION['error_noFilasConCondicion'])? $_SESSION['error_noFilasConCondicion']: false;
 	$error_BBDD = isset($_SESSION['error_BBDD'])? $_SESSION['error_BBDD']: false;
 	$error_campoVacio = isset($_SESSION['error_campoVacio'])? $_SESSION['error_campoVacio']: false;
-	//Comprobamos las variables en las que hemos volcado los distintos session de errores y realizamos la accion adecauda para cada error
-	if($error_ejecuccionConsulta){
-		echo"Error en la ejecución de la consulta";
-		$error_ejecuccionConsulta=false;
-	}
-	elseif($error_noFilasConCondicion){
-		echo"Error, no hay filas que cumplan esa condición";
-		$error_noFilasConCondicion=false;
-	}
-	elseif($error_BBDD) {
-		echo "Error al conectar con la base de datos";
-		$error_BBDD=false;
-	}
-	elseif($error_campoVacio){
-		echo "Error campos vacíos";
-		$error_campoVacio=false;
-	}
+	
 
 
 ?>
@@ -53,6 +37,40 @@
 		<?php 
 			//Mostramos los datos del usuario y los botones para que pueda modificar los datos
 			echo "<h2> Bienvenido ". $_SESSION['nombre'] . "</h2>";
+
+			//Comprobamos las variables en las que hemos volcado los distintos session de errores y realizamos la accion adecauda para cada error
+			if($error_ejecuccionConsulta){
+				echo"Error en la ejecución de la consulta";
+				$error_ejecuccionConsulta=false;
+				$_SESSION['error_ejecuccionConsulta']=false;
+			}
+			elseif($error_noFilasConCondicion){
+				$error_noFilasConCondicion=false;
+				$_SESSION['error_noFilasConCondicion'] = false;
+				echo '<div class="alert alert-warning">
+							<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+						    No se ha podido completar la acción correctamente
+						 </div>';
+			}
+			elseif($error_BBDD) {
+				echo "Error al conectar con la base de datos";
+				$error_BBDD=false;
+				$_SESSION['error_BBDD'] = false;
+				echo '<div class="alert alert-warning">
+							<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+						    No se ha podido conectar con la base de datos
+						 </div>';
+			}
+			elseif($error_campoVacio){
+				echo "Error campos vacíos";
+				$error_campoVacio=false;
+				$_SESSION['error_campoVacio'];
+				echo '<div class="alert alert-warning">
+							<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+						    Algún campo está vacío, inténtelo de nuevo
+						 </div>';
+			}
+
 			echo '<p>Nombre: ' . $_SESSION['nombre']. ' <button type="button" class="btn btn-primary" data-toggle="modal" id="btn_cambiarNombre">Cambiar nombre</button></p>';		
 			echo "<p>Apellidos: " . $_SESSION['apellidos']. ' <button type="button" class="btn btn-primary" data-toggle="modal" id="btn_cambiarApellidos">Cambiar apellidos</button></p>';
 
