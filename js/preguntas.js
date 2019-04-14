@@ -105,6 +105,7 @@ $(document).ready(function(){
           success: function(respuesta) {
         		if(respuesta){
         			//alert("Borrada con exito");
+              //console.log(respuesta);
         			location.reload();
         		}
         		else{

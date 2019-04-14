@@ -203,7 +203,18 @@
 			$consulta=mysqli_query($db,$sql);
 			$fila=mysqli_fetch_assoc($consulta);
 
+			$sql = "SELECT `nombre` FROM `asignaturas` WHERE id=".$_SESSION['idAsignatura'];
+			$consulta=mysqli_query($db,$sql);
+			$fila=mysqli_fetch_assoc($consulta);
+
+
 			$funciona=true;
+			//Something to write to txt log
+						$log  = '['.date("d/m/Y - H:i:s").'] : '."USER --> id ".$_SESSION['id'].' - '.$_SESSION['apellidos'].', '.$_SESSION['nombre'].
+						        " | ACTION --> ".$_SESSION['email']. " creo una nueva pregunta en la asignatura ".$fila['nombre'].PHP_EOL.
+						        "-----------------------------------------------------------------".PHP_EOL;
+						//Save string to log, use FILE_APPEND to append.
+						file_put_contents('./log/log_AExamen.log', utf8_decode($log), FILE_APPEND);
 		}
 		else{
 			$_SESSION['error_BBDD']=true;
@@ -231,13 +242,25 @@
 			$numRef = $fila['referencias'];
 			$asignatura = $fila['asignatura'];
 
+			$sql = "SELECT `nombre` FROM `asignaturas` a INNER JOIN `preguntas` p on a.id = p.asignatura WHERE p.id=".$idPregunta;
+					echo $sql;
+					$consulta=mysqli_query($db,$sql);
+					$fila=mysqli_fetch_assoc($consulta);
+
 			if (esCoordinador($asignatura, $idUsuario) || $_SESSION['administrador']) {
 				if ($numRef == 0) {
 					$sql = "DELETE FROM `preguntas` WHERE id=".$idPregunta;
 					$consulta=mysqli_query($db,$sql);
 
-					$fila=mysqli_fetch_assoc($consulta);
+					//$fila=mysqli_fetch_assoc($consulta);
 					$funciona=true;
+
+					//Something to write to txt log
+						$log  = '['.date("d/m/Y - H:i:s").'] : '."USER --> id ".$_SESSION['id'].' - '.$_SESSION['apellidos'].', '.$_SESSION['nombre'].
+						        " | ACTION --> ".$_SESSION['email']. " borró una pregunta de la asignatura ".$fila['nombre']." como coordinador o como administrador ". PHP_EOL.
+						        "-----------------------------------------------------------------".PHP_EOL;
+						//Save string to log, use FILE_APPEND to append.
+						file_put_contents('./log/log_AExamen.log', utf8_decode($log), FILE_APPEND);
 				} else {
 					$_SESSION['error_no_poder_borrar'] = true;
 				}
@@ -249,8 +272,14 @@
 					if(mysqli_affected_rows($db)== 0){
 						$_SESSION['error_BorrarNoCreador']=true;
 					}
-					$fila=mysqli_fetch_assoc($consulta);
+					//$fila=mysqli_fetch_assoc($consulta);
 					$funciona=true;
+					//Something to write to txt log
+						$log  = '['.date("d/m/Y - H:i:s").'] : '."USER --> id ".$_SESSION['id'].' - '.$_SESSION['apellidos'].', '.$_SESSION['nombre'].
+						        " | ACTION --> ".$_SESSION['email']. " borró una pregunta de la asignatura ".$fila['nombre']. PHP_EOL.
+						        "-----------------------------------------------------------------".PHP_EOL;
+						//Save string to log, use FILE_APPEND to append.
+						file_put_contents('./log/log_AExamen.log', utf8_decode($log), FILE_APPEND);
 				} else {
 					$_SESSION['error_no_poder_borrar'] = true;
 				}
