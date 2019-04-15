@@ -14,7 +14,7 @@
 	<div class="header" id="header"></div>
 	<div class="container">
 		<h1>Pagina principal del profesor</h1>
-		<?php 
+		<?php
 			/*Iniciamos la sesion, pero antes hacemos una comprobacion para evitar errores*/
 			if (session_status() == PHP_SESSION_NONE) {
 			    session_start();
@@ -51,7 +51,7 @@
 						$credentialsStr = file_get_contents('json/credentials.json');
 						$credentials = json_decode($credentialsStr, true);
 						$db = mysqli_connect('localhost', $credentials['database']['user'], $credentials['database']['password'], $credentials['database']['dbname']);
-						
+
 						$siglas = selectAllSiglasAsignaturas($db);
 						if ($_GET['asignatura'] == "todas") {
 							echo '<option value="examenes.php?asignatura=todas&autor='.$_GET['autor'].'$" selected>Todas</option>';
@@ -109,17 +109,17 @@
 			<input oninput="w3.filterHTML('#tabla_examenes', '.item', this.value)" class="w3-input col-lg-5" placeholder="Buscar...">
 		</div>
 		<br>
-		<?php 
+		<?php
 			if (!$_SESSION['administrador']) {
 		?>
 		<div class="row" id="generar">
 			<div class="form-inline col-lg-4">
 				<label for="selGenera">Crear examen de asignatura: </label>
-				
+
 					<?php
-						
+
 						echo '<select class="form-control" id="selGenera" onchange="cambiarLinkGenerarExamen(this.value);">';
-						
+
 						$hidden = false;
 						if ($_GET['asignatura'] == "todas") {
 							echo '<option id="opcionTodas" value="-" selected>-</option>';
@@ -148,15 +148,15 @@
 				<?php
 
 					if ($hidden) {
-						print('<a class="fas fa-plus-circle" style="text-decoration: none;" hidden id="boton_modalAñadir" href="crearExamen.php?asignatura='.$_GET["asignatura"].'&idAsignatura='.$idAsig.'"></a>');
+						print('<a class="fas fa-plus-circle masExamenes" hidden id="boton_modalAñadir" href="crearExamen.php?asignatura='.$_GET["asignatura"].'&idAsignatura='.$idAsig.'"></a>');
 					} else {
-						print('<a class="fas fa-plus-circle" style="text-decoration: none;" id="boton_modalAñadir" href="crearExamen.php?asignatura='.$_GET["asignatura"].'&idAsignatura='.$idAsig.'"></a>');
+						print('<a class="fas fa-plus-circle masExamenes" id="boton_modalAñadir" href="crearExamen.php?asignatura='.$_GET["asignatura"].'&idAsignatura='.$idAsig.'"></a>');
 					}
-					
+
 				?>
 			</div>
 		</div>
-		<?php 
+		<?php
 			}
 		?>
 
@@ -164,11 +164,11 @@
 		    <thead>
 		      <tr>
 		      	<th>	</th>
-		        <th onclick="w3.sortHTML('#tabla_examenes', '.item', 'td:nth-child(2)')" style="cursor:pointer;">Título</th>
-		        <th onclick="w3.sortHTML('#tabla_examenes', '.item', 'td:nth-child(3)')" style="cursor:pointer;">Creado por</th>
-		        <th onclick="w3.sortHTML('#tabla_examenes', '.item', 'td:nth-child(4)')" style="cursor:pointer;">Fecha creación</th>
-		        <th onclick="w3.sortHTML('#tabla_examenes', '.item', 'td:nth-child(5)')" style="cursor:pointer;">Últ. modificación</th>
-		        <th onclick="w3.sortHTML('#tabla_examenes', '.item', 'td:nth-child(8)')" style="cursor:pointer;">Modificado por</th>
+		        <th onclick="w3.sortHTML('#tabla_examenes', '.item', 'td:nth-child(2)')" class="cabeceraTabla">Título</th>
+		        <th onclick="w3.sortHTML('#tabla_examenes', '.item', 'td:nth-child(3)')" class="cabeceraTabla">Creado por</th>
+		        <th onclick="w3.sortHTML('#tabla_examenes', '.item', 'td:nth-child(4)')" class="cabeceraTabla">Fecha creación</th>
+		        <th onclick="w3.sortHTML('#tabla_examenes', '.item', 'td:nth-child(5)')" class="cabeceraTabla">Últ. modificación</th>
+		        <th onclick="w3.sortHTML('#tabla_examenes', '.item', 'td:nth-child(8)')" class="cabeceraTabla">Modificado por</th>
 		      	<th>	</th>
 		      </tr>
 		    </thead>
@@ -217,30 +217,30 @@
 		<div class="modal" id="modal_borrarExamen">
 			<div class="modal-dialog">
 			  <div class="modal-content">
-			  
+
 			    <!-- Modal Header -->
 			    <div class="modal-header">
 			      <h4 class="modal-title">¿Borrar examen?</h4>
 			      <button type="button" class="close" data-dismiss="modal">&times;</button>
 			    </div>
-			    
+
 			    <!-- Modal body -->
 			    <div class="modal-body" id="modal_borrarExamen_body">
 					  <form action="servidor.php" class="form-container" method="post" id="form_delete">
 					    <button type="submit" class="btn btn-danger btn-lg" id="boton_borrar" name="boton_borrar">Sí</button>
-					    <button type="button" class="btn btn-secondary btn-lg" id="boton_noBorrar" name="boton_noBorrar" data-dismiss="modal">No</button>					  
+					    <button type="button" class="btn btn-secondary btn-lg" id="boton_noBorrar" name="boton_noBorrar" data-dismiss="modal">No</button>
 					  </form>
 			    </div>
-			    
+
 			    <!-- Modal footer -->
 			    <div class="modal-footer">
 			      <!--<button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>-->
 			    </div>
-			    
+
 			  </div>
 			</div>
 		</div>
-		
+
 	</div>
 
 	<script src="js/jquery-3.3.1.min.js"></script>

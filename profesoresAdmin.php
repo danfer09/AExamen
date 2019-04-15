@@ -57,7 +57,7 @@
 			<div class="form-inline col-lg-2">
 				<label for="boton_modalAñadir">Invitar profesor</label>
 				<?php
-					print('<a class="fas fa-plus-circle" style="text-decoration: none; cursor: pointer;" id="boton_modalAñadir"></a>');
+					print('<a class="fas fa-plus-circle" id="boton_modalAñadir"></a>');
 				?>
 			</div>
 			<div class="form-inline col-lg-2">
@@ -71,9 +71,9 @@
 		    <thead>
 		      <tr>
 		      	<th>	</th>
-		        <th onclick="w3.sortHTML('#tabla_admin_profesores', '.item', 'td:nth-child(2)')" style="cursor:pointer;">Nombre</th>
-		        <th onclick="w3.sortHTML('#tabla_admin_profesores', '.item', 'td:nth-child(3)')" style="cursor:pointer;">Apellidos</th>
-		        <th onclick="w3.sortHTML('#tabla_admin_profesores', '.item', 'td:nth-child(4)')" style="cursor:pointer;">Correo</th>
+		        <th onclick="w3.sortHTML('#tabla_admin_profesores', '.item', 'td:nth-child(2)')" class="cabeceraTabla">Nombre</th>
+		        <th onclick="w3.sortHTML('#tabla_admin_profesores', '.item', 'td:nth-child(3)')" class="cabeceraTabla">Apellidos</th>
+		        <th onclick="w3.sortHTML('#tabla_admin_profesores', '.item', 'td:nth-child(4)')" class="cabeceraTabla">Correo</th>
 		        <th>Opciones</th>
 		      </tr>
 		    </thead>

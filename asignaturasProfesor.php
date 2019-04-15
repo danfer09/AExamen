@@ -13,7 +13,7 @@
 	}
 
 
-	
+
 ?>
 
 <html>
@@ -34,7 +34,7 @@
 	<?php
 		/*Incluimos asignaturasProfesorProcesamiento.php donde tenemos implementadas
 		algunas funciones que usaremos más adelante*/
-		include 'asignaturasProfesorProcesamiento.php'; 
+		include 'asignaturasProfesorProcesamiento.php';
 		echo "<h2> Asignaturas de ". $_SESSION['nombre']. "</h2>";
 	?>
 
@@ -47,11 +47,11 @@
 	    <thead>
 	      <tr>
 	      	<!-- Implementación de la funcionalidad de ordenar por una columna
-	      	pulsado en el nombre de la columna. td:nth-child(2) se refiere a la segunda columna 
+	      	pulsado en el nombre de la columna. td:nth-child(2) se refiere a la segunda columna
 	      	de cada fila de la tabla -->
-	        <th onclick="w3.sortHTML('#tabla_asignaturas', '.item', 'td:nth-child(1)')" style="cursor:pointer;">Siglas</th>
-	        <th onclick="w3.sortHTML('#tabla_asignaturas', '.item', 'td:nth-child(2)')" style="cursor:pointer;">Nombre asignatura</th>
-	        <th onclick="w3.sortHTML('#tabla_asignaturas', '.item', 'td:nth-child(3)')" style="cursor:pointer;">Coordinador</th>
+	        <th class="cabeceraTabla" onclick="w3.sortHTML('#tabla_asignaturas', '.item', 'td:nth-child(1)')">Siglas</th>
+	        <th class="cabeceraTabla" onclick="w3.sortHTML('#tabla_asignaturas', '.item', 'td:nth-child(2)')">Nombre asignatura</th>
+	        <th class="cabeceraTabla" onclick="w3.sortHTML('#tabla_asignaturas', '.item', 'td:nth-child(3)')">Coordinador</th>
 	      </tr>
 	    </thead>
 	    <tbody>
@@ -73,7 +73,7 @@
 		que no ha devuelto en una tabla*/
 		else{
 			foreach ($asignaturas as $pos => $valor) {
-				echo '<tr class="item" style="cursor:pointer;">';
+				echo '<tr class="item filaAsignaturasProfesor">';
 				echo '<td><a href="asignatura.php?id='.$valor['id_asignatura'].'&nombre='.$valor['nombre_asignatura'].'&siglas='.$valor['siglas_asignatura'].'"></a>'.$valor['siglas_asignatura'].'</td>';
 				echo '<td>'.$valor['nombre_asignatura'].'</td>';
 				$coord=($valor['coordinador'])?'Si':'No';
@@ -84,7 +84,7 @@
 	?>
 		</tbody>
 	</table>
-		
+
 </div>
 
 <!--Librerias externas-->

@@ -1,4 +1,4 @@
-<?php 
+<?php
 			/*Iniciamos la sesion, pero antes hacemos una comprobacion para evitar errores*/
 			if (session_status() == PHP_SESSION_NONE) {
 			    session_start();
@@ -17,7 +17,7 @@
 	</div>
 	<div class="col-3"></div>
 	<div class="col-2">
-		<a class="btn btn-primary" href="perfilPropioProf.php" role="button">Perfil</a>
+		<a class="btn btn-primary" href="perfilPropioProf.php"><i class="fas fa-user-circle fa-2x"></i></a>
 		<a class="btn btn-primary" href="cerrarSesion.php" role="button">CerrarSesion</a>
 	</div>
 </div>

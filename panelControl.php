@@ -12,8 +12,8 @@
 	<div class="header" id="header"></div>
 	<div class="container">
 		<h1>Panel de control</h1>
-		
-		<?php 
+
+		<?php
 			/*Iniciamos la sesion, pero antes hacemos una comprobacion para evitar errores*/
 			if (session_status() == PHP_SESSION_NONE) {
 			    session_start();
@@ -25,12 +25,12 @@
 			if (!$logeado) {
 				header('Location: index.php');
 			}
-			
-			
+
+
 			if (!$_SESSION['administrador']){
 				header('Location: index.php');
 			}
-			
+
 			include 'funcionesServidor.php';
 			include 'panelControlProcesamiento.php';
 
@@ -46,7 +46,7 @@
 			$_SESSION['prueba2'] = "inicializadooo222";*/
 		?>
 
-		<div class="row" style="border-width: 1px; border-style: solid; border-color: black; padding: 5px;">
+		<div class="row filaPanelControl">
 			<div class="col-lg-12">
 				<h2><b>Log</b></h2>
 			</div>
@@ -57,26 +57,26 @@
 				<h3>Últ. vez eliminado: <u><?php echo formateoDateTime(date("Y-m-d H:i:s", filectime('./log/log_AExamen.log'))); ?></u></h3>
 			</div>
 			<br><br><br>
-			<div class="col-lg-4" style="text-align: center;">
+			<div class="col-lg-4 centrar">
 				<a href="downloadLog.php?file=log_AExamen.log"><button class="btn btn-success" id="descargarLog"><i class="fas fa-download"></i> Descargar .log (<?php echo round(floatval(filesize('./log/log_AExamen.log')/(1024)),3).' KB'; ?>)</button></a>
 				<a target="_blank" href="./log/log_AExamen.log"><button class="btn btn-success"><i class="fas fa-eye"></i> Ver</button></a>
 			</div>
-			<div class="col-lg-4" style="text-align: center;">
+			<div class="col-lg-4 centrar">
 				<button class="btn" id="reiniciarLog"><i class="fas fa-redo-alt"></i> Reiniciar</button>
 			</div>
-			<div class="col-lg-4" style="text-align: center;">
+			<div class="col-lg-4 centrar">
 				<button class="btn btn-danger" id="eliminarLog"><i class="fas fa-trash-alt"></i> Eliminar</button>
 			</div>
 		</div>
 
 		<br><hr><br>
 
-		<div class="row" style="border-width: 1px; border-style: solid; border-color: black; padding: 5px;">
+		<div class="row">
 			<div class="col-lg-10">
 				<h2><b>Peticiones de registro</b></h2>
 			</div>
-			<div class="col-lg-2" style="padding-top: 1%; text-align: center;">
-				<a class="fas fa-sync-alt" onclick="location.reload();" style="text-decoration: none; cursor: pointer;" id="recargaPeticiones"></a>
+			<div class="col-lg-2 centrar" id="recargarPanelControl">
+				<a class="fas fa-sync-alt" onclick="location.reload();" id="recargaPeticiones"></a>
 			</div>
 			<hr>
 			<!-- PETICIONES -->
@@ -88,15 +88,15 @@
 					$i=0;
 					foreach ($peticiones as $peticion) {
 						if ($i%2 == 0) {
-							echo '<div class="col-lg-12 row" idPeticion="'.$peticion['id'].'" style="padding-top: 5px; padding-bottom: 5px; margin-top: 5px; margin-left: 0px; background-color: lightgrey;">';
+							echo '<div class="col-lg-12 row peticionPanelControlPar" idPeticion="'.$peticion['id'].'">';
 						} else {
-							echo '<div class="col-lg-12 row" id="peticion'.$peticion['id'].'" style="padding-top: 5px; padding-bottom: 5px; margin-top: 5px; margin-left: 0px;">';
+							echo '<div class="col-lg-12 row peticionPanelControlImpar" id="peticion'.$peticion['id'].'" >';
 						}
 						echo '
 							<div class="col-4">'.$peticion['nombre'].' '.$peticion['apellidos'].'</div>
 							<div class="col-4">'.$peticion['email'].'</div>
 							<div class="col-2"><button fechaPeticion="'.formateoDateTime($peticion['fecha']).'" idPeticion="'.$peticion['id'].'" type="button" class="btn btn-info masInfo" data-toggle="modal" data-target="#infoPeticion"><i class="fas fa-info"></i></button></div>
-							<div class="opciones" class="col-2" style="text-align: right;">
+							<div class="opciones" class="col-2 derecha" >
 								<button aceptar="1" idPeticion="'.$peticion['id'].'" class="btn btn-success"><i class="fas fa-check"></i></button>
 								<button aceptar="0" idPeticion="'.$peticion['id'].'" class="btn btn-danger"><i class="fas fa-times"></i></button>
 							</div>
@@ -117,13 +117,13 @@
 			      	<h4 class="modal-title">Información de petición</h4>
 			        <button type="button" class="close" data-dismiss="modal">&times;</button>
 			      </div>
-			      <div class="modal-body" style="text-align: center;">
+			      <div class="modal-body centrar" >
 			        <div id="modalFecha">
-			        	
+
 			        </div>
 			        <br>
 			        <div id="modalTexto">
-			        	
+
 			        </div>
 			      </div>
 			      <div class="modal-footer">
@@ -133,21 +133,12 @@
 
 			  </div>
 			</div>
-			<!--<div class="col-lg-12 row" id="peticion5" style="padding-top: 5px; padding-bottom: 5px; margin-top: 5px; margin-left: 0px; background-color: lightgrey;">
-				<div class="col-4">Andrés García Rubio</div>
-				<div class="col-4">agarrub@gmail.com</div>
-				<div class="col-2"><i class="fas fa-info-clock"></i></div>
-				<div class="col-2" style="text-align: right;">
-					<button class="btn btn-success"><i class="fas fa-check"></i></button>
-					<button class="btn btn-danger"><i class="fas fa-times"></i></button>
-				</div>
-			</div>
-			<br>-->
+
 		</div>
 
 	</div>
 
-	
+
 
 	<script src="js/jquery-3.3.1.min.js"></script>
 	<script type="text/javascript" src="js/cabeceraConLogin.js"></script>

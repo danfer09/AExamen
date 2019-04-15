@@ -1,5 +1,5 @@
 <?php
-	//COMPROBAR SI ES O NO UN ADMINISTRADOR 
+	//COMPROBAR SI ES O NO UN ADMINISTRADOR
 
 
 
@@ -14,7 +14,7 @@
 	if (!$logeado) {
 		header('Location: index.php');
 	}
-	include 'gestionarAsigAdminProcesamiento.php'; 
+	include 'gestionarAsigAdminProcesamiento.php';
 
 
 
@@ -46,12 +46,12 @@
 	    <thead>
 	      <tr>
 	      	<!-- Implementación de la funcionalidad de ordenar por una columna
-	      	pulsado en el nombre de la columna. td:nth-child(2) se refiere a la segunda columna 
+	      	pulsado en el nombre de la columna. td:nth-child(2) se refiere a la segunda columna
 	      	de cada fila de la tabla -->
-	        <th onclick="w3.sortHTML('#tabla_asignaturas', '.item', 'td:nth-child(1)')" style="cursor:pointer;">Siglas</th>
-	        <th onclick="w3.sortHTML('#tabla_asignaturas', '.item', 'td:nth-child(2)')" style="cursor:pointer;">Nombre asignatura</th>
-	        <th onclick="w3.sortHTML('#tabla_asignaturas', '.item', 'td:nth-child(3)')" style="cursor:pointer;">Número Profesores</th>
-	        <th onclick="w3.sortHTML('#tabla_asignaturas', '.item', 'td:nth-child(4)')" style="cursor:pointer;">Nombre/s coordinador/es</th>
+	        <th onclick="w3.sortHTML('#tabla_asignaturas', '.item', 'td:nth-child(1)')" class="cabeceraTabla">Siglas</th>
+	        <th onclick="w3.sortHTML('#tabla_asignaturas', '.item', 'td:nth-child(2)')" class="cabeceraTabla">Nombre asignatura</th>
+	        <th onclick="w3.sortHTML('#tabla_asignaturas', '.item', 'td:nth-child(3)')" class="cabeceraTabla">Número Profesores</th>
+	        <th onclick="w3.sortHTML('#tabla_asignaturas', '.item', 'td:nth-child(4)')" class="cabeceraTabla">Nombre/s coordinador/es</th>
 	        <th>Añadir coordinadores</th>
 	      </tr>
 	    </thead>
@@ -78,14 +78,14 @@
 		que no ha devuelto en una tabla*/
 		else{
 			foreach ($asignaturas as $pos => $valor) {
-				echo '<tr class="item" style="cursor:pointer;">';
+				echo '<tr class="item filaGestionarAsigAdmin" >';
 				echo '<td class="asigClick" href="asignatura.php?id='.$valor['id'].'&nombre='.$valor['nombre'].'&siglas='.$valor['siglas'].'">'.$valor['siglas'].'</td>';
 				echo '<td class="asigClick" href="asignatura.php?id='.$valor['id'].'&nombre='.$valor['nombre'].'&siglas='.$valor['siglas'].'">'.$valor['nombre'].'</td>';
 				echo '<td class="asigClick" href="asignatura.php?id='.$valor['id'].'&nombre='.$valor['nombre'].'&siglas='.$valor['siglas'].'">'.getNumeroProfesoresAsig($valor['id'])['numero_profesores']."</td>";
 				//echo '<td>'.foreach (getCoordinadores($valor['id']) as $pos => $valor) $valor.'</td>';
 				echo '<td class="asigClick" href="asignatura.php?id='.$valor['id'].'&nombre='.$valor['nombre'].'&siglas='.$valor['siglas'].'">';
 				$coordinadores = getCoordinadores($valor['id']);
-				for ($i=0; $i < count($coordinadores); $i++) { 
+				for ($i=0; $i < count($coordinadores); $i++) {
 					echo $coordinadores[$i]["nombre"];
 					if ($i < count($coordinadores)-1) {
 						echo ', ';
@@ -105,13 +105,13 @@
 	<div class="modal" id="modalCoordinadorAsig">
 		<div class="modal-dialog modal-lg">
 		  <div class="modal-content">
-		  
+
 		    <!-- Modal Header -->
 		    <div class="modal-header">
 		      <h4 class="modal-title">Añadir coordinadores</h4>
 		      <button type="button" class="close" data-dismiss="modal">&times;</button>
 		    </div>
-		    
+
 		    <!-- Modal body -->
 		    <div class="modal-body">
 				  <form action="#" class="form-container" method="post" id="formAsigCoord">
@@ -120,7 +120,7 @@
 				    	<div id="info_aniadirPreg_limite" class="badge badge-pill badge-warning">Se ha alcanzado el límite de puntos para este tema</div>
 				    	<div id="info_aniadirPreg_todas" class="badge badge-pill badge-info">Ya están todas las preguntas de este tema añadidas</div>   ERRORES PARA MOSTRAR, MIRAR MAS TARDE-->
 				    	<div class="table-wrapper-scroll-y">
-			    			<table class="table table-hover" id="tabla">	
+			    			<table class="table table-hover" id="tabla">
 								<thead>
 							      <tr>
 							      	<th>#</th>
@@ -128,26 +128,26 @@
 							        <th>Apellidos</th>
 							       	<th>Correo</th>
 							      </tr>
-							    </thead>			
+							    </thead>
 							    <tbody id="tableCoordinadores">
 						 		</tbody>
-								  	
+
 							</table>
 						</div>
 				    <button type="submit" class="btn btn-primary" id="boton_aniadir" name="boton_aniadir">Añadir</button>
-				    <button type="button" class="btn btn-danger" id="boton_noAniadir" name="boton_noAniadir" data-dismiss="modal">Cancelar</button>					  
+				    <button type="button" class="btn btn-danger" id="boton_noAniadir" name="boton_noAniadir" data-dismiss="modal">Cancelar</button>
 				  </form>
 		    </div>
-		    
+
 		    <!-- Modal footer -->
 		    <div class="modal-footer">
 		      <!--<button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>-->
 		    </div>
-		    
+
 		  </div>
 		</div>
 	</div>
-		
+
 </div>
 
 

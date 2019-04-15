@@ -111,6 +111,10 @@ overflow-y: auto;
     color: #c40707;
     cursor: pointer;
 }
+#boton_modalAñadir {
+	text-decoration: none;
+	cursor: pointer;
+}
 
 .divTema {
     font-size: 20px;
@@ -149,6 +153,51 @@ div .puntosPregunta {
     font-size: 25px;
     margin-left: 2px;
     text-decoration: none;
+}
+
+.cabeceraTabla,
+.filaAsignaturasProfesor,
+.filaGestionarAsigAdmin {
+	cursor:pointer;
+}
+
+.masExamenes,
+.masExamenes:hover {
+	text-decoration: none;
+}
+
+.filaPanelControl {
+	border-width: 1px;
+	border-style: solid;
+	border-color: black;
+	padding: 5px;
+}
+#recargarPanelControl {
+	padding-top: 1%;
+}
+#recargarPanelControl a {
+	text-decoration: none;
+	cursor: pointer;
+}
+.peticionPanelControlImpar {
+	padding-top: 5px;
+	padding-bottom: 5px;
+	margin-top: 5px;
+	margin-left: 0px;
+	background-color: lightgrey;
+}
+.peticionPanelControlPar {
+	padding-top: 5px;
+	padding-bottom: 5px;
+	margin-top: 5px;
+	margin-left: 0px;
+}
+
+.centrar {
+	text-align: center;
+}
+.derecha {
+	text-align: right;
 }
 
 /*

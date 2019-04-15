@@ -14,7 +14,7 @@
 
 	</div>
 	<div class="container">
-		<?php 
+		<?php
 			//error_reporting(0); // Disable all errors.
 
 			/*Iniciamos la sesion, pero antes hacemos una comprobacion para evitar errores*/
@@ -47,7 +47,7 @@
 				<label for="sel1">Autor </label>
 				<select class="form-control" id="sel1" onchange="location = this.value;">
 					<?php
-						
+
 						$autores = selectAllMailsProfesores();
 						if ($_GET['autor'] == "todos") {
 							echo '<option value="preguntas.php?nombreAsignatura='. $_GET['nombreAsignatura'].'&idAsignatura='.$_GET['idAsignatura'].'&autor=todos" selected>Todos</option>';
@@ -77,11 +77,11 @@
 		<table class="table table-hover" id="tabla_preguntas">
 		    <thead>
 		      <tr>
-		        <th onclick="w3.sortHTML('#tabla_preguntas', '.item', 'td:nth-child(1)')" style="cursor:pointer;">Titulo</th>
-		        <th onclick="w3.sortHTML('#tabla_preguntas', '.item', 'td:nth-child(2)')" style="cursor:pointer;">Tema</th>
-		        <th onclick="w3.sortHTML('#tabla_preguntas', '.item', 'td:nth-child(3)')" style="cursor:pointer;">Autor</th>
-		        <th onclick="w3.sortHTML('#tabla_preguntas', '.item', 'td:nth-child(4)')" style="cursor:pointer;">Fecha creación</th>
-		        <th onclick="w3.sortHTML('#tabla_preguntas', '.item', 'td:nth-child(5)')" style="cursor:pointer;">Últ. modificación</th>
+		        <th onclick="w3.sortHTML('#tabla_preguntas', '.item', 'td:nth-child(1)')" class="cabeceraTabla">Titulo</th>
+		        <th onclick="w3.sortHTML('#tabla_preguntas', '.item', 'td:nth-child(2)')" class="cabeceraTabla">Tema</th>
+		        <th onclick="w3.sortHTML('#tabla_preguntas', '.item', 'td:nth-child(3)')" class="cabeceraTabla">Autor</th>
+		        <th onclick="w3.sortHTML('#tabla_preguntas', '.item', 'td:nth-child(4)')" class="cabeceraTabla">Fecha creación</th>
+		        <th onclick="w3.sortHTML('#tabla_preguntas', '.item', 'td:nth-child(5)')" class="cabeceraTabla">Últ. modificación</th>
 		        <th> </th>
 		      </tr>
 		    </thead>
@@ -112,7 +112,7 @@
 				<?php
 				$_SESSION['error_no_poder_borrar'] = false;
 			}
-			
+
 			if($error_ningunaPregunta){
 				?>
 				<div class="alert alert-warning">
@@ -148,7 +148,7 @@
 						echo '<a class="fas fa-trash-alt" id="boton_modalBorrar" idPreguntas="'.$valor['id_preguntas'].'"></a>';
 					echo '</td>';
 					echo '</tr>';
-					
+
 				}
 			}
 		?>
@@ -160,13 +160,13 @@
 		<div class="modal" id="modal_aniadirPregunta">
 			<div class="modal-dialog">
 			  <div class="modal-content">
-			  
+
 			    <!-- Modal Header -->
 			    <div class="modal-header">
 			      <h4 class="modal-title">Añadir pregunta</h4>
 			      <button type="button" class="close" data-dismiss="modal">&times;</button>
 			    </div>
-			    
+
 			    <!-- Modal body -->
 			    <div class="modal-body">
 					  <form action="preguntasProcesamiento.php" class="form-container" method="post" id="form_add">
@@ -181,12 +181,12 @@
 					    <button type="submit" class="btn" id="boton_añadir" name="boton_añadir">Insertar</button>
 					  </form>
 			    </div>
-			    
+
 			    <!-- Modal footer -->
 			    <div class="modal-footer">
 			      <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
 			    </div>
-			    
+
 			  </div>
 			</div>
 		</div>
@@ -195,27 +195,27 @@
 		<div class="modal" id="modal_borrarPregunta">
 			<div class="modal-dialog">
 			  <div class="modal-content">
-			  
+
 			    <!-- Modal Header -->
 			    <div class="modal-header">
 			      <h4 class="modal-title">Borrar pregunta</h4>
 			      <button type="button" class="close" data-dismiss="modal">&times;</button>
 			    </div>
-			    
+
 			    <!-- Modal body -->
 			    <div class="modal-body">
 					  <form action="preguntasProcesamiento.php" class="form-container" method="post" id="form_delete">
 					    <h1 name="borrarPregunta">Borrar pregunta</h1>
 					    <button type="submit" class="btn btn-primary" id="boton_borrar" name="boton_borrar">Si</button>
-					    <button type="button" class="btn btn-danger" id="boton_noBorrar" name="boton_noBorrar" data-dismiss="modal">No</button>					  
+					    <button type="button" class="btn btn-danger" id="boton_noBorrar" name="boton_noBorrar" data-dismiss="modal">No</button>
 					  </form>
 			    </div>
-			    
+
 			    <!-- Modal footer -->
 			    <div class="modal-footer">
 			      <!--<button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>-->
 			    </div>
-			    
+
 			  </div>
 			</div>
 		</div>
@@ -224,13 +224,13 @@
 		<div class="modal" id="modal_editarPregunta">
 			<div class="modal-dialog">
 			  <div class="modal-content">
-			  
+
 			    <!-- Modal Header -->
 			    <div class="modal-header">
 			      <h4 class="modal-title">Editar pregunta</h4>
 			      <button type="button" class="close" data-dismiss="modal">&times;</button>
 			    </div>
-			    
+
 			    <!-- Modal body -->
 			    <div class="modal-body">
 					  <form action="preguntasProcesamiento.php" class="form-container" method="post" id="form_mod">
@@ -245,16 +245,16 @@
 					    <button type="submit" class="btn" id="boton_editar" name="boton_editar">Editar</button>
 					  </form>
 			    </div>
-			    
+
 			    <!-- Modal footer -->
 			    <div class="modal-footer">
 			      <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
 			    </div>
-			    
+
 			  </div>
 			</div>
 		</div>
-		
+
 	</div>
 
 	<script src="js/jquery-3.3.1.min.js"></script>

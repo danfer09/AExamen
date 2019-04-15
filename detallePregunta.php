@@ -13,7 +13,7 @@
 <body>
 	<div class="header" id="header"></div>
 	<div class="container">
-		<?php 
+		<?php
 			/*Iniciamos la sesion, pero antes hacemos una comprobacion para evitar errores*/
 			if (session_status() == PHP_SESSION_NONE) {
 			    session_start();
@@ -29,11 +29,11 @@
 			$pregunta=cargaUnicaPregunta($_GET['id']);
 			$historial=cargaHistorialPregunta($_GET['id']);
 			echo '<h1>Pregunta "'. $pregunta['titulo']. '"</h1>';
-			
+
 		?>
 
 		<br>
-		
+
 		<?php
 			echo "<p>Titulo: ".$pregunta['titulo']."</p>";
 			echo "<p>Cuerpo: ".$pregunta['cuerpo']."</p>";
@@ -47,16 +47,16 @@
 		?>
 		<p>Historial de modificaciones:</p>
 		<div class="table-wrapper-scroll-y">
-	    			<table class="table table-hover" id="tabla_historial">	
+	    			<table class="table table-hover" id="tabla_historial">
 						<thead>
 					      <tr>
-					        <th onclick="w3.sortHTML('#tabla_historial', '.item', 'td:nth-child(1)')" style="cursor:pointer;">Nombre</th>
-					        <th onclick="w3.sortHTML('#tabla_historial', '.item', 'td:nth-child(2)')" style="cursor:pointer;">Apellido</th>
-					        <th onclick="w3.sortHTML('#tabla_historial', '.item', 'td:nth-child(4)')" style="cursor:pointer;">Fecha</th>
+					        <th onclick="w3.sortHTML('#tabla_historial', '.item', 'td:nth-child(1)')" class="cabeceraTabla">Nombre</th>
+					        <th onclick="w3.sortHTML('#tabla_historial', '.item', 'td:nth-child(2)')" class="cabeceraTabla">Apellido</th>
+					        <th onclick="w3.sortHTML('#tabla_historial', '.item', 'td:nth-child(4)')" class="cabeceraTabla">Fecha</th>
 					      </tr>
-					    </thead>			
+					    </thead>
 					    <tbody>
-					   
+
 
 		<?php
 			foreach ($historial as $pos => $valor) {
@@ -65,7 +65,7 @@
 				echo "<td>".cargaNombreApellidosAutor($valor['idModificador'])['apellidos']."</td>";
 				echo "<td>".formateoDateTime($valor['fecha_modificacion'])."</td>";
 				echo '<td hidden=true;>'.$valor['fecha_modificacion'].'</td>';
-				
+
 				/*echo "<td>Autor: ".cargaAutorPregunta($valor['id_pregunta'])."</td>";
 				echo "<td>Fecha de creacion: ".$valor['fecha_creado_preguntas']."</td>";
 				echo "<td>Ultimo usuario en modificarla: ".cargaModificadorPregunta($valor['id_pregunta'])."</td>";
@@ -74,11 +74,11 @@
 			}
 		?>
 		 </tbody>
-				  	
+
 
 	</table>
 	</div>
-		
+
 	</div>
 
 	<script src="js/jquery-3.3.1.min.js"></script>
@@ -86,7 +86,7 @@
 	<script src="js/popper.min.js"></script>
 	<script src="js/bootstrap.min.js"></script>
 	<script src="js/jquery.min.js"></script>
-	<script src="js/w3.js"></script>	
+	<script src="js/w3.js"></script>
 	<script type="text/javascript" src="js/asignaturasProfesor.js"></script>
 	<script type="text/javascript" src="js/cabeceraConLogin.js"></script>
 

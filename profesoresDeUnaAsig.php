@@ -12,7 +12,7 @@
 	<div class="header" id="header"></div>
 	<div class="container">
 		<h1>Pagina de Coordinador</h1>
-		<?php 
+		<?php
 			/*Iniciamos la sesion, pero antes hacemos una comprobacion para evitar errores*/
 			if (session_status() == PHP_SESSION_NONE) {
 			    session_start();
@@ -29,7 +29,7 @@
 			echo "<h2 idAsig=".'"'.$idAsignatura.'"'."> Profesores de ".$nombreAsignatura." </h2>";
 			include "profesoresDeUnaAsigProcesamiento.php";
 			include 'funcionesServidor.php';
-			
+
 			$esCoordinador = esCoordinador($idAsignatura, $_SESSION['id']);
 			/*En caso de no este logeado redirigimos a index.php, en caso contrario le damos la bienvenida*/
 			if (!$esCoordinador) {
@@ -56,7 +56,7 @@
 			<div class="form-inline col-lg-4">
 				<label for="selAniadir">Añadir profesor a la asignatura: </label>
 				<?php
-					print('<a class="fas fa-plus-circle" style="text-decoration: none; cursor: pointer;" id="boton_modalAniadir"></a>');					
+					print('<a class="fas fa-plus-circle" id="boton_modalAniadir"></a>');
 				?>
 			</div>
 		</div>
@@ -66,9 +66,9 @@
 		    <thead>
 		      <tr>
 		      	<th>	</th>
-		        <th onclick="w3.sortHTML('#tabla_profesores', '.item', 'td:nth-child(2)')" style="cursor:pointer;">Nombre</th>
-		        <th onclick="w3.sortHTML('#tabla_profesores', '.item', 'td:nth-child(3)')" style="cursor:pointer;">Apellidos</th>
-		        <th onclick="w3.sortHTML('#tabla_profesores', '.item', 'td:nth-child(4)')" style="cursor:pointer;">Correo</th>
+		        <th onclick="w3.sortHTML('#tabla_profesores', '.item', 'td:nth-child(2)')" class="cabeceraTabla">Nombre</th>
+		        <th onclick="w3.sortHTML('#tabla_profesores', '.item', 'td:nth-child(3)')" class="cabeceraTabla">Apellidos</th>
+		        <th onclick="w3.sortHTML('#tabla_profesores', '.item', 'td:nth-child(4)')" class="cabeceraTabla">Correo</th>
 		        <th>Borrar</th>
 		      </tr>
 		    </thead>
@@ -103,49 +103,49 @@
 		<div class="modal" id="modal_borrarProfesor">
 			<div class="modal-dialog">
 			  <div class="modal-content">
-			  
+
 			    <!-- Modal Header -->
 			    <div class="modal-header">
 			      <h4 class="modal-title">¿Borrar profesor de la asignatura?</h4>
 			      <button type="button" class="close" data-dismiss="modal">&times;</button>
 			    </div>
-			    
+
 			    <!-- Modal body -->
 			    <div class="modal-body" id="modal_borrarProfesor_body">
 					  <form action="servidor.php" class="form-container" method="post" id="form_delete">
 					    <button type="submit" class="btn btn-danger btn-lg" id="boton_borrar" name="boton_borrar">Sí</button>
-					    <button type="button" class="btn btn-secondary btn-lg" id="boton_noBorrar" name="boton_noBorrar" data-dismiss="modal">No</button>					  
+					    <button type="button" class="btn btn-secondary btn-lg" id="boton_noBorrar" name="boton_noBorrar" data-dismiss="modal">No</button>
 					  </form>
 			    </div>
-			    
+
 			    <!-- Modal footer -->
 			    <div class="modal-footer">
 			      <!--<button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>-->
 			    </div>
-			    
+
 			  </div>
 			</div>
 		</div>
-		
+
 	</div>
 
 	<div class="modal" id="modalAniadirProfesor">
 			<div class="modal-dialog modal-lg">
 			  <div class="modal-content">
-			  
+
 			    <!-- Modal Header -->
 			    <div class="modal-header">
 			      <h4 class="modal-title">Añadir profesor</h4>
 			      <button type="button" class="close" data-dismiss="modal">&times;</button>
 			    </div>
-			    
+
 			    <!-- Modal body -->
 			    <div class="modal-body">
 					  <form action="#" class="form-container" method="post" id="formAniadirProfesor">
 					    <!--<h1 name="borrarExamen">Añadir preguntas</h1>-->
 					    	<div id="infoTodosProfAdd" class="badge badge-pill badge-info">Ya están todos los profesores añadidos</div>
 					    	<div class="table-wrapper-scroll-y">
-				    			<table class="table table-hover" id="tabla">	
+				    			<table class="table table-hover" id="tabla">
 									<thead>
 								      <tr>
 								      	<th>#</th>
@@ -153,22 +153,22 @@
 								        <th>Apellidos</th>
 								        <th>Correo</th>
 								      </tr>
-								    </thead>			
+								    </thead>
 								    <tbody id="tableAniadirProfesor">
 							 		</tbody>
-									  	
+
 								</table>
 							</div>
 					    <button type="submit" class="btn btn-primary" id="boton_aniadir" name="boton_aniadir">Añadir</button>
-					    <button type="button" class="btn btn-danger" id="boton_noAniadir" name="boton_noAniadir" data-dismiss="modal">Cancelar</button>					  
+					    <button type="button" class="btn btn-danger" id="boton_noAniadir" name="boton_noAniadir" data-dismiss="modal">Cancelar</button>
 					  </form>
 			    </div>
-			    
+
 			    <!-- Modal footer -->
 			    <div class="modal-footer">
 			      <!--<button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>-->
 			    </div>
-			    
+
 			  </div>
 			</div>
 		</div>
