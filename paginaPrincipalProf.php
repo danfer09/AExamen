@@ -12,7 +12,7 @@
 	<div class="header" id="header"></div>
 	<div class="container">
 		<h1>Pagina principal del profesor</h1>
-		<?php 
+		<?php
 			/*Iniciamos la sesion, pero antes hacemos una comprobacion para evitar errores*/
 
 			if (session_status() == PHP_SESSION_NONE) {
@@ -30,7 +30,7 @@
 
 
 		?>
-		<a href="perfilPropioProf.php"> Editar perfil </a>
+		<!--<a href="perfilPropioProf.php"> Editar perfil </a>-->
 
 		<?php
 		if($_SESSION['administrador']){
@@ -42,7 +42,7 @@
 			echo('<a href="asignaturasProfesor.php"> Ver mis asignaturas </a>');
 		?>
 		<br>
-		<a href="cerrarSesion.php">Salir</a>
+		<!--<a href="cerrarSesion.php">Salir</a>-->
 	</div>
 
  	<!--Librerias externas-->
