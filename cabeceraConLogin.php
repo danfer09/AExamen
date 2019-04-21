@@ -10,14 +10,26 @@
 				header('Location: index.php');
 			}
 ?>
-<div class="row">
-	<div class="col-5"></div>
-	<div class="col-2">
-		<a id="logoCentral" href="paginaPrincipalProf.php"><h1>AExamen!</h1></a>
-	</div>
-	<div class="col-3"></div>
-	<div class="col-2">
-		<a class="btn btn-primary" href="perfilPropioProf.php"><i class="fas fa-user-circle fa-2x"></i></a>
-		<a class="btn btn-primary" href="cerrarSesion.php" role="button">CerrarSesion</a>
-	</div>
-</div>
+<head>
+	<!--css propio -->
+	<link rel="stylesheet" type="text/css" href="css/cabeceraLogin.css">
+</head>
+<header id="header">
+	<nav class="links" style="--items:1;">
+		<div class="row">
+			<div class="col-5"></div>
+			<div class="col-2">
+				<a id="logoCentral" href="paginaPrincipalProf.php"><h1>AExamen!</h1></a>
+			</div>
+			<div class="col-3"></div>
+			<div class="col-2">
+				<a class="btn btn-primary" href="perfilPropioProf.php"><i class="fas fa-user-circle fa-2x"></i></a>
+				<a class="btn btn-primary" href="cerrarSesion.php" role="button">CerrarSesion</a>
+			</div>
+		</div>
+	</nav>
+</header>
+
+
+
+

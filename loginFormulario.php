@@ -33,17 +33,25 @@
 <html>
 <head>
 	<!--css propio -->
+	<link rel="stylesheet" type="text/css" href="css/loginFormulario.css">
 	<link rel="stylesheet" type="text/css" href="css/estilo.css">
 	<!--css externos-->
 	<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
 	<link rel="stylesheet" type="text/css" href="css/all.css">
+  	<link rel="stylesheet" type="text/css" href="css/style.css">
 	<meta charset="UTF-8">
 </head>
 <body>
-	<div class="container">
-		<h1>Login</h1>
 
-		<form action="loginProcesamiento.php" id="formulario_login" method="post">
+<!--SERVICE START-->
+  <div id="service" class="section-padding">
+    <div class="container">
+
+        <div class="page-title text-center">
+          <h1>Login</h1>
+          <hr class="pg-titl-bdr-btm"></hr>
+        
+        <form action="loginProcesamiento.php" id="formulario_login" method="post">
 		  Email:<br>
 		  <input type="text" name="email" id="email">
 		  <br>
@@ -55,7 +63,11 @@
 		<br>
 		<p><a href="registrarseFormulario.php">Registrarse</a></p>
 		<p><a href="olvidoPassword.php">Olvidé mi contraseña</a></p>
-	</div>
+		</div>
+
+    </div>
+  </div>
+  <!--SERVICE END-->
 
 	<!--Librerias externas-->
 	<script src="js/jquery-3.3.1.min.js"></script>

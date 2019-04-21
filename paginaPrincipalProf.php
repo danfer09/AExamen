@@ -6,8 +6,13 @@
 	<link rel="stylesheet" type="text/css" href="css/w3.css">
 	<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
 	<link rel="stylesheet" type="text/css" href="css/all.css">
+	<link rel="stylesheet" type="text/css" href="css/font-awesome.min.css">
+	<link rel="stylesheet" type="text/css" href="css/slick-team-slider.css" />
+  	<link rel="stylesheet" type="text/css" href="css/style.css">
 	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
+
 <body>
 	<div class="header" id="header"></div>
 	<div class="container">
@@ -43,7 +48,11 @@
 		?>
 		<br>
 		<!--<a href="cerrarSesion.php">Salir</a>-->
+
+
 	</div>
+
+	
 
  	<!--Librerias externas-->
 	<script src="js/jquery-3.3.1.min.js"></script>
