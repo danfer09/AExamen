@@ -78,7 +78,7 @@
 			// Arial italic 8
 			$this->SetFont('Arial','I',8);
 			// Número de página
-			$this->Cell(0,10,$this->PageNo().'/{nb}',0,0,'C');
+			//$this->Cell(0,10,$this->PageNo().'/{nb}',0,0,'C');
 		}
 	}
 	
@@ -95,10 +95,10 @@
 		$pdf->AliasNbPages();
 		$pdf->cabecera();
 		$pdf->SetTitle($_SESSION['nombreExamenGenerado'].".pdf");
-		$pdf->Cell(45);
+		//$pdf->Cell(65);
 		$pdf->SetFont('Arial','B',11);
-	    $pdf->Cell(106,10,$_POST['pautas'],"",0,'L');
-	    $pdf->Ln(15);
+	    $pdf->MultiCell(0,5,$_POST['pautas'],1,'L');
+	    $pdf->Ln(10);
 	    //$pdf->Cell(30,10,"a","",0,'L');
 	    if ($preguntas = getPreguntasExamen($_SESSION['idExamenGenerado'])) {
 	    	$i=1;

@@ -7,8 +7,12 @@ $(document).ready(function(){
     	});
 	});
 
-    $('#cuatrimestre').on('change', function () {
-        if ($(this).val() != '0') {
+    if($('#cuatrimestre').val() == null) {
+        $('#botonGenerar').prop("disabled", true);
+    }
+
+    $('#cuatrimestre').bind('change click', function () {
+        if ($(this).val() != '0' && $(this).val() != null) {
             $('#botonGenerar').prop("disabled", false);
         }
     });
