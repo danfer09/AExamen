@@ -6,11 +6,12 @@ html, body, h1, h2, h3, h4, h5, h6, p, li, ol, ul, pre {
 }
 
 body {
-    background-color: #345;
+    background-color: #345 !important;
+    background-repeat: no-repeat;
     background-image: linear-gradient(to bottom, #0009, transparent);
     color: #eee;
-    font-family: 'Lato', sans-serif;
-    font-size: 62.5%;
+    /*font-family: 'Lato', sans-serif;*/
+    font-size: 100% !important;
     padding: 0 20px;
     box-sizing: border-box;
 }
@@ -113,8 +114,7 @@ body {
     background-color: #fff;
     border-radius: 8px;
     box-sizing: border-box;
-    color: #666;
-    font-size: 1.6em;
+    color: #000;
     line-height: 1.4em;
     margin: 20px auto;
     margin-top: 80px;
@@ -282,6 +282,17 @@ div .puntosPregunta {
 table {
     color: #000000;
 }
+.modal-title {
+    color: #000000;
+}
+.badge {
+    font-size: 90% !important;
+}
+#info_aniadirPreg_vacio,
+#info_aniadirPreg_limite,
+#info_aniadirPreg_todas {
+    font-size: 150% !important;
+}
 
 .masExamenes,
 .masExamenes:hover {
@@ -320,6 +331,37 @@ table {
 }
 .derecha {
 	text-align: right;
+}
+
+#containerPuntosTotal span {
+    font-size: 20px;
+}
+#nombreExamen {
+    font-size: 16px;
+}
+#crearExamenContainer hr {
+    background-color: #ffffff;
+}
+#crearExamenContainer .fa-arrow-left {
+    padding-top: 12%;
+    font-size: 20px;
+}
+#crearExamenContainer .fa-bars {
+    font-size: 20px;
+}
+#crearExamenContainer .tituloPreguntas {
+    font-size: 16px;
+}
+#crearExamenContainer .cuerpoPreguntas {
+    font-size: 18px;
+}
+#crearExamenContainer .botonesPregunta {
+    margin-top: 5px;
+    font-size: 16px;
+}
+
+.modal-backdrop {
+     background-color: rgba(0,0,0,0.5) !important;
 }
 
 /*

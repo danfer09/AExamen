@@ -279,3 +279,89 @@
 -----------------------------------------------------------------
 [22/04/2019 - 16:16:26] : USER --> id 3 - Fernández, Paco | ACTION --> Inicio de sesión  de pafer@gmail.com
 -----------------------------------------------------------------
+[22/04/2019 - 20:21:22] : USER --> id 3 - Fernández, Paco | ACTION --> Cierre de sesión  de pafer@gmail.com
+-----------------------------------------------------------------
+[22/04/2019 - 20:21:38] : USER --> id 1 - nuñez, Fernando | ACTION --> Inicio de sesión  de fernu@gmail.com
+-----------------------------------------------------------------
+[22/04/2019 - 20:21:41] : USER --> id 1 - nuñez, Fernando | ACTION --> Cierre de sesión  de fernu@gmail.com
+-----------------------------------------------------------------
+[22/04/2019 - 20:21:44] : USER --> id 3 - Fernández, Paco | ACTION --> Inicio de sesión  de pafer@gmail.com
+-----------------------------------------------------------------
+[22/04/2019 - 20:21:55] : USER --> id 3 - Fernández, Paco | ACTION --> Cierre de sesión  de pafer@gmail.com
+-----------------------------------------------------------------
+[22/04/2019 - 20:26:07] : USER --> id 3 - Fernández, Paco | ACTION --> Inicio de sesión  de pafer@gmail.com
+-----------------------------------------------------------------
+[22/04/2019 - 20:26:15] : USER --> id 3 - Fernández, Paco | ACTION --> Cierre de sesión  de pafer@gmail.com
+-----------------------------------------------------------------
+[22/04/2019 - 20:26:42] : USER --> id 3 - Fernández, Paco | ACTION --> Inicio de sesión  de pafer@gmail.com
+-----------------------------------------------------------------
+[22/04/2019 - 20:26:54] : USER --> id 3 - Fernández, Paco | ACTION --> Cierre de sesión  de pafer@gmail.com
+-----------------------------------------------------------------
+[22/04/2019 - 20:29:32] : USER --> id 3 - Fernández, Paco | ACTION --> Inicio de sesión  de pafer@gmail.com
+-----------------------------------------------------------------
+[22/04/2019 - 20:49:23] : USER --> id 3 - Fernández, Paco | ACTION --> Cierre de sesión  de pafer@gmail.com
+-----------------------------------------------------------------
+[22/04/2019 - 20:49:28] : USER --> id 1 - nuñez, Fernando | ACTION --> Inicio de sesión  de fernu@gmail.com
+-----------------------------------------------------------------
+[22/04/2019 - 20:50:17] : USER --> id 1 - nuñez, Fernando | ACTION --> Cierre de sesión  de fernu@gmail.com
+-----------------------------------------------------------------
+[22/04/2019 - 20:50:23] : USER --> id 3 - Fernández, Paco | ACTION --> Inicio de sesión  de pafer@gmail.com
+-----------------------------------------------------------------
+[22/04/2019 - 21:02:53] : USER --> id 3 - Fernández, Paco | ACTION --> Cierre de sesión  de pafer@gmail.com
+-----------------------------------------------------------------
+[22/04/2019 - 21:02:58] : USER --> id 4 - Carnero, Manolito | ACTION --> Inicio de sesión  de macar@gmail.com
+-----------------------------------------------------------------
+[22/04/2019 - 21:03:30] : USER --> id 4 - Carnero, Manolito | ACTION --> Cierre de sesión  de macar@gmail.com
+-----------------------------------------------------------------
+[22/04/2019 - 21:03:34] : USER --> id 1 - nuñez, Fernando | ACTION --> Inicio de sesión  de fernu@gmail.com
+-----------------------------------------------------------------
+[22/04/2019 - 21:04:24] : USER --> id 1 - nuñez, Fernando | ACTION --> Cierre de sesión  de fernu@gmail.com
+-----------------------------------------------------------------
+[22/04/2019 - 21:04:29] : USER --> id 3 - Fernández, Paco | ACTION --> Inicio de sesión  de pafer@gmail.com
+-----------------------------------------------------------------
+[22/04/2019 - 21:05:23] : USER --> id 3 - Fernández, Paco | ACTION --> Cierre de sesión  de pafer@gmail.com
+-----------------------------------------------------------------
+[22/04/2019 - 21:07:22] : USER --> id 3 - Fernández, Paco | ACTION --> Inicio de sesión  de pafer@gmail.com
+-----------------------------------------------------------------
+[22/04/2019 - 21:11:09] : USER --> id 3 - Fernández, Paco | ACTION --> Cierre de sesión  de pafer@gmail.com
+-----------------------------------------------------------------
+[22/04/2019 - 21:12:36] : USER --> id 1 - nuñez, Fernando | ACTION --> Inicio de sesión  de fernu@gmail.com
+-----------------------------------------------------------------
+[22/04/2019 - 21:12:50] : USER --> id 1 - nuñez, Fernando | ACTION --> Cierre de sesión  de fernu@gmail.com
+-----------------------------------------------------------------
+[22/04/2019 - 21:39:19] : USER --> id 3 - Fernández, Paco | ACTION --> Inicio de sesión  de pafer@gmail.com
+-----------------------------------------------------------------
+[22/04/2019 - 23:40:36] : USER --> id 3 - Fernández, Paco | ACTION --> Cierre de sesión  de pafer@gmail.com
+-----------------------------------------------------------------
+[22/04/2019 - 23:40:42] : USER --> id 1 - nuñez, Fernando | ACTION --> Inicio de sesión  de fernu@gmail.com
+-----------------------------------------------------------------
+[22/04/2019 - 23:47:04] : USER --> id 1 - nuñez, Fernando | ACTION --> Cierre de sesión  de fernu@gmail.com
+-----------------------------------------------------------------
+[22/04/2019 - 23:47:10] : USER --> id 4 - Carnero, Manolito | ACTION --> Inicio de sesión  de macar@gmail.com
+-----------------------------------------------------------------
+[22/04/2019 - 23:49:45] : USER --> id 4 - Carnero, Manolito | ACTION --> Cierre de sesión  de macar@gmail.com
+-----------------------------------------------------------------
+[22/04/2019 - 23:49:49] : USER --> id 1 - nuñez, Fernando | ACTION --> Inicio de sesión  de fernu@gmail.com
+-----------------------------------------------------------------
+[23/04/2019 - 00:00:29] : USER --> id 1 - nuñez, Fernando | ACTION --> Cierre de sesión  de fernu@gmail.com
+-----------------------------------------------------------------
+[23/04/2019 - 00:00:39] : USER --> id 3 - Fernández, Paco | ACTION --> Inicio de sesión  de pafer@gmail.com
+-----------------------------------------------------------------
+[23/04/2019 - 00:04:23] : USER --> id 3 - Fernández, Paco | ACTION --> Cierre de sesión  de pafer@gmail.com
+-----------------------------------------------------------------
+[23/04/2019 - 00:04:27] : USER --> id 1 - nuñez, Fernando | ACTION --> Inicio de sesión  de fernu@gmail.com
+-----------------------------------------------------------------
+[23/04/2019 - 00:04:40] : USER --> id 1 - nuñez, Fernando | ACTION --> Cierre de sesión  de fernu@gmail.com
+-----------------------------------------------------------------
+[23/04/2019 - 00:04:46] : USER --> id 4 - Carnero, Manolito | ACTION --> Inicio de sesión  de macar@gmail.com
+-----------------------------------------------------------------
+[23/04/2019 - 00:13:25] : USER --> id 4 - Carnero, Manolito | ACTION --> Cierre de sesión  de macar@gmail.com
+-----------------------------------------------------------------
+[23/04/2019 - 00:13:30] : USER --> id 1 - nuñez, Fernando | ACTION --> Inicio de sesión  de fernu@gmail.com
+-----------------------------------------------------------------
+[23/04/2019 - 00:15:21] : USER --> id 1 - nuñez, Fernando | ACTION --> Cierre de sesión  de fernu@gmail.com
+-----------------------------------------------------------------
+[23/04/2019 - 00:15:25] : USER --> id 3 - Fernández, Paco | ACTION --> Inicio de sesión  de pafer@gmail.com
+-----------------------------------------------------------------
+[23/04/2019 - 00:15:34] : USER --> id 3 - Fernández, Paco | ACTION --> Cierre de sesión  de pafer@gmail.com
+-----------------------------------------------------------------

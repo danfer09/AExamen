@@ -12,7 +12,7 @@
 </head>
 <body>
 	<div class="header" id="header"></div>
-	<div class="container-fluid">
+	<div class="container-fluid" id="crearExamenContainer">
 		<?php 
 			/*Iniciamos la sesion, pero antes hacemos una comprobacion para evitar errores*/
 			if (session_status() == PHP_SESSION_NONE) {
@@ -90,11 +90,11 @@
 		<br>
 		<div class="row">
 
-			<div class="col-1"></div>
-			<div class="col-7"><input id="nombreExamen" class="w3-input col-8" placeholder=<?php echo '"Escriba el nombre... e.g.  '.$_GET["asignatura"].' [Parcial/Final] [Año]" value="'.$nombreExamen.'"'?>>
+			<div class="col-1"><!--<buttom><i class="fas fa-arrow-left"></i></buttom>--></div>
+			<div class="col-7"><input id="nombreExamen" class="w3-input col-8" placeholder=<?php echo '"Nombre del examen... e.g.  '.$_GET["asignatura"].' [Parcial/Final] [Año]" value="'.$nombreExamen.'"'?>>
 
 			</div>
-			<div class="col-2">
+			<div id="containerPuntosTotal" class="col-2">
 				<?php
 					$arrayPuntosTema =cargaPuntosTema($_GET["idAsignatura"]);
 					$jsonPuntosTema = json_decode($arrayPuntosTema,true);
@@ -119,10 +119,11 @@
 			<div class="col-2"><button id=<?php echo '"'.$botonGuardar.'"'?> class="btn">Guardar <i class="fas fa-save"></i></button></div>
 		
 		</div>
-
+		<br>
+		<br>
 		<div class="row">
-			<div class="col-1"><buttom><i class="fas fa-arrow-left"></i></buttom></div>
-			<div class="col-11"><hr /></div>
+			<div class="col-1"></div>
+			<div class="col-11"></div>
 		</div>
 
 		<div class="row">
@@ -151,7 +152,7 @@
 			    echo '<div class="row">';
 					echo'<div class="divTema col-12" id="tema'.$i.'">';
 						echo'<span>Tema'.$i.'</span>';
-						echo'<span>(</span><span id="numeradorTema'.$i.'">';
+						echo'<span> (</span><span id="numeradorTema'.$i.'">';
 						$preguntasTema = isset($preguntasSesion['preguntas']['tema'.$i])? $preguntasSesion['preguntas']['tema'.$i]: null;
 						$sumaTema = 0;
 						if ($preguntasTema) {
@@ -171,14 +172,14 @@
 						foreach ($preguntasTema as $pregunta) {
 							$datos = cargaUnicaPregunta($pregunta['id']);
 							echo '<div class="col-12 preguntaTema'.$i.'" puntos="'.$pregunta['puntos'].'"  id="'.$pregunta['id'].'">
-									<b>'.$datos['titulo'].'</b> 
+									<b><span class="tituloPreguntas">'.$datos['titulo'].'</span></b> 
 									<br>
-									'.$datos['cuerpo'].
-									'<br>
+									<span class="cuerpoPreguntas">'.$datos['cuerpo'].
+									'</span><br>
 									<div class="row botonesPregunta">
 										<div class="col-1 puntosPregunta" id="puntosPregunta'.$pregunta['id'].'">'.
 											'<a class="fas fa-chevron-left" id="menosPuntosPregunta'.$pregunta['id'].'" asignatura= "'.$_GET["idAsignatura"].'"href="#"></a>
-											<span class="puntos"><b>'.$pregunta['puntos'].'</b></span><span> p </span>'.
+											<span class="puntos">'.$pregunta['puntos'].'</span><span> p </span>'.
 											'<a class="fas fa-chevron-right" id="masPuntosPregunta'.$pregunta['id'].'" asignatura= "'.$_GET["idAsignatura"].'"href="#"></a>'.
 										'</div>'.
 										'<div >'.
