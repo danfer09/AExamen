@@ -117,6 +117,7 @@ $(document).ready(function(){
   });
 
 $('#guardarNuevoExamen').click(function() {
+  let siglas = $('#nombreExamen').attr('siglas');
   var nombreExamen=$('#nombreExamen').val();
   if (!nombreExamen) {
     alert("Por favor, introduzca un nombre de examen");
@@ -144,13 +145,14 @@ $('#guardarNuevoExamen').click(function() {
         },
         dataType:"json"
         })
-        window.location = 'examenes.php?asignatura=todas&autor=todos';
+        window.location = 'examenes.php?asignatura='+siglas+'&autor=todos&successCreate=true';
         event.preventDefault();
   }
 });
 
 $('#guardarModificarExamen').click(function() {
   var nombreExamen=$('#nombreExamen').val();
+  let siglas = $('#nombreExamen').attr('siglas');
   console.log(nombreExamen);
   if (!nombreExamen) {
     alert("Por favor, introduzca un nombre de examen");
@@ -178,7 +180,7 @@ $('#guardarModificarExamen').click(function() {
         },
         dataType:"json"
         })
-        window.location = 'examenes.php?asignatura=todas&autor=todos';
+        window.location = 'examenes.php?asignatura='+siglas+'&autor=todos&successEdit=true';
         event.preventDefault();
   }
 });

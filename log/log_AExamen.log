@@ -365,3 +365,47 @@
 -----------------------------------------------------------------
 [23/04/2019 - 00:15:34] : USER --> id 3 - Fernández, Paco | ACTION --> Cierre de sesión  de pafer@gmail.com
 -----------------------------------------------------------------
+[23/04/2019 - 18:59:59] : USER --> id 3 - Fernández, Paco | ACTION --> Inicio de sesión  de pafer@gmail.com
+-----------------------------------------------------------------
+[23/04/2019 - 19:00:29] : USER --> id 3 - Fernández, Paco | ACTION --> Cierre de sesión  de pafer@gmail.com
+-----------------------------------------------------------------
+[23/04/2019 - 19:00:37] : USER --> id 3 - Fernández, Paco | ACTION --> Inicio de sesión  de pafer@gmail.com
+-----------------------------------------------------------------
+[23/04/2019 - 19:05:48] : USER --> id 3 - Fernández, Paco | ACTION --> Cierre de sesión  de pafer@gmail.com
+-----------------------------------------------------------------
+[23/04/2019 - 19:05:55] : USER --> id 3 - Fernández, Paco | ACTION --> Inicio de sesión  de pafer@gmail.com
+-----------------------------------------------------------------
+[23/04/2019 - 19:09:18] : USER --> id 3 - Fernández, Paco | ACTION --> Cierre de sesión  de pafer@gmail.com
+-----------------------------------------------------------------
+[23/04/2019 - 19:13:07] : USER --> id 3 - Fernández, Paco | ACTION --> Inicio de sesión  de pafer@gmail.com
+-----------------------------------------------------------------
+[23/04/2019 - 19:13:20] : USER --> id 3 - Fernández, Paco, pafer@gmail.com | ACTION --> Nuevo examen de IS creado con id 2
+-----------------------------------------------------------------
+[23/04/2019 - 19:14:17] : USER --> id 3 - Fernández, Paco, pafer@gmail.com | ACTION --> Nuevo examen de IS creado con id 3
+-----------------------------------------------------------------
+[23/04/2019 - 19:19:40] : USER --> id 3 - Fernández, Paco, pafer@gmail.com | ACTION --> Nuevo examen de IS creado con id 4
+-----------------------------------------------------------------
+[23/04/2019 - 19:22:18] : USER --> id 3 - Fernández, Paco, pafer@gmail.com | ACTION --> Nuevo examen de IS creado con id 7
+-----------------------------------------------------------------
+[23/04/2019 - 19:22:56] : USER --> id 3 - Fernández, Paco | ACTION --> Cierre de sesión  de pafer@gmail.com
+-----------------------------------------------------------------
+[23/04/2019 - 19:23:00] : USER --> id 3 - Fernández, Paco | ACTION --> Inicio de sesión  de pafer@gmail.com
+-----------------------------------------------------------------
+[23/04/2019 - 19:23:09] : USER --> id 3 - Fernández, Paco | ACTION --> Cierre de sesión  de pafer@gmail.com
+-----------------------------------------------------------------
+[23/04/2019 - 19:25:21] : USER --> id 3 - Fernández, Paco | ACTION --> Inicio de sesión  de pafer@gmail.com
+-----------------------------------------------------------------
+[23/04/2019 - 19:25:50] : USER --> id 3 - Fernández, Paco, pafer@gmail.com | ACTION --> Nuevo examen de IS creado con id 10
+-----------------------------------------------------------------
+[23/04/2019 - 19:32:00] : USER --> id 3 - Fernández, Paco, pafer@gmail.com | ACTION --> Nuevo examen de IS creado con id 12
+-----------------------------------------------------------------
+[23/04/2019 - 19:35:05] : USER --> id 3 - Fernández, Paco, pafer@gmail.com | ACTION --> Nuevo examen de IS creado con id 13
+-----------------------------------------------------------------
+[23/04/2019 - 20:19:23] : USER --> id 3 - Fernández, Paco | ACTION --> Cierre de sesión  de pafer@gmail.com
+-----------------------------------------------------------------
+[23/04/2019 - 20:19:27] : USER --> id 1 - asdfsd, asdfas | ACTION --> Inicio de sesión  de fernu@gmail.com
+-----------------------------------------------------------------
+[23/04/2019 - 20:19:35] : USER --> id 1 - asdfsd, asdfas | ACTION --> Cierre de sesión  de fernu@gmail.com
+-----------------------------------------------------------------
+[23/04/2019 - 20:19:39] : USER --> id 3 - Fernández, Paco | ACTION --> Inicio de sesión  de pafer@gmail.com
+-----------------------------------------------------------------

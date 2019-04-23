@@ -11,6 +11,8 @@
 	<meta charset="UTF-8">
 </head>
 <body>
+
+
 	<div class="header" id="header"></div>
 	<div class="container">
 		<h1>Pagina principal del profesor</h1>
@@ -29,6 +31,18 @@
 			echo "<h2> Examenes </h2>";
 			include "examenesProcesamiento.php";
 			include 'funcionesServidor.php';
+			if (isset($_GET['successCreate'])&& $_GET['successCreate'])  {
+				echo '<div class="alert alert-success alert_success" role="alert">
+						<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+		  				Examen creado con éxito
+			  		  </div>';
+			}
+			else if (isset($_GET['successEdit'])&& $_GET['successEdit']) {
+				echo '<div class="alert alert-success alert_success" role="alert">
+						<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+		  				Examen editado con éxito
+			  		  </div>';
+			}
 
 
 			/*echo "<br>prueba: ".$_SESSION['prueba'];
@@ -148,9 +162,9 @@
 				<?php
 
 					if ($hidden) {
-						print('<a class="fas fa-plus-circle masExamenes" hidden id="boton_modalAñadir" href="crearExamen.php?asignatura='.$_GET["asignatura"].'&idAsignatura='.$idAsig.'"></a>');
+						print('<a class="fas fa-plus-circle fa-2x masExamenes" hidden id="boton_modalAñadir" href="crearExamen.php?asignatura='.$_GET["asignatura"].'&idAsignatura='.$idAsig.'"></a>');
 					} else {
-						print('<a class="fas fa-plus-circle masExamenes" id="boton_modalAñadir" href="crearExamen.php?asignatura='.$_GET["asignatura"].'&idAsignatura='.$idAsig.'"></a>');
+						print('<a class="fas fa-plus-circle fa-2x masExamenes" id="boton_modalAñadir" href="crearExamen.php?asignatura='.$_GET["asignatura"].'&idAsignatura='.$idAsig.'"></a>');
 					}
 
 				?>
@@ -201,7 +215,7 @@
 					echo '<td>'.formateoDateTime($valor['fecha_modificado']).'</td>';
 					echo '<td>'.$valor['ultimo_modificador'].'</td>';
 					echo '<td id="opciones">
-							<a class="btn btn-primary btn-sm" href="detalleExamen.php?id='.$valor['id'].'" role="button">Detalles</a>';
+							<a class="btn btn-primary btn-sm" id="idDetallesExam" href="detalleExamen.php?id='.$valor['id'].'" role="button">Detalles</a>';
 					if (!$_SESSION['administrador']) {
 						echo '<a class="btn btn-primary btn-sm" href="generarExamen.php?examen='.$valor['titulo'].'" role="button">Generar</a>';
 						echo '<a id="boton_modalEditar" idExamen="'.$valor['id'].'" href="crearExamen.php?asignatura='.$valor['asignatura'].'&idAsignatura='.$valor['idAsignatura'].'&editar=1&id='.$valor['id'].'"><i class="fas fa-pencil-alt fa-fw fa-lg"></i></a>';

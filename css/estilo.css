@@ -5,6 +5,18 @@ html, body, h1, h2, h3, h4, h5, h6, p, li, ol, ul, pre {
     padding: 0;
 }
 
+.alert_login{
+    text-align: center;
+}
+.alert_success{
+    text-align: center;
+}
+#idDetallesExam{
+    margin-right: 5px; 
+}
+#buttonHome{
+    margin-top: 5px;
+}
 body {
     background-color: #345 !important;
     background-repeat: no-repeat;

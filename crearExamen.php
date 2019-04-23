@@ -91,7 +91,7 @@
 		<div class="row">
 
 			<div class="col-1"><!--<buttom><i class="fas fa-arrow-left"></i></buttom>--></div>
-			<div class="col-7"><input id="nombreExamen" class="w3-input col-8" placeholder=<?php echo '"Nombre del examen... e.g.  '.$_GET["asignatura"].' [Parcial/Final] [Año]" value="'.$nombreExamen.'"'?>>
+			<div class="col-7"><input siglas="<?php echo $_GET["asignatura"]; ?>" id="nombreExamen" class="w3-input col-8" placeholder=<?php echo '"Nombre del examen... e.g.  '.$_GET["asignatura"].' [Parcial/Final] [Año]" value="'.$nombreExamen.'"'?>>
 
 			</div>
 			<div id="containerPuntosTotal" class="col-2">

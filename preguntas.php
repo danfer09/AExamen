@@ -40,7 +40,7 @@
 		<div class="row" id="filtros">
 			<div class="form-inline col-lg-1">
 				<?php
-					echo (!$_SESSION['administrador'])?'<a class="fas fa-plus-circle" id="boton_modalAñadir"></a>':'';
+					echo (!$_SESSION['administrador'])?'<a class="fas fa-plus-circle fa-2x" id="boton_modalAñadir" href="#"></a>':'';
 				?>
 			</div>
 			<div class="form-inline col-lg-4">
@@ -144,8 +144,8 @@
 					echo '<td>'.formateoDateTime($valor['fecha_modificado']).'</td>';
 					echo '<td id="opciones">';
 						echo '<a class="btn btn-primary" href="detallePregunta.php?id='.$valor['id_preguntas'].'" role="button">Detalles</a>';
-						echo (!$_SESSION['administrador'])? '<a class="fas fa-edit" id="boton_modalEditar" idPreguntas="'.$valor['id_preguntas'].'"></a>': '';
-						echo '<a class="fas fa-trash-alt" id="boton_modalBorrar" idPreguntas="'.$valor['id_preguntas'].'"></a>';
+						echo (!$_SESSION['administrador'])? '<a id="boton_modalEditar" href="#" idPreguntas="'.$valor['id_preguntas'].'"><i class="fas fa-pencil-alt fa-fw fa-lg"></i></a>': '';
+						echo '<a id="boton_modalBorrar" href="#" idPreguntas="'.$valor['id_preguntas'].'"><i class="fas fa-trash-alt fa-fw fa-lg"></i></a>';
 					echo '</td>';
 					echo '</tr>';
 
