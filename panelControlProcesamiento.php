@@ -28,7 +28,9 @@
 	else if($funcion == "descargarLog")
 		descargarLog();
 
-
+	/*
+	*Funcion que elimina el archivo de log existente y crea uno nuevo, escribiendo en él que se ha eliminado el log correctamente
+	*/
 	function eliminarLog() {
 		if (!unlink('./log/log_AExamen.log')){
 			echo "Error deleting file!";
@@ -49,6 +51,9 @@
 		}
 	}
 
+	/*
+	*Funcion que reinicia el archivo de log existente sobreescribiendo en él que se ha reiniciado el log correctamente
+	*/
 	function reiniciarLog() {
 		$log  = "  ___  _____                               
  / _ \|  ___|                              
@@ -65,6 +70,11 @@
 		echo "Log reiniciado correctamente";
 	}
 
+	/*
+	*Funcion que acepta una petición de registro a AExamen, da de alta al nuevo profesor en la tabla correspondiente, lo anota en el log y envia un email al usuario informando que ya puede iniciar sesión
+	* @param int $id identificador de la peticion
+	* @return boolean $resultado true si se ha aceptado correctamente y false en caso contrario
+	*/
 	function aceptarPeticion($id) {
 		$credentialsStr = file_get_contents('json/credentials.json');
 		$credentials = json_decode($credentialsStr, true);
@@ -76,9 +86,7 @@
 			$sql = 'DELETE FROM `peticiones_registro` WHERE id='.$id;
 			$consulta=mysqli_query($db,$sql);
 			$fila=mysqli_fetch_assoc($consulta);
-			/*echo "<pre>";
-			var_dump($peticion);
-			die();*/
+			
 			$sql = "INSERT INTO `profesores`(`nombre`, `apellidos`, `email`, `id`, `clave`) VALUES ('".$peticion['nombre']."','".$peticion['apellidos']."','".$peticion['email']."','','".$peticion['clave']."')";
 			$consulta=mysqli_query($db,$sql);
 			$fila=mysqli_fetch_assoc($consulta);
@@ -103,6 +111,11 @@
 		echo $resultado;
 	}
 
+	/*
+	*Funcion que deniega una petición de registro a AExamen, lo anota en el log y envia un email al usuario informando que su petición ha sido denegada
+	* @param int $id identificador de la peticion
+	* @return boolean $resultado true si se ha denegado correctamente y false en caso contrario
+	*/
 	function borrarPeticion($id) {
 		$credentialsStr = file_get_contents('json/credentials.json');
 		$credentials = json_decode($credentialsStr, true);
@@ -135,6 +148,11 @@
 		echo json_encode($resultado);
 	}
 
+	/*
+	* Funcion que devuelve/muestra (para AJAX) una peticion en concreto
+	* @param int $id identificador de la peticion
+	* @return array $resultado con la peticion con identificador id
+	*/
 	function getPeticion($id) {
 		$credentialsStr = file_get_contents('json/credentials.json');
 		$credentials = json_decode($credentialsStr, true);
@@ -161,6 +179,11 @@
 		}
 	}
 
+	/*
+	* Funcion que devuelve (para PHP) una peticion en concreto
+	* @param int $id identificador de la peticion
+	* @return array $resultado con la peticion con identificador id
+	*/
 	function getPeticionReturn($id) {
 		$credentialsStr = file_get_contents('json/credentials.json');
 		$credentials = json_decode($credentialsStr, true);
@@ -186,6 +209,10 @@
 		}
 	}
 
+	/*
+	* Funcion que devuelve todasl las peticiones pendientes
+	* @return array $resultado con las peticiones pendientes existentes
+	*/
 	function getPeticiones() {
 		$credentialsStr = file_get_contents('json/credentials.json');
 		$credentials = json_decode($credentialsStr, true);

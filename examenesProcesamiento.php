@@ -107,12 +107,36 @@
 	/*
 		Devuelve el resultado del select para todos los mails de profesores
 	*/
-	function selectAllMailsProfesores() {
+	function selectAllMailsProfesoresSiglas($asignaturaSiglas) {
 		$credentialsStr = file_get_contents('json/credentials.json');
 		$credentials = json_decode($credentialsStr, true);
 		$db = mysqli_connect('localhost', $credentials['database']['user'], $credentials['database']['password'], $credentials['database']['dbname']);
 		if($db){
-			$sql = "SELECT id, email, nombre, apellidos FROM profesores";
+			$sql = "SELECT profesores.id as id, profesores.email as email, profesores.nombre as nombre, profesores.apellidos as apellidos FROM (profesores inner join prof_asig_coord on profesores.id=prof_asig_coord.id_profesor) inner join asignaturas on asignaturas.id=prof_asig_coord.id_asignatura WHERE asignaturas.siglas='".$asignaturaSiglas."'";
+			$consulta=mysqli_query($db,$sql);
+			$resultado = [];
+			if($consulta->num_rows > 0){
+				while ($fila=mysqli_fetch_assoc($consulta)){
+					$resultado[] = $fila;
+				}
+			} else {
+				echo "No hay profesores";
+				$resultado = null;
+			}
+			mysqli_close($db);
+			return $resultado;
+		} else {
+			echo "Conexión fallida";
+			return false;
+		}
+	}
+
+	function selectAllMailsProfesoresId($idAsignatura) {
+		$credentialsStr = file_get_contents('json/credentials.json');
+		$credentials = json_decode($credentialsStr, true);
+		$db = mysqli_connect('localhost', $credentials['database']['user'], $credentials['database']['password'], $credentials['database']['dbname']);
+		if($db){
+			$sql = "SELECT profesores.id as id, profesores.email as email, profesores.nombre as nombre, profesores.apellidos as apellidos FROM profesores inner join prof_asig_coord on profesores.id=prof_asig_coord.id_profesor WHERE prof_asig_coord.id_asignatura=".$idAsignatura;
 			$consulta=mysqli_query($db,$sql);
 			$resultado = [];
 			if($consulta->num_rows > 0){
@@ -137,6 +161,30 @@
 	function selectAllSiglasAsignaturas($db) {
 		if($db){
 			$sql = "SELECT siglas, id FROM asignaturas";
+			$consulta=mysqli_query($db,$sql);
+			$resultado = [];
+			if($consulta->num_rows > 0){
+				while ($fila=mysqli_fetch_assoc($consulta)){
+					$resultado[] = $fila;
+				}
+			} else {
+				echo "No hay asignaturas";
+				$resultado = null;
+			}
+			mysqli_close($db);
+			return $resultado;
+		} else {
+			echo "Conexión fallida";
+			return false;
+		}
+	}
+
+	/*
+		Devuelve el resultado del select para todas las siglas de las asignaturas
+	*/
+	function selectAllSiglasAsignaturasProfesor($db, $idProfesor) {
+		if($db){
+			$sql = "SELECT asignaturas.siglas, asignaturas.id FROM asignaturas INNER JOIN prof_asig_coord on asignaturas.id = prof_asig_coord.id_asignatura WHERE prof_asig_coord.id_profesor=".$idProfesor;
 			$consulta=mysqli_query($db,$sql);
 			$resultado = [];
 			if($consulta->num_rows > 0){

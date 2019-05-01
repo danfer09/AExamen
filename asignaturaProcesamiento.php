@@ -2,7 +2,7 @@
 	/*Funcion que nos devuelve si un profesor es o no es coordinador de una asignatura
 	*
 	*Funcion que dado el id de una asignatura y el id de un profesor nos devuelve un true si
-	*el profesor tiene es coordinador de la asignatura y false en caso contrario
+	*el profesor es coordinador de la asignatura y false en caso contrario
 	*
 	* @param int $idAsig identificador de la asignatura
 	* @return boolean $result true si es coordinador y false en caso contrario*/

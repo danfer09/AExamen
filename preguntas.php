@@ -50,7 +50,7 @@
 				<select class="form-control" id="sel1" onchange="location = this.value;">
 					<?php
 
-						$autores = selectAllMailsProfesores();
+						$autores = selectAllMailsProfesoresId($_GET['idAsignatura']);
 						if ($_GET['autor'] == "todos") {
 							echo '<option value="preguntas.php?nombreAsignatura='. $_GET['nombreAsignatura'].'&idAsignatura='.$_GET['idAsignatura'].'&autor=todos" selected>Todos</option>';
 						} else {

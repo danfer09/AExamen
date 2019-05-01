@@ -451,3 +451,19 @@
 -----------------------------------------------------------------
 [01/05/2019 - 11:30:11] : USER --> id 1 - nuñez, Fernando | ACTION --> Denegar petición #2 de samugarcia969621312@gmail.com - Moreno, Samuel
 -----------------------------------------------------------------
+[02/05/2019 - 00:16:25] : USER --> id 1 - nuñez, Fernando | ACTION --> Cierre de sesión  de fernu@gmail.com
+-----------------------------------------------------------------
+[02/05/2019 - 00:16:35] : USER --> id 3 - Fernández, Paco | ACTION --> Inicio de sesión  de pafer@gmail.com
+-----------------------------------------------------------------
+[02/05/2019 - 00:30:59] : USER --> id 3 - Fernández, Paco | ACTION --> Cierre de sesión  de pafer@gmail.com
+-----------------------------------------------------------------
+[02/05/2019 - 00:31:02] : USER --> id 4 - Carnero, Manolito | ACTION --> Inicio de sesión  de macar@gmail.com
+-----------------------------------------------------------------
+[02/05/2019 - 00:47:00] : USER --> id 4 - Carnero, Manolito | ACTION --> Cierre de sesión  de macar@gmail.com
+-----------------------------------------------------------------
+[02/05/2019 - 00:47:05] : USER --> id 3 - Fernández, Paco | ACTION --> Inicio de sesión  de pafer@gmail.com
+-----------------------------------------------------------------
+[02/05/2019 - 01:01:41] : USER --> id 3 - Fernández, Paco | ACTION --> Cierre de sesión  de pafer@gmail.com
+-----------------------------------------------------------------
+[02/05/2019 - 01:01:44] : USER --> id 1 - nuñez, Fernando | ACTION --> Inicio de sesión  de fernu@gmail.com
+-----------------------------------------------------------------

@@ -60,15 +60,19 @@
 		?>
 		<br>
 		<div class="row" id="filtros">
-			<div class="form-inline col-lg-2">
+			<div class="form-inline col-lg-3">
 				<label for="selAsignatura">Asignatura: </label>
 				<select class="form-control" id="selAsignatura" onchange="location = this.value;">
 					<?php
 						$credentialsStr = file_get_contents('json/credentials.json');
 						$credentials = json_decode($credentialsStr, true);
 						$db = mysqli_connect('localhost', $credentials['database']['user'], $credentials['database']['password'], $credentials['database']['dbname']);
-
-						$siglas = selectAllSiglasAsignaturas($db);
+						if ($_SESSION['administrador']) {
+							$siglas = selectAllSiglasAsignaturas($db);
+						} else {
+							$siglas = selectAllSiglasAsignaturasProfesor($db, $_SESSION['id']);
+						}
+						
 						if ($_GET['asignatura'] == "todas") {
 							echo '<option value="examenes.php?asignatura=todas&autor='.$_GET['autor'].'$" selected>Todas</option>';
 						} else {
@@ -91,7 +95,7 @@
 					?>
 				</select>
 			</div>
-			<div class="form-inline col-lg-5">
+			<div class="form-inline col-lg-4">
 				<label for="selAutor">Autor: </label>
 				<select class="form-control" id="selAutor" onchange="location = this.value;">
 					<?php
@@ -99,7 +103,7 @@
 						$credentials = json_decode($credentialsStr, true);
 						$db = mysqli_connect('localhost', $credentials['database']['user'], $credentials['database']['password'], $credentials['database']['dbname']);
 
-						$autores = selectAllMailsProfesores($db);
+						$autores = selectAllMailsProfesoresSiglas($_GET['asignatura']);
 						if ($_GET['autor'] == "todos") {
 							echo '<option value="examenes.php?asignatura='.$_GET['asignatura'].'&autor=todos" selected>Todos</option>';
 						} else {
@@ -201,14 +205,20 @@
 			}
 
 			if ($examenes == null){
-				echo 'No hay exámenes';
+				echo '<br><div class="alert alert-warning" role="alert">
+						<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+				  		No hay exámenes
+					  </div>';
 			} else if (!$examenes){
-				echo 'Error con la BBDD, contacte con el administrador';
+				echo '<br><div class="alert alert-danger" role="alert">
+						<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+				  		Error con la BBDD, contacte con el administrador
+					  </div>';
 			}
 			else{
 				foreach ($examenes as $pos => $valor) {
 					echo '<tr class="item">';
-					echo '<td> <i class="fas fa-file-invoice fa-fw fa-lg"></i> </td>';
+					echo '<td> <i class="fas fa-file-invoice fa-fw fa-lg"></i> '.$valor['asignatura'].' </td>';
 					echo '<td>'.$valor['titulo'].'</td>';
 					echo '<td>'.$valor['creador'].'</td>';
 					echo '<td hidden=true;>'.$valor['fecha_creado'].'</td>';

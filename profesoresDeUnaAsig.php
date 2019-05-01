@@ -56,9 +56,9 @@
 		<br>
 		<div class="row" id="aniadir">
 			<div class="form-inline col-lg-4">
-				<label for="selAniadir">Añadir profesor a la asignatura: </label>
+				<label for="selAniadir">Añadir profesor </label>
 				<?php
-					print('<a class="fas fa-plus-circle" id="boton_modalAniadir"></a>');
+					print('<a class="fas fa-plus-circle fa-2x masExamenes" href="#" id="boton_modalAniadir"></a>');
 				?>
 			</div>
 		</div>
@@ -79,9 +79,10 @@
 			$profesores = profesoresAsignatura($idAsignatura);
 
 			if ($profesores == null){
-				echo'<div class="alert alert-warning">';
-				echo'<p>No hay profesores en esta asignatura</p>';
-				echo'</div>';
+				echo '<br><div class="alert alert-warning" role="alert">
+						<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+				  		No hay profesores en esta asignatura
+					  </div>';
 			} else if (!$profesores){
 				echo 'Error con la BBDD, contacte con el administrador';
 			}

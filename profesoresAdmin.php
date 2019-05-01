@@ -59,11 +59,12 @@
 			<div class="form-inline col-lg-2">
 				<label for="boton_modalAñadir">Invitar profesor</label>
 				<?php
-					print('<a class="fas fa-plus-circle" id="boton_modalAñadir"></a>');
+					print('<a class="fas fa-plus-circle fa-2x masExamenes" href="#" id="boton_modalAñadir"></a>');
 				?>
 			</div>
-			<div class="form-inline col-lg-2">
-				<button type="button" onclick="window.location='panelControl.php';" class="btn">Peticiones de registro <i class="fas fa-external-link-alt"></i></button>
+			<div class="form-inline col-lg-3">
+				<label for="boton_peticiones">Peticiones de registro </label>
+				<button type="button" id="boton_peticiones" onclick="window.location='panelControl.php';" class="btn btn-primary"><i class="fas fa-external-link-alt"></i></button>
 			</div>
 		</div>
 

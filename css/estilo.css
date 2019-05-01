@@ -391,5 +391,7 @@ table {
     opacity: 1 !important;
 }
 
-
+label {
+    padding-right: 5px;
+}
 

@@ -27,7 +27,6 @@
 <body>
 <div class="header" id="header"></div>
 <div class="container">
-<h1>Pagina principal del profesor</h1>
 	<?php
 		/*Incluimos asignaturasProfesorProcesamiento.php donde tenemos implementadas
 		algunas funciones que usaremos más adelante*/
