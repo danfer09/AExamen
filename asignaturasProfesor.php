@@ -1,4 +1,3 @@
-
 <?php
 	//Comprobamos si el usuario esta logeado
 	/*Iniciamos la sesion, pero antes hacemos una comprobacion para evitar errores*/
@@ -11,11 +10,7 @@
 	if (!$logeado) {
 		header('Location: index.php');
 	}
-
-
-
 ?>
-
 <html>
 <head>
 	<title>AExamen Asignaturas</title>
@@ -66,10 +61,17 @@
 		$error_BBDD = isset($_SESSION['error_BBDD'])? $_SESSION['error_BBDD']: false;
 		/*Tratamiento de errores en caso de que se haya producido alguno*/
 		if($error_ningunaAsignatura){
-			echo 'No tienes ninguna asignatura';
+			echo '<div class="alert alert-warning">
+							<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+							No tienes ninguna asignatura.
+					 	</div>';
 		}
+		//En caso de que nos de error la BBDD lo mostramos
 		else if($error_BBDD){
-			echo 'Error con la BBDD, contacte con el administrador';
+			echo '<div class="alert alert-warning">
+							<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+							Error con la BBDD, contacte con el administrador
+					 	</div>';
 		}
 		/*En caso de que no se haya producido ningún error, mostramos todas las asignaras
 		que no ha devuelto en una tabla*/
@@ -103,4 +105,3 @@
 
 </body>
 </html>
-

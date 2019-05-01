@@ -4,10 +4,9 @@
 	*Funcion que dado el id de una asignatura y el id de un profesor nos devuelve un true si
 	*el profesor tiene es coordinador de la asignatura y false en caso contrario
 	*
-	* @access public
 	* @param int $idAsig identificador de la asignatura
 	* @return boolean $result true si es coordinador y false en caso contrario*/
-	public function esCoordinador($idAsig, $idProfesor){
+	function esCoordinador($idAsig, $idProfesor){
 		$credentialsStr = file_get_contents('json/credentials.json');
 		$credentials = json_decode($credentialsStr, true);
 		$db = mysqli_connect('localhost', $credentials['database']['user'], $credentials['database']['password'], $credentials['database']['dbname']);

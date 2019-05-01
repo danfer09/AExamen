@@ -1,4 +1,4 @@
-<?php 
+<?php
 	//Comprobamos si el usuario esta logeado
 	/*Iniciamos la sesion, pero antes hacemos una comprobacion para evitar errores*/
 	if (session_status() == PHP_SESSION_NONE) {
@@ -10,13 +10,18 @@
 	if (!$logeado) {
 		header('Location: index.php');
 	}
-	
 
-	/*Funcion que dado un id de un profesor, devuelve un array con las asignaturas que
-	tiene ese profesor*/
+	/*Función que nos devuelve las assignaturas de un profesor.
+	*
+	*Funcion que dado un id de un profesor, devuelve un array con las asignaturas que
+	*tiene ese profesor. En caso de que haya un error se los pasamos por la variables
+	*Session a la vista para que lo muestre en consideracion
+	*
+	* @param int $idProfesor identificador del profesor
+	* @return $asignaturas array con las asignaturas que tiene el profesor */
 	function cargaAsignaturas($idProfesor){
 		/*Ponemos las variables session con las que comprobamos los
-		errores a false. Por si tienen algun valor de una ejecucción 
+		errores a false. Por si tienen algun valor de una ejecucción
 		anterior*/
 		$_SESSION['error_ningunaAsignatura']=false;
 		$_SESSION['error_BBDD']=false;
@@ -42,8 +47,7 @@
 			la variable session que controla ese error*/
 			if($i==0){
 				$_SESSION['error_ningunaAsignatura']=true;
-				//header('Location: asignaturasProfesor.php');
-			}	
+			}
 		}
 		else{
 			$_SESSION['error_BBDD']=true;
