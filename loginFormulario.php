@@ -8,31 +8,7 @@
 	$error_campoVacio = isset($_SESSION['error_campoVacio'])? $_SESSION['error_campoVacio']: false;
 	$error_BBDD = isset($_SESSION['error_BBDD'])? $_SESSION['error_BBDD']: false;
 	$error_autenticar = isset($_SESSION['error_autenticar'])? $_SESSION['error_autenticar']: false;
-	/*Comprobamos las variables donde hemos volcado los session y realizamos las acciones que correspondan*/
-	if($error_campoVacio){
-		echo '<div class="alert alert-danger alert_login" role="alert">
-				<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-		  		Error, ha dejado campos vacíos
-			  </div>';
-		//echo "Error campos vacíos";
-		$_SESSION['error_campoVacio']=false;
-	}
-	elseif($error_BBDD) {
-		echo '<div class="alert alert-danger alert_login" role="alert">
-				<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-		  		Error al conectar con la base de datos, contacte con el administrador
-			  </div>';
-		//echo "Error al conectar con la base de datos";
-		$_SESSION['error_BBDD']=false;
-	}
-	elseif($error_autenticar){
-		//echo"Error al autenticar";
-		echo '<div class="alert alert-danger alert_login" role="alert">
-				<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-		  		Usuario y/o contraseña no coinciden
-			  </div>';
-		$_SESSION['error_autenticar']=false;
-	}
+	
 
 	/*Volcamos a una variable el valor de la session logeado. Si vale true es que ya estamos logeados, en caso contrario es que no estamos logeados*/
 	$logeado = isset($_SESSION['logeado'])? $_SESSION['logeado']: false;
@@ -62,6 +38,35 @@
 
         <div class="page-title text-center">
           <h1>Login</h1>
+
+          <?php
+          	/*Comprobamos las variables donde hemos volcado los session y realizamos las acciones que correspondan*/
+			if($error_campoVacio){
+				echo '<div class="alert alert-danger alert_login" role="alert">
+						<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+				  		Error, ha dejado campos vacíos
+					  </div>';
+				//echo "Error campos vacíos";
+				$_SESSION['error_campoVacio']=false;
+			}
+			elseif($error_BBDD) {
+				echo '<div class="alert alert-danger alert_login" role="alert">
+						<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+				  		Error al conectar con la base de datos, contacte con el administrador
+					  </div>';
+				//echo "Error al conectar con la base de datos";
+				$_SESSION['error_BBDD']=false;
+			}
+			elseif($error_autenticar){
+				//echo"Error al autenticar";
+				echo '<div class="alert alert-danger alert_login" role="alert">
+						<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+				  		Usuario y/o contraseña incorrectos
+					  </div>';
+				$_SESSION['error_autenticar']=false;
+			}
+          ?>
+
           <hr class="pg-titl-bdr-btm"></hr>
         
         <form action="loginProcesamiento.php" id="formulario_login" method="post">
