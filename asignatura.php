@@ -1,5 +1,3 @@
-<!--COMPROBAR QUE EL USUARIO ESTA LOGEADO -->
-
 <html>
 <head>
 	<title>AExamen Asignatura</title>
@@ -18,7 +16,7 @@
 <body>
 	<div class="header" id="header"></div>
 	<div class="container">
-		<?php 
+		<?php
 			/*Iniciamos la sesion, pero antes hacemos una comprobacion para evitar errores*/
 			if (session_status() == PHP_SESSION_NONE) {
 			    session_start();
@@ -29,13 +27,15 @@
 			if (!$logeado) {
 				header('Location: index.php');
 			}
-			//include "funcionesServidor.php";
+			/*Incluimos archivo donde tenemos todas la funciones que usamos*/
 			include "asignaturaProcesamiento.php";
+			//Obtenemos los parametros que nos pasan por GET
 			$idAsignatura=$_GET['id'];
 			$idProfesor=$_SESSION['id'];
 			$nombreAsig=$_GET["nombre"];
-			
+
 			echo '<h1>Asignatura: '. $_GET["nombre"]. '</h1>';
+			//Mostramos los dos botones principales
 			?>
 			<div id="portfolio">
 			    <div class="container">
@@ -64,8 +64,9 @@
 			          </a>
 			        </div>
 			<?php
+			//Si es coordinador mostramos las demás opciones
 			if(esCoordinador($idAsignatura,$idProfesor)){
-				
+
 				?>
 					<div class="col-xl-3 col-lg-4 col-md-6 col-sm-3 portfolio-item filter-app">
 			          <h3>PROFESORES</h3>
@@ -90,12 +91,12 @@
 			            </div>
 			          </a>
 			        </div>
-			<?php	
+			<?php
 			}
 			?>
 			      </div>
 			    </div>
-			  </div>		
+			  </div>
 	</div>
 
 	<!--Librerias externas-->
@@ -111,4 +112,3 @@
 
 </body>
 </html>
-
