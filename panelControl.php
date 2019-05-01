@@ -7,6 +7,7 @@
 	<link rel="stylesheet" type="text/css" href="css/w3.css">
 	<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
 	<link rel="stylesheet" type="text/css" href="css/all.css">
+	
 	<meta charset="UTF-8">
 	<link rel="shortcut icon" href="img/favicon.ico" type="image/ico">
 </head>
@@ -36,6 +37,7 @@
 			include 'panelControlProcesamiento.php';
 		?>
 
+		<!-- LOG -->
 		<div class="row filaPanelControl">
 			<div class="col-lg-12">
 				<h2><b>Log</b></h2>
@@ -61,6 +63,7 @@
 
 		<br><hr>
 
+		<!-- PETICIONES -->
 		<div class="row filaPeticionesRegistro">
 			<div class="col-lg-10">
 				<h2><b>Peticiones de registro</b></h2>
@@ -69,7 +72,6 @@
 				<a class="fas fa-sync-alt" onclick="location.reload();" id="recargaPeticiones"></a>
 			</div>
 			<hr>
-			<!-- PETICIONES -->
 			<?php
 				$peticiones = getPeticiones();
 				if ($peticiones == null) {
