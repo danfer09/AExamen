@@ -73,7 +73,10 @@
 			<?php
 				$peticiones = getPeticiones();
 				if ($peticiones == null) {
-					echo 'No hay peticiones.';
+					echo '<br><br><div class="col-12 alert alert-warning" role="alert">
+						<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+				  		No hay peticiones pendientes
+					  </div>';
 				} else {
 					$i=0;
 					foreach ($peticiones as $peticion) {

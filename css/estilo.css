@@ -326,6 +326,7 @@ table {
 }
 .filaPeticionesRegistro {
     padding-left: 15px;
+    width: 100%;
 }
 #recargarPanelControl {
 	padding-top: 1%;
