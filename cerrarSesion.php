@@ -10,13 +10,13 @@ if (!$logeado) {
 	header('Location: index.php');
 }
 
-//Something to write to txt log
+//Escribimos en el log que el usuario ha cerrado sesion
 $log  = '['.date("d/m/Y - H:i:s").'] : '."USER --> id ".$_SESSION['id'].' - '.$_SESSION['apellidos'].', '.$_SESSION['nombre'].
         " | ACTION --> Cierre de sesión ".' de '.$_SESSION['email'].PHP_EOL.
         "-----------------------------------------------------------------".PHP_EOL;
-//Save string to log, use FILE_APPEND to append.
 file_put_contents('./log/log_AExamen.log', utf8_decode($log), FILE_APPEND);
 
+//Borramos los valores de la session
 $_SESSION = array();
 
 
@@ -27,7 +27,7 @@ if (ini_get("session.use_cookies")) {
         $params["secure"], $params["httponly"]
     );
 }
-
+//Destruimos la session y redirigimos a formulario de login
 session_destroy();
 header("Location: loginFormulario.php");
 ?>
