@@ -5,32 +5,49 @@
 	$error_campoVacio = isset($_SESSION['error_campoVacio'])? $_SESSION['error_campoVacio']: false;
 	$error_BBDD = isset($_SESSION['error_BBDD'])? $_SESSION['error_BBDD']: false;
 	$error_usuario_no_existente = isset($_SESSION['error_usuario_no_existente'])? $_SESSION['error_usuario_no_existente']: false;
-	if($error_campoVacio){
-		echo "Error, introduzca un email";
-		$error_campoVacio=false;
-	}
-	elseif($error_BBDD) {
-		echo "Error al conectar con la base de datos";
-		$error_BBDD=false;
-	}
-	elseif($error_usuario_no_existente){
-		echo"Error, el correo electrónico no coincide con ninguno ya registrado";
-		$error_usuario_existente=false;
-	}
+	
 ?>
 <!DOCTYPE html>
 <html>
 <head>
+	<title>AExamen Olvido Contraseña</title>
 	<!--css propio -->
 	<link rel="stylesheet" type="text/css" href="css/estilo.css">
 	<!--css externos-->
 	<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
 	<link rel="stylesheet" type="text/css" href="css/all.css">
 	<meta charset="UTF-8">
+	<link rel="shortcut icon" href="img/favicon.ico" type="image/ico">
 </head>
 <body>
 	<div class="container">
 		<h1>Reestablecer contraseña</h1>
+
+		<?php
+
+			if($error_campoVacio){
+				echo '<div class="alert alert-warning">
+						<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+				    	Error, introduzca un email.
+					  </div>';
+				$_SESSION['error_campoVacio']=false;
+			}
+			elseif($error_BBDD) {
+				echo '<div class="alert alert-danger">
+						<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+				    	Error al conectar con la base de datos
+					  </div>';
+				$_SESSION['error_BBDD']=false;
+			}
+			elseif($error_usuario_no_existente){
+				echo '<div class="alert alert-warning">
+						<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+				    	Error, el correo electrónico no coincide con ninguno ya registrado
+					  </div>';
+				$_SESSION['error_usuario_no_existente']=false;
+			}
+
+		?>
 
 		<p>Introduce tu correo electrónico para poder reestablecer la contraseña mediante el correo que te enviaremos: </p>
 

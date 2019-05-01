@@ -149,6 +149,12 @@ th:hover {
 	color:red;
 }
 
+#infoPeticion {
+    opacity: 1;
+    overflow: auto;
+    padding-top: 10%;
+}
+
 #logoCentral {
 	color: black;
 }
@@ -311,11 +317,15 @@ table {
 	text-decoration: none;
 }
 
+#container-panel-control {
+    padding-right: 0px;
+}
 .filaPanelControl {
-	border-width: 1px;
-	border-style: solid;
-	border-color: black;
-	padding: 5px;
+    width: 100%;
+	padding-left: 15px;
+}
+.filaPeticionesRegistro {
+    padding-left: 15px;
 }
 #recargarPanelControl {
 	padding-top: 1%;
@@ -329,13 +339,13 @@ table {
 	padding-bottom: 5px;
 	margin-top: 5px;
 	margin-left: 0px;
-	background-color: lightgrey;
 }
 .peticionPanelControlPar {
 	padding-top: 5px;
 	padding-bottom: 5px;
 	margin-top: 5px;
 	margin-left: 0px;
+    background-color: rgba(0, 0, 0, 0.05);
 }
 
 .centrar {
@@ -376,6 +386,9 @@ table {
      background-color: rgba(0,0,0,0.5) !important;
 }
 
+.modal-backdrop.fade {
+    opacity: 1 !important;
+}
 
 
 

@@ -33,11 +33,13 @@
 <!DOCTYPE html>
 <html>
 <head>
+	<title>AExamen Establecer Contraseña</title>
 	<!--css externos-->
 	<link rel="stylesheet" type="text/css" href="css/w3.css">
 	<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
 	<link rel="stylesheet" type="text/css" href="css/all.css">
 	<meta charset="UTF-8">
+	<link rel="shortcut icon" href="img/favicon.ico" type="image/ico">
 </head>
 <body>
 	<div class="container">

@@ -1,5 +1,6 @@
 <html>
 <head>
+	<title>AExamen Inicio</title>
 	<!--css propio -->
 	<link rel="stylesheet" type="text/css" href="css/estilo.css">
 	<!--css externos-->
@@ -11,6 +12,7 @@
   	<link rel="stylesheet" type="text/css" href="css/style.css">
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="shortcut icon" href="img/favicon.ico" type="image/ico">
 </head>
 
 <body>

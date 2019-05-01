@@ -1,5 +1,6 @@
 <html>
 <head>
+	<title>AExamen Panel de Control</title>
 	<!--css propio -->
 	<link rel="stylesheet" type="text/css" href="css/estilo.css">
 	<!--css externos-->
@@ -7,10 +8,11 @@
 	<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
 	<link rel="stylesheet" type="text/css" href="css/all.css">
 	<meta charset="UTF-8">
+	<link rel="shortcut icon" href="img/favicon.ico" type="image/ico">
 </head>
 <body>
 	<div class="header" id="header"></div>
-	<div class="container">
+	<div class="container" id="container-panel-control">
 		<h1>Panel de control</h1>
 
 		<?php
@@ -18,14 +20,13 @@
 			if (session_status() == PHP_SESSION_NONE) {
 			    session_start();
 			}
-			//var_dump($_SESSION['error1']);
-			//Si existe $_SESSION['logeado'] volcamos su valor a la variable, si no existe volcamos false. Si vale true es que estamos logeado.
+			
+			/*Si existe $_SESSION['logeado'] volcamos su valor a la variable, si no existe volcamos false. Si vale true es que estamos logeado.*/
 			$logeado = isset($_SESSION['logeado'])? $_SESSION['logeado']: false;
 			/*En caso de no este logeado redirigimos a index.php, en caso contrario le damos la bienvenida*/
 			if (!$logeado) {
 				header('Location: index.php');
 			}
-
 
 			if (!$_SESSION['administrador']){
 				header('Location: index.php');
@@ -33,17 +34,6 @@
 
 			include 'funcionesServidor.php';
 			include 'panelControlProcesamiento.php';
-
-			/*echo "<br>prueba: ".$_SESSION['prueba'];
-			$_SESSION['prueba'] = "inicializadoooooo";
-
-			echo "<br>prueba1: ";
-			print_r($_SESSION['prueba1']);
-			//var_dump($_SESSION['prueba1']);
-			$_SESSION['prueba1'] = "inicializadoo11111";
-
-			echo "<br>prueba2: ".$_SESSION['prueba2'];
-			$_SESSION['prueba2'] = "inicializadooo222";*/
 		?>
 
 		<div class="row filaPanelControl">
@@ -69,9 +59,9 @@
 			</div>
 		</div>
 
-		<br><hr><br>
+		<br><hr>
 
-		<div class="row">
+		<div class="row filaPeticionesRegistro">
 			<div class="col-lg-10">
 				<h2><b>Peticiones de registro</b></h2>
 			</div>
@@ -107,7 +97,7 @@
 				}
 			?>
 
-			<!-- Modal <i class="fas fa-info-clock"></i> -->
+			<!-- Modal -->
 			<div id="infoPeticion" class="modal fade" role="dialog">
 			  <div class="modal-dialog">
 

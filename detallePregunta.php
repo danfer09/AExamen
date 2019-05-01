@@ -2,6 +2,7 @@
 
 <html>
 <head>
+	<title>AExamen Pregunta</title>
 	<!--css propio -->
 	<link rel="stylesheet" type="text/css" href="css/estilo.css">
 	<!--css externos-->
@@ -9,6 +10,7 @@
 	<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
 	<link rel="stylesheet" type="text/css" href="css/all.css">
 	<meta charset="UTF-8">
+	<link rel="shortcut icon" href="img/favicon.ico" type="image/ico">
 </head>
 <body>
 	<div class="header" id="header"></div>

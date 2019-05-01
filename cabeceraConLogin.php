@@ -13,6 +13,7 @@
 <head>
 	<!--css propio -->
 	<link rel="stylesheet" type="text/css" href="css/cabeceraLogin.css">
+	<link rel="shortcut icon" href="img/favicon.ico" type="image/ico">
 </head>
 <header id="header">
 	<nav class="links" style="--items:1;">

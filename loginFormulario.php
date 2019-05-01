@@ -44,6 +44,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+	<title>AExamen Login</title>
 	<!--css propio -->
 	<link rel="stylesheet" type="text/css" href="css/loginFormulario.css">
 	<link rel="stylesheet" type="text/css" href="css/estilo.css">
@@ -51,6 +52,7 @@
 	<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
 	<link rel="stylesheet" type="text/css" href="css/all.css">
 	<meta charset="UTF-8">
+	<link rel="shortcut icon" href="img/favicon.ico" type="image/ico">
 </head>
 <body>
 
