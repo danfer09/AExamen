@@ -31,9 +31,7 @@
 				echo '<h1>Pagina principal del administrador</h1>';
 			} else {
 				echo '<h1>Pagina principal del profesor</h1>';
-			}
-
-			
+			}	
 			if ($logeado) {
 				echo "<h2> Bienvenido ". $_SESSION['nombre']. "</h2>";
 			}
@@ -43,14 +41,13 @@
 
 
 		?>
-		<!--<a href="perfilPropioProf.php"> Editar perfil </a>-->
 		<div id="portfolio">
 		    <div class="container">
 
 		      <div class="row" id="portfolio-wrapper">
 		<?php
 		if($_SESSION['administrador']){
-			
+
 			?>
 				<div class="col-xl-3 col-lg-4 col-md-6 col-sm-3 portfolio-item filter-app">
 		          <h3>ASIGNATURAS</h3>
@@ -87,7 +84,7 @@
 		            </div>
 		          </a>
 		        </div>
-		<?php	
+		<?php
 		}
 		else{
 		?>
@@ -118,13 +115,9 @@
 		      </div>
 		    </div>
 		  </div>
-
-		<!--<a href="cerrarSesion.php">Salir</a>-->
-
-
 	</div>
 
-	
+
 
  	<!--Librerias externas-->
 	<script src="js/jquery-3.3.1.min.js"></script>
