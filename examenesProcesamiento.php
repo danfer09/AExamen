@@ -1,5 +1,3 @@
-<!--COMPROBAR QUE EL USUARIO ESTA LOGEADO -->
-
 <?php
 	/*Iniciamos la sesion, pero antes hacemos una comprobacion para evitar errores*/
 	if (session_status() == PHP_SESSION_NONE) {
@@ -11,6 +9,14 @@
 	if (!$logeado) {
 		header('Location: index.php');
 	}
+
+	/*Función que carga las preguntas de un examen dado
+	*
+	*Funcion que dado un identificador de examen nos devuelve las preguntas
+	*que tiene ese examen en forma de array
+	*
+	* @param int $idExamen identificador de examen
+	* @return $preguntas array con las preguntas del examen */
 	function cargaUnicoExamenPreguntas($idExamen){
 		$_SESSION['error_BBDD']=false;
 		//Comprobamos que ninguna de las variables este a null
@@ -40,6 +46,13 @@
 		return $preguntas;
 	}
 
+	/*Función que carga el autor de un examen
+	*
+	*Funcion que dado el identificador de un examen nos de un examen
+	*nos devuelve el autor del examnen
+	*
+	* @param int $idExamen identificador de examen
+	* @return $fila['autor'] identificardor del profesor que ha creado el examen*/
 	function cargaAutorExamen($idExamen){
 		$_SESSION['error_BBDD']=false;
 		//Comprobamos que ninguna de las variables este a null
@@ -59,8 +72,16 @@
 		}
 		mysqli_close($db);
 		return $fila['autor'];
-		
+
 	}
+
+	/*Función que carga el ultimo profesor que ha modificado un examen
+	*
+	*Funcion que dado un identificador de examen nos devuelve el identificardor
+	*del ultimo profesor que lo ha modificado
+	*
+	* @param int $idExamen identificador de examen
+	* @return $fila['modificador'] de el ultimo profesor que ha modificado el examen */
 	function cargaModificadorExamen($idExamen){
 		$_SESSION['error_BBDD']=false;
 		//Comprobamos que ninguna de las variables este a null
@@ -80,9 +101,15 @@
 		}
 		mysqli_close($db);
 		return $fila['modificador'];
-		
+
 	}
 
+	/*Función que carga la información de un examen dado
+	*
+	*Funcion que, dado un identificador de un examen, carga la informacion básica de este
+	*
+	* @param int $idExamen identificador de examen
+	* @return $fila array con la información del examen */
 	function cargaUnicoExamenInfo($idExamen){
 		$_SESSION['error_BBDD']=false;
 		//Comprobamos que ninguna de las variables este a null
@@ -104,9 +131,15 @@
 		return $fila;
 	}
 
-	/*
-		Devuelve el resultado del select para todos los mails de profesores
-	*/
+	/*Funcion que nos devuelve los profesores de una asignatura
+	*
+	*Funcion que dadas las siglas de una asignatura nos devuelve un array con los
+	*profesores que esta tiene
+	*
+	* @param string $asignaturaSiglas siglas de la asignatura de la que queremos
+	*lo profesores
+	* @return $resultado array con los profesores que tiene la asignatura, en caso de
+	* que la asignatura no tiene profesores devolvemos false  */
 	function selectAllMailsProfesoresSiglas($asignaturaSiglas) {
 		$credentialsStr = file_get_contents('json/credentials.json');
 		$credentials = json_decode($credentialsStr, true);
@@ -120,17 +153,24 @@
 					$resultado[] = $fila;
 				}
 			} else {
-				echo "No hay profesores";
 				$resultado = null;
 			}
 			mysqli_close($db);
 			return $resultado;
 		} else {
-			echo "Conexión fallida";
 			return false;
 		}
 	}
 
+	/*Funcion que nos devuelve los profesores de una asignatura
+	*
+	*Funcion que dado el identificador de una asignatura nos devuelve un array con los
+	*profesores que esta tiene
+	*
+	* @param string $idAsignatura identificador de la asignatura de la que queremos
+	*lo profesores
+	* @return $resultado array con los profesores que tiene la asignatura, en caso de
+	* que la asignatura no tiene profesores devolvemos false  */
 	function selectAllMailsProfesoresId($idAsignatura) {
 		$credentialsStr = file_get_contents('json/credentials.json');
 		$credentials = json_decode($credentialsStr, true);
@@ -144,20 +184,23 @@
 					$resultado[] = $fila;
 				}
 			} else {
-				echo "No hay profesores";
 				$resultado = null;
 			}
 			mysqli_close($db);
 			return $resultado;
 		} else {
-			echo "Conexión fallida";
 			return false;
 		}
 	}
 
-	/*
-		Devuelve el resultado del select para todas las siglas de las asignaturas
-	*/
+	/*Funcion que nos devuelve todas las asignaturas de la plataforma
+	*
+	*Funcion que pasandole un enlace a la BBDD nos devuelve todas las asignaturas
+	*que hay dadas de alta en el sistema
+	*
+	* @param $db conexion con la BBDD
+	* @return $resultado array con las asignaturas que tiene el sistema, en caso
+	* de que no haya asignaturas en el sistema devuelve false  */
 	function selectAllSiglasAsignaturas($db) {
 		if($db){
 			$sql = "SELECT siglas, id FROM asignaturas";
@@ -168,20 +211,25 @@
 					$resultado[] = $fila;
 				}
 			} else {
-				echo "No hay asignaturas";
 				$resultado = null;
 			}
 			mysqli_close($db);
 			return $resultado;
 		} else {
-			echo "Conexión fallida";
 			return false;
 		}
 	}
 
-	/*
-		Devuelve el resultado del select para todas las siglas de las asignaturas
-	*/
+	/*Funcion que nos devuelve las siglas y el identificador de todas las asignaturas
+	* de la plataforma
+	*
+	*Funcion que pasandole un enlace a la BBDD nos devuelve la siglas y el identificador
+	*de todas las asignaturas que hay dadas de alta en el sistema
+	*
+	* @param $db conexion con la BBDD
+	* @return $resultado array con las siglas y el identificador de todas las
+	* asignaturas que tiene el sistema, en caso de que no haya asignaturas en el
+	* sistema devuelve false  */
 	function selectAllSiglasAsignaturasProfesor($db, $idProfesor) {
 		if($db){
 			$sql = "SELECT asignaturas.siglas, asignaturas.id FROM asignaturas INNER JOIN prof_asig_coord on asignaturas.id = prof_asig_coord.id_asignatura WHERE prof_asig_coord.id_profesor=".$idProfesor;
@@ -192,20 +240,22 @@
 					$resultado[] = $fila;
 				}
 			} else {
-				echo "No hay asignaturas";
 				$resultado = null;
 			}
 			mysqli_close($db);
 			return $resultado;
 		} else {
-			echo "Conexión fallida";
 			return false;
 		}
 	}
 
-	/*
-		Devuelve el resultado del select para todos los examenes junto con creador, modificador y asignatura relacionados
-	*/
+	/*Devuelve todos los examenes del sistema con la informacion de cada uno de ellos
+	*
+	*Funcion que pasandole un enlace a la BBDD nos todos la información de todos los
+	*examenes que hay en el sistema
+	*
+	* @param $db conexion con la BBDD
+	* @return $resultado array con los examenes de todo el sistema y su respectiva informacion */
 	function selectAllExamenesCompleto($db) {
 		if($db){
 			if (!$_SESSION['administrador']) {
@@ -230,9 +280,16 @@
 		}
 	}
 
-	/*
-		Devuelve el resultado del select para ciertos examenes junto con creador, modificador y asignatura relacionados
-	*/
+	/*Devuelve todos los examenes de un autor y de una asignatura determinada
+	*
+	*Funcion que pasandole un enlace a la BBDD, las siglas de la asignatura y
+	*el mail del autor nos devuelve un array con todos la informacion de todos los
+	*examenes de esa asignatura y de ese autor
+	*
+	* @param $db conexion con la BBDD
+	* @param string $asignaturaSiglas siglas de la asignatura
+	* @param string $autorMail mail del autor
+	* @return $resultado array con los examenes y su respectiva informacion */
 	function selectAllExamenesFiltrado($db, $asignaturaSiglas, $autorMail) {
 		if($db){
 			if (!$_SESSION['administrador']) {
@@ -253,7 +310,6 @@
 					$resultado[] = $fila;
 				}
 			} else {
-				//echo "No hay exámenes";
 				$resultado = null;
 			}
 			mysqli_close($db);
@@ -270,16 +326,22 @@
 		borrarExamen($idExamen);
 	}
 
-	/*
-		Elimina el examen con el $id pasado por parámetro a la función
-	*/
+	/*Borra el examen que le indicamos por parametro
+	*
+ 	* Funcion que dado el identificador de un examen borra dicho examen del sistema
+	*devolviendo true en caso de que se haya borrado correctamente y false en caso
+	*contrario
+	*
+	* @param int $idExamen identificador del examen
+	* @return boolean $funciona true si se ha borrado el examen con exito y false en
+	*caso contrario */
 	function borrarExamen($idExamen){
 		$funciona=false;
 		$credentialsStr = file_get_contents('json/credentials.json');
 		$credentials = json_decode($credentialsStr, true);
 		$db = mysqli_connect('localhost', $credentials['database']['user'], $credentials['database']['password'], $credentials['database']['dbname']);
-		//comprobamos si se ha conectado a la base de datos
 
+		//comprobamos si se ha conectado a la base de datos
 		if($db){
 			$preguntas = cargaUnicoExamenPreguntas($idExamen);
 			foreach ($preguntas as $pregunta) {
@@ -288,7 +350,6 @@
 			}
 			$sql = "DELETE FROM examenes WHERE id=".$idExamen;
 			$consulta=mysqli_query($db,$sql);
-			//$fila=mysqli_fetch_assoc($consulta);
 			$funciona=true;
 		}
 		else{
@@ -298,9 +359,14 @@
 		mysqli_close($db);
 
 		echo $funciona;
-		//INSERT INTO `preguntas`(`id`, `titulo`, `cuerpo`, `tema`, `creador`, `fecha_creacion`, `ult_modificador`, `fecha_modificado`, `asignatura`) VALUES ('','Titulo pregunta insertada','Cuerpo pregunta insertada','3','3','','3','','2')
 	}
-
+	/*Carga el historial de un examen indicado
+	*
+	*Funcion que dado un identificador de un examen nos devuelve el historial
+	*de modificaciones de dicho examen
+	*
+	* @param int $idExamen identificador del examen
+	* @return $historial historial de modificaciones del examen */
 	function cargaHistorialExamen($idExamen) {
 		$_SESSION['error_BBDD']=false;
 		//Comprobamos que ninguna de las variables este a null

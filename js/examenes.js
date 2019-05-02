@@ -1,5 +1,5 @@
 $(document).ready(function(){
-
+    // jquery para mostrar los modales de editar y de borrar examen
     $('#opciones a').click(function() {
         var id = $(this).attr("id");
         if(id == "boton_modalEditar") {
@@ -8,28 +8,24 @@ $(document).ready(function(){
         }
         else if(id == "boton_modalBorrar"){
         	$("#boton_borrar").attr("id_examen",$(this).attr("idExamen"));
-        	//alert($(this).attr("idExamens"));
-        	//alert($("#boton_borrar").attr("id_Examen"));
         	$('#modal_borrarExamen').modal('show');
         }
-        
+
     });
 
-    
+    // Ajax ejecutado cuando queremos borrar un examen
      $('#form_delete').submit(function(event) {
     	var funcion = "borrarExamen";
     	var form_data = $(this).serialize();
       $.ajax({
-          type        : 'POST', // define the type of HTTP verb we want to use (POST for our form)
-          url         : 'examenesProcesamiento.php', // the url where we want to POST
-          data        : form_data + '&funcion=' + funcion + '&id_examen=' + $("#boton_borrar").attr("id_examen"), // our data object
+          type        : 'POST',
+          url         : 'examenesProcesamiento.php',
+          data        : form_data + '&funcion=' + funcion + '&id_examen=' + $("#boton_borrar").attr("id_examen"),
           success: function(respuesta) {
         		if(respuesta){
-        			//alert("Borrada con exito");
         			location.reload();
         		}
         		else{
-        			//alert("Fallo al borrar");
         			location.reload();
         		}
 		     }
@@ -38,23 +34,19 @@ $(document).ready(function(){
 
     });
 
-
+  //Funcionamiento del boton borrar (papelera roja)
   $('#boton_borrar').click(function() {
+    //Pedimos confirmacion antes de borrar el examen
     const mensaje = "¿Esta seguro de que desea borrar este examen?";
-    if(window.confirm(mensaje)){ 
-        $("#form_delete").submit(); 
+    if(window.confirm(mensaje)){
+        $("#form_delete").submit();
       }
       return false;
   });
 
-  
-
-  //$("#selGenera").change($("#selGenera").val(), cambiarLinkGenerarExamen);
-  
 });
 
 function cambiarLinkGenerarExamen(value) {
-   
     if (value) {
       //si seleccionamos una asignatura
       if (value != "-") {
@@ -67,7 +59,4 @@ function cambiarLinkGenerarExamen(value) {
         $("#boton_modalAñadir").attr("hidden", true);
       }
     }
-    
-    
-    //crearExamen.php?asignatura='.$_GET["asignatura"].'&idAsignatura='.$_GET["idAsignatura"].'
   }

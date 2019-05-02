@@ -1,5 +1,3 @@
-<!--COMPROBAR QUE EL USUARIO ESTA LOGEADO -->
-
 <html>
 <head>
 	<title>AExamen Exámenes</title>
@@ -13,8 +11,6 @@
 	<link rel="shortcut icon" href="img/favicon.ico" type="image/ico">
 </head>
 <body>
-
-
 	<div class="header" id="header"></div>
 	<div class="container">
 		<h1>Pagina principal del profesor</h1>
@@ -23,7 +19,6 @@
 			if (session_status() == PHP_SESSION_NONE) {
 			    session_start();
 			}
-			//var_dump($_SESSION['error1']);
 			//Si existe $_SESSION['logeado'] volcamos su valor a la variable, si no existe volcamos false. Si vale true es que estamos logeado.
 			$logeado = isset($_SESSION['logeado'])? $_SESSION['logeado']: false;
 			/*En caso de no este logeado redirigimos a index.php, en caso contrario le damos la bienvenida*/
@@ -31,8 +26,10 @@
 				header('Location: index.php');
 			}
 			echo "<h2> Examenes </h2>";
+			//incluimos los archivos que contienen una serie de funciones que vamos a usar
 			include "examenesProcesamiento.php";
 			include 'funcionesServidor.php';
+			//Mostramos mensajes de exito si se ha realizado alguna accion correctamente
 			if (isset($_GET['successCreate'])&& $_GET['successCreate'])  {
 				echo '<div class="alert alert-success alert_success" role="alert">
 						<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
@@ -45,18 +42,6 @@
 		  				Examen editado con éxito
 			  		  </div>';
 			}
-
-
-			/*echo "<br>prueba: ".$_SESSION['prueba'];
-			$_SESSION['prueba'] = "inicializadoooooo";
-
-			echo "<br>prueba1: ";
-			print_r($_SESSION['prueba1']);
-			//var_dump($_SESSION['prueba1']);
-			$_SESSION['prueba1'] = "inicializadoo11111";
-
-			echo "<br>prueba2: ".$_SESSION['prueba2'];
-			$_SESSION['prueba2'] = "inicializadooo222";*/
 		?>
 		<br>
 		<div class="row" id="filtros">
@@ -67,18 +52,23 @@
 						$credentialsStr = file_get_contents('json/credentials.json');
 						$credentials = json_decode($credentialsStr, true);
 						$db = mysqli_connect('localhost', $credentials['database']['user'], $credentials['database']['password'], $credentials['database']['dbname']);
+						//Si es administrador mostramos en el filtro todas las asignaturas
+						//en caso de que sea un profesor solo mostramos las asignaturas que
+						//tenga asignadas
 						if ($_SESSION['administrador']) {
 							$siglas = selectAllSiglasAsignaturas($db);
 						} else {
 							$siglas = selectAllSiglasAsignaturasProfesor($db, $_SESSION['id']);
 						}
-						
+						//Con el valor que nos pasen por parametros pondremos el filtro en
+						//un estado o en otro
 						if ($_GET['asignatura'] == "todas") {
 							echo '<option value="examenes.php?asignatura=todas&autor='.$_GET['autor'].'$" selected>Todas</option>';
 						} else {
 							echo '<option value="examenes.php?asignatura=todas&autor='.$_GET['autor'].'">Todas</option>';
 						}
-
+						//Mostramos las siglas que hemos cargado de BBDD, la que este
+						//seleccionada la ponemos en ese estado en el formulario
 						if ($siglas == null){
 							echo 'No hay siglas';
 						} else if (!$siglas){
@@ -102,14 +92,15 @@
 						$credentialsStr = file_get_contents('json/credentials.json');
 						$credentials = json_decode($credentialsStr, true);
 						$db = mysqli_connect('localhost', $credentials['database']['user'], $credentials['database']['password'], $credentials['database']['dbname']);
-
+						//Cargamos los profesores de la asignatura que estemos mostrando
 						$autores = selectAllMailsProfesoresSiglas($_GET['asignatura']);
 						if ($_GET['autor'] == "todos") {
 							echo '<option value="examenes.php?asignatura='.$_GET['asignatura'].'&autor=todos" selected>Todos</option>';
 						} else {
 							echo '<option value="examenes.php?asignatura='.$_GET['asignatura'].'&autor=todos">Todos</option>';
 						}
-
+						//Mostramos a los profesores que hemos cargado de la BBDD en el
+						//formulario
 						if ($autores == null){
 							echo 'No hay nombres de profesores';
 						} else if (!$autores){
@@ -130,6 +121,7 @@
 		</div>
 		<br>
 		<?php
+			//Si es administrador le impedimos crear examen
 			if (!$_SESSION['administrador']) {
 		?>
 		<div class="row" id="generar">
@@ -148,7 +140,8 @@
 						} else {
 							echo '<option id="opcionTodas" value="-">-</option>';
 						}
-
+						//cargamos las siglas de los examenes que puede crear un profesor
+						//en el formulario
 						if ($siglas == null){
 							echo 'No hay siglas';
 						} else if (!$siglas){
@@ -179,7 +172,7 @@
 		<?php
 			}
 		?>
-
+		<!-- tabla en la que mostramos los examenes-->
 		<table id="tabla_examenes" class="table table-hover">
 		    <thead>
 		      <tr>
@@ -197,13 +190,14 @@
 			$credentialsStr = file_get_contents('json/credentials.json');
 			$credentials = json_decode($credentialsStr, true);
 			$db = mysqli_connect('localhost', $credentials['database']['user'], $credentials['database']['password'], $credentials['database']['dbname']);
-
+			//Dependiendo de lo que nos pasen por parametros cargamos unos examenes u
+			//otros
 			if ($_GET['asignatura'] == "todas" && $_GET['autor'] == "todos") {
 				$examenes=selectAllExamenesCompleto($db);
 			} else {
 				$examenes = selectAllExamenesFiltrado($db, $_GET['asignatura'], $_GET['autor']);
 			}
-
+			//Si no hay examenes o hubo un error con la BBDD los mostramos
 			if ($examenes == null){
 				echo '<br><div class="alert alert-warning" role="alert">
 						<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
@@ -216,6 +210,7 @@
 					  </div>';
 			}
 			else{
+				//Mostramos los examenes que hemos cargado de la BBDD
 				foreach ($examenes as $pos => $valor) {
 					echo '<tr class="item">';
 					echo '<td> <i class="fas fa-file-invoice fa-fw fa-lg"></i> '.$valor['asignatura'].' </td>';
@@ -239,17 +234,15 @@
 		?>
 			</tbody>
 		</table>
-
+		<!-- Modal de borrar examen-->
 		<div class="modal" id="modal_borrarExamen">
 			<div class="modal-dialog">
 			  <div class="modal-content">
-
 			    <!-- Modal Header -->
 			    <div class="modal-header">
 			      <h4 class="modal-title">¿Borrar examen?</h4>
 			      <button type="button" class="close" data-dismiss="modal">&times;</button>
 			    </div>
-
 			    <!-- Modal body -->
 			    <div class="modal-body" id="modal_borrarExamen_body">
 					  <form action="servidor.php" class="form-container" method="post" id="form_delete">
@@ -257,12 +250,9 @@
 					    <button type="button" class="btn btn-secondary btn-lg" id="boton_noBorrar" name="boton_noBorrar" data-dismiss="modal">No</button>
 					  </form>
 			    </div>
-
 			    <!-- Modal footer -->
 			    <div class="modal-footer">
-			      <!--<button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>-->
 			    </div>
-
 			  </div>
 			</div>
 		</div>
@@ -277,4 +267,3 @@
 
 </body>
 </html>
-
