@@ -1,5 +1,4 @@
-<?php	
-
+<?php
 	/*Iniciamos la sesion, pero antes hacemos una comprobacion para evitar errores*/
 	if (session_status() == PHP_SESSION_NONE) {
 	    session_start();
@@ -10,14 +9,21 @@
 	if (!$logeado) {
 		header('Location: index.php');
 	}
+
+	//Cargamos los parametros post en variables y según lo que valgan llamamos a una función
 	$nombreExamen = isset($_POST['nombreExamen'])? $_POST['nombreExamen']: null;
 	$funcion = isset($_POST['funcion'])? $_POST['funcion']: null;
 	if($funcion == "guardarModificarExamen")
 		guardarModificarExamen($nombreExamen);
 
+		/*Función que nos devuelve toda la informacion de un examen.
+		*
+		*Funcion que dado un identificador de examen nos devuelve un array con
+		*toda la información de este.
+		*
+		* @param int $idExamen identificador de un examen
+		* @return $fila array con la informacion del examen*/
 	function getExamen($idExamen){
-		
-
 		$credentialsStr = file_get_contents('json/credentials.json');
 		$credentials = json_decode($credentialsStr, true);
 		$db = mysqli_connect('localhost', $credentials['database']['user'], $credentials['database']['password'], $credentials['database']['dbname']);
@@ -35,6 +41,7 @@
 		return $fila;
 	}
 
+
 	function guardarModificarExamen ($nombreExamen) {
 		$credentialsStr = file_get_contents('json/credentials.json');
 		$credentials = json_decode($credentialsStr, true);
@@ -45,25 +52,19 @@
 
 		$preguntasJsonArray = isset($_SESSION[$nombreExamenEditar])? json_decode($_SESSION[$nombreExamenEditar],true): null;
 		$preguntasJsonArray['nombreExamen'] = $nombreExamen;
-		//$_SESSION[$nombreExamenEditar] = json_encode($preguntasJsonArray);
 		$_SESSION[$nombreExamen] = json_encode($preguntasJsonArray);
 
 		$preguntasJsonArray=$_SESSION[$nombreExamen];
 		$idExamen=$_SESSION['idExamen'];
 
 		$sqlExamen="UPDATE `examenes` SET `titulo`='".$nombreExamen."'"." ,`fecha_modificado`='".$date."',`ultimo_modificador`=".$_SESSION['id'].",`puntosPregunta`='".$preguntasJsonArray."' WHERE id=".$idExamen;
-		
+
 		if (mysqli_query($db,$sqlExamen)) {
-			//echo "Nuevo examen añadido";
-
-
 			$numTemas = getNumTemasModificar($_SESSION['idAsignatura']);
-			//$arrayPuntosTema =cargaPuntosTemaModificar($_SESSION['idAsignatura']);
-			//$jsonPuntosTema = json_decode($arrayPuntosTema,true);
 			$preguntasSesion = isset($preguntasJsonArray)? json_decode($preguntasJsonArray,true): null;
-		
+
 			$sqlDelete= "DELETE FROM `exam_preg` WHERE id_examen=".$idExamen;
-			
+
 			if (mysqli_query($db,$sqlDelete)) {
 				for ($i = 1; $i <= $numTemas; $i++) {
 					$preguntasTema = isset($preguntasSesion['preguntas']['tema'.$i])? $preguntasSesion['preguntas']['tema'.$i]: null;
@@ -74,14 +75,11 @@
 							if(!mysqli_query($db,$sqlExam_Preg))
 								$_SESSION['error1'] = "Error: " . $sqlDelete .' '. mysqli_error($db);
 						}
-					}					
-				}	
+					}
+				}
 				$preguntasEditadasAhora = isset($_SESSION['editarExamenCambios'])? json_decode($_SESSION['editarExamenCambios'],true): null;
 					if ($preguntasEditadasAhora) {
-						$_SESSION['prueba1'] = $preguntasEditadasAhora;
-						$varPrueba= 0;
 						foreach ($preguntasEditadasAhora as $id => $value) {
-							$varPrueba++;
 							if($value){
 								$sqlReferencia = "UPDATE `preguntas` SET `referencias` = `referencias` + 1 WHERE id=".$id;
 								mysqli_query($db,$sqlReferencia);
@@ -91,26 +89,23 @@
 								mysqli_query($db,$sqlReferencia);
 							}
 						}
-						$_SESSION['prueba']= $varPrueba;
 					}
-			} else {
 			}
 			$sql = "INSERT INTO `examenes_historial`(`id`, `idExamen`, `idModificador`, `fecha_modificacion`) VALUES ('',".$idExamen.",".$_SESSION['id'].",'".$date."')";
 			$consulta=mysqli_query($db,$sql);
 			$_SESSION['editarExamenCambios'] = "{}";
-
-
-			//$fila=mysqli_fetch_assoc($consulta);
-
-		} else {
-			//$_SESSION['error1'] = "Error: " . $sqlExamen .' '. mysqli_error($db);
-			//echo "Error: " . $sql . "<br>" . mysqli_error($conn);
 		}
-		//$mensaje = array();
-		//$mensaje['Message'] = "Examen guardado";
-		//echo json_encode($mensaje);	
 	}
 
+	/*Función que dada una asignatura nos devuelve los puntos por tema que tiene
+	*en su examen por defecto
+	*
+	*Funcion que dado un identificador de una asignatura, nos devuelve un string
+	*en formato json con la cantidad de puntos por tema que tiene un examen suyo por defecto
+	*
+	* @param int $idAsignatura identificador de una asignatura
+	* @return string $fila string con formato json que tiene la cantidad de puntos
+	* por cada tema */
 	function cargaPuntosTemaModificar($idAsignatura){
 		$credentialsStr = file_get_contents('json/credentials.json');
 		$credentials = json_decode($credentialsStr, true);
@@ -129,6 +124,14 @@
 
 		return $fila['puntos_tema'];
 	}
+
+	/*Funcion que devuleve el numero de temas de una asignatura
+	*
+	*Funcion que dado un identificador de una asignatura nos devuelve un entero
+	*con el numero de temas
+	*
+	* @param int $idAsignatura identificador de una asignatura
+	* @return int $jsonUsable['numeroTemas'] numero de temas de esa asignatura  */
 	function getNumTemasModificar($idAsignatura){
 		$jsonNumeroTemas = cargaPuntosTemaModificar($idAsignatura);
 		$jsonUsable = json_decode($jsonNumeroTemas,true);
