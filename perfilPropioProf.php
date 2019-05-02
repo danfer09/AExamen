@@ -9,15 +9,11 @@
 	if (!$logeado) {
 		header('Location: index.php');
 	}
-
 	//Comprobamos los distitos session que controlan los diversos errores, si existen los volcamos en unas variables para que sea mas manejable
 	$error_ejecuccionConsulta = isset($_SESSION['error_ejecuccionConsulta'])? $_SESSION['error_ejecuccionConsulta']: false;
 	$error_noFilasConCondicion = isset($_SESSION['error_noFilasConCondicion'])? $_SESSION['error_noFilasConCondicion']: false;
 	$error_BBDD = isset($_SESSION['error_BBDD'])? $_SESSION['error_BBDD']: false;
 	$error_campoVacio = isset($_SESSION['error_campoVacio'])? $_SESSION['error_campoVacio']: false;
-	
-
-
 ?>
 <!DOCTYPE html>
 <html>
@@ -36,10 +32,9 @@
 	<div class="header" id="header"></div>
 	<div class="container">
 		<h1>Mi perfil</h1>
-		<?php 
+		<?php
 			//Mostramos los datos del usuario y los botones para que pueda modificar los datos
 			echo "<h2> Bienvenido ". $_SESSION['nombre'] . "</h2>";
-
 			//Comprobamos las variables en las que hemos volcado los distintos session de errores y realizamos la accion adecauda para cada error
 			if($error_ejecuccionConsulta){
 				echo"Error en la ejecución de la consulta";
@@ -73,15 +68,14 @@
 						 </div>';
 			}
 
-			echo '<p>Nombre: ' . $_SESSION['nombre']. ' <button type="button" class="btn btn-primary" data-toggle="modal" id="btn_cambiarNombre">Cambiar nombre</button></p>';		
+			echo '<p>Nombre: ' . $_SESSION['nombre']. ' <button type="button" class="btn btn-primary" data-toggle="modal" id="btn_cambiarNombre">Cambiar nombre</button></p>';
 			echo "<p>Apellidos: " . $_SESSION['apellidos']. ' <button type="button" class="btn btn-primary" data-toggle="modal" id="btn_cambiarApellidos">Cambiar apellidos</button></p>';
 
 			echo "<p>correo: " . $_SESSION['email'];
 			echo ($_SESSION['administrador']) ?"<button type='button' class='btn btn-primary' data-toggle='modal' id='btn_cambiarCorreo'>Cambiar correo </button></p>" : "</p>";
 			echo "<p><button type='button' class='btn btn-primary' data-toggle='modal' id='btn_cambiarClave'>Cambiar contraseña</button></p>";
 		?>
-	  
-
+		
 		<!-- Modal de Nombre -->
 		<div class="modal" id="modal_cambiarNombre">
 			<div class="modal-dialog">
@@ -92,7 +86,7 @@
 			      <h4 class="modal-title">Cambiar nombre</h4>
 			      <button type="button" class="close" data-dismiss="modal">&times;</button>
 			    </div>
-			    
+
 			    <!-- Modal body de Nombre -->
 			    <div class="modal-body">
 					  <form action="perfPropProfProcesamiento.php" class="form-container" method="post" id="form_cambiarNombre">
@@ -102,12 +96,12 @@
 					    <button type="submit" class="btn" id="boton_cambiarNombre" name="boton_cambiarNombre">Cambiar</button>
 					  </form>
 			    </div>
-			    
+
 			    <!-- Modal footer de Nombre -->
 			    <div class="modal-footer">
 			      <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
 			    </div>
-			    
+
 			  </div>
 			</div>
 		</div>
@@ -116,13 +110,13 @@
 		<div class="modal" id="modal_cambiarApellidos">
 		    <div class="modal-dialog">
 		      <div class="modal-content">
-		      
+
 		        <!-- Modal Header de Apellidos -->
 		        <div class="modal-header">
 		          <h4 class="modal-title">Cambiar apellidos</h4>
 		          <button type="button" class="close" data-dismiss="modal">&times;</button>
 		        </div>
-		        
+
 		        <!-- Modal body de Apellidos -->
 		        <div class="modal-body">
 					  <form action="perfPropProfProcesamiento.php" class="form-container" method="post" id="form_cambiarApellidos">
@@ -132,27 +126,27 @@
 					    <button type="submit" class="btn" id="boton_cambiarApellidos" name="boton_cambiarApellidos">Cambiar</button>
 					  </form>
 		        </div>
-		        
+
 		        <!-- Modal footer de Apellidos -->
 		        <div class="modal-footer">
 		          <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
 		        </div>
-		        
+
 		      </div>
 		    </div>
 	  	</div>
-	  	
+
 		<!-- Modal de Clave -->
 		<div class="modal" id="modal_cambiarClave">
 		    <div class="modal-dialog">
 		      <div class="modal-content">
-		      
+
 		        <!-- Modal Header de Clave -->
 		        <div class="modal-header">
 		          <h4 class="modal-title">Cambiar contraseña</h4>
 		          <button type="button" class="close" data-dismiss="modal">&times;</button>
 		        </div>
-		        
+
 		        <!-- Modal body de Clave -->
 		        <div class="modal-body">
 					  <form action="perfPropProfProcesamiento.php" class="form-container" method="post" id="form_cambiarClave">
@@ -163,12 +157,12 @@
 					    <button type="submit" class="btn" id="boton_cambiarClave" name="boton_cambiarClave">Cambiar</button>
 					  </form>
 		        </div>
-		        
+
 		        <!-- Modal footer de Clave -->
 		        <div class="modal-footer">
 		          <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
 		        </div>
-		        
+
 		      </div>
 		    </div>
 	  	</div>
@@ -177,7 +171,7 @@
 		<div class="modal" id="modal_cambiarCorreo">
 		    <div class="modal-dialog">
 		      <div class="modal-content">
-		      
+
 		        <!-- Modal Header de Correo -->
 		        <div class="modal-header">
 		          <h4 class="modal-title">Cambiar correo</h4>
@@ -193,12 +187,12 @@
 					    <input type="submit" class="btn" id="boton_cambiarCorreo" name="boton_cambiarCorreo" value="Cambiar">
 					  </form>
 		        </div>
-		        
+
 		        <!-- Modal footer de Correo -->
 		        <div class="modal-footer">
 		          <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
 		        </div>
-		        
+
 		      </div>
 		    </div>
 	  	</div>

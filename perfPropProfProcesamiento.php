@@ -27,7 +27,6 @@
 		$nuevoApellidos = isset($_POST['apellidos'])? $_POST['apellidos']: null;
 		$nuevoClave = isset($_POST['clave'])? $_POST['clave']: null;
 		$nuevoCorreo = isset($_POST['correo'])? $_POST['correo']: null;
-
 		//Si nuevoNombre no esta a null es que el usuario quiere cambiar el nombre, por lo tanto procedemos a cambiarlo
 		if($nuevoNombre!=null){
 			//Conectamos la base de datos
@@ -40,7 +39,7 @@
 					$sql = "UPDATE profesores SET nombre= '".$nuevoNombre."' WHERE id=".$_SESSION['id'];
 				else
 					$sql = "UPDATE administradores SET nombre= '".$nuevoNombre."' WHERE id=".$_SESSION['id'];
-				
+
 				$consulta=mysqli_query($db,$sql);
 				//Comprobamos los distintos errores que se pueden producir y ponemos a true los session que corresponden
 				if(mysqli_affected_rows($db) == -1){
@@ -50,17 +49,14 @@
 					$_SESSION['error_noFilasConCondicion']=true;
 				}
 				else{
-
-					//Something to write to txt log
+					//Registramos el cambio de nombre en el log
 					$log  = '['.date("d/m/Y - H:i:s").'] : '."USER --> id ".$_SESSION['id'].' - '.$_SESSION['apellidos'].', '.$_SESSION['nombre'].' (nombre anterior)'.
 					        " | ACTION --> Cambio de nombre a ".$nuevoNombre.PHP_EOL.
 					        "-----------------------------------------------------------------".PHP_EOL;
-					//Save string to log, use FILE_APPEND to append.
 					file_put_contents('./log/log_AExamen.log', utf8_decode($log), FILE_APPEND);
-
 					$_SESSION['nombre']=$nuevoNombre;
 				}
-				header('Location: perfilPropioProf.php');				
+				header('Location: perfilPropioProf.php');
 			}
 			else{
 				$_SESSION['error_BBDD']=true;
@@ -90,17 +86,14 @@
 					$_SESSION['error_noFilasConCondicion']=true;
 				}
 				else{
-
-					//Something to write to txt log
+					//Registramos el cambio de apellidos en el log
 					$log  = '['.date("d/m/Y - H:i:s").'] : '."USER --> id ".$_SESSION['id'].' - '.$_SESSION['apellidos'].' (apellidos anteriores), '.$_SESSION['nombre'].
 					        " | ACTION --> Cambio de apellidos a ".$nuevoApellidos.PHP_EOL.
 					        "-----------------------------------------------------------------".PHP_EOL;
-					//Save string to log, use FILE_APPEND to append.
 					file_put_contents('./log/log_AExamen.log', utf8_decode($log), FILE_APPEND);
-
 					$_SESSION['apellidos']=$nuevoApellidos;
 				}
-				header('Location: perfilPropioProf.php');				
+				header('Location: perfilPropioProf.php');
 			}
 			else{
 				$_SESSION['error_BBDD']=true;
@@ -121,7 +114,7 @@
 					$sql = "UPDATE profesores SET clave= '".$hashed_clave."' WHERE id=".$_SESSION['id'];
 				}
 				else{
-					$sql = "UPDATE `administradores` SET `clave`= '".$hashed_clave."' WHERE id=".$_SESSION['id'];					
+					$sql = "UPDATE `administradores` SET `clave`= '".$hashed_clave."' WHERE id=".$_SESSION['id'];
 				}
 				$consulta=mysqli_query($db,$sql);
 				//Comprobamos los distintos errores que se pueden producir y ponemos a true los session que corresponden
@@ -131,22 +124,18 @@
 				elseif(!(mysqli_affected_rows($db))){
 					$_SESSION['error_noFilasConCondicion']=true;
 				}
-
-				//Something to write to txt log
+				//Registramos el cambio de contraseña en el log
 				$log  = '['.date("d/m/Y - H:i:s").'] : '."USER --> id ".$_SESSION['id'].' - '.$_SESSION['apellidos'].', '.$_SESSION['nombre'].
 				        " | ACTION --> Cambio de contraseña".PHP_EOL.
 				        "-----------------------------------------------------------------".PHP_EOL;
-				//Save string to log, use FILE_APPEND to append.
 				file_put_contents('./log/log_AExamen.log', utf8_decode($log), FILE_APPEND);
-				
-				header('Location: perfilPropioProf.php');				
+				header('Location: perfilPropioProf.php');
 			}
 			else{
 				$_SESSION['error_BBDD']=true;
 				header('Location: perfilPropioProf.php');
 			}
 		}
-
 		//Si $nuevoCorreo no esta a null es que el usuario quiere cambiar el clave, por lo tanto procedemos a cambiarlo
 		elseif($nuevoCorreo!=null){
 			//Conectamos la base de datos
@@ -165,20 +154,18 @@
 					$_SESSION['error_noFilasConCondicion']=true;
 				}
 				$_SESSION["email"] = $nuevoCorreo;
-				header('Location: perfilPropioProf.php');				
+				header('Location: perfilPropioProf.php');
 			}
 			else{
 				$_SESSION['error_BBDD']=true;
 				header('Location: perfilPropioProf.php');
 			}
 		}
-
-
 		else{
 			$_SESSION['error_campoVacio']=true;
 			header('Location: perfilPropioProf.php');
 		}
-		mysqli_close($db);	
+		mysqli_close($db);
 	}
 	else{
 		header('Location: perfilPropioProf.php');
