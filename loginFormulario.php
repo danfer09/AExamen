@@ -8,7 +8,7 @@
 	$error_campoVacio = isset($_SESSION['error_campoVacio'])? $_SESSION['error_campoVacio']: false;
 	$error_BBDD = isset($_SESSION['error_BBDD'])? $_SESSION['error_BBDD']: false;
 	$error_autenticar = isset($_SESSION['error_autenticar'])? $_SESSION['error_autenticar']: false;
-	
+
 
 	/*Volcamos a una variable el valor de la session logeado. Si vale true es que ya estamos logeados, en caso contrario es que no estamos logeados*/
 	$logeado = isset($_SESSION['logeado'])? $_SESSION['logeado']: false;
@@ -31,8 +31,6 @@
 	<link rel="shortcut icon" href="img/favicon.ico" type="image/ico">
 </head>
 <body>
-
-<!--SERVICE START-->
   <div id="service" class="section-padding">
     <div class="container">
 
@@ -46,7 +44,6 @@
 						<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
 				  		Error, ha dejado campos vacíos
 					  </div>';
-				//echo "Error campos vacíos";
 				$_SESSION['error_campoVacio']=false;
 			}
 			elseif($error_BBDD) {
@@ -54,11 +51,9 @@
 						<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
 				  		Error al conectar con la base de datos, contacte con el administrador
 					  </div>';
-				//echo "Error al conectar con la base de datos";
 				$_SESSION['error_BBDD']=false;
 			}
 			elseif($error_autenticar){
-				//echo"Error al autenticar";
 				echo '<div class="alert alert-danger alert_login" role="alert">
 						<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
 				  		Usuario y/o contraseña incorrectos
@@ -66,9 +61,7 @@
 				$_SESSION['error_autenticar']=false;
 			}
           ?>
-
           <hr class="pg-titl-bdr-btm"></hr>
-        
         <form action="loginProcesamiento.php" id="formulario_login" method="post">
 		  Email:<br>
 		  <input type="text" name="email" id="email">
@@ -77,15 +70,13 @@
 		  <input type="password" name="clave" id="clave">
 		  <br><br>
 		  <input type="submit" value="Acceder" id="logear" name="logear" class="btn btn-primary">
-		</form> 
+		</form>
 		<br>
 		<p><a href="registrarseFormulario.php">Registrarse</a></p>
 		<p><a href="olvidoPassword.php">Olvidé mi contraseña</a></p>
 		</div>
-
     </div>
   </div>
-  <!--SERVICE END-->
 
 	<!--Librerias externas-->
 	<script src="js/jquery-3.3.1.min.js"></script>

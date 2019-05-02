@@ -65,21 +65,20 @@
 						$_SESSION['id']=$datos['id'];
 						$_SESSION['administrador'] = $encontradoAdmin;
 
-						//Something to write to txt log
+						//Registramos este login en el log
 						$log  = '['.date("d/m/Y - H:i:s").'] : '."USER --> id ".$_SESSION['id'].' - '.$_SESSION['apellidos'].', '.$_SESSION['nombre'].
 						        " | ACTION --> Inicio de sesión ".' de '.$_SESSION['email'].PHP_EOL.
 						        "-----------------------------------------------------------------".PHP_EOL;
-						//Save string to log, use FILE_APPEND to append.
 						file_put_contents('./log/log_AExamen.log', utf8_decode($log), FILE_APPEND);
 
 						header('Location: paginaPrincipalProf.php');
 					}
 					/*En caso de que la clave no coincida con el usuairo ponemos a true la variable de error al autentiacar y redirigimos a loginFormulario.php donde la tratamos*/
-					else{					
+					else{
 						$_SESSION['error_autenticar']=true;
 						header('Location: loginFormulario.php');
 					}
-				}				
+				}
 			}
 			/*Error al conectarse a la BBDD*/
 			else{
@@ -93,7 +92,7 @@
 			header('Location: loginFormulario.php');
 		}
 		/*Cerrar la BBDD*/
-		mysqli_close($db);	
+		mysqli_close($db);
 	}
 	/*En caso de que no sea un metodo POST o un usuario quiera acceder a este php poniendo su ruta en el navegador, los redirigimos a loginFormulario.php*/
 	else{
