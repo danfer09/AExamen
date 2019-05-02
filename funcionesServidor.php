@@ -90,7 +90,7 @@
 			return 'hace '.$min.' min.';
 		}
 
-		if ((date("j")==date('j',$time))) {
+		if ((date("d")==date('d',$time))) {
 			return date('H:i',$time);
 		}
 

@@ -31,7 +31,7 @@
 				echo '<h1>Pagina principal del administrador</h1>';
 			} else {
 				echo '<h1>Pagina principal del profesor</h1>';
-			}	
+			}
 			if ($logeado) {
 				echo "<h2> Bienvenido ". $_SESSION['nombre']. "</h2>";
 			}
@@ -57,6 +57,18 @@
 		            <div class="details">
 		              <h4>ASIGNATURAS</h4>
 		              <span>Gestionar asignaturas</span>
+		            </div>
+		          </a>
+		        </div>
+
+		        <div class="col-xl-3 col-lg-4 col-md-6 col-sm-3 portfolio-item filter-web">
+		          <h3>EXÁMENES</h3>
+		          <a href="examenes.php?asignatura=todas&autor=todos">
+		            <img src="img/examenes-document.png" alt="">
+		            <h3>EXÁMENES</h3>
+		            <div class="details">
+		              <h4>EXÁMENES</h4>
+		              <span>Ver los exámenes</span>
 		            </div>
 		          </a>
 		        </div>
