@@ -131,6 +131,45 @@
 		return $fila;
 	}
 
+	/*Función que comprueba si el profesor puede acceder a un examen
+	*
+	* Funcion que, dado un identificador de una asignatura a la que pertenece un examen, comprueba si puede visualizarlo o no
+	*
+	* @param int $idAsignatura identificador de asignatura
+	* @return $acceso boolean true si puede acceder, false en caso contrario
+	*/
+	function comprobarAcceso($idAsignatura) {
+		$_SESSION['error_BBDD']=false;
+		//Comprobamos que ninguna de las variables este a null
+		//Conectamos la base de datos
+		$credentialsStr = file_get_contents('json/credentials.json');
+		$credentials = json_decode($credentialsStr, true);
+		$db = mysqli_connect('localhost', $credentials['database']['user'], $credentials['database']['password'], $credentials['database']['dbname']);
+		$asignaturas = array();
+		//comprobamos si se ha conectado a la base de datos
+		if($db){
+			$sql = "SELECT asignaturas.id as id FROM prof_asig_coord INNER JOIN asignaturas ON prof_asig_coord.id_asignatura = asignaturas.id WHERE id_profesor=".$_SESSION['id'];
+			$consulta=mysqli_query($db,$sql);
+			$fila=mysqli_fetch_assoc($consulta);
+			$acceso = false;
+			$i=0;
+			while($fila){
+				$asignaturas[$i]=$fila;
+				if ($fila['id']==$idAsignatura) {
+					$acceso = true;
+				}
+				$i++;
+				$fila=mysqli_fetch_assoc($consulta);
+			}
+		}
+		else{
+			$_SESSION['error_BBDD']=true;
+			header('Location: loginFormulario.php');
+		}
+		mysqli_close($db);
+		return $acceso;
+	}
+
 	/*Funcion que nos devuelve los profesores de una asignatura
 	*
 	*Funcion que dadas las siglas de una asignatura nos devuelve un array con los

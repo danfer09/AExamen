@@ -172,15 +172,15 @@
 			    <!-- Modal body -->
 			    <div class="modal-body">
 					  <form action="preguntasProcesamiento.php" class="form-container" method="post" id="form_add">
-					    <h1 name="aniadirPregunta">Añadir pregunta</h1>
+					    <h1 name="aniadirPregunta">Añadir pregunta</h1><br>
 
-					    <input type="text" placeholder="Introduzca el titulo" name="titulo" id="titulo">
+					    <input type="text" class="form-control" placeholder="Introduzca el titulo" name="titulo" id="titulo">
 					    <br>
-					    <input type="text" placeholder="Introduzca el cuerpo" name="cuerpo" id="cuerpo">
+					    <input type="text" class="form-control" placeholder="Introduzca el cuerpo" name="cuerpo" id="cuerpo">
 					    <br>
-					    <input type="number" placeholder="Introduzca el tema" name="tema" id="tema" min="0">
+					    <input type="number" class="form-control" placeholder="Introduzca el tema" name="tema" id="tema" min="0">
 					    <br>
-					    <button type="submit" class="btn" id="boton_añadir" name="boton_añadir">Insertar</button>
+					    <button type="submit" class="btn btn-primary" id="boton_añadir" name="boton_añadir">Insertar</button>
 					  </form>
 			    </div>
 
@@ -236,15 +236,15 @@
 			    <!-- Modal body -->
 			    <div class="modal-body">
 					  <form action="preguntasProcesamiento.php" class="form-container" method="post" id="form_mod">
-					    <h1">Editar pregunta</h1>
-					    <p id="infoParaEditar">Los campos que deje vacíos mantendrán su valor actual</p>
-					    <input type="text" placeholder="Introduzca el titulo" name="titulo" id="titulo">
+					    <h1>Editar pregunta</h1>
+					    <p id="infoParaEditar">Los campos que deje vacíos mantendrán su valor actual</p><br>
+					    <input type="text" class="form-control" placeholder="Introduzca el titulo" name="titulo" id="titulo">
 					    <br>
-					    <input type="text" placeholder="Introduzca el cuerpo" name="cuerpo" id="cuerpo">
+					    <input type="text" class="form-control" placeholder="Introduzca el cuerpo" name="cuerpo" id="cuerpo">
 					    <br>
-					    <input type="number" min="0" placeholder="Introduzca el tema" name="tema" id="tema">
+					    <input type="number" class="form-control" min="0" placeholder="Introduzca el tema" name="tema" id="tema">
 					    <br>
-					    <button type="submit" class="btn" id="boton_editar" name="boton_editar">Editar</button>
+					    <button type="submit" class="btn btn-primary" id="boton_editar" name="boton_editar">Editar</button>
 					  </form>
 			    </div>
 

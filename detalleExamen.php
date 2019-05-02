@@ -29,6 +29,13 @@
 			include "preguntasProcesamiento.php";
 			include "funcionesServidor.php";
 			$examen=cargaUnicoExamenInfo($_GET['id']);
+
+			$idAsignatura = $examen['id_asig'];
+			$acceso = comprobarAcceso($idAsignatura);
+			if (!$acceso) {
+				header('Location: index.php');
+			}
+
 			echo "<h1>Examen: ". $examen['titulo']. "</h1>";
 
 		?>
