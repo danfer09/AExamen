@@ -7,7 +7,6 @@ $(document).ready(function(){
 	$(document).bind("change keyup mouseup", ".puntosTemaForm, .puntosExamenTotal, .numTemasForm", function() {
 		let sumaPuntos = 0;
 		$( ".puntosTemaForm" ).each(function() {
-		  //console.log($( this ).val());
 		  sumaPuntos += parseInt($( this ).val(), 10);
 		});
     console.log(sumaPuntos);
@@ -48,7 +47,7 @@ $(document).ready(function(){
 
   $('#formParametros').on('keyup keypress', function(e) {
     var keyCode = e.keyCode || e.which;
-    if (keyCode === 13) { 
+    if (keyCode === 13) {
       e.preventDefault();
       return false;
     }
@@ -80,19 +79,17 @@ $(document).ready(function(){
         console.log(idAsig);
         var form_data = $(this).serialize();
       $.ajax({
-          type        : 'POST', // define the type of HTTP verb we want to use (POST for our form)
-          url         : 'definirParametrosExamProcesamiento.php', // the url where we want to POST
+          type        : 'POST',
+          url         : 'definirParametrosExamProcesamiento.php',
           data        : form_data + '&funcion=' + funcion + '&jsonParametros=' +  JSON.stringify(jsonNuevo) + "&idAsig=" + idAsig + "&espaciado=" + espaciado + "&textoInicial=" + textoInicial, // our data object
           success: function(respuesta) {
                 if(respuesta){
-                    console.log(respuesta);
-                    console.log("hola");
-                    location.reload();
+                    $('#message').append('<div class="alert alert-success contenidoMensaje"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>Parámetros guardados con éxito</div>');
+                    $('.contenidoMensaje').fadeOut(3000);
                 }
                 else{
-                	console.log("falla");
-                    //alert("Fallo al borrar");
-                    location.reload();
+                  $('#message').append('<div class="alert alert-danger contenidoMensaje"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>Los parametros no se han podido guardar correctamente</div>');
+                  $('.contenidoMensaje').fadeOut(3000);
                 }
              }
       })

@@ -14,7 +14,7 @@
 	include "definirParametrosExamProcesamiento.php";
 
 	$esCoordinador = esCoordinador($_GET['idAsig'], $_SESSION['id']);
-	/*En caso de no este logeado redirigimos a index.php, en caso contrario le damos la bienvenida*/
+	/*En caso de que no sea coordinador de esta asignatura le redirigimos a la pagina principal*/
 	if (!$esCoordinador) {
 		header('Location: index.php');
 	}
@@ -38,27 +38,18 @@
 <div class="container">
 <?php
 	echo'<h1 class="idAsignatura" idAsig="'.$_GET['idAsig'].'" >Pagina de coordinador</h1>';
+	//Obtenemos el parametro que nos pasan por GET
 	$idAsig=$_GET['idAsig'];
+	//Obtenemos los parametros que tienen los examenes de esta asignatura y
+	// los ponemos en sus respectivas variables
 	$paramExam = selectParametrosAsig($idAsig);
 	$puntosTema = json_decode($paramExam['puntos_tema'], true);
 	$espaciado = $paramExam['espaciado_defecto'];
 	$textoInicial = $paramExam['texto_inicial'];
-
-	//echo "pruebaParam: ";
-	//var_dump($_SESSION['pruebaParam']);
-	//$pruebaParamDecode = json_decode($_SESSION['pruebaParam']);
-	//echo"<br>";
-	//echo "pruebaParam2: ";
-	//var_dump($_SESSION['pruebaParam2']);
-	//var_dump($_SESSION['pruebaParam2']);
-	//echo "PruebaParamDecode: ";
-	//var_dump($pruebaParamDecode);*/
-
-
 ?>
 		<form class="form-container" method="post" id="formParametros">
 			<div class="row">
-				<div class="form-group col-10"></div>
+				<div class="form-group col-10" id="message"></div>
 				<div class="form-group col-2">
 					<button type="button" class="btn btn-info" id="botonRestablecer">Restablecer valores</button>
 				</div>
@@ -94,7 +85,7 @@
 							?>
 						</div>
 					</div>
-				</div>				
+				</div>
 				<br>
 				<!-- Formulario para definir espacio entre preguntas-->
 				<div class="panel panel-primary">
@@ -103,7 +94,7 @@
 						<div class="row">
 							<div class="form-group col-4">
 								<div class="form-check">
-								  <input class="form-check-input espaciado" type="radio" name="exampleRadios" id="exampleRadios1" value="pequenio" 
+								  <input class="form-check-input espaciado" type="radio" name="exampleRadios" id="exampleRadios1" value="pequenio"
 								  <?php if($espaciado == 5) echo("checked") ?>>
 								  <label class="form-check-label" for="exampleRadios1">
 								    Pequeño

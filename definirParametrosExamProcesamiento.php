@@ -10,17 +10,25 @@
 	if (!$logeado) {
 		header('Location: index.php');
 	}
-
+//Obtenemos los parametros que nos pasan por post y los pasamos a la
+//funcion indicada
 $funcion = isset($_POST['funcion'])? $_POST['funcion']: null;
-$jsonParametros = isset($_POST['jsonParametros'])? json_decode($_POST['jsonParametros']): null;
+$puntos_tema = isset($_POST['jsonParametros'])? $_POST['jsonParametros']: null;
 $idAsig = isset($_POST['idAsig'])? $_POST['idAsig']: null;
 $espaciado = isset($_POST['espaciado'])? $_POST['espaciado']: null;
 $textoInicial = isset($_POST['textoInicial'])? $_POST['textoInicial']: null;
 if($funcion == "updateParametrosAsig"){
-	$_SESSION['pruebaParam'] = $jsonParametros;
-	updateParametrosAsig($jsonParametros, $idAsig, $espaciado, $textoInicial);
+	$_SESSION['pruebaParam'] = $puntos_tema;
+	updateParametrosAsig($puntos_tema, $idAsig, $espaciado, $textoInicial);
 }
 
+/*Función que nos devuelve los parametros de un examen de una asignatura.
+*
+*Funcion que dado el id de una asignatura nos devuelve los parametros para
+*un examen de esa asignatura
+*
+* @param int $idAsig identificador de la asignatura
+* @return $fila array con los parametros que tiene definido esa asignatura */
 function selectParametrosAsig($idAsig) {
 	$credentialsStr = file_get_contents('json/credentials.json');
 	$credentials = json_decode($credentialsStr, true);
@@ -37,44 +45,55 @@ function selectParametrosAsig($idAsig) {
 	return $fila;
 }
 
-function updateParametrosAsig($jsonParametros, $idAsig, $espaciado, $textoInicial){
+/*Función que nos actualiza los parametros para un examen de una asignatura
+*
+*Funcion que dado unos puntos por tema, un espaciado y un texto inicial
+*actualiza esto valores como valores de un examen por defecto de la asignatura
+*que le indicamos con el identificador que tambien le pasamos por parametro
+*
+*
+* @param string $puntos_tema puntos definidos por cada tema con forma json
+* @param string $idAsig identificador de la asignatura
+* @param string $espaciado valor que queremos poner en el espaciado
+* @param strint $textoInicial Texto que queremos mostrar al comienzo del examen
+* @return boolean $success devuleve true si la modificacion se ha realizado con exito y false en caso contrario */
+function updateParametrosAsig($puntos_tema, $idAsig, $espaciado, $textoInicial){
+	//Conectamos con la BBDD
 	$credentialsStr = file_get_contents('json/credentials.json');
 	$credentials = json_decode($credentialsStr, true);
 	$db = mysqli_connect('localhost', $credentials['database']['user'], $credentials['database']['password'], $credentials['database']['dbname']);
-	//$_SESSION['pruebaParam'] = $jsonParametros;
-	$jsonParametrosString = json_encode($jsonParametros);
+	//hacemos casting para transformarlos en enteros
 	$espaciadoInt = (int)$espaciado;
 	$idAsigInt = (int)$idAsig;
-	//$_SESSION['pruebaParam'] = $espaciadoInt;
-	//$_SESSION['pruebaParam2'] = $textoInicial;
-	$jsonParametrosString = "'".$jsonParametrosString."'";
+
+	$puntos_tema = "'".$puntos_tema."'";
 	if($db){
-		$sql = "UPDATE `asignaturas` SET`espaciado_defecto`=".$espaciadoInt.", `texto_inicial`= '".$textoInicial."', `puntos_tema`= ".$jsonParametrosString." WHERE id=".$idAsigInt;
+		$sql = "UPDATE `asignaturas` SET`espaciado_defecto`=".$espaciadoInt.", `texto_inicial`= '".$textoInicial."', `puntos_tema`= ".$puntos_tema." WHERE id=".$idAsigInt;
 		$consulta=mysqli_query($db,$sql);
 
-		//Something to write to txt log
+		//Apuntamos en el log que usuario a modificado los valores por defecto del examen de la asignatura
 			$log  = '['.date("d/m/Y - H:i:s").'] : '."USER --> id ".$_SESSION['id'].' - '.$_SESSION['apellidos'].', '.$_SESSION['nombre'].', '.$_SESSION['email'].
 			        " | ACTION --> Parámetros de la asignatura con id ".$idAsig." modificados".PHP_EOL.
 			        "-----------------------------------------------------------------".PHP_EOL;
-			//Save string to log, use FILE_APPEND to append.
 			file_put_contents('./log/log_AExamen.log', utf8_decode($log), FILE_APPEND);
-
-		//$sql = "UPDATE `asignaturas` SET  WHERE id=".$idAsig;
-		//$consulta=mysqli_query($db,$sql);
-		//$sql = "UPDATE `asignaturas` SET  WHERE id=".$idAsig;
-		//$consulta=mysqli_query($db,$sql);
-		//UPDATE `asignaturas` SET `texto_inicial`='asdfasdfa' WHERE id=1
-		//UPDATE `asignaturas` SET `puntos_tema`='{"numeroTemas":"3","maximoPuntos":"10","tema1":"5","tema2":"3","tema3":"2"}' WHERE id=1
-		//UPDATE `asignaturas` SET `puntos_tema`= "{'numeroTemas':'3','maximoPuntos':'10','tema1':'4','tema2':'3','tema3':'3'}" WHERE id=1
-		
 	} else {
-		//echo "Conexión fallida";
 		echo false;
 	}
 	mysqli_close($db);
 	echo true;
 }
+/*Funcion que sirve para saber si un profesor es coordinador de una asignatura
+*
+*Funcion que dado un identificador de una asignatura y un identificador de un
+*profesor nos devuelve true en caso de que el profesor sea coordinador de
+*esa asignatura y false en caso contrario
+*
+*
 
+* @param int $idAsig identificador de la asignatura
+* @param int $idProfesor identificador de un profesor
+* @return boolean $result['coordinador'] devuelve true en caso de que el profesor sea coordinador
+*de esa asignatura y false en caso contrario */
 function esCoordinador($idAsig, $idProfesor){
 		$credentialsStr = file_get_contents('json/credentials.json');
 		$credentials = json_decode($credentialsStr, true);
