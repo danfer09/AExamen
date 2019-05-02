@@ -1,5 +1,3 @@
-<!--COMPROBAR QUE EL USUARIO ESTA LOGEADO -->
-
 <html>
 <head>
 	<title>AExamen Examen</title>
@@ -38,11 +36,10 @@
 		<br>
 
 		<?php
+			//Mostramos información principal
 			echo "<p>Titulo Examen: ".$examen['titulo']."</p>";
 			echo "<p>Autor: ".cargaAutorExamen($examen['id'])."</p>";
 			echo "<p>Fecha de creacion: ".formateoDateTime($examen['fecha_creado'])."</p>";
-			//echo "<p>Ultimo usuario en modificarla: ".cargaModificadorExamen($examen['id'])."</p>";
-			//echo "<p>Fecha de ultima modificación: ".$examen['fecha_modificado']."</p>";
 			echo "<p>Preguntas:</p>";
 
 			$pregunta=cargaUnicoExamenPreguntas($_GET['id']);
@@ -61,15 +58,12 @@
 
 
 		<?php
+		//Mostramos preguntas
 			foreach ($pregunta as $pos => $valor) {
 				echo "<tr>";
 				echo "<td>".$valor['titulo_pregunta']."</td>";
 				echo "<td>".$valor['cuerpo']."</td>";
 				echo "<td>".$valor['tema']."</td>";
-				/*echo "<td>Autor: ".cargaAutorPregunta($valor['id_pregunta'])."</td>";
-				echo "<td>Fecha de creacion: ".$valor['fecha_creado_preguntas']."</td>";
-				echo "<td>Ultimo usuario en modificarla: ".cargaModificadorPregunta($valor['id_pregunta'])."</td>";
-				echo "<td>Fecha de ultima modificación: ".$valor['fecha_modificado_pregunta']."</td>";*/
 				echo "<tr>";
 			}
 		?>
@@ -93,17 +87,13 @@
 
 
 		<?php
+		//Mostramos historial de modificaciones
 			foreach ($historial as $pos => $valor) {
 				echo "<tr class='item'>";
 				echo "<td>".cargaNombreApellidosAutor($valor['idModificador'])['nombre']."</td>";
 				echo "<td>".cargaNombreApellidosAutor($valor['idModificador'])['apellidos']."</td>";
 				echo "<td>".formateoDateTime($valor['fecha_modificacion'])."</td>";
 				echo '<td hidden=true;>'.$valor['fecha_modificacion'].'</td>';
-
-				/*echo "<td>Autor: ".cargaAutorPregunta($valor['id_pregunta'])."</td>";
-				echo "<td>Fecha de creacion: ".$valor['fecha_creado_preguntas']."</td>";
-				echo "<td>Ultimo usuario en modificarla: ".cargaModificadorPregunta($valor['id_pregunta'])."</td>";
-				echo "<td>Fecha de ultima modificación: ".$valor['fecha_modificado_pregunta']."</td>";*/
 				echo "<tr>";
 			}
 		?>
@@ -129,4 +119,3 @@
 
 </body>
 </html>
-

@@ -1,5 +1,3 @@
-<!--COMPROBAR QUE EL USUARIO ESTA LOGEADO -->
-
 <html>
 <head>
 	<title>AExamen Pregunta</title>
@@ -37,13 +35,12 @@
 		<br>
 
 		<?php
+		// Mostramos la información principal
 			echo "<p>Titulo: ".$pregunta['titulo']."</p>";
 			echo "<p>Cuerpo: ".$pregunta['cuerpo']."</p>";
 			echo "<p>Tema: ".$pregunta['tema']."</p>";
 			echo "<p>Autor: ".cargaAutorPregunta($pregunta['id'])."</p>";
 			echo "<p>Fecha de creacion: ".formateoDateTime($pregunta['fecha_creacion'])."</p>";
-			//echo "<p>Ultimo usuario en modificarla: ".cargaModificadorPregunta($pregunta['id'])."</p>";
-			//echo "<p>Fecha de ultima modificación: ".$pregunta['fecha_modificado']."</p>";
 
 
 		?>
@@ -61,17 +58,13 @@
 
 
 		<?php
+		//imprimimos el historial de modificaciones
 			foreach ($historial as $pos => $valor) {
 				echo "<tr class='item'>";
-				echo "<td>".cargaNombreApellidosAutor($valor['idModificador'])['nombre']."</td>";
-				echo "<td>".cargaNombreApellidosAutor($valor['idModificador'])['apellidos']."</td>";
-				echo "<td>".formateoDateTime($valor['fecha_modificacion'])."</td>";
-				echo '<td hidden=true;>'.$valor['fecha_modificacion'].'</td>';
-
-				/*echo "<td>Autor: ".cargaAutorPregunta($valor['id_pregunta'])."</td>";
-				echo "<td>Fecha de creacion: ".$valor['fecha_creado_preguntas']."</td>";
-				echo "<td>Ultimo usuario en modificarla: ".cargaModificadorPregunta($valor['id_pregunta'])."</td>";
-				echo "<td>Fecha de ultima modificación: ".$valor['fecha_modificado_pregunta']."</td>";*/
+					echo "<td>".cargaNombreApellidosAutor($valor['idModificador'])['nombre']."</td>";
+					echo "<td>".cargaNombreApellidosAutor($valor['idModificador'])['apellidos']."</td>";
+					echo "<td>".formateoDateTime($valor['fecha_modificacion'])."</td>";
+					echo '<td hidden=true;>'.$valor['fecha_modificacion'].'</td>';
 				echo "<tr>";
 			}
 		?>
@@ -94,4 +87,3 @@
 
 </body>
 </html>
-
