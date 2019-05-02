@@ -1,4 +1,8 @@
 $(document).ready(function(){
+
+	/*
+	* Listener que captura el evento de click para obtener más info de una petición de registro
+	*/
     $('.masInfo').click(function(){
         var funcion = "getPeticion";
         var idPeticion = $(this).attr("idPeticion");
@@ -19,7 +23,6 @@ $(document).ready(function(){
                     }
                 }
                 else{
-                    //alert("Fallo al editar");
                     location.reload();
                 }
 
@@ -28,12 +31,16 @@ $(document).ready(function(){
         })
     });
 
+    /*
+    * Listener que en función de si se hace click en aceptar o denegar
+    * una petición de registro lo hace efectivo mediante una llamada AJAX con POST
+    */
     $('.opciones button').click(function(){
         var idPeticion = $(this).attr("idPeticion");
         var aceptar = $(this).attr("aceptar");
         if (aceptar == 0) {
             const mensaje = "¿Está seguro de que desea denegar la petición de registro?";
-            if(window.confirm(mensaje)){ 
+            if(window.confirm(mensaje)){
                 let funcion = "borrarPeticion"
                 $.ajax({
                     type        : 'POST', // define the type of HTTP verb we want to use (POST for our form)
@@ -51,7 +58,7 @@ $(document).ready(function(){
             }
         } else {
             const mensaje = "¿Está seguro de que desea aceptar la petición de registro?";
-            if(window.confirm(mensaje)){ 
+            if(window.confirm(mensaje)){
                 let funcion = "aceptarPeticion"
                 $.ajax({
                     type        : 'POST', // define the type of HTTP verb we want to use (POST for our form)
@@ -70,9 +77,13 @@ $(document).ready(function(){
         }
     });
 
+    /*
+    * Listener que captura el evento de click en "reiniciarLog" que provoca que se
+    * realice la llamada AJAX con POST para reiniciar el log correctamente
+    */
     $('button#reiniciarLog').click(function(){
         const mensaje = "¿Está seguro de que desea REINICIAR el archivo de log? Esta acción no se puede deshacer.";
-        if(window.confirm(mensaje)){ 
+        if(window.confirm(mensaje)){
             let funcion = "reiniciarLog";
             $.ajax({
                 type        : 'POST', // define the type of HTTP verb we want to use (POST for our form)
@@ -90,9 +101,13 @@ $(document).ready(function(){
         }
     });
 
+    /*
+    * Listener que captura el evento de click en "eliminarLog" que provoca que se
+    * realice la llamada AJAX con POST para eliminar el log correctamente
+    */
     $('button#eliminarLog').click(function(){
         const mensaje = "¿Está seguro de que desea ELIMINAR el archivo de log? Esta acción no se puede deshacer.";
-        if(window.confirm(mensaje)){ 
+        if(window.confirm(mensaje)){
             let funcion = "eliminarLog";
             $.ajax({
                 type        : 'POST', // define the type of HTTP verb we want to use (POST for our form)
@@ -110,6 +125,6 @@ $(document).ready(function(){
         }
     });
 
-    
+
 
 });
