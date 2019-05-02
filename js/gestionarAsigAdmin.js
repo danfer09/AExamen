@@ -3,8 +3,6 @@ se pincha en una de ellas redirige a la asignatura
 de la fila que se haya clickado*/
 $(document).ready(function(){
     $('#tableAsignaturas').children("tr").children("td").click(function() {
-        //alert($(this).attr('class'));
-        //alert($(this).attr("href"));
         if($(this).attr('class')!="botonCoordinadores"){
             var href = $(this).attr("href");
             if(href) {
@@ -14,62 +12,48 @@ $(document).ready(function(){
     });
     $('#idPrueba').click(function() {
         alert("dedse"+ $('#idPrueba').attr('class'));
-        /*var href = $(this).find("a").attr("href");
-        if(href) {
-            window.location = href;
-        }*/
     });
 
 	$('.botonCoordinadores').click(function() {
 		/*-----------------Abrir modal -------*/
         var idAsig = $(this).attr("idAsig");
-        console.log(idAsig);
        	$('#modalCoordinadorAsig').modal('show');
-
        	/*--------------------añadir los coordinadore al popup-----------------------------*/
         var funcion = "getProfesoresAdmin";
-          
+
         $.ajax({
-            type        : 'POST', // define the type of HTTP verb we want to use (POST for our form)
-            url         : 'gestionarAsigAdminProcesamiento.php', // the url where we want to POST
-            data        : 'funcion=' + funcion + '&idAsig=' + idAsig, // our data object
+            type        : 'POST',
+            url         : 'gestionarAsigAdminProcesamiento.php',
+            data        : 'funcion=' + funcion + '&idAsig=' + idAsig,
             success:function(respuesta){
                 if(respuesta){
                     $("#formAsigCoord").attr("idAsig", idAsig);
-                    //alert(respuesta);
                     console.log(respuesta);
-                    //console.log("llega");
                     $('#boton_aniadir').attr('disabled',false);
                     $('#tableCoordinadores').children('tr,td').remove();
-                    //$("#infoTodosProfAdd").hide();
-                    //console.log($('#numeradorTema'+$tema).text()+'  '+$('#denominadorTema'+$tema).text());
-                    //$("#tableCoordinadores").append('<from id="formC">');
-
+                    let hayProf = false;
                 	for (var i = 0; i< respuesta['profSiCoord'].length; i++) {
+                    hayProf = true;
                 		console.log(respuesta['profSiCoord'][i]);
                 		$("#tableCoordinadores").append('<tr><td><input type="checkbox" checked name="profesor" value="'+respuesta['profSiCoord'][i]["id"]+'"></td><td>'+respuesta['profSiCoord'][i]["nombre"]+'</td><td>'+respuesta['profSiCoord'][i]["apellidos"]+'</td><td>'+respuesta['profSiCoord'][i]["email"]+'</td></tr>');
                 	}
                 	for (var i = 0; i< respuesta['profNoCoord'].length; i++) {
+                    hayProf = true;
                 		console.log(respuesta['profNoCoord'][i]);
                 		$("#tableCoordinadores").append('<tr><td><input type="checkbox" name="profesor" value="'+respuesta['profNoCoord'][i]["id"]+'"></td><td>'+respuesta['profNoCoord'][i]["nombre"]+'</td><td>'+respuesta['profNoCoord'][i]["apellidos"]+'</td><td>'+respuesta['profNoCoord'][i]["email"]+'</td></tr>');
-
                 	}
-                    //$("#tableCoordinadores").append('<input type="submit" value="Submit">');
-                    //$("#tableCoordinadores").append('</from>');
-
-                            //$("#tableCoordinadores").append('<tr><td><input type="radio" name="profesor" value="'+respuesta[i]["id"]+'"></td><td>'+respuesta[i]["nombre"]+'</td><td>'+respuesta[i]["apellidos"]+'</td><td>'+respuesta[i]["email"]+'</td></tr>');
-                  
+                  if(!hayProf){
+                    $("#message").append('<div class="alert alert-warning"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>No hay ningún profesor en el sistema</div>';);
+                  }
                 }
                 else{
-                    //alert("Fallo al editar");
                     console.log("falla");
-                    //location.reload();
                 }
             },
             dataType:"json"
         })
         event.preventDefault();
-        
+
     });
 
 
@@ -99,21 +83,20 @@ $(document).ready(function(){
         const idAsig = $("#formAsigCoord").attr("idAsig");
         console.log(idAsig);
         //Definimos el nombre de la funcion a la que vamos a llamar en el PHP
-        const funcion = 'setCoodinadores';
+        const funcion = 'setCoordinadores';
 
         var idProfSelectParam = JSON.stringify(idProfSelect);
         var idProfNoSelectParam = JSON.stringify(idProfNoSelect);
 
         $.ajax({
-            type        : 'POST', // define the type of HTTP verb we want to use (POST for our form)
-            url         : 'gestionarAsigAdminProcesamiento.php', // the url where we want to POST
-            data        : 'funcion=' + funcion + '&idProfSelect=' + idProfSelectParam + '&idAsig=' + idAsig +'&idProfNoSelect=' + idProfNoSelectParam, // our data object
+            type        : 'POST',
+            url         : 'gestionarAsigAdminProcesamiento.php',
+            data        : 'funcion=' + funcion + '&idProfSelect=' + idProfSelectParam + '&idAsig=' + idAsig +'&idProfNoSelect=' + idProfNoSelectParam,
             success:function(respuesta){
                 if(respuesta){
                     console.log(respuesta);
-                    //console.log("llega");  
                     location.reload();
-                
+
                 }
                 else{
                     console.log("falla");
@@ -137,7 +120,6 @@ $(document).ready(function(){
                 contNoSelect++;
             }
         });
-        //console.log("check: "+contSelect+" NOTcheck: "+contNoSelect);
         if (contSelect <= 0) {
             $('#boton_aniadir').attr('disabled',true);
         } else {

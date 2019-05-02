@@ -1,5 +1,4 @@
 <?php
-
 	use PHPMailer\PHPMailer\PHPMailer;
 	use PHPMailer\PHPMailer\Exception;
 	use PHPMailer\PHPMailer\SMTP;
@@ -19,7 +18,7 @@
 		header('Location: index.php');
 	}
 
-	function smtpmailer($to, $from, $fromName, $subject, $body, $googleUser, $googlePassword) { 
+	function smtpmailer($to, $from, $fromName, $subject, $body, $googleUser, $googlePassword) {
 		global $error;
 		$mail = new PHPMailer();  // create a new object
 		$mail->IsSMTP(); // enable SMTP
@@ -27,9 +26,9 @@
 		$mail->SMTPAuth = true;  // authentication enabled
 		$mail->SMTPSecure = 'ssl'; // secure transfer enabled REQUIRED for GMail
 		$mail->Host = 'smtp.gmail.com';
-		$mail->Port = 465; 
-		$mail->Username = $googleUser;  
-		$mail->Password = $googlePassword;           
+		$mail->Port = 465;
+		$mail->Username = $googleUser;
+		$mail->Password = $googlePassword;
 		$mail->SetFrom($from, $fromName);
 		$mail->Subject = $subject;
 		//$mail->Body = $body;
@@ -37,7 +36,7 @@
 		$mail->CharSet = 'ISO-8859';
 		$mail->msgHTML(file_get_contents($body), __DIR__);
 		if(!$mail->Send()) {
-			$error = 'Mail error: '.$mail->ErrorInfo; 
+			$error = 'Mail error: '.$mail->ErrorInfo;
 			return false;
 		} else {
 			$error = "\nMessage sent to ".$to."!";
@@ -45,7 +44,7 @@
 		}
 	}
 
-	function smtpmailerRaw($to, $from, $fromName, $subject, $body, $googleUser, $googlePassword) { 
+	function smtpmailerRaw($to, $from, $fromName, $subject, $body, $googleUser, $googlePassword) {
 		global $error;
 		$mail = new PHPMailer();  // create a new object
 		$mail->IsSMTP(); // enable SMTP
@@ -53,9 +52,9 @@
 		$mail->SMTPAuth = true;  // authentication enabled
 		$mail->SMTPSecure = 'ssl'; // secure transfer enabled REQUIRED for GMail
 		$mail->Host = 'smtp.gmail.com';
-		$mail->Port = 465; 
-		$mail->Username = $googleUser;  
-		$mail->Password = $googlePassword;           
+		$mail->Port = 465;
+		$mail->Username = $googleUser;
+		$mail->Password = $googlePassword;
 		$mail->SetFrom($from, $fromName);
 		$mail->Subject = $subject;
 		$mail->Body = $body;
@@ -63,7 +62,7 @@
 		$mail->CharSet = 'ISO-8859';
 		$mail->isHTML(true);
 		if(!$mail->Send()) {
-			$error = 'Mail error: '.$mail->ErrorInfo; 
+			$error = 'Mail error: '.$mail->ErrorInfo;
 			return false;
 		} else {
 			$error = "\nMessage sent to ".$to."!";
@@ -75,7 +74,7 @@
 		$time = strtotime($fecha);
 
 		$diff = (time() - $time)*1000; // the difference in milliseconds
-		
+
 		if ($diff < 1000) { // less than 1 second
 			return 'ahora mismo';
 		}
@@ -96,18 +95,7 @@
 		}
 
 		$newformat = date('H:i - d/m/Y',$time);
-	
+
 		return $newformat;
 	}
-
-	/* Meter algo al log (ejemplo de admin)
-	//Something to write to txt log
-			$log  = '['.date("d/m/Y, H:i:s").'] : '.PHP_EOL."User (admin) ".$_SESSION['id'].' - '.$_SESSION['nombre'].', '.$_SESSION['apellidos'].PHP_EOL.
-			        "Action: Denegar petición #".$id.' de '.$peticion['email'].' - '.$peticion['apellidos'].', '.$peticion['nombre'].PHP_EOL.
-			        "-------------------------".PHP_EOL;
-			//Save string to log, use FILE_APPEND to append.
-			file_put_contents('./log/log_AExamen.log', utf8_decode($log), FILE_APPEND);
-	*/
-
-
 ?>

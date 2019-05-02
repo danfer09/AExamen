@@ -1,23 +1,23 @@
 <?php
-	//COMPROBAR SI ES O NO UN ADMINISTRADOR
-
-
-
 	//Comprobamos si el usuario esta logeado
 	/*Iniciamos la sesion, pero antes hacemos una comprobacion para evitar errores*/
 	if (session_status() == PHP_SESSION_NONE) {
 	    session_start();
 	}
+
 	//Si existe $_SESSION['logeado'] volcamos su valor a la variable, si no existe volcamos false. Si vale true es que estamos logeado.
 	$logeado = isset($_SESSION['logeado'])? $_SESSION['logeado']: false;
 	/*En caso de no este logeado redirigimos a index.php*/
 	if (!$logeado) {
 		header('Location: index.php');
 	}
+	//Comprobamos que el usuario sea un administrador
+	$administrador = isset($_SESSION['administrador'])? $_SESSION['administrador']: false;
+	/*En caso de que no sea un aadministrador lo redirigimos a la pagina principal*/
+	if (!$administrador) {
+		header('Location: index.php');
+	}
 	include 'gestionarAsigAdminProcesamiento.php';
-
-
-
 ?>
 
 <html>
@@ -59,10 +59,6 @@
 	    </thead>
 	    <tbody id="tableAsignaturas">
 	<?php
-		/*echo"<pre>";
-
-		var_dump(getCoordinadores(2));
-		die();*/
 		/*Llama a una función que dado un id de un usuario, en este caso el
 		que esta logeado, devuelve las asignaturas que tiene ese usuario*/
 		$asignaturas=cargaTodasAsignaturas();
@@ -84,7 +80,6 @@
 				echo '<td class="asigClick" href="asignatura.php?id='.$valor['id'].'&nombre='.$valor['nombre'].'&siglas='.$valor['siglas'].'">'.$valor['siglas'].'</td>';
 				echo '<td class="asigClick" href="asignatura.php?id='.$valor['id'].'&nombre='.$valor['nombre'].'&siglas='.$valor['siglas'].'">'.$valor['nombre'].'</td>';
 				echo '<td class="asigClick" href="asignatura.php?id='.$valor['id'].'&nombre='.$valor['nombre'].'&siglas='.$valor['siglas'].'">'.getNumeroProfesoresAsig($valor['id'])['numero_profesores']."</td>";
-				//echo '<td>'.foreach (getCoordinadores($valor['id']) as $pos => $valor) $valor.'</td>';
 				echo '<td class="asigClick" href="asignatura.php?id='.$valor['id'].'&nombre='.$valor['nombre'].'&siglas='.$valor['siglas'].'">';
 				$coordinadores = getCoordinadores($valor['id']);
 				for ($i=0; $i < count($coordinadores); $i++) {
@@ -98,9 +93,6 @@
 				echo '</tr>';
 			}
 		}
-		//echo "<p id='idPrueba' class='botonCoordinadores'>hooalll</p>";
-
-
 	?>
 		</tbody>
 	</table>
@@ -117,12 +109,10 @@
 		    <!-- Modal body -->
 		    <div class="modal-body">
 				  <form action="#" class="form-container" method="post" id="formAsigCoord">
-				    <!--<h1 name="borrarExamen">Añadir preguntas</h1>-->
-				    	<!--<div id="info_aniadirPreg_vacio" class="badge badge-pill badge-danger">No hay ninguna pregunta de este tema</div>
-				    	<div id="info_aniadirPreg_limite" class="badge badge-pill badge-warning">Se ha alcanzado el límite de puntos para este tema</div>
-				    	<div id="info_aniadirPreg_todas" class="badge badge-pill badge-info">Ya están todas las preguntas de este tema añadidas</div>   ERRORES PARA MOSTRAR, MIRAR MAS TARDE-->
 				    	<div class="table-wrapper-scroll-y">
-			    			<table class="table table-hover" id="tabla">
+							<div id="message"></div>
+
+							<table class="table table-hover" id="tabla">
 								<thead>
 							      <tr>
 							      	<th>#</th>
@@ -143,7 +133,6 @@
 
 		    <!-- Modal footer -->
 		    <div class="modal-footer">
-		      <!--<button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>-->
 		    </div>
 
 		  </div>
@@ -160,7 +149,7 @@
 <script src="js/w3.js"></script>
 
 <!--Javascripts propios-->
-<script type="text/javascript" src="js/gestionarAsigAdmin.js"></script><!--CUIDADO, ES UN JS DE OTRO PHP, PODEMOS BASARNOS EN EL-->
+<script type="text/javascript" src="js/gestionarAsigAdmin.js"></script>
 <script type="text/javascript" src="js/cabeceraConLogin.js"></script>
 
 </body>
