@@ -67,15 +67,41 @@
 						    Algún campo está vacío, inténtelo de nuevo
 						 </div>';
 			}
+			echo '<div class="row rowPerfil">';
+				echo '<div class="col col-md-2 mensajePerfil">';
+					echo '<div> Nombre: <b>'.$_SESSION['nombre'].'</b></div>';
+				echo '</div>';
+				echo '<div class="col col-md-2 botonPerfil">';
+					echo '<button type="button" class="btn btn-primary" data-toggle="modal" id="btn_cambiarNombre">Cambiar nombre</button>';
+				echo '</div>';
+				echo '<div class="col col-md-2"></div>';
+				echo '<div class="col col-md-2 mensajePerfil">';
+					echo '<div> Apellidos: <b>' . $_SESSION['apellidos']. '</b></div>';
+				echo '</div>';
+				echo '<div class="col col-md-2 botonPerfil">';
+					echo '<button type="button" class="btn btn-primary" data-toggle="modal" id="btn_cambiarApellidos">Cambiar apellidos</button>';
+				echo '</div>';
+				echo '<div class="col col-md-2"></div>';
+			echo '</div>';
 
-			echo '<p>Nombre: ' . $_SESSION['nombre']. ' <button type="button" class="btn btn-primary" data-toggle="modal" id="btn_cambiarNombre">Cambiar nombre</button></p>';
-			echo "<p>Apellidos: " . $_SESSION['apellidos']. ' <button type="button" class="btn btn-primary" data-toggle="modal" id="btn_cambiarApellidos">Cambiar apellidos</button></p>';
+			echo '<div class="row rowPerfil">';
+				echo '<div class="col col-md-2 mensajePerfil">';
+					echo '<div> Correo: <b>' . $_SESSION['email']. '</b></div>';
+				echo '</div>';
+				echo '<div class="col col-md-2 botonPerfil">';
+					echo ($_SESSION['administrador']) ?"<button type='button' class='btn btn-primary' data-toggle='modal' id='btn_cambiarCorreo'>Cambiar correo </button>" : "";
+				echo '</div>';
+				echo '<div class="col col-md-2"></div>';
+				echo '<div class="col col-md-2">';
+				echo '</div>';
+				echo '<div class="col col-md-2 botonPerfil">';
+					echo "<button type='button' class='btn btn-primary' data-toggle='modal' id='btn_cambiarClave'>Cambiar contraseña</button>";
+				echo '</div>';
+				echo '<div class="col col-md-2"></div>';
+			echo '</div>';
 
-			echo "<p>correo: " . $_SESSION['email'];
-			echo ($_SESSION['administrador']) ?"<button type='button' class='btn btn-primary' data-toggle='modal' id='btn_cambiarCorreo'>Cambiar correo </button></p>" : "</p>";
-			echo "<p><button type='button' class='btn btn-primary' data-toggle='modal' id='btn_cambiarClave'>Cambiar contraseña</button></p>";
 		?>
-		
+
 		<!-- Modal de Nombre -->
 		<div class="modal" id="modal_cambiarNombre">
 			<div class="modal-dialog">

@@ -1,7 +1,7 @@
 $(document).ready(function(){
 
 	/*Listener sobre los botones para cambiar nombre, apellidos y clave
-	, cuando se pulsan se muestra el modal correspondiente y se bloquea 
+	, cuando se pulsan se muestra el modal correspondiente y se bloquea
 	el boton de cambiar para que no lo pulse hasta que no este relleno los
 	campos correspondientes*/
 	$("#btn_cambiarNombre").on( "click", function() {
@@ -35,12 +35,12 @@ $(document).ready(function(){
 
 	/**
 	 * Muestra un mensaje si el formulario esta vacío y bloquea el boton
-	 de submit, si esta relleno oculta el mensaje y desbloquea el 
+	 de submit, si esta relleno oculta el mensaje y desbloquea el
 	 boton
 
-	 * @mensaje {elementHTML}: elemento HTML en el cual escribimos el 
+	 * @mensaje {elementHTML}: elemento HTML en el cual escribimos el
 	 mensaje informativo
-	 * @nombre_o_apellidos {string}: indica si lo que tenemos que 
+	 * @nombre_o_apellidos {string}: indica si lo que tenemos que
 	 comprobar el nombre o el apellidos
 	 * @nombreBoton {string}: Nombre del boton que tenemos que bloquear
 	 o desbloquear
@@ -65,7 +65,7 @@ $(document).ready(function(){
 	}
 	/*Insertamos un elemento en el cual vamos a mostrar mensajes*/
 	$("#nombre").after("<span id='mensajeNombre'></span><br>");
-	/*Listener que se activa cuando el usuario suelta el boton 
+	/*Listener que se activa cuando el usuario suelta el boton
 	#nombre y comprueba si el campo donde deberia ir el nombre esta
 	vacio o no llamando a la funcion compruebaNombreOApellidos*/
 	$("#nombre").keyup(function(){
@@ -74,7 +74,7 @@ $(document).ready(function(){
 	});
 	/*Insertamos un elemento en el cual vamos a mostrar mensajes*/
 	$("#apellidos").after("<span id='mensajeApellidos'></span><br>");
-	/*Listener que se activa cuando el usuario suelta el boton 
+	/*Listener que se activa cuando el usuario suelta el boton
 	#apellidos y comprueba si el campo donde deberia ir el apellido esta
 	vacio o no llamando a la funcion compruebaNombreOApellidos*/
 	$("#apellidos").keyup(function(){
@@ -88,10 +88,10 @@ $(document).ready(function(){
 	var mensaje = $("#mensaje");
 	/**
 	 * Comprueba si los campos #clave y #repitaClave son iguales
-	 o estan vacio alguno de ellos o los dos. Consecuentemente 
+	 o estan vacio alguno de ellos o los dos. Consecuentemente
 	 muestra mensajes
 
-	 * @mensaje {elementHTML}: elemento HTML en el cual escribimos el 
+	 * @mensaje {elementHTML}: elemento HTML en el cual escribimos el
 	 mensaje informativo
 
 	 * @return  {void}
@@ -129,7 +129,7 @@ $(document).ready(function(){
 	}
 
 	/*Cuando el usuario escribe en el formulario #clave o #repitaClave
-	llamamos a la funcion compruebaClaves para que compruebe si el 
+	llamamos a la funcion compruebaClaves para que compruebe si el
 	valor de los dos formularios son iguales */
 	$("#clave").keyup(function(){
 		compruebaClaves(mensaje);
@@ -145,37 +145,35 @@ $(document).ready(function(){
 	dichos cambios*/
 	$('#boton_cambiarNombre').click(function() {
 		const mensaje = "¿Esta seguro de que desea cambiar su nombre?";
-		if(window.confirm(mensaje)){ 
-	    	$("#form_cambiarNombre").submit(); 
+		if(window.confirm(mensaje)){
+	    	$("#form_cambiarNombre").submit();
 	    }
 	    return false;
 	});
 
 	$('#boton_cambiarApellidos').click(function() {
 		const mensaje = "¿Esta seguro de que desea cambiar sus apellidos?";
-		if(window.confirm(mensaje)){ 
-	    	$("#form_cambiarApellidos").submit(); 
+		if(window.confirm(mensaje)){
+	    	$("#form_cambiarApellidos").submit();
 	    }
 	    return false;
 	});
 
 	$('#boton_cambiarClave').click(function() {
 		const mensaje = "¿Esta seguro de que desea cambiar la contraseña?";
-		if(window.confirm(mensaje)){ 
-	    	$("#form_cambiarClave").submit(); 
+		if(window.confirm(mensaje)){
+	    	$("#form_cambiarClave").submit();
 	    }
 	    return false;
 	});
 
 	$('#boton_cambiarCorreo').click(function() {
 		const mensaje = "¿Esta seguro de que desea cambiar el correo?";
-		if(window.confirm(mensaje)){ 
-	    	$("#form_cambiarCorreo").submit(); 
+		if(window.confirm(mensaje)){
+	    	$("#form_cambiarCorreo").submit();
 	    }
 	    return false;
 	});
-
-
 
 	function comprobarCamposRellenados(){
         let resultado=true;
@@ -190,7 +188,7 @@ $(document).ready(function(){
         let resultado=true;
         if (caract.test(correo) == false)
             resultado=false;
-        return resultado;  
+        return resultado;
     }
 
     $('#correo').keyup(function() {
@@ -219,22 +217,20 @@ $(document).ready(function(){
         var funcion = "borrarProfesor";
         var form_data = $(this).serialize();
         $.ajax({
-          type        : 'POST', // define the type of HTTP verb we want to use (POST for our form)
-          url         : 'profesoresAdminProcesamiento.php', // the url where we want to POST
+          type        : 'POST',
+          url         : 'profesoresAdminProcesamiento.php',
           data        : form_data + '&funcion=' + funcion + '&idProfesor=' + $("#boton_borrar").attr("id_profesor"), // our data object
           success: function(respuesta) {
                 if(respuesta){
-                    //alert("Borrada con exito");
                     location.reload();
                 }
                 else{
-                    //alert("Fallo al borrar");
                     location.reload();
                 }
              }
         })
         event.preventDefault();
     });
-	
+
 
 });
