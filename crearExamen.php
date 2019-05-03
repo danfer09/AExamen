@@ -1,5 +1,3 @@
-<!--COMPROBAR QUE EL USUARIO ESTA LOGEADO -->
-
 <html>
 <head>
 	<title>AExamen Crear Examen</title>
@@ -49,9 +47,7 @@
 
 				$preguntasSesion = isset($_SESSION[$nombreAsignatura])? json_decode($_SESSION[$nombreAsignatura],true): null;
 				
-				//$nombreExamen = isset($preguntasSesion['nombreExamen'])? $preguntasSesion['nombreExamen']: null;
 				$botonGuardar= "guardarNuevoExamen";
-				//var_dump($_SESSION[$nombreAsignatura]."<br>");
 			}
 			else{
 				echo "<h1>Editar examen de ". $_GET["asignatura"]. "</h1>";
@@ -73,26 +69,14 @@
 				$_SESSION['idExamen']=$idExamen;
 
 				$botonGuardar= "guardarModificarExamen";
-				//var_dump($_SESSION[$nombreExamen]."<br>");
 			}
 			
-			//array_splice($preguntasSesion['preguntas']['tema1'],0,1);
-			//var_dump($preguntasSesion);
-			/*echo "sesion nombreAsignatura: ".$_SESSION['nombreAsignatura'];
-			echo "<br>"."SESSION[SESSION['nombreAsignatura']]: ".$_SESSION[$_SESSION['nombreAsignatura']];
-			echo "<br><br>SESSION Examen a editar: ".$_SESSION[$nombreExamen];
-			echo "<br>editar: ".$_SESSION['editar'];*/
-			//echo "<br>prueba: ".$_SESSION['prueba'];
-			//$_SESSION['prueba'] = ;
-			//echo "<br>prueba2: ".$_SESSION['prueba2'];
-			//$_SESSION['prueba'] = false;
-			//var_dump($nombreExamen);
 		?>
 
 		<br>
 		<div class="row">
 
-			<div class="col-1"><!--<buttom><i class="fas fa-arrow-left"></i></buttom>--></div>
+			<div class="col-1"></div>
 			<div class="col-7"><input siglas="<?php echo $_GET["asignatura"]; ?>" id="nombreExamen" class="w3-input col-8" placeholder=<?php echo '"Nombre del examen... e.g.  '.$_GET["asignatura"].' [Parcial/Final] [Año]" value="'.$nombreExamen.'"'?>>
 
 			</div>
@@ -118,15 +102,10 @@
 				?>
 
 			</div>
-			<div class="col-2"><button id=<?php echo '"'.$botonGuardar.'"'?> class="btn">Guardar <i class="fas fa-save"></i></button></div>
+			<div class="col-2"><button id="<?php echo $botonGuardar?>" class="btn">Guardar <i class="fas fa-save"></i></button></div>
 		
 		</div>
 		<br>
-		<br>
-		<div class="row">
-			<div class="col-1"></div>
-			<div class="col-11"></div>
-		</div>
 
 		<div class="row">
 			<div class="col-5">
@@ -146,6 +125,7 @@
 
 
 		<?php
+			/* Obtenemos lo necesario para mostrar cada tema de la asignatura, su puntuación máxima para esta y las preguntas que existan de cada tema */
 			$numTemas = getNumTemas($_GET["idAsignatura"]);
 			$arrayPuntosTema =cargaPuntosTema($_GET["idAsignatura"]);
 			$jsonPuntosTema = json_decode($arrayPuntosTema,true);
@@ -162,7 +142,7 @@
 								$sumaTema += $pregunta['puntos'];	
 							}
 						}
-						echo $sumaTema.'</span><span>/</span><span id="denominadorTema'.$i.'">'.$jsonPuntosTema["tema".$i].'</span><span>)</span>';
+						echo $sumaTema.'</span><span>/</span><span id="denominadorTema'.$i.'">'.$jsonPuntosTema["tema".$i].'</span><span>) </span>';
 						echo '<a class="fas fa-plus-circle" id="boton_aniadirPregunta" tema ="'.$i.'" asignatura= "'.$_GET["idAsignatura"].'"href="#"></a>';
 					echo'</div>';
 				echo'</div>';
@@ -197,13 +177,8 @@
 				echo '</div>';
 			}				
 		?>
-		<div class="row">
-			<div class="col-5">
 
-				
-			</div>
-		</div>
-
+		<!-- Formulario modal para añadir preguntas -->
 		<div class="modal" id="modal_aniadirPreguntas">
 			<div class="modal-dialog modal-lg">
 			  <div class="modal-content">
@@ -217,7 +192,6 @@
 			    <!-- Modal body -->
 			    <div class="modal-body">
 					  <form action="#" class="form-container" method="post" id="form_aniadirPregunta">
-					    <!--<h1 name="borrarExamen">Añadir preguntas</h1>-->
 					    	<div id="info_aniadirPreg_vacio" class="badge badge-pill badge-danger">No hay ninguna pregunta de este tema</div>
 					    	<div id="info_aniadirPreg_limite" class="badge badge-pill badge-warning">Se ha alcanzado el límite de puntos para este tema</div>
 					    	<div id="info_aniadirPreg_todas" class="badge badge-pill badge-info">Ya están todas las preguntas de este tema añadidas</div>
@@ -239,12 +213,7 @@
 					    <button type="submit" class="btn btn-primary" id="boton_añiadir" name="boton_añiadir">Añadir</button>
 					    <button type="button" class="btn btn-danger" id="boton_noAñiadir" name="boton_noAñiadir" data-dismiss="modal">Cancelar</button>					  
 					  </form>
-			    </div>
-			    
-			    <!-- Modal footer -->
-			    <div class="modal-footer">
-			      <!--<button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>-->
-			    </div>
+			    </div>			    
 			    
 			  </div>
 			</div>

@@ -1,13 +1,4 @@
 <?php	
-	/*function cargaUnicoExamenPreguntas($idExamen){
-		$puntosTemaStr = file_get_contents('json/puntostema.json');
-		$puntosTema = json_decode($puntosTemaStr, true);
-		$numTemas=$puntosTema['numeroTemas'];
-		$db = mysqli_connect('localhost', $credentials['database']['user'], $credentials['database']['password'], $credentials['database']['dbname']);
-	}
-	UPDATE `asignaturas` SET `puntos_tema`='"numeroTemas": 3, "tema1": 2, "tema2": 3, "tema3": 2 ' WHERE 1
-*/
-
 	/*Iniciamos la sesion, pero antes hacemos una comprobacion para evitar errores*/
 	if (session_status() == PHP_SESSION_NONE) {
 	    session_start();
@@ -42,13 +33,7 @@
 		eliminarPregunta($idPregunta, $tema);
 	else if ($funcion == 'guardarNombreExamenJSON')
 		guardarNombreExamenJSON($nombreExamen, $idExamen);
-	/*else if($funcion ==""){
-		borrarPregunta($idPregunta);
-	}
-	else if($funcion == "editarPregunta")
-		//if($titulo)
-		editarPregunta($titulo,$cuerpo,$tema,$idPregunta);
-	*/
+	
 
 	function cargaPuntosTema($idAsignatura){
 		$credentialsStr = file_get_contents('json/credentials.json');
@@ -78,7 +63,6 @@
 		$credentialsStr = file_get_contents('json/credentials.json');
 		$credentials = json_decode($credentialsStr, true);
 		$db = mysqli_connect('localhost', $credentials['database']['user'], $credentials['database']['password'], $credentials['database']['dbname']);
-		//comprobamos si se ha conectado a la base de datos
 		$preguntas=array();
 		//comprobamos si se ha conectado a la base de datos
 		if($db){
@@ -116,21 +100,10 @@
 				
 				insertarPreguntaJSON($filas[$i]['tema'], $filas[$i]['id'], 1);
 
-				//$sqlReferencia = "UPDATE `preguntas` SET `referencias` = `referencias` + 1 WHERE id=".$preguntas[$i];
-				//mysqli_query($db,$sqlReferencia);
-			
-				//¿Llamar aquí a guardar examen cada vez que se inserte una nueva pregunta?
-				/*if (!$_SESSION['editar']) {
-					guardarExamen($_SESSION['nombreAsignatura']);
-				} else {
-					guardarModificarExamen($_SESSION['nombreExamenEditar']);
-				}*/
-				
 			}
 		}
 		else{
 			$_SESSION['error_BBDD']=true;
-			//header('Location: loginFormulario.php');
 		}
 		mysqli_close($db);
 		echo json_encode($filas);
@@ -159,10 +132,7 @@
 			$_SESSION[$_SESSION['nombreExamenEditar']] = json_encode($preguntas);
 			$preguntasEditar[$idPregunta] = isset($preguntasEditar[$idPregunta])? null: true;
 			$_SESSION['editarExamenCambios'] = json_encode($preguntasEditar);
-			//$_SESSION['prueba'] = $_SESSION['editarExamenCambios'];
 		}
-		//$preguntasSesion = $preguntas;
-		//return $_SESSION[$nombreAsignatura];
 	}
 
 	function guardarExamen ($nombreExamen) {
@@ -178,13 +148,11 @@
 		$puntosPregunta = $_SESSION[$_SESSION['nombreAsignatura']];
 		$date = date('Y-m-d H:i:s', time());
 
-		$sqlExamen = "INSERT INTO `examenes`(`titulo`, `id`, `creador`, `fecha_creado`, `fecha_modificado`, `ultimo_modificador`, `id_asig`, `puntosPregunta`) VALUES ('".$nombreExamen."','',".$_SESSION['id'].",'".$date."','".$date."',".$_SESSION['id'].",".$_SESSION['idAsignatura'].",'".$puntosPregunta."')";//" ON DUPLICATE KEY UPDATE ";
+		$sqlExamen = "INSERT INTO `examenes`(`titulo`, `id`, `creador`, `fecha_creado`, `fecha_modificado`, `ultimo_modificador`, `id_asig`, `puntosPregunta`) VALUES ('".$nombreExamen."','',".$_SESSION['id'].",'".$date."','".$date."',".$_SESSION['id'].",".$_SESSION['idAsignatura'].",'".$puntosPregunta."')";
 		
 		if (mysqli_query($db,$sqlExamen)) {
 
 			$numTemas = getNumTemas($_SESSION['idAsignatura']);
-			//$arrayPuntosTema =cargaPuntosTema($_SESSION['idAsignatura']);
-			//$jsonPuntosTema = json_decode($arrayPuntosTema,true);
 			$preguntasSesion = isset($_SESSION[$_SESSION['nombreAsignatura']])? json_decode($_SESSION[$_SESSION['nombreAsignatura']],true): null;
 			$idExamenNuevo = mysqli_insert_id($db);
 
@@ -212,8 +180,6 @@
 
 			$sql = "INSERT INTO `examenes_historial`(`id`, `idExamen`, `idModificador`, `fecha_modificacion`) VALUES ('',".$idExamenNuevo.",".$_SESSION['id'].",'".$date."')";
 			$consulta=mysqli_query($db,$sql);
-			//$fila=mysqli_fetch_assoc($consulta);
-
 		} else {
 			echo "Error: " . $sqlExamen . "<br>" . mysqli_error($db);
 		}
@@ -231,7 +197,6 @@
 		if (!$_SESSION['editar']) {
 			$preguntas = isset($_SESSION[$_SESSION['nombreAsignatura']])? json_decode($_SESSION[$_SESSION['nombreAsignatura']],true): null;
 		} else {
-			//$_SESSION['prueba'] = true;
 			$preguntas = isset($_SESSION[$_SESSION['nombreExamenEditar']])? json_decode($_SESSION[$_SESSION['nombreExamenEditar']],true): null;
 		}
 		
@@ -264,14 +229,6 @@
 			$preguntas = isset($_SESSION[$_SESSION['nombreExamenEditar']])? json_decode($_SESSION[$_SESSION['nombreExamenEditar']],true): null;
 			$preguntasEditar =  isset($_SESSION['editarExamenCambios'])? json_decode($_SESSION['editarExamenCambios'],true): null;
 		}
-
-		/*$credentialsStr = file_get_contents('json/credentials.json');
-		$credentials = json_decode($credentialsStr, true);
-		$db = mysqli_connect('localhost', $credentials['database']['user'], $credentials['database']['password'], $credentials['database']['dbname']);
-		if ($db) {
-			$sqlReferencia = "UPDATE `preguntas` SET `referencias` = `referencias` - 1 WHERE id=".$idPregunta;
-			mysqli_query($db,$sqlReferencia);
-		}*/
 		
 		$temaNombre="tema".$tema;
 		if($preguntas){
@@ -285,8 +242,6 @@
 						$i++;
 					}
 				}	
-				//echo implode(" ",$preguntas['preguntas'][$temaNombre][0]);
-			//$preguntas['preguntas'][$tema][$ultimaPos]["puntos"] = $puntosPregunta;
 		}
 		if (!$_SESSION['editar']) {
 			$_SESSION[$_SESSION['nombreAsignatura']] = json_encode($preguntas);
