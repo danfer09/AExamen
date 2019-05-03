@@ -104,7 +104,7 @@
 
 		<!-- Modal de Nombre -->
 		<div class="modal" id="modal_cambiarNombre">
-			<div class="modal-dialog">
+			<div class="modal-dialog modal-sm">
 			  <div class="modal-content">
 
 			    <!-- Modal Header de Nombre -->
@@ -134,7 +134,7 @@
 
 		<!-- Modal de Apellidos -->
 		<div class="modal" id="modal_cambiarApellidos">
-		    <div class="modal-dialog">
+		    <div class="modal-dialog modal-sm">
 		      <div class="modal-content">
 
 		        <!-- Modal Header de Apellidos -->
@@ -146,11 +146,9 @@
 		        <!-- Modal body de Apellidos -->
 		        <div class="modal-body">
 					  <form action="perfPropProfProcesamiento.php" class="form-container" method="post" id="form_cambiarApellidos">
-
-					    <input type="text" placeholder="Introduzca los apellidos" name="apellidos" id="apellidos">
-
-					    <button type="submit" class="btn" id="boton_cambiarApellidos" name="boton_cambiarApellidos">Cambiar</button>
-					  </form>
+					    	<input type="text" placeholder="Introduzca los apellidos" name="apellidos" id="apellidos"><br>
+					    	<button type="submit" class="btn" id="boton_cambiarApellidos" name="boton_cambiarApellidos">Cambiar</button>
+						</form>
 		        </div>
 
 		        <!-- Modal footer de Apellidos -->
@@ -164,7 +162,7 @@
 
 		<!-- Modal de Clave -->
 		<div class="modal" id="modal_cambiarClave">
-		    <div class="modal-dialog">
+		    <div class="modal-dialog modal-sm">
 		      <div class="modal-content">
 
 		        <!-- Modal Header de Clave -->
@@ -177,10 +175,10 @@
 		        <div class="modal-body">
 					  <form action="perfPropProfProcesamiento.php" class="form-container" method="post" id="form_cambiarClave">
 
-					    <input type="text" placeholder="Introduzca la clave" name="clave" id="clave">
-					    <input type="text" placeholder="Repita la clave" name="repitaClave" id="repitaClave">
+					    <input type="text" placeholder="Introduzca la clave" name="clave" id="clave" class="inputClave">
+					    <input type="text" placeholder="Repita la clave" name="repitaClave" id="repitaClave" class="inputClave">
 
-					    <button type="submit" class="btn" id="boton_cambiarClave" name="boton_cambiarClave">Cambiar</button>
+					    <button type="submit" class="btn inputClave" id="boton_cambiarClave" name="boton_cambiarClave">Cambiar</button>
 					  </form>
 		        </div>
 
@@ -195,7 +193,7 @@
 
 	  	<!-- Modal de Correo -->
 		<div class="modal" id="modal_cambiarCorreo">
-		    <div class="modal-dialog">
+		    <div class="modal-dialog modal-sm">
 		      <div class="modal-content">
 
 		        <!-- Modal Header de Correo -->
@@ -208,7 +206,7 @@
 		        <div class="modal-body">
 					  <form action="perfPropProfProcesamiento.php" class="form-container" method="post" id="form_cambiarCorreo">
 
-					    <input type="email" placeholder="Introduzca el nuevo correo" name="correo" id="correo">
+					    <input type="email" placeholder="Introduzca el nuevo correo" name="correo" id="correo"><br><br>
 
 					    <input type="submit" class="btn" id="boton_cambiarCorreo" name="boton_cambiarCorreo" value="Cambiar">
 					  </form>
