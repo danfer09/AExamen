@@ -17,8 +17,6 @@
 	</div>
 	<div class="container">
 		<?php
-			//error_reporting(0); // Disable all errors.
-
 			/*Iniciamos la sesion, pero antes hacemos una comprobacion para evitar errores*/
 			if (session_status() == PHP_SESSION_NONE) {
 			    session_start();
@@ -29,9 +27,6 @@
 			if (!$logeado) {
 				header('Location: index.php');
 			}
-
-			//echo $_SESSION['coordinador'];
-
 			echo "<h1>Preguntas de ". $_GET['nombreAsignatura']. "</h1>";
 			$_SESSION['idAsignatura']=$_GET['idAsignatura'];
 			include "preguntasProcesamiento.php";
@@ -39,6 +34,7 @@
 			include 'funcionesServidor.php';
 		?>
 		<br>
+		<!--Comienzo de cabecera  -->
 		<div class="row" id="filtros">
 			<div class="form-inline col-lg-1">
 				<?php
@@ -49,14 +45,15 @@
 				<label for="sel1">Autor </label>
 				<select class="form-control" id="sel1" onchange="location = this.value;">
 					<?php
-
-						$autores = selectAllMailsProfesoresId($_GET['idAsignatura']);
+						//Cargamos la opcion de todos los autores, selecionada o no dependiendo de lo que nos llegue por parametro
 						if ($_GET['autor'] == "todos") {
 							echo '<option value="preguntas.php?nombreAsignatura='. $_GET['nombreAsignatura'].'&idAsignatura='.$_GET['idAsignatura'].'&autor=todos" selected>Todos</option>';
 						} else {
 							echo '<option value="preguntas.php?nombreAsignatura='. $_GET['nombreAsignatura'].'&idAsignatura='.$_GET['idAsignatura'].'&autor=todos">Todos</option>';
 						}
 
+						//Cargamos los profesores que tiene la asignatura
+						$autores = selectAllMailsProfesoresId($_GET['idAsignatura']);
 						if ($autores == null){
 							echo 'No hay nombres de profesores';
 						} else if (!$autores){
@@ -75,7 +72,9 @@
 			</div>
 			<input oninput="w3.filterHTML('#tabla_preguntas', '.item', this.value)" class="w3-input col-lg-7" placeholder="Buscar...">
 		</div>
+		<!--Fin de cabecera  -->
 		<br>
+		<!-- Comienzo de la tabla preguntas -->
 		<table class="table table-hover" id="tabla_preguntas">
 		    <thead>
 		      <tr>
@@ -89,12 +88,14 @@
 		    </thead>
 		    <tbody>
 		<?php
+			//Cargamos las preguntas del examen
 			$preguntas=cargaPreguntas($_GET['idAsignatura'], $_GET['autor']);
-
+			//Comprobamos los diversos errores que se han podido ocurrir para mostrarlos en consecuencia
 			$error_ningunaPregunta = isset($_SESSION['error_ningunaPregunta'])? $_SESSION['error_ningunaPregunta']: false;
 			$error_BBDD = isset($_SESSION['error_BBDD'])? $_SESSION['error_BBDD']: false;
 			$error_BorrarNoCreador = isset($_SESSION['error_BorrarNoCreador'])? $_SESSION['error_BorrarNoCreador']: false;
 			$error_noPoderBorrar = isset($_SESSION['error_no_poder_borrar'])? $_SESSION['error_no_poder_borrar']: false;
+			//Mostramos los errores
 			if($error_BorrarNoCreador){
 				?>
 				<div class="alert alert-warning">
@@ -132,11 +133,10 @@
 						    No se ha podido conectar con la base de datos
 						 </div>';
 			}
+			//Si no hubo errores mostramos las preguntas en la tabla
 			else{
 				foreach ($preguntas as $pos => $valor) {
 					echo '<tr class="item" >';
-					//Esto es para que muestre los detalles cuando se pulsa en al fila,pero si se activa, no funcionan los demás botones
-					//echo '<td><a href="'.$valor['id_preguntas'].'"></a>'.$valor['titulo'].'</td>';
 					echo '<td>'.$valor['titulo'].'</td>';
 					echo '<td>'.$valor['tema'].'</td>';
 					echo '<td>'.$valor['autor'].'</td>';
@@ -156,6 +156,8 @@
 		?>
 			</tbody>
 		</table>
+		<!-- Fin de la tabla preguntas -->
+
 
 
 		<!-- Modal de añadir pregunta -->
@@ -215,7 +217,6 @@
 
 			    <!-- Modal footer -->
 			    <div class="modal-footer">
-			      <!--<button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>-->
 			    </div>
 
 			  </div>
@@ -267,4 +268,3 @@
 
 </body>
 </html>
-

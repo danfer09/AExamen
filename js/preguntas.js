@@ -1,19 +1,11 @@
 $(document).ready(function(){
 
-
-	//Esto es para que muestre los detalles cuando se pulsa en al fila,pero si se activa, no funcionan los demás botones
-	/*$('#tabla_preguntas tr').click(function() {
-        var href = $(this).find("a").attr("href");
-        if(href) {
-            window.location = "detallePregunta.php?id="+href;
-        }
-    });*/
+    //Mostrar los diversos modales según los seleccionemos
     $('#boton_modalAñadir').click(function(){
     	$("#boton_añadir").attr("class", "btn btn-primary disabled");
 	    $("#boton_añadir").attr("disabled", true);
         $('#modal_aniadirPregunta').modal('show');
     });
-
     $('#opciones a').click(function() {
         var id = $(this).attr("id");
         if(id == "boton_modalEditar") {
@@ -22,41 +14,24 @@ $(document).ready(function(){
         }
         else if(id == "boton_modalBorrar"){
         	$("#boton_borrar").attr("id_pregunta",$(this).attr("idPreguntas"));
-        	//alert($(this).attr("idPreguntas"));
-        	//alert($("#boton_borrar").attr("id_pregunta"));
         	$('#modal_borrarPregunta').modal('show');
-
         }
-        /*
-        else if(id =="boton_modalAñadir"){
-   			$("#boton_añadir").attr("class", "btn btn-primary disabled");
-	    	$("#boton_añadir").attr("disabled", true);
-        	$('#modal_aniadirPregunta').modal('show');
-        }*/
     });
 
+    //Submit del formulario de modificar
     $('#form_mod').submit(function(event) {
     	var funcion = "editarPregunta";
     	var form_data = $(this).serialize();
-    	/*var formDataAndFunction = {
-            'titulo'              : $('input[name=titulo]').val(),
-            'cuerpo'              : $('input[name=cuerpo]').val(),
-            'funcion'			  : $('input[name=cuerpo]').val(),
-            'tema'                : $('input[name=tema]').val()
-        };*/
-        //$('#myForm').serialize() + "&moredata=" + morevalue
         $.ajax({
-            type        : 'POST', // define the type of HTTP verb we want to use (POST for our form)
-            url         : 'preguntasProcesamiento.php', // the url where we want to POST
-            data        : form_data + '&funcion=' + funcion + '&id_pregunta=' + $("#boton_editar").attr("id_pregunta"), // our data object
+            type        : 'POST',
+            url         : 'preguntasProcesamiento.php',
+            data        : form_data + '&funcion=' + funcion + '&id_pregunta=' + $("#boton_editar").attr("id_pregunta"),
             success: function(respuesta) {
           		if(respuesta){
-          			//alert("Editada con exito");
           			location.reload();
-                
+
           		}
           		else{
-          			//alert("Fallo al editar");
           			location.reload();
           		}
 
@@ -66,27 +41,19 @@ $(document).ready(function(){
 
     });
 
+    //Submit del formulario de añadir
     $('#form_add').submit(function(event) {
     	var funcion = "aniadirPregunta";
     	var form_data = $(this).serialize();
-    	/*var formDataAndFunction = {
-            'titulo'              : $('input[name=titulo]').val(),
-            'cuerpo'              : $('input[name=cuerpo]').val(),
-            'funcion'			  : $('input[name=cuerpo]').val(),
-            'tema'                : $('input[name=tema]').val()
-        };*/
-        //$('#myForm').serialize() + "&moredata=" + morevalue
         $.ajax({
-            type        : 'POST', // define the type of HTTP verb we want to use (POST for our form)
-            url         : 'preguntasProcesamiento.php', // the url where we want to POST
-            data        : form_data + '&funcion=' + funcion, // our data object
+            type        : 'POST',
+            url         : 'preguntasProcesamiento.php',
+            data        : form_data + '&funcion=' + funcion,
             success: function(respuesta) {
           		if(respuesta){
-          			//alert("Insertada con exito");
           			location.reload();
           		}
           		else{
-          			//alert("fallo al insertar");
           			location.reload();
           		}
 			}
@@ -95,21 +62,19 @@ $(document).ready(function(){
 
     });
 
+    //Submit del formulario de borrar
      $('#form_delete').submit(function(event) {
     	var funcion = "borrarPregunta";
     	var form_data = $(this).serialize();
       $.ajax({
-          type        : 'POST', // define the type of HTTP verb we want to use (POST for our form)
-          url         : 'preguntasProcesamiento.php', // the url where we want to POST
-          data        : form_data + '&funcion=' + funcion + '&id_pregunta=' + $("#boton_borrar").attr("id_pregunta"), // our data object
+          type        : 'POST',
+          url         : 'preguntasProcesamiento.php',
+          data        : form_data + '&funcion=' + funcion + '&id_pregunta=' + $("#boton_borrar").attr("id_pregunta"),
           success: function(respuesta) {
         		if(respuesta){
-        			//alert("Borrada con exito");
-              //console.log(respuesta);
         			location.reload();
         		}
         		else{
-        			//alert("Fallo al borrar");
         			location.reload();
         		}
 		     }
@@ -119,7 +84,7 @@ $(document).ready(function(){
     });
 
 
-
+    //Validación de los diversos campos del formulario de añadir una pregunta
     function validarInsert($mensaje){
     	var camposVacios = "Hay campos vacíos, rellénelos";
     	var temaNoNumero = "El tema debe ser un número, ponga un número para continuar";
@@ -157,16 +122,16 @@ $(document).ready(function(){
 
   $('#boton_borrar').click(function() {
     const mensaje = "¿Está seguro de que desea borrar esta pregunta?";
-    if(window.confirm(mensaje)){ 
-        $("#form_delete").submit(); 
+    if(window.confirm(mensaje)){
+        $("#form_delete").submit();
       }
       return false;
   });
 
   $('#boton_editar').click(function() {
     const mensaje = "¿Está seguro de que desea editar esta pregunta?";
-    if(window.confirm(mensaje)){ 
-        $("#form_mod").submit(); 
+    if(window.confirm(mensaje)){
+        $("#form_mod").submit();
       }
       return false;
   });
