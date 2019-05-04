@@ -1,10 +1,10 @@
 <?php
 if(isset($_REQUEST["file"])){
-    // Get parameters
-    $file = urldecode($_REQUEST["file"]); // Decode URL-encoded string
+    // Obtenemos parámetros
+    $file = urldecode($_REQUEST["file"]); // Decodificación de la url del archivo
     $filepath = "log/" . $file;
     
-    // Process download
+    // Proceso de descarga del archivo de log
     if(file_exists($filepath)) {
         header('Content-Description: File Transfer');
         header('Content-Type: application/octet-stream');
@@ -13,7 +13,7 @@ if(isset($_REQUEST["file"])){
         header('Cache-Control: must-revalidate');
         header('Pragma: public');
         header('Content-Length: ' . filesize($filepath));
-        flush(); // Flush system output buffer
+        flush();
         readfile($filepath);
         exit;
     }

@@ -1,6 +1,6 @@
 <?php
 	include 'funcionesServidor.php';
-	error_reporting(0); // Disable all errors.
+	error_reporting(0); 
 	session_start();
 
 	$_SESSION['error_campoVacio']=false;

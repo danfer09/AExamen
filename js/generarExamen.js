@@ -1,5 +1,6 @@
 $(document).ready(function(){
 	
+    //Función que muestra un selector de fecha empezando por el año
 	$(function () {
 		$('#datetimepicker4').datetimepicker({
         	format: 'L',
@@ -7,29 +8,16 @@ $(document).ready(function(){
     	});
 	});
 
+    //Si no se escoge cuatrimestre al cargar la página, no se podrá generar el fichero pdf
     if($('#cuatrimestre').val() == null) {
         $('#botonGenerar').prop("disabled", true);
     }
 
+    //Si al cambiar de cuatrimestre, el valor es nulo, no se podrá generar el fichero pdf
     $('#cuatrimestre').bind('change click', function () {
         if ($(this).val() != '0' && $(this).val() != null) {
             $('#botonGenerar').prop("disabled", false);
         }
     });
 
-	/*$('#form-generar').submit(function(event) {
-    	var form_data = $(this).serialize();
-    	//$(this)[0][7].value
-    	form_data = form_data.substr(0,106);
-    	form_data = form_data+$(this)[0][7].value;
-        $.ajax({
-            type        : 'POST', // define the type of HTTP verb we want to use (POST for our form)
-            url         : 'generarExamenProcesamiento.php', // the url where we want to POST
-            data        : form_data, // our data object
-            success: function(respuesta) {
-          		
-			}
-        })
-    	event.preventDefault();
-    });*/
 });

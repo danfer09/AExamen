@@ -30,6 +30,17 @@
 		}
 	}
 
+	/*Función que actualiza la clave de un profesor en base de datos
+	*
+	* Función que dado objeto de bbdd, un email de profesor y la contraseña hasheada 
+	* actualiza en base de datos la contraseña de este profesor
+	*
+	* @param Object $db objeto para acceder a base de datos
+	* @param string $email correo electrónico del profesor
+	* @param string $hash contraseña hasheada del profesor
+	* 
+	* @return string (AJAX) mensaje de éxito o fallo en la operación de actualización 
+	*/
 	function updateClaveProfesor($db, $email, $hash) {
 		if($db) {
 			$sql = "UPDATE profesores SET clave='".$hash."' WHERE email='".$email."'";

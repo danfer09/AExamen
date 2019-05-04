@@ -1,5 +1,6 @@
 $(document).ready(function(){
 
+	//Comprobación de que las contraseñas coinciden
 	var password = document.getElementById("clave")
 	  , confirm_password = document.getElementById("repetirClave");
 

@@ -18,20 +18,22 @@
 		header('Location: index.php');
 	}
 
+	/*
+	* Función para enviar mail a través de GMail con cuerpo simple
+	*/
 	function smtpmailer($to, $from, $fromName, $subject, $body, $googleUser, $googlePassword) {
 		global $error;
-		$mail = new PHPMailer();  // create a new object
-		$mail->IsSMTP(); // enable SMTP
-		$mail->SMTPDebug = 0;  // debugging: 1 = errors and messages, 2 = messages only
-		$mail->SMTPAuth = true;  // authentication enabled
-		$mail->SMTPSecure = 'ssl'; // secure transfer enabled REQUIRED for GMail
+		$mail = new PHPMailer();  // creamos el objeto
+		$mail->IsSMTP(); // activa SMTP
+		$mail->SMTPDebug = 0;  // debugeo: 1 = errores y mensajes, 2 = sólo mensajes
+		$mail->SMTPAuth = true;  // requerir autenticación
+		$mail->SMTPSecure = 'ssl'; // transferencia segura activada OBLIGATORIO para GMail
 		$mail->Host = 'smtp.gmail.com';
 		$mail->Port = 465;
 		$mail->Username = $googleUser;
 		$mail->Password = $googlePassword;
 		$mail->SetFrom($from, $fromName);
 		$mail->Subject = $subject;
-		//$mail->Body = $body;
 		$mail->AddAddress($to);
 		$mail->CharSet = 'ISO-8859';
 		$mail->msgHTML(file_get_contents($body), __DIR__);
@@ -44,13 +46,16 @@
 		}
 	}
 
+	/*
+	* Función para enviar mail a través de GMail con cuerpo HTML
+	*/
 	function smtpmailerRaw($to, $from, $fromName, $subject, $body, $googleUser, $googlePassword) {
 		global $error;
-		$mail = new PHPMailer();  // create a new object
-		$mail->IsSMTP(); // enable SMTP
-		$mail->SMTPDebug = 0;  // debugging: 1 = errors and messages, 2 = messages only
-		$mail->SMTPAuth = true;  // authentication enabled
-		$mail->SMTPSecure = 'ssl'; // secure transfer enabled REQUIRED for GMail
+		$mail = new PHPMailer();   // creamos el objeto
+		$mail->IsSMTP(); // activa SMTP
+		$mail->SMTPDebug = 0;  // debugeo: 1 = errores y mensajes, 2 = sólo mensajes
+		$mail->SMTPAuth = true;  // requerir autenticación
+		$mail->SMTPSecure = 'ssl'; // transferencia segura activada OBLIGATORIO para GMail
 		$mail->Host = 'smtp.gmail.com';
 		$mail->Port = 465;
 		$mail->Username = $googleUser;
@@ -70,26 +75,31 @@
 		}
 	}
 
+	/*
+	* Función para formatear una fecha de formato estándar string a diferentes formatos según cuanto tiempo haya pasado hasta la actualidad
+	*/
 	function formateoDateTime ($fecha) {
 		$time = strtotime($fecha);
 
-		$diff = (time() - $time)*1000; // the difference in milliseconds
+		$diff = (time() - $time)*1000; // la diferencia en milisegundos
 
-		if ($diff < 1000) { // less than 1 second
+		if ($diff < 1000) { // menos de un segundo
 			return 'ahora mismo';
 		}
 
-		$sec = floor($diff / 1000); // convert $diff to seconds
+		$sec = floor($diff / 1000); // diferencia en segundos
 
-		if ($sec < 60) {
+		if ($sec < 60) { // menos de un minuto
 			return 'hace '.$sec.' seg.';
 		}
 
-		$min = floor($diff / 60000); // convert $diff to minutes
-		if ($min < 60) {
+		$min = floor($diff / 60000); // diferencia en minutos
+
+		if ($min < 60) { // menos de una hora
 			return 'hace '.$min.' min.';
 		}
 
+		//si el día coincide
 		if ((date("d")==date('d',$time))) {
 			return date('H:i',$time);
 		}

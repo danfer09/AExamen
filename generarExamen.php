@@ -10,6 +10,7 @@
 		header('Location: index.php');
 	}
 
+	//Comprobamos los distitos session que controlan los diversos errores, si existen los volcamos en unas variables para que sea mas manejable
 	$error_BBDD = isset($_SESSION['error_BBDD'])? $_SESSION['error_BBDD']: false;
 	$error_campoVacio = isset($_SESSION['error_campoVacio'])? $_SESSION['error_campoVacio']: false;
 	$error_generar = isset($_SESSION['error_no_existen_preguntas'])? $_SESSION['error_no_existen_preguntas']: false;
@@ -50,8 +51,6 @@
 		<?php 
 			include 'generarExamenProcesamiento.php';
 
-			//$_GET['examen'] = "IS Parcial 2017";
-
 			echo "<h2> Examen: ". $_GET['examen'] . "</h2>";
 			echo "<h2> Parámetros: </h2>";
 
@@ -61,6 +60,7 @@
 			$_SESSION['idExamenGenerado'] = $parametrosDefecto['idExamen'];
 		?>
 	  	
+	  	<!-- Formulario para definir las preferencias al generar un examen -->
 	  	<form class="form-horizontal" action="generarExamenProcesamiento.php" method="post" id="form-generar">
 	  		<div class="form-group">
 				<h4><label class="control-label" for="espaciado">Espaciado para responder a las preguntas: </label></h4>

@@ -1,5 +1,6 @@
 $(document).ready(function(){
 
+	//Garantiza que las contraseñas introducidas son iguales y no nulas
 	var password = document.getElementById("pass1")
 	  , confirm_password = document.getElementById("pass2");
 

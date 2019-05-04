@@ -140,6 +140,10 @@ h1 {
     text-transform: uppercase;
     color: #4CAF50;
 }
+h1.black {
+    color: black;
+    font-weight: bold;
+}
 
 th:hover {
 	background-color: rgb(234, 234, 234);

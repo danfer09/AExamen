@@ -30,6 +30,8 @@
 					exit();
 				} else if ($consulta->num_rows == 1) {
 					$codigo = password_hash($email, PASSWORD_BCRYPT);
+
+					//Envío del email que permitirá al usuario reestablecer su contraseña olvidada
 					if (smtpmailerRaw($email, $credentials['webMail']['mail'], 'AExamen Web', 'Reestablecer la contraseña', '<!DOCTYPE html>
 <html>
 <head>

@@ -18,8 +18,7 @@
 			$_SESSION["nombre"]= $_SESSION['nombreTemp'];
 			$_SESSION["apellidos"]= $_SESSION['apellidosTemp'];
 			$hashed_clave = password_hash($pass1, PASSWORD_BCRYPT);
-			//echo $_SESSION["email"].$_SESSION["nombre"].$_SESSION["apellidos"].$pass1;
-			//exit();
+			
 			insertProfesor($db, $_SESSION["nombre"], $_SESSION["apellidos"], $_SESSION["email"], $hashed_clave);
 
 			$_SESSION['logeado']=true;

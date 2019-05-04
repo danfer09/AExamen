@@ -2,6 +2,8 @@
 	if (session_status() == PHP_SESSION_NONE) {
 	    session_start();
 	}
+
+	//Comprobamos los distitos session que controlan los diversos errores, si existen los volcamos en unas variables para que sea mas manejable
 	$error_campoVacio = isset($_SESSION['error_campoVacio'])? $_SESSION['error_campoVacio']: false;
 	$error_BBDD = isset($_SESSION['error_BBDD'])? $_SESSION['error_BBDD']: false;
 	$error_usuario_no_existente = isset($_SESSION['error_usuario_no_existente'])? $_SESSION['error_usuario_no_existente']: false;
@@ -53,11 +55,11 @@
 
 		<form action="olvidoPasswordProcesamiento.php" id="formulario_olvido" method="post">
 			Email:<br>
-			<input type="text" name="email" id="email" required>
-			<br><br>
-			<input type="submit" value="Enviar" id="olvido" name="olvido">
+			<input type="text" placeholder="email@example.com" class="form-control" name="email" id="email" required>
+			<br>
+			<input type="submit" class="btn btn-primary" value="Enviar" id="olvido" name="olvido">
 		</form> 
-		<br>
+		<br><br>
 		<p><a href="loginFormulario.php">Iniciar sesión</a></p>
 		<p><a href="registrarseFormulario.php">Registrarse</a></p>
 

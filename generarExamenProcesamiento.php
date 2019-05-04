@@ -14,6 +14,9 @@
 	require('FPDF/fpdf.php');
 	include "crearExamenProcesamiento.php";
 
+	/*
+	* Definimos la clase PDF que nos sirve para establecer los parámetros de impresión del pdf a generar
+	*/
 	class PDF extends FPDF
 	{
 		function cabecera() {
@@ -77,8 +80,6 @@
 			$this->SetY(-15);
 			// Arial italic 8
 			$this->SetFont('Arial','I',8);
-			// Número de página
-			//$this->Cell(0,10,$this->PageNo().'/{nb}',0,0,'C');
 		}
 	}
 	
@@ -87,25 +88,22 @@
 	    session_start();
 	}
 
+	//Creación y generación del examen en pdf
 	if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-		//print_r($_POST);
 		$pdf = new PDF();
 		$pdf->AddPage();
 		$pdf->SetFont('Arial','B',11);
 		$pdf->AliasNbPages();
 		$pdf->cabecera();
 		$pdf->SetTitle($_SESSION['nombreExamenGenerado'].".pdf");
-		//$pdf->Cell(65);
 		$pdf->SetFont('Arial','B',11);
 	    $pdf->MultiCell(0,5,$_POST['pautas'],1,'L');
 	    $pdf->Ln(10);
-	    //$pdf->Cell(30,10,"a","",0,'L');
 	    if ($preguntas = getPreguntasExamen($_SESSION['idExamenGenerado'])) {
 	    	$i=1;
 	    	foreach ($preguntas as $pregunta) {
 	    		$pdf->Cell(5,5,$i.")","",0,'R');
 	    		$pdf->MultiCell(0,5,"(".intval($pregunta['puntos'])." puntos) ".utf8_decode($pregunta['pregunta']));
-	    		//$pdf->Cell(70,20,$pregunta['cuerpo'],"",0,'L');
 	    		if ($_POST['espaciado'] == 2) {
 	    			$pdf->Ln(30);
 	    		} else if ($_POST['espaciado'] == 10) {
@@ -127,6 +125,15 @@
 		$pdf->Output("I",$_SESSION['nombreExamenGenerado'].".pdf");
 	}
 
+	/*Función que devuelve los parámetros por defecto para generar un examen
+	*
+	* Función que dado un título de un examen devuelve los valores de los parámetros (espaciado, texto_inicial,
+	* siglas, etc) de la asignatura para generar un examen
+	*
+	* @param string $tituloExamen titulo de un examen de la asignatura
+	
+	* @return array mysqli_fetch_assoc($consulta) devuelve el array con los parámetros 
+	*/
 	function getDefaultParameters ($tituloExamen) {
 		$credentialsStr = file_get_contents('json/credentials.json');
 		$credentials = json_decode($credentialsStr, true);
@@ -139,6 +146,14 @@
 		}
 	}
 
+	/*Función que devuelve todas las preguntas de un examen
+	*
+	* Función que dado un id de un examen devuelve todas las preguntas (puntos, títulos y cuerpos) del examen
+	*
+	* @param int $idExamen id del examen
+	
+	* @return array $resultado devuelve el array con las preguntas
+	*/
 	function getPreguntasExamen ($idExamen) {
 		$credentialsStr = file_get_contents('json/credentials.json');
 		$credentials = json_decode($credentialsStr, true);
