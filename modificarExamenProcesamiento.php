@@ -16,13 +16,13 @@
 	if($funcion == "guardarModificarExamen")
 		guardarModificarExamen($nombreExamen);
 
-		/*Función que nos devuelve toda la informacion de un examen.
-		*
-		*Funcion que dado un identificador de examen nos devuelve un array con
-		*toda la información de este.
-		*
-		* @param int $idExamen identificador de un examen
-		* @return $fila array con la informacion del examen*/
+	/*Función que nos devuelve toda la informacion de un examen.
+	*
+	*Funcion que dado un identificador de examen nos devuelve un array con
+	*toda la información de este.
+	*
+	* @param int $idExamen identificador de un examen
+	* @return $fila array con la informacion del examen*/
 	function getExamen($idExamen){
 		$credentialsStr = file_get_contents('json/credentials.json');
 		$credentials = json_decode($credentialsStr, true);
@@ -41,7 +41,14 @@
 		return $fila;
 	}
 
-
+	/*Función que guarda un examen editado en la base de datos
+	*
+	* Función que dado un nombre de examen se encarga de actualizar el examen almacenado en sesión en cada tabla correspondiente 
+	* de manera que queda actualizado en la base de datos correctamente.
+	*
+	* @param string $nombreExamen nombre del examen
+	* @return {void}
+    */
 	function guardarModificarExamen ($nombreExamen) {
 		$credentialsStr = file_get_contents('json/credentials.json');
 		$credentials = json_decode($credentialsStr, true);

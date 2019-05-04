@@ -6,32 +6,21 @@ $(document).ready(function(){
 	$('#closeNav').click(function() {
 		 document.getElementById("mySidenav").style.width = "0px";
 	});
-	/*$('#form_añiadirPregunta').submit(function(event) {
-
-	});*/
-
-
-	/*$('#boton_aniadirPregunta').click(function() {
-		 console.log($(this).attr("tema"));
-		 console.log($(this).attr("asignatura"));
-	});*/
+	
+  /*
+  * Carga todas las preguntas de un tema mediante un POST con AJAX y las pinta por pantalla
+  */
 	$(".fa-plus-circle").click(function() {
 		$tema=$(this).attr("tema");
 		$idAsignatura=$(this).attr("asignatura");
-		//console.log("entra al click");
-		console.log($tema);
-		console.log($idAsignatura);
 		var funcion = "getPregAsigTema";
   
         $.ajax({
-            type        : 'POST', // define the type of HTTP verb we want to use (POST for our form)
-            url         : 'crearExamenProcesamiento.php', // the url where we want to POST
-            data        : 'funcion=' + funcion + '&idAsignatura=' + $idAsignatura + '&tema=' + $tema, // our data object
+            type        : 'POST',
+            url         : 'crearExamenProcesamiento.php',
+            data        : 'funcion=' + funcion + '&idAsignatura=' + $idAsignatura + '&tema=' + $tema,
             success:function(respuesta){
 		        if(respuesta){
-          			//alert(respuesta);
-          			console.log(respuesta);
-          			//console.log("llega");
                 $('#boton_añiadir').attr('disabled',false);
           			$('#table_aniadirPreguntas').children('tr,td').remove();
                 $('#table_aniadirPreguntas').attr("tema", $tema);
@@ -39,18 +28,16 @@ $(document).ready(function(){
                 $("#info_aniadirPreg_limite").hide();
                 $("#info_aniadirPreg_todas").hide();
                 var preguntas = [];
+
                 $('.preguntaTema'+$tema).each(function( index ) {
                   preguntas[index] = $(this).attr("id");
-                  //console.log($(this).attr("id"));
-                  //console.log( index + ": " + $( this ).text() );
                 });
-                //console.log($('#numeradorTema'+$tema).text()+'  '+$('#denominadorTema'+$tema).text());
+
           			if(respuesta.length>0){
                   var pinta = false;
                   if ($('#numeradorTema'+$tema).text() == $('#denominadorTema'+$tema).text()) {
                     for (i = 0; i < respuesta.length; i++) {
                       if (preguntas.indexOf(respuesta[i]["id"]) == -1) {
-                        //console.log(respuesta[i]["titulo"]+"  "+respuesta[i]["id"]+"/n");
                         pinta = true;
                         $("#table_aniadirPreguntas").append('<tr><td><input disabled id="checkbox-'+$tema+'-'+i+'" type="radio" name="preguntas[]" value="'+respuesta[i]["id"]+'"></td><td>'+respuesta[i]["titulo"]+'</td><td>'+respuesta[i]["cuerpo"]+'</td><td>'+respuesta[i]["tema"]+'</td></tr>');
                       }
@@ -60,7 +47,6 @@ $(document).ready(function(){
                   } else {
                     for (i = 0; i < respuesta.length; i++) {
                       if (preguntas.indexOf(respuesta[i]["id"]) == -1) {
-                        //console.log(respuesta[i]["titulo"]+"  "+respuesta[i]["id"]+"/n");
                         pinta = true;
                         $("#table_aniadirPreguntas").append('<tr><td><input id="checkbox-'+$tema+'-'+i+'" type="radio" name="preguntas[]" value="'+respuesta[i]["id"]+'"></td><td>'+respuesta[i]["titulo"]+'</td><td>'+respuesta[i]["cuerpo"]+'</td><td>'+respuesta[i]["tema"]+'</td></tr>');
                       }
@@ -72,15 +58,12 @@ $(document).ready(function(){
       					}
       					else{
       						$("#info_aniadirPreg_vacio").show();
-      						//$("#info_aniadirPreg").text('No hay ninguna pregunta de este tema').addClass('badge badge-pill badge-danger');
       					}
 
-      					//location.reload();
       					$('#modal_aniadirPreguntas').modal('show');
           	}
         		else{
-        			//alert("Fallo al editar");
-        			console.log("falla");
+        			console.log("Error");
         			location.reload();
         		}
 		    },
@@ -89,9 +72,10 @@ $(document).ready(function(){
     	event.preventDefault();
 	});
 
-
+  /*
+  * Añade la pregunta seleccionada al examen mediante llamada POST (AJAX)
+  */
   $("#form_aniadirPregunta").submit(function(event) {
-    //console.log("entra aniadir");
     var funcion = "aniadirPreguntas";
     var tema=$('#table_aniadirPreguntas').attr("tema");
     $('#modal_aniadirPreguntas').modal('hide');
@@ -99,9 +83,9 @@ $(document).ready(function(){
     var form_data = $(this).serialize();
   
         $.ajax({
-            type        : 'POST', // define the type of HTTP verb we want to use (POST for our form)
-            url         : 'crearExamenProcesamiento.php', // the url where we want to POST
-            data        : form_data + '&funcion=' + funcion, // our data object
+            type        : 'POST',
+            url         : 'crearExamenProcesamiento.php',
+            data        : form_data + '&funcion=' + funcion,
             success:function(respuesta){
             if(respuesta){
                 console.log(respuesta);
@@ -116,250 +100,170 @@ $(document).ready(function(){
       event.preventDefault();
   });
 
-$('#guardarNuevoExamen').click(function() {
-  let siglas = $('#nombreExamen').attr('siglas');
-  var nombreExamen=$('#nombreExamen').val();
-  if (!nombreExamen) {
-    alert("Por favor, introduzca un nombre de examen");
-  } else {
-    let funcion = 'guardarExamen';
-    //console.log("entra a js");
-        $.ajax({
-            type        : 'POST', // define the type of HTTP verb we want to use (POST for our form)
-            url         : 'crearExamenProcesamiento.php', // the url where we want to POST
-            data        : 'funcion=' + funcion + '&nombreExamen=' + nombreExamen, // our data object
-            success:function(respuesta){
+  /*
+  * Guarda el nuevo examen (llamada POST) a no ser que no se haya rellenado el campo de nombre, en cuyo caso recuerda que ha de introducirlo
+  */
+  $('#guardarNuevoExamen').click(function() {
+    let siglas = $('#nombreExamen').attr('siglas');
+    var nombreExamen=$('#nombreExamen').val();
+    if (!nombreExamen) {
+      alert("Por favor, introduzca un nombre de examen");
+    } else {
+      let funcion = 'guardarExamen';
+      $.ajax({
+          type        : 'POST',
+          url         : 'crearExamenProcesamiento.php',
+          data        : 'funcion=' + funcion + '&nombreExamen=' + nombreExamen,
+          success:function(respuesta){
             if(respuesta){
                 console.log(respuesta);
-                /*
-                for(i=0; i<respuesta.length; i++){
-                  $('#preguntasTema'+ tema).append('<div class="col-12">'+ respuesta[i].titulo+' '+ respuesta[i].cuerpo +'</div>');
+            }
+            else{
+                console.log("ha fallado");
+            }
+        },
+      dataType:"json"
+      })
+      window.location = 'examenes.php?asignatura='+siglas+'&autor=todos&successCreate=true';
+      event.preventDefault();
+    }
+  });
+
+  /*
+  * Guarda el examen editado (llamada POST) a no ser que no se haya rellenado el campo de nombre, en cuyo caso recuerda que ha de introducirlo
+  */
+  $('#guardarModificarExamen').click(function() {
+    var nombreExamen=$('#nombreExamen').val();
+    let siglas = $('#nombreExamen').attr('siglas');
+    if (!nombreExamen) {
+      alert("Por favor, introduzca un nombre de examen");
+    } else {
+      let funcion = 'guardarModificarExamen';
+          $.ajax({
+              type        : 'POST',
+              url         : 'modificarExamenProcesamiento.php',
+              data        : 'funcion=' + funcion + '&nombreExamen=' + nombreExamen,
+              success:function(respuesta){
+                if(respuesta){
+                    console.log(respuesta);
                 }
-                //$("#modal_aniadirPreguntas").modal('hide');*/
-                //location.reload();
-            }
-            else{
-                console.log("ha fallado");
-            }
-            //window.location = 'examenes.php?asignatura=todas&autor=todos';
-        },
-        dataType:"json"
-        })
-        window.location = 'examenes.php?asignatura='+siglas+'&autor=todos&successCreate=true';
-        event.preventDefault();
-  }
-});
-
-$('#guardarModificarExamen').click(function() {
-  var nombreExamen=$('#nombreExamen').val();
-  let siglas = $('#nombreExamen').attr('siglas');
-  console.log(nombreExamen);
-  if (!nombreExamen) {
-    alert("Por favor, introduzca un nombre de examen");
-  } else {
-    let funcion = 'guardarModificarExamen';
-    //console.log("entra a js");
-        $.ajax({
-            type        : 'POST', // define the type of HTTP verb we want to use (POST for our form)
-            url         : 'modificarExamenProcesamiento.php', // the url where we want to POST
-            data        : 'funcion=' + funcion + '&nombreExamen=' + nombreExamen, // our data object
-            success:function(respuesta){
-            if(respuesta){
-                console.log(respuesta);
-                /*
-                for(i=0; i<respuesta.length; i++){
-                  $('#preguntasTema'+ tema).append('<div class="col-12">'+ respuesta[i].titulo+' '+ respuesta[i].cuerpo +'</div>');
+                else{
+                    console.log("ha fallado");
                 }
-                //$("#modal_aniadirPreguntas").modal('hide');*/
-                //location.reload();
-            }
-            else{
-                console.log("ha fallado");
-            }
-            //window.location = 'examenes.php?asignatura=todas&autor=todos';
-        },
-        dataType:"json"
-        })
-        window.location = 'examenes.php?asignatura='+siglas+'&autor=todos&successEdit=true';
-        event.preventDefault();
-  }
-});
+              },
+          dataType:"json"
+          })
+          window.location = 'examenes.php?asignatura='+siglas+'&autor=todos&successEdit=true';
+          event.preventDefault();
+    }
+  });
 
-$('[id^=masPuntosPregunta]').click(function() {
-  //alert($(this).parent().find('.puntos').text());
-  let idFull = $(this).parent().attr('id');
-  let idPregunta = idFull.substring(14, 14+(idFull.length-14));
-  let puntosPregunta = $(this).parent().find('.puntos').text();
-  let str = $(this).parent().parent().parent().parent().attr('id');
-  let tema = str.substring(13, 13+(str.length-13));
-  let numerador = $('#numeradorTema'+tema).text();
-  let denominador = $('#denominadorTema'+tema).text();
-  let funcion = "cambiarPuntosPregunta";
-  if (Number(numerador)+1 <= Number(denominador)) {
-    $(this).parent().find('.puntos').html("<b>"+(Number(puntosPregunta)+1)+"</b>");
-    $('#numeradorTema'+tema).text(Number(numerador)+1);
-    $('#numeradorTotal').text(Number($('#numeradorTotal').text())+1);
-    $.ajax({
-            type        : 'POST', // define the type of HTTP verb we want to use (POST for our form)
-            url         : 'crearExamenProcesamiento.php', // the url where we want to POST
-            data        : 'funcion=' + funcion + '&idPregunta=' + idPregunta + '&puntos=' + (Number(puntosPregunta)+1) + '&tema=' + tema, // our data object
-            success:function(respuesta){
-            if(respuesta){
-                console.log(respuesta);
-            }
-            else{
-                console.log("ha fallado");
-            }
-            
-        },
-        dataType:"json"
-        })
-        //location.reload();
-        event.preventDefault();
-  }
-
-});
-
-$('[id^=menosPuntosPregunta]').click(function() {
-  //alert($(this).parent().find('.puntos').text());
-  let idFull = $(this).parent().attr('id');
-  let idPregunta = idFull.substring(14, 14+(idFull.length-14));
-  let puntosPregunta = $(this).parent().find('.puntos').text();
-  let str = $(this).parent().parent().parent().parent().attr('id');
-  let tema = str.substring(13, 13+(str.length-13));
-  let numerador = $('#numeradorTema'+tema).text();
-  let denominador = $('#denominadorTema'+tema).text();
-  let funcion = "cambiarPuntosPregunta";
-  if (Number(puntosPregunta)-1 >= 1) {
-    $(this).parent().find('.puntos').html("<b>"+(Number(puntosPregunta)-1)+"</b>");
-    $('#numeradorTema'+tema).text(Number(numerador)-1);
-    $('#numeradorTotal').text(Number($('#numeradorTotal').text())-1);
-    $.ajax({
-            type        : 'POST', // define the type of HTTP verb we want to use (POST for our form)
-            url         : 'crearExamenProcesamiento.php', // the url where we want to POST
-            data        : 'funcion=' + funcion + '&idPregunta=' + idPregunta + '&puntos=' + (Number(puntosPregunta)-1) + '&tema=' + tema, // our data object
-            success:function(respuesta){
-            if(respuesta){
-                console.log(respuesta);
-            }
-            else{
-                console.log("ha fallado");
-            }
-            
-        },
-        dataType:"json"
-        })
-        //location.reload();
-        event.preventDefault();
-  }
-});
-
-
-$('[id^=boton-eliminar]').click(function() {
-  var r = confirm("¿Estás seguro de querer eliminar esta pregunta?");
-  if (r == true) {
+  /*
+  * Aumenta en +1 los puntos de la pregunta para la que se ha hecho click en su flecha de incremento
+  */
+  $('[id^=masPuntosPregunta]').click(function() {
+    let idFull = $(this).parent().attr('id');
+    let idPregunta = idFull.substring(14, 14+(idFull.length-14));
+    let puntosPregunta = $(this).parent().find('.puntos').text();
     let str = $(this).parent().parent().parent().parent().attr('id');
     let tema = str.substring(13, 13+(str.length-13));
     let numerador = $('#numeradorTema'+tema).text();
-    let puntosPregunta = $(this).parent().parent().parent().attr('puntos');
-    $('#numeradorTema'+tema).text(Number(numerador)-puntosPregunta);
-    $('#numeradorTotal').text(Number($('#numeradorTotal').text())-puntosPregunta);
-    let idPregunta = $(this).attr('pregunta');
-    let div = document.getElementById(idPregunta);
-    div.parentNode.removeChild(div);
-    let funcion = 'eliminarPregunta';
-    $.ajax({
-            type        : 'POST', // define the type of HTTP verb we want to use (POST for our form)
-            url         : 'crearExamenProcesamiento.php', // the url where we want to POST
-            data        : 'funcion=' + funcion + '&idPregunta=' + idPregunta + '&tema=' + tema, // our data object
-            success:function(respuesta){
+    let denominador = $('#denominadorTema'+tema).text();
+    let funcion = "cambiarPuntosPregunta";
+    if (Number(numerador)+1 <= Number(denominador)) {
+      $(this).parent().find('.puntos').html("<b>"+(Number(puntosPregunta)+1)+"</b>");
+      $('#numeradorTema'+tema).text(Number(numerador)+1);
+      $('#numeradorTotal').text(Number($('#numeradorTotal').text())+1);
+      $.ajax({
+          type        : 'POST',
+          url         : 'crearExamenProcesamiento.php',
+          data        : 'funcion=' + funcion + '&idPregunta=' + idPregunta + '&puntos=' + (Number(puntosPregunta)+1) + '&tema=' + tema,
+          success:function(respuesta){
             if(respuesta){
                 console.log(respuesta);
-                
             }
             else{
                 console.log("ha fallado");
             }
             
-        },
-        dataType:"json"
-        })
-        //location.reload();
-        event.preventDefault();
+          },
+      dataType:"json"
+      })
+      event.preventDefault();
+    }
 
-  }
-});
-
-/*$('#nombreExamen').bind('change keydown keyup', function() {
-  let funcion = 'guardarNombreExamenJSON';
-  let nombre = $(this).val();
-  let idExamen = getUrlParameter('id');
-  console.log($('#nombreExamen').val());  
-      $.ajax({
-              type        : 'POST', // define the type of HTTP verb we want to use (POST for our form)
-              url         : 'crearExamenProcesamiento.php', // the url where we want to POST
-              data        : 'funcion=' + funcion + '&nombreExamen=' + nombre + '&idExamen' + idExamen, // our data object
-              dataType: 'json',
-              success: function (respuesta) {
-                if(respuesta){
-                //console.log(respuesta);
-                   
-                }
-                else{
-                    console.log("ha fallado");
-                }
-                
-              },
-              complete: function (data) {
-                      // Schedule the next
-              }
-      });
   });
 
-var getUrlParameter = function getUrlParameter(sParam) {
-    var sPageURL = window.location.search.substring(1),
-        sURLVariables = sPageURL.split('&'),
-        sParameterName,
-        i;
-
-    for (i = 0; i < sURLVariables.length; i++) {
-        sParameterName = sURLVariables[i].split('=');
-
-        if (sParameterName[0] === sParam) {
-            return sParameterName[1] === undefined ? true : decodeURIComponent(sParameterName[1]);
-        }
-    }
-};*/
-
-/*$('#nombreExamen').bind('change mouseup mousedown mouseout keydown keyup', function() {
-  let funcion = 'guardarNombreExamenJSON';
-  let nombre = $(this).val();
-  //console.log($('#nombreExamen').val());
-  var interval = 500;  // 1000 = 1 second, 3000 = 3 seconds
-  function doAjax() {
+  /*
+  * Disminuye en -1 los puntos de la pregunta para la que se ha hecho click en su flecha de incremento
+  */
+  $('[id^=menosPuntosPregunta]').click(function() {
+    let idFull = $(this).parent().attr('id');
+    let idPregunta = idFull.substring(14, 14+(idFull.length-14));
+    let puntosPregunta = $(this).parent().find('.puntos').text();
+    let str = $(this).parent().parent().parent().parent().attr('id');
+    let tema = str.substring(13, 13+(str.length-13));
+    let numerador = $('#numeradorTema'+tema).text();
+    let denominador = $('#denominadorTema'+tema).text();
+    let funcion = "cambiarPuntosPregunta";
+    if (Number(puntosPregunta)-1 >= 1) {
+      $(this).parent().find('.puntos').html("<b>"+(Number(puntosPregunta)-1)+"</b>");
+      $('#numeradorTema'+tema).text(Number(numerador)-1);
+      $('#numeradorTotal').text(Number($('#numeradorTotal').text())-1);
       $.ajax({
-              type        : 'POST', // define the type of HTTP verb we want to use (POST for our form)
-              url         : 'crearExamenProcesamiento.php', // the url where we want to POST
-              data        : 'funcion=' + funcion + '&nombreExamen=' + nombre, // our data object
-              dataType: 'json',
-              success: function (respuesta) {
-                if(respuesta){
-                //console.log(respuesta);
-                   
-                }
-                else{
-                    console.log("ha fallado");
-                }
-                
-              },
-              complete: function (data) {
-                      // Schedule the next
-                      
-                      setTimeout(doAjax, interval);
-              }
-      });
-  }
-  setTimeout(doAjax, interval);
-});*/
+          type        : 'POST',
+          url         : 'crearExamenProcesamiento.php',
+          data        : 'funcion=' + funcion + '&idPregunta=' + idPregunta + '&puntos=' + (Number(puntosPregunta)-1) + '&tema=' + tema,
+          success:function(respuesta){
+            if(respuesta){
+                console.log(respuesta);
+            }
+            else{
+                console.log("ha fallado");
+            }
+            
+          },
+      dataType:"json"
+      })
+      event.preventDefault();
+    }
+  });
+
+  /*
+  * Pide confirmación sobre eliminar una pregunta y en caso afirmativo la elimina
+  */
+  $('[id^=boton-eliminar]').click(function() {
+    var r = confirm("¿Estás seguro de querer eliminar esta pregunta?");
+    if (r == true) {
+      let str = $(this).parent().parent().parent().parent().attr('id');
+      let tema = str.substring(13, 13+(str.length-13));
+      let numerador = $('#numeradorTema'+tema).text();
+      let puntosPregunta = $(this).parent().parent().parent().attr('puntos');
+      $('#numeradorTema'+tema).text(Number(numerador)-puntosPregunta);
+      $('#numeradorTotal').text(Number($('#numeradorTotal').text())-puntosPregunta);
+      let idPregunta = $(this).attr('pregunta');
+      let div = document.getElementById(idPregunta);
+      div.parentNode.removeChild(div);
+      let funcion = 'eliminarPregunta';
+      $.ajax({
+          type        : 'POST',
+          url         : 'crearExamenProcesamiento.php',
+          data        : 'funcion=' + funcion + '&idPregunta=' + idPregunta + '&tema=' + tema,
+          success:function(respuesta){
+            if(respuesta){
+                console.log(respuesta);
+            }
+            else{
+                console.log("ha fallado");
+            }
+          },
+      dataType:"json"
+      })
+      event.preventDefault();
+
+    }
+  });
+
+
 	
 });
