@@ -1,10 +1,10 @@
 $(document).ready(function(){
+
+    //Muestra los modales de las diversas opciones cuando se clickan
     $('#opciones a').click(function() {
         var id = $(this).attr("id");
         if(id == "boton_modalBorrar"){
         	$("#boton_borrar").attr("id_profesor",$(this).attr("idProfesor"));
-        	//alert($(this).attr("idExamens"));
-        	//alert($("#boton_borrar").attr("id_Examen"));
         	$('#modal_borrarProfesor').modal('show');
         } else if (id == "boton_modalEditar") {
             $("#boton_editar").attr("id_profesor",$(this).attr("idProfesor"));
@@ -14,10 +14,9 @@ $(document).ready(function(){
 
             $('#modal_editarProfesor').modal('show');
         }
-        
-
     });
 
+    //Funcion que comprueba que los campos no estén vacíos
     function comprobarCamposRellenados(){
         let resultado=true;
         if($("#nombreForm").val()==""||$("#apellidosForm").val()=="" ||$("#emailForm").val()=="")
@@ -25,15 +24,17 @@ $(document).ready(function(){
         return resultado;
     }
 
+    //Funcion que comprueba que el email tenga un formato correcto
     function comprobarEmailValido(){
         var caract = new RegExp(/^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/);
         const email = $("#emailForm").val();
         let resultado=true;
         if (caract.test(email) == false)
             resultado=false;
-        return resultado;  
+        return resultado;
     }
 
+    //Cuando se suelta una tecla se llevan a cabo diversas comprobaciones
     $('#nombreForm,#apellidosForm,#emailForm').keyup(function() {
         if(comprobarEmailValido() && comprobarCamposRellenados()){
             $("#boton_editar").attr("class", "btn btn-primary active");
@@ -55,27 +56,25 @@ $(document).ready(function(){
 
     });
 
-    
 
+    //muestra el modal de añadir profesor
     $('#boton_modalAñadir').click(function(){
         $('#modalAniadirProfesor').modal('show');
     });
 
-
+    //submit del formulario de borrar profesor
     $('#form_delete').submit(function(event) {
         var funcion = "borrarProfesor";
         var form_data = $(this).serialize();
         $.ajax({
-          type        : 'POST', // define the type of HTTP verb we want to use (POST for our form)
-          url         : 'profesoresAdminProcesamiento.php', // the url where we want to POST
-          data        : form_data + '&funcion=' + funcion + '&idProfesor=' + $("#boton_borrar").attr("id_profesor"), // our data object
+          type        : 'POST',
+          url         : 'profesoresAdminProcesamiento.php',
+          data        : form_data + '&funcion=' + funcion + '&idProfesor=' + $("#boton_borrar").attr("id_profesor"),
           success: function(respuesta) {
                 if(respuesta){
-                    //alert("Borrada con exito");
                     location.reload();
                 }
                 else{
-                    //alert("Fallo al borrar");
                     location.reload();
                 }
              }
@@ -83,56 +82,46 @@ $(document).ready(function(){
         event.preventDefault();
     });
 
+    //submit del formulario de editar profesor
     $('#form_mod').submit(function(event) {
         var funcion = "editarProfesor";
         var form_data = $(this).serialize();
-        /*var formDataAndFunction = {
-            'titulo'              : $('input[name=titulo]').val(),
-            'cuerpo'              : $('input[name=cuerpo]').val(),
-            'funcion'             : $('input[name=cuerpo]').val(),
-            'tema'                : $('input[name=tema]').val()
-        };*/
-        //$('#myForm').serialize() + "&moredata=" + morevalue
+
         $.ajax({
-            type        : 'POST', // define the type of HTTP verb we want to use (POST for our form)
-            url         : 'profesoresAdminProcesamiento.php', // the url where we want to POST
-            data        : form_data + '&funcion=' + funcion + '&idProfesor=' + $("#boton_editar").attr("id_profesor"), // our data object
+            type        : 'POST',
+            url         : 'profesoresAdminProcesamiento.php',
+            data        : form_data + '&funcion=' + funcion + '&idProfesor=' + $("#boton_editar").attr("id_profesor"),
             success: function(respuesta) {
                 if(respuesta){
-                    //alert("Editada con exito");
                     location.reload();
-                
                 }
                 else{
-                    //alert("Fallo al editar");
                     location.reload();
                 }
-
             }
         })
         event.preventDefault();
-
     });
 
-
-
-
+  //Mensaje de confirmacion antes de borrar un profesor
   $('#boton_borrar').click(function() {
     const mensaje = "Esta acción no se puede revertir, ¿está seguro de que desea eliminar este profesor?";
-    if(window.confirm(mensaje)){ 
-        $("#form_delete").submit(); 
+    if(window.confirm(mensaje)){
+        $("#form_delete").submit();
       }
     return false;
   });
 
+  //Mensaje de confirmacion antes de editar un profesor
   $('#boton_editar').click(function() {
     const mensaje = "¿Está seguro de que desea editar este profesor?";
-    if(window.confirm(mensaje)){ 
-        $("#form_mod").submit(); 
+    if(window.confirm(mensaje)){
+        $("#form_mod").submit();
       }
       return false;
   });
 
+//Modal de añadir asignatura
 $('.modalAsignaturas').click(function() {
     /*-----------------Abrir modal -------*/
     var idProfesor = $(this).attr("idProfesor");
@@ -141,23 +130,19 @@ $('.modalAsignaturas').click(function() {
 
     /*--------------------añadir las asignaturas al popup-----------------------------*/
     var funcion = "getAsignaturas";
-      
+
     $.ajax({
-        type        : 'POST', // define the type of HTTP verb we want to use (POST for our form)
-        url         : 'profesoresAdminProcesamiento.php', // the url where we want to POST
-        data        : 'funcion=' + funcion + '&idProfesor=' + idProfesor, // our data object
+        type        : 'POST',
+        url         : 'profesoresAdminProcesamiento.php',
+        data        : 'funcion=' + funcion + '&idProfesor=' + idProfesor,
         success:function(respuesta){
             if(respuesta){
                 console.log(idProfesor);
                 $("#formAsig").attr("idProfesor", idProfesor);
-                //alert(respuesta);
                 console.log(respuesta);
                 console.log("llega");
-                    
+
                 $('#tableAsignaturas').children('tr,td').remove();
-                //$("#infoTodosProfAdd").hide();
-                //console.log($('#numeradorTema'+$tema).text()+'  '+$('#denominadorTema'+$tema).text());
-                //$("#tableAsignaturas").append('<from id="formC">');
 
                 for (var i = 0; i< respuesta['asigSiCoord'].length; i++) {
                     console.log(respuesta['asigSiCoord'][i]);
@@ -166,40 +151,28 @@ $('.modalAsignaturas').click(function() {
                 for (var i = 0; i< respuesta['asigNoCoord'].length; i++) {
                     console.log(respuesta['asigNoCoord'][i]);
                     $("#tableAsignaturas").append('<tr><td><input type="checkbox" name="asignatura" value="'+respuesta['asigNoCoord'][i]["id"]+'" class="asigCheckbox"></td><td>'+respuesta['asigNoCoord'][i]["siglas"]+'</td><td>'+respuesta['asigNoCoord'][i]["nombre"]);
-
                 }
-                //$("#tableAsignaturas").append('<input type="submit" value="Submit">');
-                //$("#tableAsignaturas").append('</from>');
-
-                        //$("#tableAsignaturas").append('<tr><td><input type="radio" name="profesor" value="'+respuesta[i]["id"]+'"></td><td>'+respuesta[i]["nombre"]+'</td><td>'+respuesta[i]["apellidos"]+'</td><td>'+respuesta[i]["email"]+'</td></tr>');
-
             }
             else{
-                //alert("Fallo al editar");
                 console.log("falla");
-                //location.reload();
             }
         },
         dataType:"json"
     })
     event.preventDefault();
-    
+
 });
 
     const asigConCoord = [];
     $(document).on('click', '#tableAsignaturas input.asigCheckbox',function() {
         const isCheck = $(this).is(":checked")
-        //console.log($(this).val());
         let idAsig =$(this).val();
-
         let funcion = 'isAsigWithCoord';
         let idProfesor = $("#formAsig").attr("idProfesor");
-        //console.log(idProfesor);
-
         $.ajax({
-            type        : 'POST', // define the type of HTTP verb we want to use (POST for our form)
-            url         : 'profesoresAdminProcesamiento.php', // the url where we want to POST
-            data        : 'funcion=' + funcion + '&idAsig=' + idAsig + '&idProfesor=' + idProfesor, // our data object
+            type        : 'POST',
+            url         : 'profesoresAdminProcesamiento.php',
+            data        : 'funcion=' + funcion + '&idAsig=' + idAsig + '&idProfesor=' + idProfesor,
             success:function(respuesta){
                 if(respuesta){
                     console.log(respuesta);
@@ -214,40 +187,27 @@ $('.modalAsignaturas').click(function() {
                                 todasAsigConCoord = false;
                             }
                         });
-
                         if(todasAsigConCoord){
                             $('#boton_aniadir_asig').attr('disabled',false);
-
                         }
                         else{
                             $('#boton_aniadir_asig').attr('disabled',true);
                         }
-                       
                     }
-                    else if (respuesta == 0 && !isCheck){                  
+                    else if (respuesta == 0 && !isCheck){
                         console.log("entra segundo");
                         console.log(asigConCoord);
-                        
+
                         asigConCoord [idAsig] = 0;
-                        
+
                         $('#boton_aniadir_asig').attr('disabled',true);
                     }
-                    console.log("llega");  
-                    //location.reload();
-                    /*if (unaAsigSinCoord) {
-                        $('#boton_aniadir_asig').attr('disabled',true);
-                    } else {
-                        $('#boton_aniadir_asig').attr('disabled',false);
-                    }*/
-                
                 }
                 else{
                     console.log("falla");
-                    //location.reload();
                 }
             }
         })
-    
     });
 
 
@@ -269,34 +229,25 @@ $('.modalAsignaturas').click(function() {
                 contNoSelect++;
             }
         });
-        //idAsigSelect contiene los id de los profesores seleccionados
-        console.log('Id asignaturas seleccionadas');
-        console.log(idAsigSelect);
-        console.log('Id asignaturas no seleccionadas');
-        console.log(idAsigNoSelect);
-        
+
         //Obtenemos el id de la asignatura, de un atributo del formulario del modal. Este atributo se lo
         //ponemos en $('.botonCoordinadores').click(function()
         const idProfesor = $("#formAsig").attr("idProfesor");
-        console.log(idProfesor);
         //Definimos el nombre de la funcion a la que vamos a llamar en el PHP
         const funcion = 'setCoordinadores';
 
         var idAsigSelectParam = JSON.stringify(idAsigSelect);
         var idAsigNoSelectParam = JSON.stringify(idAsigNoSelect);
-
-        console.log(idProfesor);
-
         $.ajax({
-            type        : 'POST', // define the type of HTTP verb we want to use (POST for our form)
-            url         : 'profesoresAdminProcesamiento.php', // the url where we want to POST
-            data        : 'funcion=' + funcion + '&idAsigSelect=' + idAsigSelectParam + '&idProfesor=' + idProfesor +'&idAsigNoSelect=' + idAsigNoSelectParam, // our data object
+            type        : 'POST',
+            url         : 'profesoresAdminProcesamiento.php',
+            data        : 'funcion=' + funcion + '&idAsigSelect=' + idAsigSelectParam + '&idProfesor=' + idProfesor +'&idAsigNoSelect=' + idAsigNoSelectParam,
             success:function(respuesta){
                 if(respuesta){
                     console.log(respuesta);
-                    console.log("llega");  
+                    console.log("llega");
                     location.reload();
-                
+
                 }
                 else{
                     console.log("falla");
@@ -304,10 +255,6 @@ $('.modalAsignaturas').click(function() {
                 }
             }
         })
-
       event.preventDefault();
     });
-
-
-
 });

@@ -19,7 +19,6 @@
 			if (session_status() == PHP_SESSION_NONE) {
 			    session_start();
 			}
-			//var_dump($_SESSION['error1']);
 			//Si existe $_SESSION['logeado'] volcamos su valor a la variable, si no existe volcamos false. Si vale true es que estamos logeado.
 			$logeado = isset($_SESSION['logeado'])? $_SESSION['logeado']: false;
 			/*En caso de no este logeado redirigimos a index.php, en caso contrario le damos la bienvenida*/
@@ -27,7 +26,7 @@
 				header('Location: index.php');
 			}
 			include 'profesoresAdminProcesamiento.php';
-
+			//Comprobamos que es un administrador, en caso contrario lo redirigimos
 			if (!$_SESSION['administrador']){
 				header('Location: index.php');
 			}
@@ -36,19 +35,6 @@
 			if ($error_envio_mail) {
 				echo 'Error al enviar el email al profesor.';
 			}
-
-			/*echo "<br>prueba: ".$_SESSION['prueba'];
-			$_SESSION['prueba'] = "inicializadoooooo";
-
-			echo "<br>prueba1: ";
-			print_r($_SESSION['prueba1']);
-			//var_dump($_SESSION['prueba1']);
-			$_SESSION['prueba1'] = "inicializadoo11111";
-
-			echo "<br>prueba2: ".$_SESSION['prueba2'];
-			$_SESSION['prueba2'] = "inicializadooo222";*/
-			//setCoordinadores(3, 1, 2);
-			//die();
 		?>
 		<br>
 		<div class="row" id="filtros">
@@ -69,7 +55,7 @@
 		</div>
 
 		<br>
-
+		<!-- Tabla donde se muestran todos los profesores-->
 		<table id="tabla_admin_profesores" class="table table-hover">
 		    <thead>
 		      <tr>
@@ -82,15 +68,18 @@
 		    </thead>
 		    <tbody>
 		<?php
+			//Obtenemos los profesores que hay en el sistema
 			$profesores = getProfesoresAdmin();
-
+			//Mostramos los diversos errores que se pueden producir
 			if ($profesores == null){
 				echo'<div class="alert alert-warning">';
-				echo'<p>No hay profesores en esta asignatura</p>';
+				echo'<p>No hay profesores</p>';
 				echo'</div>';
 			} else if (!$profesores){
 				echo 'Error con la BBDD, contacte con el administrador';
 			}
+			//En caso de que no se haya producido ningún error mostramos todos los
+			//profesores
 			else{
 				foreach ($profesores as $pos => $valor) {
 					echo '<tr class="item">';
@@ -110,6 +99,7 @@
 			</tbody>
 		</table>
 
+		<!-- Modal de borrar profesor -->
 		<div class="modal" id="modal_borrarProfesor">
 			<div class="modal-dialog">
 			  <div class="modal-content">
@@ -130,7 +120,6 @@
 
 			    <!-- Modal footer -->
 			    <div class="modal-footer">
-			      <!--<button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>-->
 			    </div>
 
 			  </div>
@@ -190,7 +179,6 @@
 			    <!-- Modal body -->
 			    <div class="modal-body">
 					  <form action="profesoresAdminProcesamiento.php" class="form-container" method="post" id="formAniadirProfesor">
-					    <!--<h1 name="borrarExamen">Añadir preguntas</h1>-->
 					    <div class="row">
 					    	<div class="col-md-8">
 					    		<label for="email" >Email:</label>
@@ -205,13 +193,13 @@
 
 			    <!-- Modal footer -->
 			    <div class="modal-footer">
-			      <!--<button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>-->
 			    </div>
 
 			  </div>
 			</div>
 		</div>
 
+		<!-- Modal de definir asignaturas que coordina los profesores -->
 		<div class="modal" id="modalAsignaturas">
 		<div class="modal-dialog modal-lg">
 		  <div class="modal-content">
@@ -225,10 +213,6 @@
 		    <!-- Modal body -->
 		    <div class="modal-body">
 				  <form action="#" class="form-container" method="post" id="formAsig">
-				    <!--<h1 name="borrarExamen">Añadir preguntas</h1>-->
-				    	<!--<div id="info_aniadirPreg_vacio" class="badge badge-pill badge-danger">No hay ninguna pregunta de este tema</div>
-				    	<div id="info_aniadirPreg_limite" class="badge badge-pill badge-warning">Se ha alcanzado el límite de puntos para este tema</div>
-				    	<div id="info_aniadirPreg_todas" class="badge badge-pill badge-info">Ya están todas las preguntas de este tema añadidas</div>   ERRORES PARA MOSTRAR, MIRAR MAS TARDE-->
 				    	<div class="table-wrapper-scroll-y">
 			    			<table class="table table-hover" id="tabla">
 								<thead>
@@ -250,7 +234,6 @@
 
 		    <!-- Modal footer -->
 		    <div class="modal-footer">
-		      <!--<button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>-->
 		    </div>
 
 		  </div>
@@ -269,4 +252,3 @@
 
 </body>
 </html>
-
