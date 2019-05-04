@@ -19,7 +19,6 @@
 			if (session_status() == PHP_SESSION_NONE) {
 			    session_start();
 			}
-			//var_dump($_SESSION['error1']);
 			//Si existe $_SESSION['logeado'] volcamos su valor a la variable, si no existe volcamos false. Si vale true es que estamos logeado.
 			$logeado = isset($_SESSION['logeado'])? $_SESSION['logeado']: false;
 			/*En caso de no este logeado redirigimos a index.php, en caso contrario le damos la bienvenida*/
@@ -37,17 +36,6 @@
 			if (!$esCoordinador) {
 				header('Location: index.php');
 			}
-
-			/*echo "<br>prueba: ".$_SESSION['prueba'];
-			$_SESSION['prueba'] = "inicializadoooooo";
-
-			echo "<br>prueba1: ";
-			print_r($_SESSION['prueba1']);
-			//var_dump($_SESSION['prueba1']);
-			$_SESSION['prueba1'] = "inicializadoo11111";
-
-			echo "<br>prueba2: ".$_SESSION['prueba2'];
-			$_SESSION['prueba2'] = "inicializadooo222";*/
 		?>
 		<br>
 		<div class="row" id="filtros">
@@ -63,7 +51,7 @@
 			</div>
 		</div>
 
-
+		<!--Tabla donde se van a mostrar los profesores de la asignatura -->
 		<table id="tabla_profesores" class="table table-hover">
 		    <thead>
 		      <tr>
@@ -76,8 +64,10 @@
 		    </thead>
 		    <tbody>
 		<?php
+			//Se cargan todos los profesores de la asignatura
 			$profesores = profesoresAsignatura($idAsignatura);
 
+			//Tratamos los errores que se hayan podido producir
 			if ($profesores == null){
 				echo '<br><div class="alert alert-warning" role="alert">
 						<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
@@ -86,6 +76,7 @@
 			} else if (!$profesores){
 				echo 'Error con la BBDD, contacte con el administrador';
 			}
+			//Si no hubo errores se muestran todos los profesores de la asignatura
 			else{
 				foreach ($profesores as $pos => $valor) {
 					echo '<tr class="item">';
@@ -103,6 +94,7 @@
 			</tbody>
 		</table>
 
+		<!-- Modal de borrar un profesor -->
 		<div class="modal" id="modal_borrarProfesor">
 			<div class="modal-dialog">
 			  <div class="modal-content">
@@ -123,7 +115,6 @@
 
 			    <!-- Modal footer -->
 			    <div class="modal-footer">
-			      <!--<button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>-->
 			    </div>
 
 			  </div>
@@ -132,6 +123,7 @@
 
 	</div>
 
+	<!-- Modal de añadir un profesor -->
 	<div class="modal" id="modalAniadirProfesor">
 			<div class="modal-dialog modal-lg">
 			  <div class="modal-content">
@@ -145,7 +137,6 @@
 			    <!-- Modal body -->
 			    <div class="modal-body">
 					  <form action="#" class="form-container" method="post" id="formAniadirProfesor">
-					    <!--<h1 name="borrarExamen">Añadir preguntas</h1>-->
 					    	<div id="infoTodosProfAdd" class="badge badge-pill badge-info">Ya están todos los profesores añadidos</div>
 					    	<div class="table-wrapper-scroll-y">
 				    			<table class="table table-hover" id="tabla">
@@ -169,9 +160,7 @@
 
 			    <!-- Modal footer -->
 			    <div class="modal-footer">
-			      <!--<button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>-->
 			    </div>
-
 			  </div>
 			</div>
 		</div>
@@ -184,4 +173,3 @@
 
 </body>
 </html>
-
