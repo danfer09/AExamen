@@ -61,9 +61,9 @@
 				$_SESSION['error_autenticar']=false;
 			}
 
-			var_dump(time()-324);
+			var_dump(time()+(2*60*60));
 			echo '<br>';
-			var_dump(date('H:i - d/m/Y',time()-324));
+			var_dump(date('H:i - d/m/Y',time()+(2*60*60)));
           ?>
           <hr class="pg-titl-bdr-btm"></hr>
         <form action="loginProcesamiento.php" id="formulario_login" method="post">
