@@ -26,7 +26,7 @@
 	function getExamen($idExamen){
 		$credentialsStr = file_get_contents('json/credentials.json');
 		$credentials = json_decode($credentialsStr, true);
-		$db = mysqli_connect('localhost', $credentials['database']['user'], $credentials['database']['password'], $credentials['database']['dbname']);
+		$db = mysqli_connect('sql7.freemysqlhosting.net', $credentials['database']['user'], $credentials['database']['password'], $credentials['database']['dbname']);
 		//comprobamos si se ha conectado a la base de datos
 		if($db){
 			$sql = "SELECT * FROM `examenes` WHERE id=".$idExamen;
@@ -52,7 +52,7 @@
 	function guardarModificarExamen ($nombreExamen) {
 		$credentialsStr = file_get_contents('json/credentials.json');
 		$credentials = json_decode($credentialsStr, true);
-		$db = mysqli_connect('localhost', $credentials['database']['user'], $credentials['database']['password'], $credentials['database']['dbname']);
+		$db = mysqli_connect('sql7.freemysqlhosting.net', $credentials['database']['user'], $credentials['database']['password'], $credentials['database']['dbname']);
 
 		$date = date('Y-m-d H:i:s', time());
 		$nombreExamenEditar=$_SESSION['nombreExamenEditar'];
@@ -116,7 +116,7 @@
 	function cargaPuntosTemaModificar($idAsignatura){
 		$credentialsStr = file_get_contents('json/credentials.json');
 		$credentials = json_decode($credentialsStr, true);
-		$db = mysqli_connect('localhost', $credentials['database']['user'], $credentials['database']['password'], $credentials['database']['dbname']);
+		$db = mysqli_connect('sql7.freemysqlhosting.net', $credentials['database']['user'], $credentials['database']['password'], $credentials['database']['dbname']);
 		//comprobamos si se ha conectado a la base de datos
 		if($db){
 			$sql = "SELECT puntos_tema FROM `asignaturas` WHERE id=".$idAsignatura;

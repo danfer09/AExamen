@@ -9,7 +9,7 @@
 	if (session_status() == PHP_SESSION_NONE) {
 	    session_start();
 	}
-	$_SESSION['host'] = 'localhost';
+	$_SESSION['host'] = 'sql7.freemysqlhosting.net';
 	/*Si el usuario esta logeado lo redirigimos a paginaPrincipalProf.php, en caso de que no este logeado lo redirigimos a loginFormulario.php para que se logee*/
 	//Si existe $_SESSION['logeado'] volcamos su valor a la variable, si no existe volcamos false
 	if (!isset($_SESSION['logeado']) && !$_SESSION['logeado']) {

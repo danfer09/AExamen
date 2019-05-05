@@ -51,7 +51,7 @@
 					<?php
 						$credentialsStr = file_get_contents('json/credentials.json');
 						$credentials = json_decode($credentialsStr, true);
-						$db = mysqli_connect('localhost', $credentials['database']['user'], $credentials['database']['password'], $credentials['database']['dbname']);
+						$db = mysqli_connect('sql7.freemysqlhosting.net', $credentials['database']['user'], $credentials['database']['password'], $credentials['database']['dbname']);
 						//Si es administrador mostramos en el filtro todas las asignaturas
 						//en caso de que sea un profesor solo mostramos las asignaturas que
 						//tenga asignadas
@@ -91,7 +91,7 @@
 					<?php
 						$credentialsStr = file_get_contents('json/credentials.json');
 						$credentials = json_decode($credentialsStr, true);
-						$db = mysqli_connect('localhost', $credentials['database']['user'], $credentials['database']['password'], $credentials['database']['dbname']);
+						$db = mysqli_connect('sql7.freemysqlhosting.net', $credentials['database']['user'], $credentials['database']['password'], $credentials['database']['dbname']);
 						//Cargamos los profesores de la asignatura que estemos mostrando
 						$autores = selectAllMailsProfesoresSiglas($_GET['asignatura']);
 						if ($_GET['autor'] == "todos") {
@@ -189,7 +189,7 @@
 		<?php
 			$credentialsStr = file_get_contents('json/credentials.json');
 			$credentials = json_decode($credentialsStr, true);
-			$db = mysqli_connect('localhost', $credentials['database']['user'], $credentials['database']['password'], $credentials['database']['dbname']);
+			$db = mysqli_connect('sql7.freemysqlhosting.net', $credentials['database']['user'], $credentials['database']['password'], $credentials['database']['dbname']);
 			//Dependiendo de lo que nos pasen por parametros cargamos unos examenes u
 			//otros
 			if ($_GET['asignatura'] == "todas" && $_GET['autor'] == "todos") {

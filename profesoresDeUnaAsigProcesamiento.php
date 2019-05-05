@@ -40,7 +40,7 @@
 	function profesoresAsignatura($idAsig) {
 		$credentialsStr = file_get_contents('json/credentials.json');
 		$credentials = json_decode($credentialsStr, true);
-		$db = mysqli_connect('localhost', $credentials['database']['user'], $credentials['database']['password'], $credentials['database']['dbname']);
+		$db = mysqli_connect('sql7.freemysqlhosting.net', $credentials['database']['user'], $credentials['database']['password'], $credentials['database']['dbname']);
 		if($db){
 			$sql = 'SELECT `nombre`, `apellidos`, `email`, profesores.id as id FROM `profesores` INNER JOIN `prof_asig_coord` ON profesores.id=prof_asig_coord.id_profesor WHERE prof_asig_coord.id_asignatura='.$idAsig.' and prof_asig_coord.coordinador = 0';
 			$consulta=mysqli_query($db,$sql);
@@ -73,7 +73,7 @@
 		$funciona=false;
 		$credentialsStr = file_get_contents('json/credentials.json');
 		$credentials = json_decode($credentialsStr, true);
-		$db = mysqli_connect('localhost', $credentials['database']['user'], $credentials['database']['password'], $credentials['database']['dbname']);
+		$db = mysqli_connect('sql7.freemysqlhosting.net', $credentials['database']['user'], $credentials['database']['password'], $credentials['database']['dbname']);
 
 		//comprobamos si se ha conectado a la base de datos
 		if($db){
@@ -104,7 +104,7 @@
 	function getProfesoresFueraAsig($idAsig, $idProfesores){
 		$credentialsStr = file_get_contents('json/credentials.json');
 		$credentials = json_decode($credentialsStr, true);
-		$db = mysqli_connect('localhost', $credentials['database']['user'], $credentials['database']['password'], $credentials['database']['dbname']);
+		$db = mysqli_connect('sql7.freemysqlhosting.net', $credentials['database']['user'], $credentials['database']['password'], $credentials['database']['dbname']);
 		if ($idProfesores != null) {
 			$idProfesores = explode(',', $idProfesores);
 		} else {
@@ -147,7 +147,7 @@
 	function aniadirProfesor($idProfesor, $idAsig) {
 		$credentialsStr = file_get_contents('json/credentials.json');
 		$credentials = json_decode($credentialsStr, true);
-		$db = mysqli_connect('localhost', $credentials['database']['user'], $credentials['database']['password'], $credentials['database']['dbname']);
+		$db = mysqli_connect('sql7.freemysqlhosting.net', $credentials['database']['user'], $credentials['database']['password'], $credentials['database']['dbname']);
 		if($db){
 		    $sql ='INSERT INTO `prof_asig_coord`(`id_profesor`, `id_asignatura`, `coordinador`, `id`) VALUES ('.$idProfesor.','.$idAsig.',0,'."''".')';
 		    if(mysqli_query($db,$sql)) {
@@ -175,7 +175,7 @@
 	function esCoordinador($idAsig, $idProfesor){
 		$credentialsStr = file_get_contents('json/credentials.json');
 		$credentials = json_decode($credentialsStr, true);
-		$db = mysqli_connect('localhost', $credentials['database']['user'], $credentials['database']['password'], $credentials['database']['dbname']);
+		$db = mysqli_connect('sql7.freemysqlhosting.net', $credentials['database']['user'], $credentials['database']['password'], $credentials['database']['dbname']);
 		$result=false;
 		if($db){
 			$sql = "SELECT coordinador FROM `prof_asig_coord` WHERE `id_profesor` =".$idProfesor." and `id_asignatura`=".$idAsig;

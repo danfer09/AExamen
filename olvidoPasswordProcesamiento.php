@@ -18,7 +18,7 @@
 			//Conectamos la base de datos
 			$credentialsStr = file_get_contents('json/credentials.json');
 			$credentials = json_decode($credentialsStr, true);
-			$db = mysqli_connect('localhost', $credentials['database']['user'], $credentials['database']['password'], $credentials['database']['dbname']);
+			$db = mysqli_connect('sql7.freemysqlhosting.net', $credentials['database']['user'], $credentials['database']['password'], $credentials['database']['dbname']);
 
 			//comprobamos si se ha conectado a la base de datos
 			if($db){
@@ -44,7 +44,7 @@
 	<div class="row">
 		<h2 class="col-lg-12">Haga click sobre el siguiente enlace para reestablecer su contraseña:</h2>
 		<span class="col-lg-2"></span>
-		<a class="col-lg-4" href="localhost/reestablecerPassword.php?authenticate='.$codigo.'">REESTABLECER</a>
+		<a class="col-lg-4" href="aexamen3.herokuapp.com/reestablecerPassword.php?authenticate='.$codigo.'">REESTABLECER</a>
 		<span class="col-lg-6"></span>
 		<p class="col-lg-12">¡Gracias!</p>
 	</div>
@@ -69,6 +69,6 @@
 			header('Location: registrarseFormulario.php');
 			exit();
 		}
-		mysqli_close($db);	
+		mysqli_close($db);
 	}
 ?>

@@ -32,7 +32,7 @@
 			//Conectamos la base de datos
 			$credentialsStr = file_get_contents('json/credentials.json');
 			$credentials = json_decode($credentialsStr, true);
-			$db = mysqli_connect('localhost', $credentials['database']['user'], $credentials['database']['password'], $credentials['database']['dbname']);
+			$db = mysqli_connect('sql7.freemysqlhosting.net', $credentials['database']['user'], $credentials['database']['password'], $credentials['database']['dbname']);
 			//comprobamos si se ha conectado a la base de datos
 			if($db){
 				if(!$_SESSION['administrador'])
@@ -68,7 +68,7 @@
 			//Conectamos la base de datos
 			$credentialsStr = file_get_contents('json/credentials.json');
 			$credentials = json_decode($credentialsStr, true);
-			$db = mysqli_connect('localhost', $credentials['database']['user'], $credentials['database']['password'], $credentials['database']['dbname']);
+			$db = mysqli_connect('sql7.freemysqlhosting.net', $credentials['database']['user'], $credentials['database']['password'], $credentials['database']['dbname']);
 			//comprobamos si se ha conectado a la base de datos
 			if($db){
 				if(!$_SESSION['administrador']){
@@ -107,7 +107,7 @@
 			//Conectamos la base de datos
 			$credentialsStr = file_get_contents('json/credentials.json');
 			$credentials = json_decode($credentialsStr, true);
-			$db = mysqli_connect('localhost', $credentials['database']['user'], $credentials['database']['password'], $credentials['database']['dbname']);
+			$db = mysqli_connect('sql7.freemysqlhosting.net', $credentials['database']['user'], $credentials['database']['password'], $credentials['database']['dbname']);
 			//comprobamos si se ha conectado a la base de datos
 			if($db){
 				if(!$_SESSION['administrador']){
@@ -141,7 +141,7 @@
 			//Conectamos la base de datos
 			$credentialsStr = file_get_contents('json/credentials.json');
 			$credentials = json_decode($credentialsStr, true);
-			$db = mysqli_connect('localhost', $credentials['database']['user'], $credentials['database']['password'], $credentials['database']['dbname']);
+			$db = mysqli_connect('sql7.freemysqlhosting.net', $credentials['database']['user'], $credentials['database']['password'], $credentials['database']['dbname']);
 			//comprobamos si se ha conectado a la base de datos
 			if($db){
 				$sql = "UPDATE `administradores` SET `email`='".$nuevoCorreo."' WHERE `id`=".$_SESSION['id'];

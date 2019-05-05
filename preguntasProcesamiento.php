@@ -42,7 +42,7 @@
 		//Conectamos la base de datos
 		$credentialsStr = file_get_contents('json/credentials.json');
 		$credentials = json_decode($credentialsStr, true);
-		$db = mysqli_connect('localhost', $credentials['database']['user'], $credentials['database']['password'], $credentials['database']['dbname']);
+		$db = mysqli_connect('sql7.freemysqlhosting.net', $credentials['database']['user'], $credentials['database']['password'], $credentials['database']['dbname']);
 		$i=0;
 		$preguntas=array();
 		//comprobamos si se ha conectado a la base de datos
@@ -87,7 +87,7 @@
 		//Conectamos la base de datos
 		$credentialsStr = file_get_contents('json/credentials.json');
 		$credentials = json_decode($credentialsStr, true);
-		$db = mysqli_connect('localhost', $credentials['database']['user'], $credentials['database']['password'], $credentials['database']['dbname']);
+		$db = mysqli_connect('sql7.freemysqlhosting.net', $credentials['database']['user'], $credentials['database']['password'], $credentials['database']['dbname']);
 		//comprobamos si se ha conectado a la base de datos
 		if($db){
 			$sql = "SELECT * FROM `preguntas` WHERE id=".$idPregunta;
@@ -115,7 +115,7 @@
 		//Conectamos la base de datos
 		$credentialsStr = file_get_contents('json/credentials.json');
 		$credentials = json_decode($credentialsStr, true);
-		$db = mysqli_connect('localhost', $credentials['database']['user'], $credentials['database']['password'], $credentials['database']['dbname']);
+		$db = mysqli_connect('sql7.freemysqlhosting.net', $credentials['database']['user'], $credentials['database']['password'], $credentials['database']['dbname']);
 		//comprobamos si se ha conectado a la base de datos
 		if($db){
 			$sql = "SELECT `id`, `idPregunta`, `idModificador`, `fecha_modificacion` FROM `preguntas_historial` WHERE `idPregunta`=".$idPregunta;
@@ -150,7 +150,7 @@
 		//Conectamos la base de datos
 		$credentialsStr = file_get_contents('json/credentials.json');
 		$credentials = json_decode($credentialsStr, true);
-		$db = mysqli_connect('localhost', $credentials['database']['user'], $credentials['database']['password'], $credentials['database']['dbname']);
+		$db = mysqli_connect('sql7.freemysqlhosting.net', $credentials['database']['user'], $credentials['database']['password'], $credentials['database']['dbname']);
 		//comprobamos si se ha conectado a la base de datos
 		if($db){
 			$sql = "SELECT profesores.nombre AS autor FROM preguntas INNER JOIN profesores ON preguntas.creador=profesores.id WHERE preguntas.id=".$idPregunta;
@@ -179,7 +179,7 @@
 		//Conectamos la base de datos
 		$credentialsStr = file_get_contents('json/credentials.json');
 		$credentials = json_decode($credentialsStr, true);
-		$db = mysqli_connect('localhost', $credentials['database']['user'], $credentials['database']['password'], $credentials['database']['dbname']);
+		$db = mysqli_connect('sql7.freemysqlhosting.net', $credentials['database']['user'], $credentials['database']['password'], $credentials['database']['dbname']);
 		//comprobamos si se ha conectado a la base de datos
 		if($db){
 			$sql = "SELECT `nombre`,`apellidos` FROM `profesores` WHERE id=".$idProfesor;
@@ -207,7 +207,7 @@
 		//Conectamos la base de datos
 		$credentialsStr = file_get_contents('json/credentials.json');
 		$credentials = json_decode($credentialsStr, true);
-		$db = mysqli_connect('localhost', $credentials['database']['user'], $credentials['database']['password'], $credentials['database']['dbname']);
+		$db = mysqli_connect('sql7.freemysqlhosting.net', $credentials['database']['user'], $credentials['database']['password'], $credentials['database']['dbname']);
 		//comprobamos si se ha conectado a la base de datos
 		if($db){
 			$sql = "SELECT profesores.nombre AS modificador FROM preguntas INNER JOIN profesores ON preguntas.ult_modificador=profesores.id WHERE preguntas.id=".$idPregunta;
@@ -237,7 +237,7 @@
 		$funciona=false;
 		$credentialsStr = file_get_contents('json/credentials.json');
 		$credentials = json_decode($credentialsStr, true);
-		$db = mysqli_connect('localhost', $credentials['database']['user'], $credentials['database']['password'], $credentials['database']['dbname']);
+		$db = mysqli_connect('sql7.freemysqlhosting.net', $credentials['database']['user'], $credentials['database']['password'], $credentials['database']['dbname']);
 		//comprobamos si se ha conectado a la base de datos
 
 		if($db){
@@ -285,7 +285,7 @@
 		$funciona=false;
 		$credentialsStr = file_get_contents('json/credentials.json');
 		$credentials = json_decode($credentialsStr, true);
-		$db = mysqli_connect('localhost', $credentials['database']['user'], $credentials['database']['password'], $credentials['database']['dbname']);
+		$db = mysqli_connect('sql7.freemysqlhosting.net', $credentials['database']['user'], $credentials['database']['password'], $credentials['database']['dbname']);
 		//comprobamos si se ha conectado a la base de datos
 		if($db){
 			$sql = "SELECT `referencias`,`asignatura` FROM `preguntas` WHERE id=".$idPregunta;
@@ -358,7 +358,7 @@
 	function esCoordinador($idAsig, $idProfesor){
 		$credentialsStr = file_get_contents('json/credentials.json');
 		$credentials = json_decode($credentialsStr, true);
-		$db = mysqli_connect('localhost', $credentials['database']['user'], $credentials['database']['password'], $credentials['database']['dbname']);
+		$db = mysqli_connect('sql7.freemysqlhosting.net', $credentials['database']['user'], $credentials['database']['password'], $credentials['database']['dbname']);
 		$result=false;
 		if($db){
 			$sql = "SELECT coordinador FROM `prof_asig_coord` WHERE `id_profesor` =".$idProfesor." and `id_asignatura`=".$idAsig;
@@ -384,7 +384,7 @@
 		$funciona=false;
 		$credentialsStr = file_get_contents('json/credentials.json');
 		$credentials = json_decode($credentialsStr, true);
-		$db = mysqli_connect('localhost', $credentials['database']['user'], $credentials['database']['password'], $credentials['database']['dbname']);
+		$db = mysqli_connect('sql7.freemysqlhosting.net', $credentials['database']['user'], $credentials['database']['password'], $credentials['database']['dbname']);
 
 		//comprobamos si se ha conectado a la base de datos
 		if($db){

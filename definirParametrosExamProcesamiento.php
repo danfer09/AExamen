@@ -32,7 +32,7 @@ if($funcion == "updateParametrosAsig"){
 function selectParametrosAsig($idAsig) {
 	$credentialsStr = file_get_contents('json/credentials.json');
 	$credentials = json_decode($credentialsStr, true);
-	$db = mysqli_connect('localhost', $credentials['database']['user'], $credentials['database']['password'], $credentials['database']['dbname']);
+	$db = mysqli_connect('sql7.freemysqlhosting.net', $credentials['database']['user'], $credentials['database']['password'], $credentials['database']['dbname']);
 	if($db){
 		$sql = "SELECT `puntos_tema`, `texto_inicial`, `espaciado_defecto` FROM `asignaturas` WHERE id=".$idAsig;
 		$consulta=mysqli_query($db,$sql);
@@ -61,7 +61,7 @@ function updateParametrosAsig($puntos_tema, $idAsig, $espaciado, $textoInicial){
 	//Conectamos con la BBDD
 	$credentialsStr = file_get_contents('json/credentials.json');
 	$credentials = json_decode($credentialsStr, true);
-	$db = mysqli_connect('localhost', $credentials['database']['user'], $credentials['database']['password'], $credentials['database']['dbname']);
+	$db = mysqli_connect('sql7.freemysqlhosting.net', $credentials['database']['user'], $credentials['database']['password'], $credentials['database']['dbname']);
 	//hacemos casting para transformarlos en enteros
 	$espaciadoInt = (int)$espaciado;
 	$idAsigInt = (int)$idAsig;
@@ -97,7 +97,7 @@ function updateParametrosAsig($puntos_tema, $idAsig, $espaciado, $textoInicial){
 function esCoordinador($idAsig, $idProfesor){
 		$credentialsStr = file_get_contents('json/credentials.json');
 		$credentials = json_decode($credentialsStr, true);
-		$db = mysqli_connect('localhost', $credentials['database']['user'], $credentials['database']['password'], $credentials['database']['dbname']);
+		$db = mysqli_connect('sql7.freemysqlhosting.net', $credentials['database']['user'], $credentials['database']['password'], $credentials['database']['dbname']);
 		$result=false;
 		if($db){
 			$sql = "SELECT coordinador FROM `prof_asig_coord` WHERE `id_profesor` =".$idProfesor." and `id_asignatura`=".$idAsig;

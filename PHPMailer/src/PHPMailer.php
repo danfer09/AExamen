@@ -89,7 +89,7 @@ class PHPMailer
      *
      * @var string
      */
-    public $From = 'root@localhost';
+    public $From = 'root@aexamen3.herokuapp.com';
 
     /**
      * The From name of the message.
@@ -210,7 +210,7 @@ class PHPMailer
      * The hostname to use in the Message-ID header and as default HELO string.
      * If empty, PHPMailer attempts to find one with, in order,
      * $_SERVER['SERVER_NAME'], gethostname(), php_uname('n'), or the value
-     * 'localhost.localdomain'.
+     * 'aexamen3.herokuapp.com.localdomain'.
      *
      * @var string
      */
@@ -248,7 +248,7 @@ class PHPMailer
      *
      * @var string
      */
-    public $Host = 'localhost';
+    public $Host = 'aexamen3.herokuapp.com';
 
     /**
      * The default SMTP server port.
@@ -3579,7 +3579,7 @@ class PHPMailer
 
     /**
      * Get the server hostname.
-     * Returns 'localhost.localdomain' if unknown.
+     * Returns 'aexamen3.herokuapp.com.localdomain' if unknown.
      *
      * @return string
      */
@@ -3596,7 +3596,7 @@ class PHPMailer
             $result = php_uname('n');
         }
         if (!static::isValidHost($result)) {
-            return 'localhost.localdomain';
+            return 'aexamen3.herokuapp.com.localdomain';
         }
 
         return $result;
