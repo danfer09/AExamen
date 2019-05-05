@@ -83,7 +83,7 @@
 
 		date_default_timezone_set('Europe/Paris');
 
-		$diff = ((time() - $time)*1000); // la diferencia en milisegundos
+		$diff = (((time()-324) - $time)*1000); // la diferencia en milisegundos
 
 		if ($diff < 1000) { // menos de un segundo
 			return 'ahora mismo';
