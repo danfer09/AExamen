@@ -314,7 +314,6 @@
 			mysqli_close($db);
 			return $resultado;
 		} else {
-			echo "Conexión fallida";
 			return false;
 		}
 	}
@@ -354,7 +353,6 @@
 			mysqli_close($db);
 			return $resultado;
 		} else {
-			echo "Conexión fallida";
 			return false;
 		}
 	}

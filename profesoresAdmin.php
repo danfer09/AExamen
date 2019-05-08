@@ -91,7 +91,7 @@
 					echo '<td id="opciones">
 						<a id="boton_modalEditar" href="#" idProfesor="'.$valor['id'].'" ><i class="fas fa-pencil-alt fa-fw fa-lg"></i></a>
 						<a id="boton_modalBorrar" href="#" idProfesor="'.$valor['id'].'"><i class="fas fa-trash-alt fa-fw fa-lg"></i></a>
-						<button type="button" class="btn btn-primary modalAsignaturas" idProfesor = "'.$valor['id'].'">Asignaturas</button></td>';
+						<button type="button" class="btn btn-primary modalAsignaturas" idProfesor = "'.$valor['id'].'">Asignaturas coordinadas</button></td>';
 					echo '</tr>';
 				}
 			}

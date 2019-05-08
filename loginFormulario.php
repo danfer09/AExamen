@@ -60,7 +60,6 @@
 					  </div>';
 				$_SESSION['error_autenticar']=false;
 			}
-
           ?>
           <hr class="pg-titl-bdr-btm"></hr>
         <form action="loginProcesamiento.php" id="formulario_login" method="post">

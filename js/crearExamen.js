@@ -1,3 +1,11 @@
+function sleep(milliseconds) {
+  var start = new Date().getTime();
+  for (var i = 0; i < 1e7; i++) {
+    if ((new Date().getTime() - start) > milliseconds){
+      break;
+    }
+  }
+}
 $(document).ready(function(){
 
 	$('#openNav').click(function() {
@@ -6,7 +14,7 @@ $(document).ready(function(){
 	$('#closeNav').click(function() {
 		 document.getElementById("mySidenav").style.width = "0px";
 	});
-	
+
   /*
   * Carga todas las preguntas de un tema mediante un POST con AJAX y las pinta por pantalla
   */
@@ -14,7 +22,7 @@ $(document).ready(function(){
 		$tema=$(this).attr("tema");
 		$idAsignatura=$(this).attr("asignatura");
 		var funcion = "getPregAsigTema";
-  
+
         $.ajax({
             type        : 'POST',
             url         : 'crearExamenProcesamiento.php',
@@ -81,7 +89,7 @@ $(document).ready(function(){
     $('#modal_aniadirPreguntas').modal('hide');
     $("#modal_aniadirPreguntas .close").click();
     var form_data = $(this).serialize();
-  
+
         $.ajax({
             type        : 'POST',
             url         : 'crearExamenProcesamiento.php',
@@ -96,7 +104,9 @@ $(document).ready(function(){
         },
         dataType:"json"
         })
-      location.reload();
+				sleep(300);
+    		location.reload();
+
       event.preventDefault();
   });
 
@@ -124,10 +134,14 @@ $(document).ready(function(){
         },
       dataType:"json"
       })
-      window.location = 'examenes.php?asignatura='+siglas+'&autor=todos&successCreate=true';
+			sleep(300);
+  		window.location = 'examenes.php?asignatura='+siglas+'&autor=todos&successCreate=true';
+
       event.preventDefault();
     }
   });
+
+
 
   /*
   * Guarda el examen editado (llamada POST) a no ser que no se haya rellenado el campo de nombre, en cuyo caso recuerda que ha de introducirlo
@@ -185,7 +199,7 @@ $(document).ready(function(){
             else{
                 console.log("ha fallado");
             }
-            
+
           },
       dataType:"json"
       })
@@ -221,7 +235,7 @@ $(document).ready(function(){
             else{
                 console.log("ha fallado");
             }
-            
+
           },
       dataType:"json"
       })
@@ -265,5 +279,5 @@ $(document).ready(function(){
   });
 
 
-	
+
 });

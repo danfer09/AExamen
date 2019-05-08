@@ -238,7 +238,7 @@
 			    <div class="modal-body">
 					  <form action="preguntasProcesamiento.php" class="form-container" method="post" id="form_mod">
 					    <h1>Editar pregunta</h1>
-					    <p id="infoParaEditar">Los campos que deje vacíos mantendrán su valor actual</p><br>
+					    <p id="infoParaEditar" class="badge badge-pill badge-danger">Los campos que deje vacíos mantendrán su valor actual</p><br>
 					    <input type="text" class="form-control" placeholder="Introduzca el titulo" name="titulo" id="titulo">
 					    <br>
 					    <input type="text" class="form-control" placeholder="Introduzca el cuerpo" name="cuerpo" id="cuerpo">

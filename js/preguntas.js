@@ -41,6 +41,7 @@ $(document).ready(function(){
 
     });
 
+
     //Submit del formulario de añadir
     $('#form_add').submit(function(event) {
     	var funcion = "aniadirPregunta";
@@ -109,13 +110,13 @@ $(document).ready(function(){
     }
     $("#tema").after("<span id='mensaje'></span><br>");
 	var mensaje = $("#mensaje");
-	$("#titulo").keyup(function(){
+	$("#titulo").bind("change keyup input", function(){
 		validarInsert(mensaje);
 	});
-	$("#cuerpo").keyup(function(){
+	$("#cuerpo").bind("change keyup input", function(){
 		validarInsert(mensaje);
 	});
-	$("#tema").keyup(function(){
+	$("#tema").bind("change keyup input", function(){
 		validarInsert(mensaje);
 	});
 

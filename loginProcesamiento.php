@@ -57,7 +57,6 @@
 					//Verificamos la clave con esta funcion ya que en la BBDD esta encriptada, en caso de que se verifique, declaramos e inicializamos todas las variables de session de usuario.
 					$datos = ($encontrado) ? $fila : $filaAdmin;
 					if(password_verify($clave, $datos['clave'])){
-						echo "sesion iniciada correctamente";
 						$_SESSION['logeado']=true;
 						$_SESSION["email"] = $email;
 						$_SESSION["nombre"]=$datos['nombre'];

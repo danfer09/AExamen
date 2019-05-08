@@ -44,7 +44,7 @@
 	<div class="row">
 		<h2 class="col-lg-12">Haga click sobre el siguiente enlace para reestablecer su contraseña:</h2>
 		<span class="col-lg-2"></span>
-		<a class="col-lg-4" href="aexamen3.herokuapp.com/reestablecerPassword.php?authenticate='.$codigo.'">REESTABLECER</a>
+		<a class="col-lg-4" href="http://aexamen.epizy.com/reestablecerPassword.php?authenticate='.$codigo.'">REESTABLECER</a>
 		<span class="col-lg-6"></span>
 		<p class="col-lg-12">¡Gracias!</p>
 	</div>

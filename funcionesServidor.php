@@ -81,9 +81,7 @@
 	function formateoDateTime ($fecha) {
 		$time = strtotime($fecha);
 
-		date_default_timezone_set('Europe/Paris');
-
-		$diff = ((time() - $time)*1000); // la diferencia en milisegundos
+		$diff = (time() - $time)*1000; // la diferencia en milisegundos
 
 		if ($diff < 1000) { // menos de un segundo
 			return 'ahora mismo';

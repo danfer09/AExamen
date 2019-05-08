@@ -72,7 +72,10 @@
 						if ($siglas == null){
 							echo 'No hay siglas';
 						} else if (!$siglas){
-							echo 'Error con la BBDD, contacte con el administrador';
+							echo '<br><div class="alert alert-danger" role="alert">
+								    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+								      Error con la BBDD, contacte con el administrador
+								    </div>';
 						} else {
 							foreach ($siglas as $pos => $valor) {
 								if ($_GET['asignatura'] == $valor['siglas']) {
@@ -104,7 +107,10 @@
 						if ($autores == null){
 							echo 'No hay nombres de profesores';
 						} else if (!$autores){
-							echo 'Error con la BBDD, contacte con el administrador';
+							echo '<br><div class="alert alert-danger" role="alert">
+									    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+									      Error con la BBDD, contacte con el administrador
+									    </div>';
 						} else {
 							foreach ($autores as $pos => $valor) {
 								if ($_GET['autor'] == $valor['email']) {
@@ -145,7 +151,10 @@
 						if ($siglas == null){
 							echo 'No hay siglas';
 						} else if (!$siglas){
-							echo 'Error con la BBDD, contacte con el administrador';
+							echo '<br><div class="alert alert-danger" role="alert">
+									    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+									      Error con la BBDD, contacte con el administrador
+									    </div>';
 						} else {
 							foreach ($siglas as $pos => $valor) {
 								if ($_GET['asignatura'] == $valor['siglas']) {
@@ -205,9 +214,9 @@
 					  </div>';
 			} else if (!$examenes){
 				echo '<br><div class="alert alert-danger" role="alert">
-						<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-				  		Error con la BBDD, contacte con el administrador
-					  </div>';
+				    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+				      Error con la BBDD, contacte con el administrador
+				    </div>';
 			}
 			else{
 				//Mostramos los examenes que hemos cargado de la BBDD
