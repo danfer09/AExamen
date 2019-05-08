@@ -4273,6 +4273,7 @@ class PHPMailer
      */
     public function DKIM_Add($headers_line, $subject, $body)
     {
+        date_default_timezone_set("Europe/Madrid");
         $DKIMsignatureType = 'rsa-sha256'; // Signature & hash algorithms
         $DKIMcanonicalization = 'relaxed/simple'; // Canonicalization of header/body
         $DKIMquery = 'dns/txt'; // Query method

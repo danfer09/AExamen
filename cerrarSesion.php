@@ -10,6 +10,8 @@ if (!$logeado) {
 	header('Location: index.php');
 }
 
+date_default_timezone_set("Europe/Madrid");
+
 //Escribimos en el log que el usuario ha cerrado sesion
 $log  = '['.date("d/m/Y - H:i:s").'] : '."USER --> id ".$_SESSION['id'].' - '.$_SESSION['apellidos'].', '.$_SESSION['nombre'].
         " | ACTION --> Cierre de sesión ".' de '.$_SESSION['email'].PHP_EOL.

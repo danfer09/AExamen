@@ -1108,6 +1108,7 @@ class SMTP
      */
     protected function get_lines()
     {
+        date_default_timezone_set("Europe/Madrid");
         // If the connection is bad, give up straight away
         if (!is_resource($this->smtp_conn)) {
             return '';

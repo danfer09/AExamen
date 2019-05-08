@@ -238,10 +238,11 @@
 		$credentialsStr = file_get_contents('json/credentials.json');
 		$credentials = json_decode($credentialsStr, true);
 		$db = mysqli_connect('sql7.freemysqlhosting.net', $credentials['database']['user'], $credentials['database']['password'], $credentials['database']['dbname']);
+		date_default_timezone_set("Europe/Madrid");
+
 		//comprobamos si se ha conectado a la base de datos
 
 		if($db){
-			date_default_timezone_set('Europe/Berlin');
 			$date = date('Y-m-d H:i:s', time());
 			$sql = "INSERT INTO `preguntas`(`id`, `titulo`, `cuerpo`, `tema`, `creador`, `fecha_creacion`, `ult_modificador`, `fecha_modificado`, `asignatura`) VALUES ('','".$titulo."','".$cuerpo."','".$tema."','".$_SESSION['id']."','".$date."','".$_SESSION['id']."','".$date."','".$_SESSION['idAsignatura']."')";
 			$consulta=mysqli_query($db,$sql);
@@ -385,10 +386,10 @@
 		$credentialsStr = file_get_contents('json/credentials.json');
 		$credentials = json_decode($credentialsStr, true);
 		$db = mysqli_connect('sql7.freemysqlhosting.net', $credentials['database']['user'], $credentials['database']['password'], $credentials['database']['dbname']);
+		date_default_timezone_set("Europe/Madrid");
 
 		//comprobamos si se ha conectado a la base de datos
 		if($db){
-			date_default_timezone_set('Europe/Berlin');
 			$date = date('Y-m-d H:i:s', time());
 			$sql = "UPDATE `preguntas` SET ";
 			if($titulo != ''){

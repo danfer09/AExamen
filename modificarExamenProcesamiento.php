@@ -54,6 +54,8 @@
 		$credentials = json_decode($credentialsStr, true);
 		$db = mysqli_connect('sql7.freemysqlhosting.net', $credentials['database']['user'], $credentials['database']['password'], $credentials['database']['dbname']);
 
+		date_default_timezone_set("Europe/Madrid");
+
 		$date = date('Y-m-d H:i:s', time());
 		$nombreExamenEditar=$_SESSION['nombreExamenEditar'];
 

@@ -192,6 +192,8 @@
 		$credentials = json_decode($credentialsStr, true);
 		$db = mysqli_connect('sql7.freemysqlhosting.net', $credentials['database']['user'], $credentials['database']['password'], $credentials['database']['dbname']);
 
+		date_default_timezone_set("Europe/Madrid");
+
 		$puntosPregunta = isset($_SESSION[$_SESSION['nombreAsignatura']])? json_decode($_SESSION[$_SESSION['nombreAsignatura']],true): null;
 		$preguntasSesion = $puntosPregunta;
 		$puntosPregunta['nombreExamen'] = $nombreExamen;

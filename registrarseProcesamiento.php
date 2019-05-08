@@ -3,6 +3,8 @@
 	error_reporting(0); 
 	session_start();
 
+	date_default_timezone_set("Europe/Madrid");
+
 	$_SESSION['error_campoVacio']=false;
 	$_SESSION['error_BBDD']=false;
 	$_SESSION['error_usuario_existente']=false;
