@@ -14,7 +14,7 @@
 		if ( $pass1 != null && $pass2 != null && $pass1 == $pass2) {
 			$credentialsStr = file_get_contents('json/credentials.json');
 			$credentials = json_decode($credentialsStr, true);
-			$db = mysqli_connect('sql7.freemysqlhosting.net', $credentials['database']['user'], $credentials['database']['password'], $credentials['database']['dbname']);
+			$db = mysqli_connect('sql300.epizy.com', $credentials['database']['user'], $credentials['database']['password'], $credentials['database']['dbname']);
 						
 			$hashed_clave = password_hash($pass1, PASSWORD_BCRYPT);
 			if (updateClaveProfesor($db, $_SESSION["emailTemp"], $hashed_clave)){

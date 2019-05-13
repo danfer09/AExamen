@@ -71,7 +71,7 @@
 	function setCoordinadores($idProf, $idAsigSelect, $idAsigNoSelect){
 		$credentialsStr = file_get_contents('json/credentials.json');
 		$credentials = json_decode($credentialsStr, true);
-		$db = mysqli_connect('sql7.freemysqlhosting.net', $credentials['database']['user'], $credentials['database']['password'], $credentials['database']['dbname']);
+		$db = mysqli_connect('sql300.epizy.com', $credentials['database']['user'], $credentials['database']['password'], $credentials['database']['dbname']);
 		if($db){
 
 
@@ -128,7 +128,7 @@
 		$credentials = json_decode($credentialsStr, true);
 		$_SESSION['error_BBDD']=false;
 
-		$db = mysqli_connect('sql7.freemysqlhosting.net', $credentials['database']['user'], $credentials['database']['password'], $credentials['database']['dbname']);
+		$db = mysqli_connect('sql300.epizy.com', $credentials['database']['user'], $credentials['database']['password'], $credentials['database']['dbname']);
 		if($db){
 			$sql = 'SELECT `nombre`, `siglas`, `id` FROM `asignaturas`';
 			$consulta=mysqli_query($db,$sql);
@@ -172,7 +172,7 @@
 		$credentials = json_decode($credentialsStr, true);
 		$_SESSION['error_BBDD']=false;
 
-		$db = mysqli_connect('sql7.freemysqlhosting.net', $credentials['database']['user'], $credentials['database']['password'], $credentials['database']['dbname']);
+		$db = mysqli_connect('sql300.epizy.com', $credentials['database']['user'], $credentials['database']['password'], $credentials['database']['dbname']);
 		if($db){
 			$sql = 'SELECT id_asignatura, coordinador, COUNT(coordinador) AS number_coord
 					FROM `prof_asig_coord`
@@ -205,7 +205,7 @@
 	function esCoordinador($idProfesor, $idAsig){
 		$credentialsStr = file_get_contents('json/credentials.json');
 		$credentials = json_decode($credentialsStr, true);
-		$db = mysqli_connect('sql7.freemysqlhosting.net', $credentials['database']['user'], $credentials['database']['password'], $credentials['database']['dbname']);
+		$db = mysqli_connect('sql300.epizy.com', $credentials['database']['user'], $credentials['database']['password'], $credentials['database']['dbname']);
 		$result=false;
 		if($db){
 			$sql = "SELECT coordinador FROM `prof_asig_coord` WHERE `id_profesor` =".$idProfesor." and `id_asignatura`=".$idAsig;
@@ -228,7 +228,7 @@
 		$admin = $_SESSION['administrador'];
 		$credentialsStr = file_get_contents('json/credentials.json');
 		$credentials = json_decode($credentialsStr, true);
-		$db = mysqli_connect('sql7.freemysqlhosting.net', $credentials['database']['user'], $credentials['database']['password'], $credentials['database']['dbname']);
+		$db = mysqli_connect('sql300.epizy.com', $credentials['database']['user'], $credentials['database']['password'], $credentials['database']['dbname']);
 
 		//comprobamos si se ha conectado a la base de datos
 		if($db){
@@ -264,7 +264,7 @@
 		$admin = $_SESSION['administrador'];
 		$credentialsStr = file_get_contents('json/credentials.json');
 		$credentials = json_decode($credentialsStr, true);
-		$db = mysqli_connect('sql7.freemysqlhosting.net', $credentials['database']['user'], $credentials['database']['password'], $credentials['database']['dbname']);
+		$db = mysqli_connect('sql300.epizy.com', $credentials['database']['user'], $credentials['database']['password'], $credentials['database']['dbname']);
 
 		//comprobamos si se ha conectado a la base de datos
 		if($db){
@@ -297,7 +297,7 @@
 		$credentials = json_decode($credentialsStr, true);
 		$_SESSION['error_BBDD']=false;
 
-		$db = mysqli_connect('sql7.freemysqlhosting.net', $credentials['database']['user'], $credentials['database']['password'], $credentials['database']['dbname']);
+		$db = mysqli_connect('sql300.epizy.com', $credentials['database']['user'], $credentials['database']['password'], $credentials['database']['dbname']);
 		if($db){
 			$sql = 'SELECT `nombre`, `apellidos`, `email`, profesores.id as id FROM `profesores`';
 			$consulta=mysqli_query($db,$sql);
