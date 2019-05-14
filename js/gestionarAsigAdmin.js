@@ -43,7 +43,7 @@ $(document).ready(function(){
                 		$("#tableCoordinadores").append('<tr><td><input type="checkbox" name="profesor" value="'+respuesta['profNoCoord'][i]["id"]+'"></td><td>'+respuesta['profNoCoord'][i]["nombre"]+'</td><td>'+respuesta['profNoCoord'][i]["apellidos"]+'</td><td>'+respuesta['profNoCoord'][i]["email"]+'</td></tr>');
                 	}
                   if(!hayProf){
-                    $("#message").append('<div class="alert alert-warning"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>No hay ningún profesor en el sistema</div>';);
+                    $("#message").append('<div class="alert alert-warning"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>No hay ningún profesor en el sistema</div>');
                   }
                 }
                 else{

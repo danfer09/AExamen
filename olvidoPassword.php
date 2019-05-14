@@ -51,7 +51,7 @@
 
 		?>
 
-		<p>Introduce tu correo electrónico para poder reestablecer la contraseña mediante el correo que te enviaremos: </p>
+		<p>Introduce tu correo electrónico para poder restablecer la contraseña mediante el correo que te enviaremos: </p>
 
 		<form action="olvidoPasswordProcesamiento.php" id="formulario_olvido" method="post">
 			Email:<br>
