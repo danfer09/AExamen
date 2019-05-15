@@ -79,9 +79,9 @@
 	* Función para formatear una fecha de formato estándar string a diferentes formatos según cuanto tiempo haya pasado hasta la actualidad
 	*/
 	function formateoDateTime ($fecha) {
-		$time = strtotime($fecha);
-
 		date_default_timezone_set("Europe/Madrid");
+
+		$time = strtotime($fecha);
 
 		$diff = (time() - $time)*1000; // la diferencia en milisegundos
 
