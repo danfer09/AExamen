@@ -31,7 +31,7 @@
 			$examen=cargaUnicoExamenInfo($_GET['id']);
 
 			$idAsignatura = $examen['id_asig'];
-			$acceso = comprobarAcceso($idAsignatura);
+			$acceso = $_SESSION['administrador']? true:comprobarAcceso($idAsignatura);
 			if (!$acceso) {
 				header('Location: index.php');
 			}
