@@ -69,6 +69,7 @@
 		    <tbody>
 		<?php
 			//Obtenemos los profesores que hay en el sistema
+			
 			$profesores = getProfesoresAdmin();
 			//Mostramos los diversos errores que se pueden producir
 			if ($profesores == null){

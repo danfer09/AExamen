@@ -7,8 +7,9 @@
 	$error_campoVacio = isset($_SESSION['error_campoVacio'])? $_SESSION['error_campoVacio']: false;
 	$error_BBDD = isset($_SESSION['error_BBDD'])? $_SESSION['error_BBDD']: false;
 	$error_usuario_no_existente = isset($_SESSION['error_usuario_no_existente'])? $_SESSION['error_usuario_no_existente']: false;
-	
+
 ?>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -58,7 +59,7 @@
 			<input type="text" placeholder="email@example.com" class="form-control" name="email" id="email" required>
 			<br>
 			<input type="submit" class="btn btn-primary" value="Enviar" id="olvido" name="olvido">
-		</form> 
+		</form>
 		<br><br>
 		<p><a href="loginFormulario.php">Iniciar sesión</a></p>
 		<p><a href="registrarseFormulario.php">Registrarse</a></p>

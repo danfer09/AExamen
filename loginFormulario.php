@@ -4,6 +4,7 @@
 	    session_start();
 	}
 
+
 	/*Volcamos a variables los session de control de errores que se inicializan en loginProcesamiento.php */
 	$error_campoVacio = isset($_SESSION['error_campoVacio'])? $_SESSION['error_campoVacio']: false;
 	$error_BBDD = isset($_SESSION['error_BBDD'])? $_SESSION['error_BBDD']: false;
