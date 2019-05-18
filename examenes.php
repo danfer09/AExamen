@@ -13,7 +13,6 @@
 <body>
 	<div class="header" id="header"></div>
 	<div class="container">
-		<h1>Pagina principal del profesor</h1>
 		<?php
 			/*Iniciamos la sesion, pero antes hacemos una comprobacion para evitar errores*/
 			if (session_status() == PHP_SESSION_NONE) {

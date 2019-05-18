@@ -63,7 +63,7 @@
 						$_SESSION['apellidos']=$datos['apellidos'];
 						$_SESSION['id']=$datos['id'];
 						$_SESSION['administrador'] = $encontradoAdmin;
-
+						date_default_timezone_set("Europe/Madrid");
 						//Registramos este login en el log
 						$log  = '['.date("d/m/Y - H:i:s").'] : '."USER --> id ".$_SESSION['id'].' - '.$_SESSION['apellidos'].', '.$_SESSION['nombre'].
 						        " | ACTION --> Inicio de sesión ".' de '.$_SESSION['email'].PHP_EOL.
