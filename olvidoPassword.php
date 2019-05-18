@@ -24,7 +24,7 @@
 </head>
 <body>
 	<div class="container">
-		<h1>Reestablecer contraseña</h1>
+		<h1>Restablecer contraseña</h1>
 
 		<?php
 
