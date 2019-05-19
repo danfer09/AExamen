@@ -137,7 +137,7 @@
 	function getDefaultParameters ($tituloExamen) {
 		$credentialsStr = file_get_contents('json/credentials.json');
 		$credentials = json_decode($credentialsStr, true);
-		$db = mysqli_connect('sql300.epizy.com', $credentials['database']['user'], $credentials['database']['password'], $credentials['database']['dbname']);
+		$db = mysqli_connect($credentials['database']['host'], $credentials['database']['user'], $credentials['database']['password'], $credentials['database']['dbname']);
 
 		$sql = "SELECT asignaturas.espaciado_defecto, asignaturas.texto_inicial, asignaturas.siglas, asignaturas.nombre, examenes.id as idExamen FROM asignaturas INNER JOIN examenes ON asignaturas.id=examenes.id_asig WHERE examenes.titulo='".$tituloExamen."'";
 		$consulta=mysqli_query($db,$sql);
@@ -157,7 +157,7 @@
 	function getPreguntasExamen ($idExamen) {
 		$credentialsStr = file_get_contents('json/credentials.json');
 		$credentials = json_decode($credentialsStr, true);
-		$db = mysqli_connect('sql300.epizy.com', $credentials['database']['user'], $credentials['database']['password'], $credentials['database']['dbname']);
+		$db = mysqli_connect($credentials['database']['host'], $credentials['database']['user'], $credentials['database']['password'], $credentials['database']['dbname']);
 		//comprobamos si se ha conectado a la base de datos
 		if($db){
 			$resultado = [];

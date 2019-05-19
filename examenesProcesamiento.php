@@ -23,7 +23,7 @@
 		//Conectamos la base de datos
 		$credentialsStr = file_get_contents('json/credentials.json');
 		$credentials = json_decode($credentialsStr, true);
-		$db = mysqli_connect('sql300.epizy.com', $credentials['database']['user'], $credentials['database']['password'], $credentials['database']['dbname']);
+		$db = mysqli_connect($credentials['database']['host'], $credentials['database']['user'], $credentials['database']['password'], $credentials['database']['dbname']);
 		$preguntas=array();
 		//comprobamos si se ha conectado a la base de datos
 		if($db){
@@ -59,7 +59,7 @@
 		//Conectamos la base de datos
 		$credentialsStr = file_get_contents('json/credentials.json');
 		$credentials = json_decode($credentialsStr, true);
-		$db = mysqli_connect('sql300.epizy.com', $credentials['database']['user'], $credentials['database']['password'], $credentials['database']['dbname']);
+		$db = mysqli_connect($credentials['database']['host'], $credentials['database']['user'], $credentials['database']['password'], $credentials['database']['dbname']);
 		//comprobamos si se ha conectado a la base de datos
 		if($db){
 			$sql = "SELECT profesores.nombre AS autor FROM examenes INNER JOIN profesores ON examenes.creador=profesores.id WHERE examenes.id=".$idExamen;
@@ -88,7 +88,7 @@
 		//Conectamos la base de datos
 		$credentialsStr = file_get_contents('json/credentials.json');
 		$credentials = json_decode($credentialsStr, true);
-		$db = mysqli_connect('sql300.epizy.com', $credentials['database']['user'], $credentials['database']['password'], $credentials['database']['dbname']);
+		$db = mysqli_connect($credentials['database']['host'], $credentials['database']['user'], $credentials['database']['password'], $credentials['database']['dbname']);
 		//comprobamos si se ha conectado a la base de datos
 		if($db){
 			$sql = "SELECT profesores.nombre AS modificador FROM examenes INNER JOIN profesores ON examenes.ultimo_modificador=profesores.id WHERE examenes.id=".$idExamen;
@@ -116,7 +116,7 @@
 		//Conectamos la base de datos
 		$credentialsStr = file_get_contents('json/credentials.json');
 		$credentials = json_decode($credentialsStr, true);
-		$db = mysqli_connect('sql300.epizy.com', $credentials['database']['user'], $credentials['database']['password'], $credentials['database']['dbname']);
+		$db = mysqli_connect($credentials['database']['host'], $credentials['database']['user'], $credentials['database']['password'], $credentials['database']['dbname']);
 		//comprobamos si se ha conectado a la base de datos
 		if($db){
 			$sql = "SELECT * FROM `examenes` WHERE id=".$idExamen;
@@ -144,7 +144,7 @@
 		//Conectamos la base de datos
 		$credentialsStr = file_get_contents('json/credentials.json');
 		$credentials = json_decode($credentialsStr, true);
-		$db = mysqli_connect('sql300.epizy.com', $credentials['database']['user'], $credentials['database']['password'], $credentials['database']['dbname']);
+		$db = mysqli_connect($credentials['database']['host'], $credentials['database']['user'], $credentials['database']['password'], $credentials['database']['dbname']);
 		$asignaturas = array();
 		//comprobamos si se ha conectado a la base de datos
 		if($db){
@@ -182,7 +182,7 @@
 	function selectAllMailsProfesoresSiglas($asignaturaSiglas) {
 		$credentialsStr = file_get_contents('json/credentials.json');
 		$credentials = json_decode($credentialsStr, true);
-		$db = mysqli_connect('sql300.epizy.com', $credentials['database']['user'], $credentials['database']['password'], $credentials['database']['dbname']);
+		$db = mysqli_connect($credentials['database']['host'], $credentials['database']['user'], $credentials['database']['password'], $credentials['database']['dbname']);
 		if($db){
 			$sql = "SELECT profesores.id as id, profesores.email as email, profesores.nombre as nombre, profesores.apellidos as apellidos FROM (profesores inner join prof_asig_coord on profesores.id=prof_asig_coord.id_profesor) inner join asignaturas on asignaturas.id=prof_asig_coord.id_asignatura WHERE asignaturas.siglas='".$asignaturaSiglas."'";
 			$consulta=mysqli_query($db,$sql);
@@ -213,7 +213,7 @@
 	function selectAllMailsProfesoresId($idAsignatura) {
 		$credentialsStr = file_get_contents('json/credentials.json');
 		$credentials = json_decode($credentialsStr, true);
-		$db = mysqli_connect('sql300.epizy.com', $credentials['database']['user'], $credentials['database']['password'], $credentials['database']['dbname']);
+		$db = mysqli_connect($credentials['database']['host'], $credentials['database']['user'], $credentials['database']['password'], $credentials['database']['dbname']);
 		if($db){
 			$sql = "SELECT profesores.id as id, profesores.email as email, profesores.nombre as nombre, profesores.apellidos as apellidos FROM profesores inner join prof_asig_coord on profesores.id=prof_asig_coord.id_profesor WHERE prof_asig_coord.id_asignatura=".$idAsignatura;
 			$consulta=mysqli_query($db,$sql);
@@ -376,7 +376,7 @@
 		$funciona=false;
 		$credentialsStr = file_get_contents('json/credentials.json');
 		$credentials = json_decode($credentialsStr, true);
-		$db = mysqli_connect('sql300.epizy.com', $credentials['database']['user'], $credentials['database']['password'], $credentials['database']['dbname']);
+		$db = mysqli_connect($credentials['database']['host'], $credentials['database']['user'], $credentials['database']['password'], $credentials['database']['dbname']);
 
 		//comprobamos si se ha conectado a la base de datos
 		if($db){
@@ -410,7 +410,7 @@
 		//Conectamos la base de datos
 		$credentialsStr = file_get_contents('json/credentials.json');
 		$credentials = json_decode($credentialsStr, true);
-		$db = mysqli_connect('sql300.epizy.com', $credentials['database']['user'], $credentials['database']['password'], $credentials['database']['dbname']);
+		$db = mysqli_connect($credentials['database']['host'], $credentials['database']['user'], $credentials['database']['password'], $credentials['database']['dbname']);
 		//comprobamos si se ha conectado a la base de datos
 		if($db){
 			$sql = "SELECT `id`, `idExamen`, `idModificador`, `fecha_modificacion` FROM `examenes_historial` WHERE `idExamen`=".$idExamen;

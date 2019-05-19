@@ -80,7 +80,7 @@
 		$credentials = json_decode($credentialsStr, true);
 		$_SESSION['error_BBDD']=false;
 		
-		$db = mysqli_connect('sql300.epizy.com', $credentials['database']['user'], $credentials['database']['password'], $credentials['database']['dbname']);
+		$db = mysqli_connect($credentials['database']['host'], $credentials['database']['user'], $credentials['database']['password'], $credentials['database']['dbname']);
 		if($db){
 			$peticion = getPeticionReturn($id);
 			$sql = 'DELETE FROM `peticiones_registro` WHERE id='.$id;
@@ -121,7 +121,7 @@
 		$credentials = json_decode($credentialsStr, true);
 		$_SESSION['error_BBDD']=false;
 		
-		$db = mysqli_connect('sql300.epizy.com', $credentials['database']['user'], $credentials['database']['password'], $credentials['database']['dbname']);
+		$db = mysqli_connect($credentials['database']['host'], $credentials['database']['user'], $credentials['database']['password'], $credentials['database']['dbname']);
 		if($db){
 			$peticion = getPeticionReturn($id);
 			$sql = 'DELETE FROM `peticiones_registro` WHERE id='.$id;
@@ -158,7 +158,7 @@
 		$credentials = json_decode($credentialsStr, true);
 		$_SESSION['error_BBDD']=false;
 		
-		$db = mysqli_connect('sql300.epizy.com', $credentials['database']['user'], $credentials['database']['password'], $credentials['database']['dbname']);
+		$db = mysqli_connect($credentials['database']['host'], $credentials['database']['user'], $credentials['database']['password'], $credentials['database']['dbname']);
 		if($db){
 			$sql = 'SELECT * FROM `peticiones_registro` WHERE id='.$id;
 			$consulta=mysqli_query($db,$sql);
@@ -189,7 +189,7 @@
 		$credentials = json_decode($credentialsStr, true);
 		$_SESSION['error_BBDD']=false;
 		
-		$db = mysqli_connect('sql300.epizy.com', $credentials['database']['user'], $credentials['database']['password'], $credentials['database']['dbname']);
+		$db = mysqli_connect($credentials['database']['host'], $credentials['database']['user'], $credentials['database']['password'], $credentials['database']['dbname']);
 		if($db){
 			$sql = 'SELECT * FROM `peticiones_registro` WHERE id='.$id;
 			$consulta=mysqli_query($db,$sql);
@@ -218,7 +218,7 @@
 		$credentials = json_decode($credentialsStr, true);
 		$_SESSION['error_BBDD']=false;
 		
-		$db = mysqli_connect('sql300.epizy.com', $credentials['database']['user'], $credentials['database']['password'], $credentials['database']['dbname']);
+		$db = mysqli_connect($credentials['database']['host'], $credentials['database']['user'], $credentials['database']['password'], $credentials['database']['dbname']);
 		if($db){
 			$sql = 'SELECT * FROM `peticiones_registro`';
 			$consulta=mysqli_query($db,$sql);

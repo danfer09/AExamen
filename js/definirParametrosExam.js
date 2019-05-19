@@ -24,11 +24,13 @@ $(document).ready(function(){
 		}
 	});
 
+  //aniade temas de forma dinamica segun al formulario segun se van aniadiendo
   $('.numTemasForm').bind('keyup mouseup',function() {
     let contadorTemas = 0;
     $( ".puntosTemaForm" ).each(function() {
       contadorTemas += 1;
     });
+    //aniadimos un tema si el numero de temas se incrementa
     if ($(this).val()>contadorTemas) {
       let dif = $(this).val()-contadorTemas;
       for (var i = 0; i < dif; i++) {
@@ -37,7 +39,10 @@ $(document).ready(function(){
         '<input type="number" class="form-control puntosTemaForm" id="tema'+(contadorTemas+1+i)+'" value="0" min="0">'+
         '</div>');
       }
-    } else if ($(this).val()<contadorTemas) {
+
+    }
+    //eliminamos un tema si el numero de temas se incrementa
+    else if ($(this).val()<contadorTemas) {
       while($(this).val()!=contadorTemas){
         $('#div_tema'+contadorTemas).remove();
         contadorTemas--;
