@@ -42,11 +42,8 @@
 			<div class="col-lg-12">
 				<h2><b>Log</b></h2>
 			</div>
-			<div class="col-lg-6">
+			<div class="col-lg-12">
 				<h3>Últ. vez modificado: <u><?php echo formateoDateTime(date("Y-m-d H:i:s", filemtime('./log/log_AExamen.log'))); ?></u></h3>
-			</div>
-			<div class="col-lg-6">
-				<h3>Últ. vez eliminado: <u><?php echo formateoDateTime(date("Y-m-d H:i:s", filectime('./log/log_AExamen.log'))); ?></u></h3>
 			</div>
 			<br><br><br>
 			<div class="col-lg-4 centrar">

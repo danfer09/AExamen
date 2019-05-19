@@ -33,9 +33,8 @@
 					header('Location: registrarseFormulario.php');
 					exit();
 				} else {
-
 					$_SESSION['error_envio_mail'] = false;
-					if (smtpmailer($email, $credentials['webMail']['mail'], 'AExamen Web', 'Solicitud de registro AExamen', 'registroAExamen-mail.html', $credentials['webMail']['mail'], $credentials['webMail']['password'])) {
+					if (smtpmailer($email, $credentials['webMail']['mail'], 'AExamen Web', 'Solicitud de registro AExamen', 'registroAexamen-mail.html', $credentials['webMail']['mail'], $credentials['webMail']['password'])) {
 					} else {
 						$_SESSION['error_envio_mail'] = true;
 					}
@@ -47,7 +46,7 @@
 					$consulta=mysqli_query($db,$sql);
 					$fila=mysqli_fetch_assoc($consulta);
 
-					header('Location: registroAExamen-pagina.html');
+					header('Location: registroAexamen-pagina.html');
 				}
 			}
 			else{

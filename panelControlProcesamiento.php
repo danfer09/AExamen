@@ -12,7 +12,7 @@
 	}
 
 	include_once 'funcionesServidor.php';
-
+	date_default_timezone_set("Europe/Madrid");
 	$funcion = isset($_POST['funcion'])? $_POST['funcion']: null;
 	$idPeticion = isset($_POST['idPeticion'])? $_POST['idPeticion']: null;
 	if($funcion == "getPeticion")
