@@ -184,7 +184,10 @@
 		$credentials = json_decode($credentialsStr, true);
 		$db = mysqli_connect($credentials['database']['host'], $credentials['database']['user'], $credentials['database']['password'], $credentials['database']['dbname']);
 		if($db){
-			$sql = "SELECT profesores.id as id, profesores.email as email, profesores.nombre as nombre, profesores.apellidos as apellidos FROM (profesores inner join prof_asig_coord on profesores.id=prof_asig_coord.id_profesor) inner join asignaturas on asignaturas.id=prof_asig_coord.id_asignatura WHERE asignaturas.siglas='".$asignaturaSiglas."'";
+			$sql = "SELECT distinct profesores.id as id, profesores.email as email, profesores.nombre as nombre, profesores.apellidos as apellidos FROM (profesores inner join prof_asig_coord on profesores.id=prof_asig_coord.id_profesor) inner join asignaturas on asignaturas.id=prof_asig_coord.id_asignatura ";
+			if ($asignaturaSiglas != 'todas' ) {
+				$sql = $sql."WHERE asignaturas.siglas='".$asignaturaSiglas."'";
+			}
 			$consulta=mysqli_query($db,$sql);
 			$resultado = [];
 			if($consulta->num_rows > 0){
