@@ -4,24 +4,23 @@ App::uses('AppModel', 'Model');
 class Login extends AppModel {
   public $useTable = 'profesores';
 
-  public function login(){
+  public function login($email){
+    //NO RECIBIMOS $email
 				$sql = "SELECT * FROM profesores";
 				$fila=$this->query($sql);
-        debug($fila);
-        die;
 				$encontrado=false;
+        $i=0;
 				/*Buscamos un correo que coincida con el que nos a introducido el usuario, en caso de que no se encuentre sale con la variable $encontrado a false*/
-				while(!$encontrado && $fila){
-					if($email==$fila['email']){
+				while(!$encontrado && $fila[$i]['profesores']){
+					if($email==$fila[$i]['profesores']['email']){
 						$encontrado=true;
 					}
-					else{
-						$fila=mysqli_fetch_assoc($consulta);
-					}
+          else{
+            $i++;
+          }
 				}
 				$sql = "SELECT * FROM administradores";
-				$consulta=mysqli_query($db,$sql);
-				$filaAdmin=mysqli_fetch_assoc($consulta);
+        $fila=$this->query($sql);
 				$encontradoAdmin=false;
 				/*Buscamos un correo que coincida con el que nos a introducido el usuario, en caso de que no se encuentre sale con la variable $encontrado a false*/
 				while(!$encontradoAdmin && $filaAdmin){

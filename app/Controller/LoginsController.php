@@ -22,8 +22,7 @@ class LoginsController extends AppController {
   		//Comprobamos que ninguna de las variables este a null
   		if($email!=null && $clave!=null){
           //$this->loadModel('Login');
-  		    $this->Login->login();
-          die;
+  		    $this->Login->login($email);
 
   		}
   		/*Error cuando el usuario deja un campo vacío*/
