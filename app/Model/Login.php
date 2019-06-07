@@ -1,8 +1,8 @@
 <?php
 App::uses('AppModel', 'Model');
 
-class LoginModel extends AppModel {
-  die;
+class Login extends AppModel {
+  public $useTable = 'profesores';
 
   public function login(){
 				$sql = "SELECT * FROM profesores";

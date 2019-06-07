@@ -21,7 +21,7 @@ class LoginsController extends AppController {
   		$clave = isset($_POST['clave'])? $_POST['clave']: null;
   		//Comprobamos que ninguna de las variables este a null
   		if($email!=null && $clave!=null){
-          $this->loadModel('Login');
+          //$this->loadModel('Login');
   		    $this->Login->login();
           die;
 
