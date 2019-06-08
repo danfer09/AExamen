@@ -3,6 +3,9 @@
 	if (session_status() == PHP_SESSION_NONE) {
 	    session_start();
 	}
+	// if(isset($success)&& $success){
+	// 	debug("entra vista");
+	// }
 
 
 	/*Volcamos a variables los session de control de errores que se inicializan en loginProcesamiento.php */

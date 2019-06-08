@@ -21,25 +21,33 @@ class LoginsController extends AppController {
   		$clave = isset($_POST['clave'])? $_POST['clave']: null;
   		//Comprobamos que ninguna de las variables este a null
   		if($email!=null && $clave!=null){
-          //$this->loadModel('Login');
-  		    $this->Login->login($email);
+  		    $success = $this->Login->acceso($email, $clave);
+          if($success){
+            //debug("entra");
+            $this->set('success', $success);
+            //$this->redirect('/paginasprincipales');
+            return $this->redirect(array('controller'=>'paginasprincipales','action' => 'index'));
 
+
+            // debug($this->redirect(array('controller'=> 'PaginasPricipales', 'action' => 'index')));
+            // var_dump("despues return");
+          }
+          //die;
   		}
   		/*Error cuando el usuario deja un campo vacío*/
   		else{
-  			$_SESSION['error_campoVacio']=true;
-  			header('Location: loginFormulario.php');
+  			// $_SESSION['error_campoVacio']=true;
+  			// header('Location: loginFormulario.php');
   		}
   		/*Cerrar la BBDD*/
-  		mysqli_close($db);
+  		// mysqli_close($db);
   	}
   	/*En caso de que no sea un metodo POST o un usuario quiera acceder a este php poniendo su ruta en el navegador, los redirigimos a loginFormulario.php*/
   	else{
-  		header('Location: loginFormulario.php');
+  		// header('Location: loginFormulario.php');
   	}
   }
-
+  public function test(){
+  }
 }
-
-
 ?>
