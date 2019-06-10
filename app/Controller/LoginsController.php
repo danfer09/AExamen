@@ -23,28 +23,24 @@ class LoginsController extends AppController {
   		if($email!=null && $clave!=null){
   		    $success = $this->Login->acceso($email, $clave);
           if($success){
-            //debug("entra");
-            $this->set('success', $success);
-            //$this->redirect('/paginasprincipales');
             return $this->redirect(array('controller'=>'paginasprincipales','action' => 'index'));
-
-
-            // debug($this->redirect(array('controller'=> 'PaginasPricipales', 'action' => 'index')));
-            // var_dump("despues return");
           }
-          //die;
+          else{
+            return $this->redirect(array('controller'=>'logins','action' => 'index', '?' => array(
+                'error_autenticar' => true
+            )));
+          }
   		}
   		/*Error cuando el usuario deja un campo vacío*/
   		else{
-  			// $_SESSION['error_campoVacio']=true;
-  			// header('Location: loginFormulario.php');
+  			$_SESSION['error_campoVacio']=true;
   		}
-  		/*Cerrar la BBDD*/
-  		// mysqli_close($db);
   	}
   	/*En caso de que no sea un metodo POST o un usuario quiera acceder a este php poniendo su ruta en el navegador, los redirigimos a loginFormulario.php*/
   	else{
-  		// header('Location: loginFormulario.php');
+      if(isset($this->request->query['error_autenticar'])){
+        $_SESSION['error_autenticar'] = $this->request->query['error_autenticar'];
+      }
   	}
   }
   public function test(){

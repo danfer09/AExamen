@@ -38,7 +38,7 @@ class Login extends AppModel {
 				/*Si no encotramos el nombre del usario ponemos a true la variable de error al autenticar y redirigimos a loginFormulario.php donde la tratamos*/
 				if(!$encontrado && !$encontradoAdmin){
 					$_SESSION['error_autenticar']=true;
-					header('Location: loginFormulario.php');
+					return false;
 				}
 				else{
 					//Verificamos la clave con esta funcion ya que en la BBDD esta encriptada, en caso de que se verifique, declaramos e inicializamos todas las variables de session de usuario.
@@ -58,13 +58,13 @@ class Login extends AppModel {
 						file_put_contents('log/log_AExamen.log', utf8_decode($log), FILE_APPEND);
 
 
-            return 1;
+            return true;
 					}
 					/*En caso de que la clave no coincida con el usuairo ponemos a true la variable de error al autentiacar y redirigimos a loginFormulario.php donde la tratamos*/
 					else{
 						$_SESSION['error_autenticar']=true;
-						header('Location: loginFormulario.php');
-					}
+            return false;
+          }
 				}
 
 
