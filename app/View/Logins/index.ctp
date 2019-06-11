@@ -65,7 +65,7 @@
 		  <input type="submit" value="Acceder" id="logear" name="logear" class="btn btn-primary">
 		</form>
 		<br>
-		<p><a href="registrarseFormulario.php" class="linkLogin">Registrarse</a></p>
+		<p><a href="/registros/index" class="linkLogin">Registrarse</a></p>
 		<p><a href="olvidoPassword.php" class="linkLogin">Olvidé mi contraseña</a></p>
 		</div>
     </div>
