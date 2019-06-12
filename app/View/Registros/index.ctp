@@ -4,8 +4,6 @@
 	}
 
 	//Comprobamos los distitos session que controlan los diversos errores, si existen los volcamos en unas variables para que sea más manejable
-	$error_campoVacio = isset($_SESSION['error_campoVacio'])? $_SESSION['error_campoVacio']: false;
-	$error_BBDD = isset($_SESSION['error_BBDD'])? $_SESSION['error_BBDD']: false;
 	$error_usuario_existente = isset($_SESSION['error_usuario_existente'])? $_SESSION['error_usuario_existente']: false;
 
 ?>
@@ -20,21 +18,7 @@
 	<div class="container">
 		<h1>Registrarse</h1>
     <?php
-    if($error_campoVacio){
-      echo '<div class="alert alert-danger alert_login" role="alert">
-          <a href="#" class="close" data-dismiss="alert" aria-label="close"></a>
-            Error, ha dejado campos vacíos
-          </div>';
-      $_SESSION['error_campoVacio']=false;
-    }
-    elseif($error_BBDD) {
-      echo '<div class="alert alert-danger alert_login" role="alert">
-          <a href="#" class="close" data-dismiss="alert" aria-label="close"></a>
-            Error al conectar con la base de datos, contacte con el administrador
-          </div>';
-      $_SESSION['error_BBDD']=false;
-    }
-    elseif($error_usuario_existente){
+    if($error_usuario_existente){
       echo '<div class="alert alert-danger alert_login" role="alert">
           <a href="#" class="close" data-dismiss="alert" aria-label="close"></a>
             Usuario existente
@@ -71,7 +55,8 @@
 		<br>
 		<p><a href="/logins/index" class="linkLogin">Volver a Iniciar sesión</a></p>
 	</div>
-
-
+	<?php
+	echo $this->Html->script('registrarseFormulario');
+	?>
 </body>
 </html>

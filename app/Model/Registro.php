@@ -1,7 +1,6 @@
 <?php
 App::uses('AppModel', 'Model');
 
-//include 'funcionesServidor.php';
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 use PHPMailer\PHPMailer\SMTP;
@@ -35,11 +34,10 @@ class Registro extends AppModel {
       $consulta=$this->query($sql);
 
       return true;
-      //header('Location: registroAexamen-pagina.html');
     }
   }
 
-  private function smtpmailer($to, $from, $fromName, $subject, $body, $googleUser, $googlePassword) {
+  public function smtpmailer($to, $from, $fromName, $subject, $body, $googleUser, $googlePassword) {
 		global $error;
 		$mail = new PHPMailer();  // creamos el objeto
 		$mail->IsSMTP(); // activa SMTP

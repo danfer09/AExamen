@@ -5,6 +5,7 @@ App::uses('AppController', 'Controller');
 
 class LoginsController extends AppController {
 
+
   public function index(){
     /*Iniciamos la sesion, pero antes hacemos una comprobacion para evitar errores*/
   	if (session_status() == PHP_SESSION_NONE) {
@@ -42,6 +43,27 @@ class LoginsController extends AppController {
         $_SESSION['error_autenticar'] = $this->request->query['error_autenticar'];
       }
   	}
+  }
+
+
+  public function olvideContrasenia(){
+  	if (session_status() == PHP_SESSION_NONE) {
+  	    session_start();
+  	}
+  	$_SESSION['error_usuario_no_existente']=false;
+  	//Comprobamos que el método empleado es POST
+  	if ($_SERVER['REQUEST_METHOD'] == 'POST'){
+  		//Cogemos los valores que han puesto en el formulario, si el valor no existe, cargamos en la variable null
+  		$email = isset($_POST['email'])? $_POST['email']: null;
+
+  		//Comprobamos que ninguna de las variables este a null
+  		if($email!=null){
+        if($this->Login->olvideContrasenia($email)){
+          $this->Session->setFlash("Correo enviado correctamente", 'default', array(), 'success');
+          return $this->redirect(array('controller'=>'logins','action' => 'index'));
+        }
+  		}
+	   }
   }
   public function test(){
   }

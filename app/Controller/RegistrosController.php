@@ -11,8 +11,6 @@ class RegistrosController extends AppController {
   	    session_start();
   	}
 
-  	$_SESSION['error_campoVacio']=false;
-  	$_SESSION['error_BBDD']=false;
   	$_SESSION['error_usuario_existente']=false;
   	//Comprobamos que el método empleado es POST
   	if ($_SERVER['REQUEST_METHOD'] == 'POST'){
@@ -34,11 +32,6 @@ class RegistrosController extends AppController {
           )));
         }
       }
-			else{
-				$_SESSION['error_BBDD']=true;
-				//header('Location: registrarseFormulario.php');
-				//exit();
-			}
 		}
 		else{
       if(isset($this->request->query['error_usuario_existente'])){

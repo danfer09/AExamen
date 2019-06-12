@@ -4,6 +4,8 @@
 	    session_start();
 	}
 
+	// echo $this->Flash->get();
+
 	/*Volcamos a variables los session de control de errores que se inicializan en loginProcesamiento.php */
 	$error_campoVacio = isset($_SESSION['error_campoVacio'])? $_SESSION['error_campoVacio']: false;
 	$error_BBDD = isset($_SESSION['error_BBDD'])? $_SESSION['error_BBDD']: false;
@@ -32,11 +34,13 @@
 
           <?php
           	/*Comprobamos las variables donde hemos volcado los session y realizamos las acciones que correspondan*/
-			if($error_campoVacio){
-				echo '<div class="alert alert-danger alert_login" role="alert">
-						<a href="#" class="close" data-dismiss="alert" aria-label="close"></a>
-				  		Error, ha dejado campos vacíos
-					  </div>';
+			$respondMessageSuccess = $this->Session->flash('success');
+
+			if($respondMessageSuccess){
+				echo '<div class="alert alert-success alert_login" role="alert">
+						<a href="#" class="close" data-dismiss="alert" aria-label="close"></a>';
+				echo $respondMessageSuccess;
+				echo '</div>';
 				$_SESSION['error_campoVacio']=false;
 			}
 			elseif($error_BBDD) {
@@ -55,7 +59,7 @@
 			}
           ?>
           <hr class="pg-titl-bdr-btm"></hr>
-    <form action="logins/index" id="formulario_login" method="post">
+    <form action="/logins/index" id="formulario_login" method="post">
 		  Email:<br>
 		  <input type="text" name="email" id="email" required>
 		  <br>
@@ -66,7 +70,7 @@
 		</form>
 		<br>
 		<p><a href="/registros/index" class="linkLogin">Registrarse</a></p>
-		<p><a href="olvidoPassword.php" class="linkLogin">Olvidé mi contraseña</a></p>
+		<p><a href="/logins/olvidecontrasenia" class="linkLogin">Olvidé mi contraseña</a></p>
 		</div>
     </div>
   </div>
