@@ -51,7 +51,7 @@
 			?>
 				<div class="col-xl-3 col-lg-4 col-md-6 col-sm-3 portfolio-item filter-app">
 		          <h3>ASIGNATURAS</h3>
-		          <a href="gestionarAsigAdmin.php">
+		          <a href="/asignaturas/index">
 		            <img src="img/asignaturas-book.png" alt="">
 		            <h3>ASIGNATURAS</h3>
 		            <div class="details">
@@ -102,7 +102,7 @@
 		?>
 				<div class="col-xl-3 col-lg-4 col-md-6 col-sm-3 portfolio-item filter-app">
 				  <h3>ASIGNATURAS</h3>
-		          <a href="asignaturasProfesor.php">
+		          <a href="/asignaturas/index">
 		            <img src="img/asignaturas-book.png" alt="">
 		            <h3>ASIGNATURAS</h3>
 		            <div class="details">
