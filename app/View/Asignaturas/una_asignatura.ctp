@@ -59,7 +59,7 @@
 					<div class="col-xl-3 col-lg-4 col-md-6 col-sm-3 portfolio-item filter-app">
 			          <h3>PROFESORES</h3>
 			          <a <?php echo 'href="profesoresDeUnaAsig.php?idAsig='.$_GET['id'].'&nombreAsig='.$nombreAsig.'"' ?>>
-			            <img src="img/profesores-users.png" alt="">
+			            <img src="/img/profesores-users.png" alt="">
 			            <h3>PROFESORES</h3>
 			            <div class="details">
 			              <h4>PROFESORES</h4>
@@ -71,7 +71,7 @@
 			        <div class="col-xl-3 col-lg-4 col-md-6 col-sm-3 portfolio-item filter-app">
 			          <h3>PARÁMETROS</h3>
 			          <a <?php echo 'href="definirParametrosExam.php?idAsig='.$_GET['id'].'"' ?>>
-			            <img src="img/parametros-examen.png" alt="">
+			            <img src="/img/parametros-examen.png" alt="">
 			            <h3>PARÁMETROS</h3>
 			            <div class="details">
 			              <h4>PARÁMETROS DE EXAMEN</h4>

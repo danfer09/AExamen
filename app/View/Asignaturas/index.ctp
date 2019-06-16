@@ -69,7 +69,7 @@
 					 	</div>';
 		}
 		/*En caso de que no se haya producido ningún error, mostramos todas las asignaras
-		que no ha devuelto en una tabla*/
+		que nos ha devuelto en una tabla*/
 		else{
 			foreach ($asignaturas as $pos => $valor) {
 				echo '<tr class="item filaAsignaturasProfesor">';

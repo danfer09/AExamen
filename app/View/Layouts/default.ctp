@@ -30,7 +30,6 @@ $cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version())
 
 		//echo $this->Html->css('cake.generic');
 		echo $this->Html->css('all');
-		echo $this->Html->css('bootstrap.min');
 		echo $this->Html->css('cabeceraLogin');
 		echo $this->Html->css('estilo');
 		echo $this->Html->css('font-awesome.min');
@@ -39,6 +38,7 @@ $cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version())
 		echo $this->Html->css('style');
 		echo $this->Html->css('tempusdominus-bootstrap-4.min');
 		echo $this->Html->css('w3');
+		echo $this->Html->css('bootstrap.min');
 
 		echo $this->Html->script('jquery-3.3.1.min');
 		echo $this->Html->script('bootstrap.min');

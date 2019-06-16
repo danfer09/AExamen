@@ -11,9 +11,8 @@
 	}
 	//Comprobamos los distitos session que controlan los diversos errores, si existen los volcamos en unas variables para que sea mas manejable
 	$error_ejecuccionConsulta = isset($_SESSION['error_ejecuccionConsulta'])? $_SESSION['error_ejecuccionConsulta']: false;
-	$error_noFilasConCondicion = isset($_SESSION['error_noFilasConCondicion'])? $_SESSION['error_noFilasConCondicion']: false;
-	$error_BBDD = isset($_SESSION['error_BBDD'])? $_SESSION['error_BBDD']: false;
-	$error_campoVacio = isset($_SESSION['error_campoVacio'])? $_SESSION['error_campoVacio']: false;
+	$error_actualizar = isset($_SESSION['error_actualizar'])? $_SESSION['error_actualizar']: false;
+
 ?>
 <!DOCTYPE html>
 <html>
@@ -34,32 +33,14 @@
 				$error_ejecuccionConsulta=false;
 				$_SESSION['error_ejecuccionConsulta']=false;
 			}
-			elseif($error_noFilasConCondicion){
-				$error_noFilasConCondicion=false;
-				$_SESSION['error_noFilasConCondicion'] = false;
+			elseif($error_actualizar){
+				$_SESSION['error_actualizar'] = false;
 				echo '<div class="alert alert-warning">
 							<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-						    No se ha podido completar la acción correctamente
+						    No se ha podido completar el cambio correctamente
 						 </div>';
 			}
-			elseif($error_BBDD) {
-				echo "Error al conectar con la base de datos";
-				$error_BBDD=false;
-				$_SESSION['error_BBDD'] = false;
-				echo '<div class="alert alert-warning">
-							<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-						    No se ha podido conectar con la base de datos
-						 </div>';
-			}
-			elseif($error_campoVacio){
-				echo "Error campos vacíos";
-				$error_campoVacio=false;
-				$_SESSION['error_campoVacio'];
-				echo '<div class="alert alert-warning">
-							<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-						    Algún campo está vacío, inténtelo de nuevo
-						 </div>';
-			}
+			
 			echo '<div class="row rowPerfil">';
 				echo '<div class="col col-md-2 mensajePerfil">';
 					echo '<div> Nombre: <b>'.$_SESSION['nombre'].'</b></div>';
@@ -78,14 +59,14 @@
 			echo '</div>';
 
 			echo '<div class="row rowPerfil">';
-				echo '<div class="col col-md-2 mensajePerfil">';
+				echo '<div class="col col-md-4 mensajePerfil">';
 					echo '<div> Correo: <b>' . $_SESSION['email']. '</b></div>';
 				echo '</div>';
 				echo '<div class="col col-md-2 botonPerfil">';
 					echo ($_SESSION['administrador']) ?"<button type='button' class='btn btn-primary' data-toggle='modal' id='btn_cambiarCorreo'>Cambiar correo </button>" : "";
 				echo '</div>';
-				echo '<div class="col col-md-2"></div>';
-				echo '<div class="col col-md-2">';
+				echo '<div class="col col-md-2 mensajePerfil">';
+				echo '<div> Contraseña: <b> ******** </b></div>';
 				echo '</div>';
 				echo '<div class="col col-md-2 botonPerfil">';
 					echo "<button type='button' class='btn btn-primary' data-toggle='modal' id='btn_cambiarClave'>Cambiar contraseña</button>";
@@ -108,7 +89,7 @@
 
 			    <!-- Modal body de Nombre -->
 			    <div class="modal-body">
-					  <form action="perfPropProfProcesamiento.php" class="form-container" method="post" id="form_cambiarNombre">
+					  <form action="/perfiles/cambiodatos" class="form-container" method="post" id="form_cambiarNombre">
 
 					    <input type="text" placeholder="Introduzca el nombre" name="nombre" id="nombre">
 
@@ -138,7 +119,7 @@
 
 		        <!-- Modal body de Apellidos -->
 		        <div class="modal-body">
-					  <form action="perfPropProfProcesamiento.php" class="form-container" method="post" id="form_cambiarApellidos">
+					  <form action="/perfiles/cambiodatos" class="form-container" method="post" id="form_cambiarApellidos">
 					    	<input type="text" placeholder="Introduzca los apellidos" name="apellidos" id="apellidos"><br>
 					    	<button type="submit" class="btn" id="boton_cambiarApellidos" name="boton_cambiarApellidos">Cambiar</button>
 						</form>
@@ -166,7 +147,7 @@
 
 		        <!-- Modal body de Clave -->
 		        <div class="modal-body">
-					  <form action="perfPropProfProcesamiento.php" class="form-container" method="post" id="form_cambiarClave">
+					  <form action="/perfiles/cambiodatos" class="form-container" method="post" id="form_cambiarClave">
 
 					    <input type="text" placeholder="Introduzca la clave" name="clave" id="clave" class="inputClave">
 					    <input type="text" placeholder="Repita la clave" name="repitaClave" id="repitaClave" class="inputClave">
@@ -197,7 +178,7 @@
 		        <span id='mensajeEditarCorreo'></span><br>
 		        <!-- Modal body de Correo -->
 		        <div class="modal-body">
-					  <form action="perfPropProfProcesamiento.php" class="form-container" method="post" id="form_cambiarCorreo">
+					  <form action="/perfiles/cambiodatos" class="form-container" method="post" id="form_cambiarCorreo">
 
 					    <input type="email" placeholder="Introduzca el nuevo correo" name="correo" id="correo"><br><br>
 

@@ -3,7 +3,7 @@ App::uses('AppModel', 'Model');
 
 class Asignatura extends AppModel {
   public $useTable = 'asignaturas';
-  /*Función que nos devuelve las assignaturas de un profesor.
+  /*Función que nos devuelve las asignaturas de un profesor.
 	*
 	*Funcion que dado un id de un profesor, devuelve un array con las asignaturas que
 	*tiene ese profesor. En caso de que haya un error se los pasamos por la variables

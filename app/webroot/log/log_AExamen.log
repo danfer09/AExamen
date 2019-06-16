@@ -38,3 +38,21 @@
 -----------------------------------------------------------------
 [15/06/2019 - 18:10:32] : USER --> id 3 - Fernández, Paco | ACTION --> Inicio de sesión  de pafer@gmail.com
 -----------------------------------------------------------------
+[16/06/2019 - 21:03:17] : USER --> id 1 - Sistemartínez, Alejadministrador | ACTION --> Inicio de sesión  de fernu@gmail.com
+-----------------------------------------------------------------
+[16/06/2019 - 21:08:12] : USER --> id 1 - Sistemartínez, Alejadministrador | ACTION --> Cierre de sesión  de fernu@gmail.com
+-----------------------------------------------------------------
+[16/06/2019 - 21:08:20] : USER --> id 3 - Fernández, Paco | ACTION --> Inicio de sesión  de pafer@gmail.com
+-----------------------------------------------------------------
+[16/06/2019 - 21:42:45] : USER --> id 3 - Fernández, Paco | ACTION --> Cierre de sesión  de pafer@gmail.com
+-----------------------------------------------------------------
+[16/06/2019 - 21:42:51] : USER --> id 3 - Fernández, Paco | ACTION --> Inicio de sesión  de pafer@gmail.com
+-----------------------------------------------------------------
+[16/06/2019 - 22:43:13] : USER --> id 3 - Fernández, Paco | ACTION --> Cierre de sesión  de pafer@gmail.com
+-----------------------------------------------------------------
+[16/06/2019 - 22:43:17] : USER --> id 1 - Sistemartínez, Alejadministrador | ACTION --> Inicio de sesión  de fernu@gmail.com
+-----------------------------------------------------------------
+[16/06/2019 - 22:43:33] : USER --> id 1 - Sistemartínez, Alejadministrador | ACTION --> Cierre de sesión  de fernu@gmail.com
+-----------------------------------------------------------------
+[16/06/2019 - 22:43:37] : USER --> id 3 - Fernández, Paco | ACTION --> Inicio de sesión  de pafer@gmail.com
+-----------------------------------------------------------------
