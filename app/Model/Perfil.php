@@ -12,7 +12,7 @@ class Perfil extends AppModel {
 
     $consulta=$this->query($sql);
     //Comprobamos los distintos errores que se pueden producir y ponemos a true los session que corresponden
-    if($consulta){
+    if(!$consulta){
       //Registramos el cambio de nombre en el log
       $log  = '['.date("d/m/Y - H:i:s").'] : '."USER --> id ".$_SESSION['id'].' - '.$_SESSION['apellidos'].', '.$_SESSION['nombre'].' (nombre anterior)'.
               " | ACTION --> Cambio de nombre a ".$nuevoNombre.PHP_EOL.
@@ -34,7 +34,7 @@ class Perfil extends AppModel {
     }
     $consulta=$this->query($sql);
 
-    if($consulta){
+    if(!$consulta){
       //Registramos el cambio de apellidos en el log
       $log  = '['.date("d/m/Y - H:i:s").'] : '."USER --> id ".$_SESSION['id'].' - '.$_SESSION['apellidos'].' (apellidos anteriores), '.$_SESSION['nombre'].
               " | ACTION --> Cambio de apellidos a ".$nuevoApellidos.PHP_EOL.
@@ -59,7 +59,7 @@ class Perfil extends AppModel {
     }
     $consulta=$this->query($sql);
 
-    if($consulta) {
+    if(!$consulta) {
     //Registramos el cambio de contraseña en el log
       $log  = '['.date("d/m/Y - H:i:s").'] : '."USER --> id ".$_SESSION['id'].' - '.$_SESSION['apellidos'].', '.$_SESSION['nombre'].
             " | ACTION --> Cambio de contraseña".PHP_EOL.
@@ -75,7 +75,7 @@ class Perfil extends AppModel {
     $sql = "UPDATE `administradores` SET `email`='".$nuevoCorreo."' WHERE `id`=".$_SESSION['id'];
     $consulta=mysqli_query($db,$sql);
     //Comprobamos los distintos errores que se pueden producir y ponemos a true los session que corresponden
-    if($consulta) {
+    if(!$consulta) {
       $_SESSION["email"] = $nuevoCorreo;
       return true;
     } else {

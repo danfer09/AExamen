@@ -40,7 +40,7 @@
 						    No se ha podido completar el cambio correctamente
 						 </div>';
 			}
-			
+
 			echo '<div class="row rowPerfil">';
 				echo '<div class="col col-md-2 mensajePerfil">';
 					echo '<div> Nombre: <b>'.$_SESSION['nombre'].'</b></div>';
@@ -149,8 +149,8 @@
 		        <div class="modal-body">
 					  <form action="/perfiles/cambiodatos" class="form-container" method="post" id="form_cambiarClave">
 
-					    <input type="text" placeholder="Introduzca la clave" name="clave" id="clave" class="inputClave">
-					    <input type="text" placeholder="Repita la clave" name="repitaClave" id="repitaClave" class="inputClave">
+					    <input type="password" placeholder="Introduzca la clave" name="clave" id="clave" class="inputClave">
+					    <input type="password" placeholder="Repita la clave" name="repitaClave" id="repitaClave" class="inputClave">
 
 					    <button type="submit" class="btn inputClave" id="boton_cambiarClave" name="boton_cambiarClave">Cambiar</button>
 					  </form>
