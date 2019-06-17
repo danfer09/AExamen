@@ -42,36 +42,33 @@
 			}
 
 			echo '<div class="row rowPerfil">';
-				echo '<div class="col col-md-2 mensajePerfil">';
+				echo '<div class="col col-md-3 mensajePerfil">';
 					echo '<div> Nombre: <b>'.$_SESSION['nombre'].'</b></div>';
 				echo '</div>';
-				echo '<div class="col col-md-2 botonPerfil">';
+				echo '<div class="col col-md-3 botonPerfil">';
 					echo '<button type="button" class="btn btn-primary" data-toggle="modal" id="btn_cambiarNombre">Cambiar nombre</button>';
 				echo '</div>';
-				echo '<div class="col col-md-2"></div>';
-				echo '<div class="col col-md-2 mensajePerfil">';
+				echo '<div class="col col-md-3 mensajePerfil">';
 					echo '<div> Apellidos: <b>' . $_SESSION['apellidos']. '</b></div>';
 				echo '</div>';
-				echo '<div class="col col-md-2 botonPerfil">';
+				echo '<div class="col col-md-3 botonPerfil">';
 					echo '<button type="button" class="btn btn-primary" data-toggle="modal" id="btn_cambiarApellidos">Cambiar apellidos</button>';
 				echo '</div>';
-				echo '<div class="col col-md-2"></div>';
 			echo '</div>';
 
 			echo '<div class="row rowPerfil">';
-				echo '<div class="col col-md-4 mensajePerfil">';
+				echo '<div class="col col-md-3 mensajePerfil">';
 					echo '<div> Correo: <b>' . $_SESSION['email']. '</b></div>';
 				echo '</div>';
-				echo '<div class="col col-md-2 botonPerfil">';
+				echo '<div class="col col-md-3 botonPerfil">';
 					echo ($_SESSION['administrador']) ?"<button type='button' class='btn btn-primary' data-toggle='modal' id='btn_cambiarCorreo'>Cambiar correo </button>" : "";
 				echo '</div>';
-				echo '<div class="col col-md-2 mensajePerfil">';
+				echo '<div class="col col-md-3 mensajePerfil">';
 				echo '<div> Contraseña: <b> ******** </b></div>';
 				echo '</div>';
-				echo '<div class="col col-md-2 botonPerfil">';
+				echo '<div class="col col-md-3 botonPerfil">';
 					echo "<button type='button' class='btn btn-primary' data-toggle='modal' id='btn_cambiarClave'>Cambiar contraseña</button>";
 				echo '</div>';
-				echo '<div class="col col-md-2"></div>';
 			echo '</div>';
 
 		?>

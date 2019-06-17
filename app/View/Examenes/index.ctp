@@ -45,9 +45,9 @@
 						//Con el valor que nos pasen por parametros pondremos el filtro en
 						//un estado o en otro
 						if ($_GET['asignatura'] == "todas") {
-							echo '<option value="examenes.php?asignatura=todas&autor='.$_GET['autor'].'$" selected>Todas</option>';
+							echo '<option value="/examenes/index?asignatura=todas&autor='.$_GET['autor'].'$" selected>Todas</option>';
 						} else {
-							echo '<option value="examenes.php?asignatura=todas&autor='.$_GET['autor'].'">Todas</option>';
+							echo '<option value="/examenes/index?asignatura=todas&autor='.$_GET['autor'].'">Todas</option>';
 						}
 						//Mostramos las siglas que hemos cargado de BBDD, la que este
 						//seleccionada la ponemos en ese estado en el formulario
@@ -61,9 +61,9 @@
 						} else {
 							foreach ($siglas as $pos => $valor) {
 								if ($_GET['asignatura'] == $valor['siglas']) {
-									echo '<option value="examenes.php?asignatura='.$valor['siglas'].'&autor='.$_GET['autor'].'" selected>'.$valor['siglas'].'</option>';
+									echo '<option value="/examenes/index?asignatura='.$valor['siglas'].'&autor='.$_GET['autor'].'" selected>'.$valor['siglas'].'</option>';
 								} else {
-									echo '<option value="examenes.php?asignatura='.$valor['siglas'].'&autor='.$_GET['autor'].'">'.$valor['siglas'].'</option>';
+									echo '<option value="/examenes/index?asignatura='.$valor['siglas'].'&autor='.$_GET['autor'].'">'.$valor['siglas'].'</option>';
 								}
 							}
 						}
@@ -76,9 +76,9 @@
 					<?php
 						//Cargamos los profesores de la asignatura que estemos mostrando
 						if ($_GET['autor'] == "todos") {
-							echo '<option value="examenes.php?asignatura='.$_GET['asignatura'].'&autor=todos" selected>Todos</option>';
+							echo '<option value="/examenes/index?asignatura='.$_GET['asignatura'].'&autor=todos" selected>Todos</option>';
 						} else {
-							echo '<option value="examenes.php?asignatura='.$_GET['asignatura'].'&autor=todos">Todos</option>';
+							echo '<option value="/examenes/index?asignatura='.$_GET['asignatura'].'&autor=todos">Todos</option>';
 						}
 						//Mostramos a los profesores que hemos cargado de la BBDD en el
 						//formulario
@@ -92,9 +92,9 @@
 						} else {
 							foreach ($autores as $pos => $valor) {
 								if ($_GET['autor'] == $valor['email']) {
-									echo '<option value="examenes.php?asignatura='.$_GET['asignatura'].'&autor='.$valor['email'].'" selected>'.$valor['email'].' ('.$valor['nombre'].')</option>';
+									echo '<option value="/examenes/index?asignatura='.$_GET['asignatura'].'&autor='.$valor['email'].'" selected>'.$valor['email'].' ('.$valor['nombre'].')</option>';
 								} else {
-									echo '<option value="examenes.php?asignatura='.$_GET['asignatura'].'&autor='.$valor['email'].'">'.$valor['email'].' ('.$valor['nombre'].')</option>';
+									echo '<option value="/examenes/index?asignatura='.$_GET['asignatura'].'&autor='.$valor['email'].'">'.$valor['email'].' ('.$valor['nombre'].')</option>';
 								}
 							}
 						}
@@ -190,13 +190,13 @@
 				//Mostramos los examenes que hemos cargado de la BBDD
 				foreach ($examenes as $pos => $valor) {
 					echo '<tr class="item">';
-					echo '<td> <i class="fas fa-file-invoice fa-fw fa-lg"></i> '.$valor['asignatura'].' </td>';
+					echo '<td> <i class="fas fa-file-invoice fa-fw fa-lg"></i> '.$valor['asignaturas']['asignatura'].' </td>';
 					echo '<td>'.$valor["e1"]['titulo'].'</td>';
 					echo '<td>'.$valor["p1"]['creador'].'</td>';
 					echo '<td hidden=true;>'.$valor["e1"]['fecha_creado'].'</td>';
 					echo '<td hidden=true;>'.$valor["e1"]['fecha_modificado'].'</td>';
-					echo '<td>'.formateoDateTime($valor["e1"]['fecha_creado']).'</td>';
-					echo '<td>'.formateoDateTime($valor["e1"]['fecha_modificado']).'</td>';
+					echo '<td>'.$valor["e1"]['fecha_creado'].'</td>';
+					echo '<td>'.$valor["e1"]['fecha_modificado'].'</td>';
 					echo '<td>'.$valor["p2"]['ultimo_modificador'].'</td>';
 					echo '<td id="opciones">
 							<a class="btn btn-primary btn-sm" id="idDetallesExam" href="detalleExamen.php?id='.$valor["e1"]['id'].'" role="button">Detalles</a>';

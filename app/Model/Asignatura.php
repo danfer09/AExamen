@@ -91,7 +91,7 @@ class Asignatura extends AppModel {
 		$resultado = [];
     $count = 0;
     if((count($consulta) < 0)) {
-      $_SESSION['error_ningunaAsignatura']=true;
+      $_SESSION['error_ningunCoordinador']=true;
 		}
     else{
 		    while(count($consulta) > $count ){
@@ -126,7 +126,7 @@ class Asignatura extends AppModel {
 		$resultado = [];
     $count = 0;
     if((count($consulta) < 0)) {
-      $_SESSION['error_ningunaAsignatura']=true;
+      $_SESSION['error_ningunProfesor']=true;
 		}
     else{
 		    while(count($consulta) > $count ){

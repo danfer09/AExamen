@@ -20,10 +20,9 @@ $(document).ready(function(){
        	$('#modalCoordinadorAsig').modal('show');
        	/*--------------------añadir los coordinadore al popup-----------------------------*/
         var funcion = "getProfesoresAdmin";
-
         $.ajax({
             type        : 'POST',
-            url         : '/asignaturas/ajaxAsignaturas',
+            url         : '/asignaturas/ajaxasignaturas',
             data        : 'funcion=' + funcion + '&idAsig=' + idAsig,
             success:function(respuesta){
               console.log(respuesta);
