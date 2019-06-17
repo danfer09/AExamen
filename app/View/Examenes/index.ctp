@@ -174,16 +174,6 @@
 		    </thead>
 		    <tbody>
 		<?php
-			$credentialsStr = file_get_contents('json/credentials.json');
-			$credentials = json_decode($credentialsStr, true);
-			$db = mysqli_connect($credentials['database']['host'], $credentials['database']['user'], $credentials['database']['password'], $credentials['database']['dbname']);
-			//Dependiendo de lo que nos pasen por parametros cargamos unos examenes u
-			//otros
-			if ($_GET['asignatura'] == "todas" && $_GET['autor'] == "todos") {
-				$examenes=selectAllExamenesCompleto($db);
-			} else {
-				$examenes = selectAllExamenesFiltrado($db, $_GET['asignatura'], $_GET['autor']);
-			}
 			//Si no hay examenes o hubo un error con la BBDD los mostramos
 			if ($examenes == null){
 				echo '<br><div class="alert alert-warning" role="alert">
@@ -201,20 +191,20 @@
 				foreach ($examenes as $pos => $valor) {
 					echo '<tr class="item">';
 					echo '<td> <i class="fas fa-file-invoice fa-fw fa-lg"></i> '.$valor['asignatura'].' </td>';
-					echo '<td>'.$valor['titulo'].'</td>';
-					echo '<td>'.$valor['creador'].'</td>';
-					echo '<td hidden=true;>'.$valor['fecha_creado'].'</td>';
-					echo '<td hidden=true;>'.$valor['fecha_modificado'].'</td>';
-					echo '<td>'.formateoDateTime($valor['fecha_creado']).'</td>';
-					echo '<td>'.formateoDateTime($valor['fecha_modificado']).'</td>';
-					echo '<td>'.$valor['ultimo_modificador'].'</td>';
+					echo '<td>'.$valor["e1"]['titulo'].'</td>';
+					echo '<td>'.$valor["p1"]['creador'].'</td>';
+					echo '<td hidden=true;>'.$valor["e1"]['fecha_creado'].'</td>';
+					echo '<td hidden=true;>'.$valor["e1"]['fecha_modificado'].'</td>';
+					echo '<td>'.formateoDateTime($valor["e1"]['fecha_creado']).'</td>';
+					echo '<td>'.formateoDateTime($valor["e1"]['fecha_modificado']).'</td>';
+					echo '<td>'.$valor["p2"]['ultimo_modificador'].'</td>';
 					echo '<td id="opciones">
-							<a class="btn btn-primary btn-sm" id="idDetallesExam" href="detalleExamen.php?id='.$valor['id'].'" role="button">Detalles</a>';
+							<a class="btn btn-primary btn-sm" id="idDetallesExam" href="detalleExamen.php?id='.$valor["e1"]['id'].'" role="button">Detalles</a>';
 					if (!$_SESSION['administrador']) {
 						echo '<a class="btn btn-primary btn-sm" href="generarExamen.php?examen='.$valor['titulo'].'" role="button">Generar</a>';
-						echo '<a id="boton_modalEditar" idExamen="'.$valor['id'].'" href="crearExamen.php?asignatura='.$valor['asignatura'].'&idAsignatura='.$valor['idAsignatura'].'&editar=1&id='.$valor['id'].'"><i class="fas fa-pencil-alt fa-fw fa-lg"></i></a>';
+						echo '<a id="boton_modalEditar" idExamen="'.$valor["e1"]['id'].'" href="crearExamen.php?asignatura='.$valor["asignaturas"]['asignatura'].'&idAsignatura='.$valor["asignaturas"]['idAsignatura'].'&editar=1&id='.$valor["e1"]['id'].'"><i class="fas fa-pencil-alt fa-fw fa-lg"></i></a>';
 					}
-					echo '<a id="boton_modalBorrar" idExamen="'.$valor['id'].'"><i class="fas fa-trash-alt fa-fw fa-lg"></i></a> </td>';
+					echo '<a id="boton_modalBorrar" idExamen="'.$valor["e1"]['id'].'"><i class="fas fa-trash-alt fa-fw fa-lg"></i></a> </td>';
 					echo '</tr>';
 				}
 			}

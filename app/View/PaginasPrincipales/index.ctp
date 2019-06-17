@@ -51,7 +51,7 @@
 			?>
 				<div class="col-xl-3 col-lg-4 col-md-6 col-sm-3 portfolio-item filter-app">
 		          <h3>ASIGNATURAS</h3>
-		          <a href="/asignaturas/index">
+		          <a href="/asignaturas/index_admin">
 		            <img src="img/asignaturas-book.png" alt="">
 		            <h3>ASIGNATURAS</h3>
 		            <div class="details">
@@ -128,19 +128,5 @@
 		    </div>
 		  </div>
 	</div>
-
-
-
- 	<!--Librerias externas-->
-	<script src="js/jquery-3.3.1.min.js"></script>
-	<script src="js/jquery-3.3.1.slim.min.js"></script>
-	<script src="js/popper.min.js"></script>
-	<script src="js/bootstrap.min.js"></script>
-	<script src="js/jquery.min.js"></script>
-	<script src="js/w3.js"></script>
-
-	<!--Javascripts propios-->
-	<script type="text/javascript" src="js/cabeceraConLogin.js"></script>
-
 </body>
 </html>

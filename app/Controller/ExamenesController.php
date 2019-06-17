@@ -14,9 +14,14 @@ class ExamenesController extends AppController {
     }
 
     $autores = $this->Examen->selectAllMailsProfesoresSiglas($_GET['asignatura']);
-    
+
+    if ($_GET['asignatura'] == "todas" && $_GET['autor'] == "todos") {
+      $examenes=selectAllExamenesCompleto();
+    } else {
+      $examenes = $this->Examen->selectAllExamenesFiltrado($_GET['asignatura'], $_GET['autor']);
+    }
     $this->set('siglas', $siglas);
     $this->set('autores', $autores);
-
+    $this->set('examenes', $examenes);
   }
 }

@@ -42,7 +42,6 @@ $cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version())
 
 		echo $this->Html->script('jquery-3.3.1.min');
 		echo $this->Html->script('bootstrap.min');
-		echo $this->Html->script('cabeceraConLogin');
 		echo $this->Html->script('slick.min');
 		echo $this->Html->script('moment.min');
 		echo $this->Html->script('custom');

@@ -56,3 +56,41 @@
 -----------------------------------------------------------------
 [16/06/2019 - 22:43:37] : USER --> id 3 - Fernández, Paco | ACTION --> Inicio de sesión  de pafer@gmail.com
 -----------------------------------------------------------------
+[17/06/2019 - 14:20:27] : USER --> id 3 - Fernández, Paco | ACTION --> Inicio de sesión  de pafer@gmail.com
+-----------------------------------------------------------------
+[17/06/2019 - 14:36:31] : USER --> id 3 - Fernández, Paco | ACTION --> Cierre de sesión  de pafer@gmail.com
+-----------------------------------------------------------------
+[17/06/2019 - 14:36:37] : USER --> id 1 - asdfsd, asdfas | ACTION --> Inicio de sesión  de fernu@gmail.com
+-----------------------------------------------------------------
+[17/06/2019 - 15:19:04] : USER --> id 3 - Fernández, Paco | ACTION --> Inicio de sesión  de pafer@gmail.com
+-----------------------------------------------------------------
+[17/06/2019 - 15:19:08] : USER --> id 3 - Fernández, Paco | ACTION --> Cierre de sesión  de pafer@gmail.com
+-----------------------------------------------------------------
+[17/06/2019 - 15:19:14] : USER --> id 3 - Fernández, Paco | ACTION --> Inicio de sesión  de pafer@gmail.com
+-----------------------------------------------------------------
+[17/06/2019 - 15:27:56] : USER --> id 3 - Fernández, Paco | ACTION --> Cierre de sesión  de pafer@gmail.com
+-----------------------------------------------------------------
+[17/06/2019 - 15:27:59] : USER --> id 3 - Fernández, asdfasdfad | ACTION --> Inicio de sesión  de pafer@gmail.com
+-----------------------------------------------------------------
+[17/06/2019 - 15:31:23] : USER --> id 3 - Fernández, asdfasdfad (nombre anterior) | ACTION --> Cambio de nombre a asdfad
+-----------------------------------------------------------------
+[17/06/2019 - 15:31:32] : USER --> id 3 - Fernández, asdfad (nombre anterior) | ACTION --> Cambio de nombre a Paco
+-----------------------------------------------------------------
+[17/06/2019 - 15:31:56] : USER --> id 3 - Fernández (apellidos anteriores), Paco | ACTION --> Cambio de apellidos a 123123
+-----------------------------------------------------------------
+[17/06/2019 - 15:32:05] : USER --> id 3 - 123123, Paco | ACTION --> Cambio de contraseña
+-----------------------------------------------------------------
+[17/06/2019 - 15:32:08] : USER --> id 3 - 123123, Paco | ACTION --> Cierre de sesión  de pafer@gmail.com
+-----------------------------------------------------------------
+[17/06/2019 - 15:32:17] : USER --> id 3 - 123123, Paco | ACTION --> Inicio de sesión  de pafer@gmail.com
+-----------------------------------------------------------------
+[17/06/2019 - 15:32:24] : USER --> id 3 - 123123, Paco | ACTION --> Cambio de contraseña
+-----------------------------------------------------------------
+[17/06/2019 - 15:32:32] : USER --> id 3 - 123123 (apellidos anteriores), Paco | ACTION --> Cambio de apellidos a Fernandez
+-----------------------------------------------------------------
+[17/06/2019 - 15:46:43] : USER --> id 3 - Fernandez, Paco | ACTION --> Cierre de sesión  de pafer@gmail.com
+-----------------------------------------------------------------
+[17/06/2019 - 15:46:48] : USER --> id 1 - asdfsd, asdfas | ACTION --> Inicio de sesión  de fernu@gmail.com
+-----------------------------------------------------------------
+[17/06/2019 - 17:05:58] : USER --> id 1 - asdfsd, asdfas | ACTION --> Inicio de sesión  de fernu@gmail.com
+-----------------------------------------------------------------

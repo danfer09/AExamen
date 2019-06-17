@@ -33,6 +33,141 @@ class Asignatura extends AppModel {
     $result=false;
     $sql = "SELECT coordinador FROM `prof_asig_coord` WHERE `id_profesor` =".$idProfesor." and `id_asignatura`=".$idAsig;
     $esCoordinador=$this->query($sql);
-    return $esCoordinador[0]["prof_asig_coord"]["coordinador"];
+    if(!isset($esCoordinador[0]["prof_asig_coord"]["coordinador"]))
+      return false;
+    else
+      return $esCoordinador[0]["prof_asig_coord"]["coordinador"];
   }
+
+  /*Funcion que devuelve todas las asignaturas de la plataforma
+	*
+	*Funcion que nos devuelve un array con todas las asignaturas de la plataforma
+	*
+	* @return array con todas las asignaturas de la plataforma */
+	public function cargaTodasAsignaturas(){
+		/*Ponemos las variables session con las que comprobamos los
+		errores a false. Por si tienen algun valor de una ejecucción
+		anterior*/
+		$_SESSION['error_ningunaAsignatura']=false;
+		$_SESSION['error_BBDD']=false;
+		//Comprobamos que ninguna de las variables este a null
+		$i=0;
+		$asignaturas=array();
+		$sql = "SELECT * FROM `asignaturas`";
+    $consulta=$this->query($sql);
+		$resultado = [];
+    $count = 0;
+    if((count($consulta) < 0)) {
+      $_SESSION['error_ningunaAsignatura']=true;
+		}
+    else{
+		    while(count($consulta) > $count ){
+			       $resultado[] = $consulta[$count]['asignaturas'];
+             $count++;
+		    }
+    }
+    return $resultado;
+
+	}
+
+  /*Funcion que nos devuelve los profesores que coordinan una asignatura
+	*
+	*Funcion que dado el id de una asignatura devuelve el/los profesor/es que
+	*coordinan la asignatura
+	*
+	* @param int $idAsig identificador de la asignatura
+	* @return $profesores_coord array con los profesores que coordinan la asignatura*/
+	public function getCoordinadores(){
+		/*Ponemos las variables session con las que comprobamos los
+		errores a false. Por si tienen algun valor de una ejecucción
+		anterior*/
+		$_SESSION['error_ningun_coord']=false;
+		$_SESSION['error_BBDD']=false;
+		//Comprobamos que ninguna de las variables este a null
+		$i=0;
+		$profesores_coord=array();
+		$sql = "SELECT asignaturas.id AS idAsignatura, profesores.nombre AS nombre, profesores.apellidos AS apellidos, profesores.id AS id, profesores.email as email FROM ((prof_asig_coord INNER JOIN profesores ON prof_asig_coord.id_profesor = profesores.id) INNER JOIN asignaturas ON prof_asig_coord.id_asignatura = asignaturas.id) WHERE prof_asig_coord.coordinador=1";
+    $consulta=$this->query($sql);
+		$resultado = [];
+    $count = 0;
+    if((count($consulta) < 0)) {
+      $_SESSION['error_ningunaAsignatura']=true;
+		}
+    else{
+		    while(count($consulta) > $count ){
+            if(!isset($resultado[$consulta[$count]['asignaturas']["idAsignatura"]])){
+              $resultado[$consulta[$count]['asignaturas']["idAsignatura"]] = $consulta[$count]['profesores']['nombre'];
+            }
+            else {
+              $resultado[$consulta[$count]['asignaturas']["idAsignatura"]] .=", ".$consulta[$count]['profesores']['nombre'];
+            }
+             $count++;
+		    }
+    }
+    return $resultado;
+	}
+
+
+  /*Funcion que nos devuelve el numero de profesores de una asignatura
+	*
+	*Funcion que devuelve el numero de profesores que tiene la asignatura que le
+	*pasamos por parametro. Le pasamos el id de la asignatura
+	*
+	* @param int $idAsig identificador de la asignatura
+	* @return int $lista numero de profesores de la asignatura*/
+	function getNumeroProfesoresAsig(){
+		/*Ponemos las variables session con las que comprobamos los
+		errores a false. Por si tienen algun valor de una ejecucción
+		anterior*/
+		$_SESSION['error_BBDD']=false;
+		//Comprobamos que ninguna de las variables este a null
+		$sql = "SELECT COUNT(*) AS `numero_profesores`, `id_asignatura` FROM `prof_asig_coord` AS asignaturas GROUP BY `id_asignatura`";
+    $consulta=$this->query($sql);
+		$resultado = [];
+    $count = 0;
+    if((count($consulta) < 0)) {
+      $_SESSION['error_ningunaAsignatura']=true;
+		}
+    else{
+		    while(count($consulta) > $count ){
+			       $resultado[$consulta[$count]['asignaturas']["id_asignatura"]] = $consulta[$count][0]['numero_profesores'];
+             $count++;
+		    }
+    }
+    return $resultado;
+	}
+
+  /*Funcion que nos devuelve los profesores que coordinan y que no coordinan
+	*una asignatura
+	*
+  *Funcion que dado un identificador de una asignatura nos devuelve los profesores
+	*que coordinan esa asignatura y los que no la coordinan
+	*
+	* @param	int $idAsig identificador de una asignatura
+	* @return $resultado un array de dos posiciones, en la posicion 'profSiCoord'
+	* los profesores que coordinan y en 'profNoCoord' los profesores no coordinan
+	* la asignatura */
+	function getProfesoresAdmin($idAsig) {
+		$sql = 'SELECT `nombre`, `apellidos`, `email`, `id` FROM `profesores`';
+    $consulta=$this->query($sql);
+    $profNoCoord = [];
+		$profSiCoord = [];
+		$resultado = [];
+    $count = 0;
+    if((count($consulta) < 0)) {
+      $resultado = null;
+		}
+    else{
+		    while(count($consulta) > $count ){
+          if($this->esCoordinador($idAsig, $consulta[$count]["profesores"]["id"]))
+    					$profSiCoord[] = $consulta[$count]["profesores"];
+  				else
+    					$profNoCoord[] = $consulta[$count]["profesores"];
+          $count++;
+		    }
+    }
+    $resultado['profSiCoord']= $profSiCoord;
+    $resultado['profNoCoord']= $profNoCoord;
+    return $resultado;
+	}
 }
