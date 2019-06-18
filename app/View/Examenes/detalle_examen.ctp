@@ -28,8 +28,8 @@
 			echo "<p>Fecha de creacion: ".$fechaCreacionExamen."</p>";
 			echo "<p>Preguntas:</p>";
 
-			
-			$historial=cargaHistorialExamen($_GET['id']);
+
+
 		?>
 		<div class="table-wrapper-scroll-y">
 	    			<table class="table table-hover" id="tabla_preguntas_examen">
@@ -76,10 +76,10 @@
     		//Mostramos historial de modificaciones
     			foreach ($historial as $pos => $valor) {
     				echo "<tr class='item'>";
-    				echo "<td>".cargaNombreApellidosAutor($valor['idModificador'])['nombre']."</td>";
-    				echo "<td>".cargaNombreApellidosAutor($valor['idModificador'])['apellidos']."</td>";
-    				echo "<td>".formateoDateTime($valor['fecha_modificacion'])."</td>";
-    				echo '<td hidden=true;>'.$valor['fecha_modificacion'].'</td>';
+    				echo "<td>".$valor['nombreAutor']."</td>";
+    				echo "<td>".$valor['apellidosAutor']."</td>";
+    				echo "<td>".$valor['fechaModificado']."</td>";
+    				echo '<td hidden=true;>'.$valor['historial']['fecha_modificacion'].'</td>';
     				echo "<tr>";
     			}
     		?>

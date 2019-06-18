@@ -200,7 +200,7 @@
 					echo '<td>'.$valor["e1"]['fecha_modificado'].'</td>';
 					echo '<td>'.$valor["p2"]['ultimo_modificador'].'</td>';
 					echo '<td id="opciones">
-							<a class="btn btn-primary btn-sm" id="idDetallesExam" href="detalleExamen.php?id='.$valor["e1"]['id'].'" role="button">Detalles</a>';
+							<a class="btn btn-primary btn-sm" id="idDetallesExam" href="/examenes/detalle_examen?id='.$valor["e1"]['id'].'" role="button">Detalles</a>';
 					if (!$_SESSION['administrador']) {
 						echo '<a class="btn btn-primary btn-sm" href="generarExamen.php?examen='.$valor['e1']['titulo'].'" role="button">Generar</a>';
 						echo '<a id="boton_modalEditar" idExamen="'.$valor["e1"]['id'].'" href="crearExamen.php?asignatura='.$valor["asignaturas"]['asignatura'].'&idAsignatura='.$valor["asignaturas"]['idAsignatura'].'&editar=1&id='.$valor["e1"]['id'].'"><i class="fas fa-pencil-alt fa-fw fa-lg"></i></a>';

@@ -38,6 +38,7 @@ class ExamenesController extends AppController {
     if (!$logeado) {
       return $this->redirect('/');
     }
+    $this->loadModel('Examen');
 
     $examen = $this->Examen->cargaUnicoExamenInfo($_GET['id']);
 
@@ -49,9 +50,12 @@ class ExamenesController extends AppController {
     $autorExamen = $this->Examen->cargaAutorExamen($examen['id']);
     $fechaCreacionExamen = $this->Examen->formateoDateTime($examen['fecha_creado']);
     $preguntas = $this->Examen->cargaUnicoExamenPreguntas($_GET['id']);
+    $historial = $this->Examen->cargaHistorialExamen($_GET['id']);
 
     $this->set('examen', $examen);
     $this->set('autorExamen', $autorExamen);
     $this->set('fechaCreacionExamen', $fechaCreacionExamen);
+    $this->set('preguntas', $preguntas);
+    $this->set('historial', $historial);
   }
 }

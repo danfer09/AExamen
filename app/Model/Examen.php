@@ -226,11 +226,12 @@ public function selectAllExamenesCompleto() {
     }
     else{
         while(count($consulta) > $count ){
-             $resultado[] = $consulta[$count]['asignaturas'];
+             $resultado[] = $consulta[$count]['examenes'];
              $count++;
         }
     }
-    return $resultado;
+
+    return $resultado[0];
 	}
 
   /*Función que comprueba si el profesor puede acceder a un examen
@@ -246,12 +247,13 @@ public function selectAllExamenesCompleto() {
 		$consulta=$this->query($sql);
 		$acceso = false;
 		$i=0;
+
     if((count($consulta) < 0)) {
       $acceso = null;
     } else {
   		while(count($consulta) > $i ){
-  			$asignaturas[$i]=$consulta[$i]['id'];
-  			if ($consulta[$i]['id']==$idAsignatura) {
+  			$asignaturas[$i]=$consulta[$i]['asignaturas']['id'];
+  			if ($consulta[$i]['asignaturas']['id']==$idAsignatura) {
   				$acceso = true;
   			}
   			$i++;
@@ -277,11 +279,12 @@ public function selectAllExamenesCompleto() {
       $resultado = null;
     } else {
       while(count($consulta) > $count ){
-           $resultado[] = $consulta[$count]['autor'];
+           $resultado[] = $consulta[$count]['profesores']['autor'];
            $count++;
       }
     }
-		return $resultado[0]['autor'];
+
+		return $resultado[0];
 	}
 
   /*Función que carga las preguntas de un examen dado
@@ -291,7 +294,7 @@ public function selectAllExamenesCompleto() {
 	*
 	* @param int $idExamen identificador de examen
 	* @return $preguntas array con las preguntas del examen */
-	function cargaUnicoExamenPreguntas($idExamen){
+	public function cargaUnicoExamenPreguntas($idExamen){
 		$sql ="SELECT examenes.titulo AS titulo_examen, preguntas.titulo AS titulo_pregunta, exam_preg.id_examen, exam_preg.id_pregunta AS id_pregunta, exam_preg.id, examenes.creador AS creador_examen, examenes.fecha_creado AS fecha_creado_examen, examenes.fecha_modificado AS fecha_modificado_examen, examenes.ultimo_modificador AS ultimo_modificador_examen, preguntas.creador AS creador_pregunta,  preguntas.fecha_creacion AS fecha_creado_preguntas, preguntas.ult_modificador AS ultimo_modificador_pregunta, preguntas.fecha_modificado AS fecha_modificado_pregunta, preguntas.cuerpo, preguntas.tema				FROM ((exam_preg INNER JOIN examenes ON exam_preg.id_examen =examenes.id) INNER JOIN preguntas ON preguntas.id=exam_preg.id_pregunta) WHERE exam_preg.id_examen=".$idExamen;
 		$consulta = $this->query($sql);
     $resultado = [];
@@ -301,12 +304,65 @@ public function selectAllExamenesCompleto() {
       $resultado = null;
     } else {
       while(count($consulta) > $count ){
-           $resultado[] = $consulta[$count]['examenes'];//REVISAR
+           $resultado[] = $consulta[$count]['preguntas'];
            $count++;
       }
     }
 
-		return $preguntas;
+		return $resultado;
+	}
+
+  /*Carga el historial de un examen indicado
+	*
+	*Funcion que dado un identificador de un examen nos devuelve el historial
+	*de modificaciones de dicho examen
+	*
+	* @param int $idExamen identificador del examen
+	* @return $historial historial de modificaciones del examen */
+	public function cargaHistorialExamen($idExamen) {
+		$sql = "SELECT `id`, `idExamen`, `idModificador`, `fecha_modificacion` FROM `examenes_historial` WHERE `idExamen`=".$idExamen;
+    $consulta = $this->query($sql);
+		$count=0;
+		$historial=[];
+		$i=0;
+
+    if((count($consulta) < 0)) {
+      $resultado = null;
+    } else {
+  		while(count($consulta) > $count ){
+        $datosAutor = $this->cargaNombreApellidosAutor($consulta[$count]['examenes_historial']['idModificador']);
+        $historial[$count]['historial'] = $consulta[$count]['examenes_historial'];
+        $historial[$count]['fechaModificado'] = $this->formateoDateTime($consulta[$count]['examenes_historial']['fecha_modificacion']);
+        $historial[$count]['nombreAutor'] = $datosAutor['nombre'];
+        $historial[$count]['apellidosAutor'] = $datosAutor['apellidos'];
+        $count++;
+  		}
+    }
+		return $historial;
+	}
+
+  /*Función que devuelve el nombre y apellidos de un profesor
+	*
+	*Función que dado el identificador de un profesor nos devuelve sus nombres
+	*y apellidos
+	*
+	* @param int $idProfesor identificador de un profesor
+	* @return  $fila nombre y apellidos del profesor*/
+	public function cargaNombreApellidosAutor($idProfesor){
+		$sql = "SELECT `nombre`,`apellidos` FROM `profesores` WHERE id=".$idProfesor;
+		$consulta=$consulta = $this->query($sql);
+		$count=0;
+		$respuesta=[];
+		$i=0;
+    if((count($consulta) < 0)) {
+      $respuesta = null;
+    } else {
+  		while(count($consulta) > $count ){
+        $respuesta[] = $consulta[$count]['profesores'];
+        $count++;
+  		}
+    }
+		return $respuesta[0];
 	}
 
 }
