@@ -35,7 +35,7 @@ class AsignaturasController extends AppController {
   	$administrador = isset($_SESSION['administrador'])? $_SESSION['administrador']: false;
   	/*En caso de que no sea un aadministrador lo redirigimos a la pagina principal*/
   	if (!$administrador) {
-  		header('Location: index.php');
+  		return $this->redirect('/asignaturas/index');
   	}
 
     //Comprobamos si el usuario esta logeado

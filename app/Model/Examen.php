@@ -125,6 +125,8 @@ class Examen extends AppModel {
       return null;
     }
     for ($i=0; $i < count($consulta); $i++) {
+      $consulta[$i]["e1"]['fecha_creado_raw'] = $consulta[$i]["e1"]['fecha_creado'];
+      $consulta[$i]["e1"]['fecha_modificado_raw'] = $consulta[$i]["e1"]['fecha_modificado'];
       $consulta[$i]["e1"]['fecha_creado'] = $this->formateoDateTime($consulta[$i]["e1"]['fecha_creado']);
       $consulta[$i]["e1"]['fecha_modificado'] = $this->formateoDateTime($consulta[$i]["e1"]['fecha_modificado']);
     }
@@ -163,6 +165,8 @@ public function selectAllExamenesCompleto() {
       return null;
     }
     for ($i=0; $i < count($consulta); $i++) {
+      $consulta[$i]["e1"]['fecha_creado_raw'] = $consulta[$i]["e1"]['fecha_creado'];
+      $consulta[$i]["e1"]['fecha_modificado_raw'] = $consulta[$i]["e1"]['fecha_modificado'];
       $consulta[$i]["e1"]['fecha_creado'] = $this->formateoDateTime($consulta[$i]["e1"]['fecha_creado']);
       $consulta[$i]["e1"]['fecha_modificado'] = $this->formateoDateTime($consulta[$i]["e1"]['fecha_modificado']);
     }
@@ -197,13 +201,112 @@ public function selectAllExamenesCompleto() {
 		}
 
 		//si el día coincide
-		if ((date("d")==date('d',$time))) {
+		if ((date("d")==date('d',$time)) && (date("m")==date('m',$time)) && (date("Y")==date('Y',$time))) {
 			return date('H:i',$time);
 		}
 
 		$newformat = date('H:i - d/m/Y',$time);
 
 		return $newformat;
+	}
+
+  /*Función que carga la información de un examen dado
+	*
+	*Funcion que, dado un identificador de un examen, carga la informacion básica de este
+	*
+	* @param int $idExamen identificador de examen
+	* @return $fila array con la información del examen */
+	public function cargaUnicoExamenInfo($idExamen){
+    $sql = "SELECT * FROM `examenes` WHERE id=".$idExamen;
+    $consulta=$this->query($sql);
+    $resultado = [];
+    $count = 0;
+    if((count($consulta) < 0)) {
+      $resultado = null;
+    }
+    else{
+        while(count($consulta) > $count ){
+             $resultado[] = $consulta[$count]['asignaturas'];
+             $count++;
+        }
+    }
+    return $resultado;
+	}
+
+  /*Función que comprueba si el profesor puede acceder a un examen
+	*
+	* Funcion que, dado un identificador de una asignatura a la que pertenece un examen, comprueba si puede visualizarlo o no
+	*
+	* @param int $idAsignatura identificador de asignatura
+	* @return $acceso boolean true si puede acceder, false en caso contrario
+	*/
+	public function comprobarAcceso($idAsignatura) {
+		$asignaturas = array();
+		$sql = "SELECT asignaturas.id as id FROM prof_asig_coord INNER JOIN asignaturas ON prof_asig_coord.id_asignatura = asignaturas.id WHERE id_profesor=".$_SESSION['id'];
+		$consulta=$this->query($sql);
+		$acceso = false;
+		$i=0;
+    if((count($consulta) < 0)) {
+      $acceso = null;
+    } else {
+  		while(count($consulta) > $i ){
+  			$asignaturas[$i]=$consulta[$i]['id'];
+  			if ($consulta[$i]['id']==$idAsignatura) {
+  				$acceso = true;
+  			}
+  			$i++;
+  		}
+    }
+    return $acceso;
+	}
+
+  /*Función que carga el autor de un examen
+	*
+	*Funcion que dado el identificador de un examen nos de un examen
+	*nos devuelve el autor del examnen
+	*
+	* @param int $idExamen identificador de examen
+	* @return $fila['autor'] identificardor del profesor que ha creado el examen*/
+	public function cargaAutorExamen($idExamen){
+		$sql = "SELECT profesores.nombre AS autor FROM examenes INNER JOIN profesores ON examenes.creador=profesores.id WHERE examenes.id=".$idExamen;
+		$consulta = $this->query($sql);
+    $resultado = [];
+    $count = 0;
+
+    if((count($consulta) < 0)) {
+      $resultado = null;
+    } else {
+      while(count($consulta) > $count ){
+           $resultado[] = $consulta[$count]['autor'];
+           $count++;
+      }
+    }
+		return $resultado[0]['autor'];
+	}
+
+  /*Función que carga las preguntas de un examen dado
+	*
+	*Funcion que dado un identificador de examen nos devuelve las preguntas
+	*que tiene ese examen en forma de array
+	*
+	* @param int $idExamen identificador de examen
+	* @return $preguntas array con las preguntas del examen */
+	function cargaUnicoExamenPreguntas($idExamen){
+		$sql ="SELECT examenes.titulo AS titulo_examen, preguntas.titulo AS titulo_pregunta, exam_preg.id_examen, exam_preg.id_pregunta AS id_pregunta, exam_preg.id, examenes.creador AS creador_examen, examenes.fecha_creado AS fecha_creado_examen, examenes.fecha_modificado AS fecha_modificado_examen, examenes.ultimo_modificador AS ultimo_modificador_examen, preguntas.creador AS creador_pregunta,  preguntas.fecha_creacion AS fecha_creado_preguntas, preguntas.ult_modificador AS ultimo_modificador_pregunta, preguntas.fecha_modificado AS fecha_modificado_pregunta, preguntas.cuerpo, preguntas.tema				FROM ((exam_preg INNER JOIN examenes ON exam_preg.id_examen =examenes.id) INNER JOIN preguntas ON preguntas.id=exam_preg.id_pregunta) WHERE exam_preg.id_examen=".$idExamen;
+		$consulta = $this->query($sql);
+    $resultado = [];
+		$count=0;
+
+    if((count($consulta) < 0)) {
+      $resultado = null;
+    } else {
+      while(count($consulta) > $count ){
+           $resultado[] = $consulta[$count]['examenes'];//REVISAR
+           $count++;
+      }
+    }
+
+		return $preguntas;
 	}
 
 }

@@ -14,12 +14,6 @@
 <html>
 <head>
 	<title>AExamen Asignaturas</title>
-	<!--css propio -->
-	<link rel="stylesheet" type="text/css" href="css/estilo.css">
-	<!--css externos-->
-	<link rel="stylesheet" type="text/css" href="css/w3.css">
-	<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
-	<link rel="stylesheet" type="text/css" href="css/all.css">
 
 	<meta charset="UTF-8">
 	<link rel="shortcut icon" href="img/favicon.ico" type="image/ico">
@@ -73,7 +67,7 @@
 		else{
 			foreach ($asignaturas as $pos => $valor) {
 				echo '<tr class="item filaAsignaturasProfesor">';
-				echo '<td><a href="/asignaturas/unaAsignatura?id='.$valor["asignaturas"]['id_asignatura'].'&nombre='.$valor["asignaturas"]['nombre_asignatura'].'&siglas='.$valor["asignaturas"]['siglas_asignatura'].'"></a>'.$valor["asignaturas"]['siglas_asignatura'].'</td>';
+				echo '<td><a href="/asignaturas/una_asignatura?id='.$valor["asignaturas"]['id_asignatura'].'&nombre='.$valor["asignaturas"]['nombre_asignatura'].'&siglas='.$valor["asignaturas"]['siglas_asignatura'].'"></a>'.$valor["asignaturas"]['siglas_asignatura'].'</td>';
 				echo '<td>'.$valor["asignaturas"]['nombre_asignatura'].'</td>';
 				$coord=($valor["prof_asig_coord"]['coordinador'])?'Si':'No';
 				echo '<td>'.$coord.'</td>';

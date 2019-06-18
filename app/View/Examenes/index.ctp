@@ -159,6 +159,7 @@
 		<?php
 			}
 		?>
+		<br>
 		<!-- tabla en la que mostramos los examenes-->
 		<table id="tabla_examenes" class="table table-hover">
 		    <thead>
@@ -193,15 +194,15 @@
 					echo '<td> <i class="fas fa-file-invoice fa-fw fa-lg"></i> '.$valor['asignaturas']['asignatura'].' </td>';
 					echo '<td>'.$valor["e1"]['titulo'].'</td>';
 					echo '<td>'.$valor["p1"]['creador'].'</td>';
-					echo '<td hidden=true;>'.$valor["e1"]['fecha_creado'].'</td>';
-					echo '<td hidden=true;>'.$valor["e1"]['fecha_modificado'].'</td>';
+					echo '<td hidden=true;>'.$valor["e1"]['fecha_creado_raw'].'</td>';
+					echo '<td hidden=true;>'.$valor["e1"]['fecha_modificado_raw'].'</td>';
 					echo '<td>'.$valor["e1"]['fecha_creado'].'</td>';
 					echo '<td>'.$valor["e1"]['fecha_modificado'].'</td>';
 					echo '<td>'.$valor["p2"]['ultimo_modificador'].'</td>';
 					echo '<td id="opciones">
 							<a class="btn btn-primary btn-sm" id="idDetallesExam" href="detalleExamen.php?id='.$valor["e1"]['id'].'" role="button">Detalles</a>';
 					if (!$_SESSION['administrador']) {
-						echo '<a class="btn btn-primary btn-sm" href="generarExamen.php?examen='.$valor['titulo'].'" role="button">Generar</a>';
+						echo '<a class="btn btn-primary btn-sm" href="generarExamen.php?examen='.$valor['e1']['titulo'].'" role="button">Generar</a>';
 						echo '<a id="boton_modalEditar" idExamen="'.$valor["e1"]['id'].'" href="crearExamen.php?asignatura='.$valor["asignaturas"]['asignatura'].'&idAsignatura='.$valor["asignaturas"]['idAsignatura'].'&editar=1&id='.$valor["e1"]['id'].'"><i class="fas fa-pencil-alt fa-fw fa-lg"></i></a>';
 					}
 					echo '<a id="boton_modalBorrar" idExamen="'.$valor["e1"]['id'].'"><i class="fas fa-trash-alt fa-fw fa-lg"></i></a> </td>';

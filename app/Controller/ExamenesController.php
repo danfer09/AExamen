@@ -3,6 +3,13 @@ App::uses('AppController', 'Controller');
 
 class ExamenesController extends AppController {
   public function index(){
+    //Si existe $_SESSION['logeado'] volcamos su valor a la variable, si no existe volcamos false. Si vale true es que estamos logeado.
+    $logeado = isset($_SESSION['logeado'])? $_SESSION['logeado']: false;
+    /*En caso de no este logeado redirigimos al login, en caso contrario le damos la bienvenida*/
+    if (!$logeado) {
+      return $this->redirect('/');
+    }
+
     //Si es administrador mostramos en el filtro todas las asignaturas
     //en caso de que sea un profesor solo mostramos las asignaturas que
     //tenga asignadas
@@ -23,5 +30,28 @@ class ExamenesController extends AppController {
     $this->set('siglas', $siglas);
     $this->set('autores', $autores);
     $this->set('examenes', $examenes);
+  }
+
+  public function detalle_examen() {
+    $logeado = isset($_SESSION['logeado'])? $_SESSION['logeado']: false;
+    /*En caso de no este logeado redirigimos al login, en caso contrario le damos la bienvenida*/
+    if (!$logeado) {
+      return $this->redirect('/');
+    }
+
+    $examen = $this->Examen->cargaUnicoExamenInfo($_GET['id']);
+
+    $idAsignatura = $examen['id_asig'];
+    $acceso = $_SESSION['administrador']? true:$this->Examen->comprobarAcceso($idAsignatura);
+    if (!$acceso) {
+      return $this->redirect('/');
+    }
+    $autorExamen = $this->Examen->cargaAutorExamen($examen['id']);
+    $fechaCreacionExamen = $this->Examen->formateoDateTime($examen['fecha_creado']);
+    $preguntas = $this->Examen->cargaUnicoExamenPreguntas($_GET['id']);
+
+    $this->set('examen', $examen);
+    $this->set('autorExamen', $autorExamen);
+    $this->set('fechaCreacionExamen', $fechaCreacionExamen);
   }
 }

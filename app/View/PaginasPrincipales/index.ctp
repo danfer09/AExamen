@@ -63,7 +63,7 @@
 
 		        <div class="col-xl-3 col-lg-4 col-md-6 col-sm-3 portfolio-item filter-web">
 		          <h3>EXÁMENES</h3>
-		          <a href="examenes.php?asignatura=todas&autor=todos">
+		          <a href="/examenes/index?asignatura=todas&autor=todos">
 		            <img src="img/examenes-document.png" alt="">
 		            <h3>EXÁMENES</h3>
 		            <div class="details">
@@ -114,7 +114,7 @@
 
 		        <div class="col-xl-3 col-lg-4 col-md-6 col-sm-3 portfolio-item filter-web">
 		          <h3>EXÁMENES</h3>
-		          <a href="examenes.php?asignatura=todas&autor=todos">
+		          <a href="/examenes/index?asignatura=todas&autor=todos">
 		            <img src="img/examenes-document.png" alt="">
 		            <h3>EXÁMENES</h3>
 		            <div class="details">
