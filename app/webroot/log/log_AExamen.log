@@ -94,3 +94,9 @@
 -----------------------------------------------------------------
 [17/06/2019 - 17:05:58] : USER --> id 1 - asdfsd, asdfas | ACTION --> Inicio de sesión  de fernu@gmail.com
 -----------------------------------------------------------------
+[18/06/2019 - 21:18:02] : USER --> id 3 - Fernandez, Paco | ACTION --> Inicio de sesión  de pafer@gmail.com
+-----------------------------------------------------------------
+[18/06/2019 - 21:18:18] : USER --> id 3 - Fernandez, Paco | ACTION --> Cierre de sesión  de pafer@gmail.com
+-----------------------------------------------------------------
+[18/06/2019 - 21:18:21] : USER --> id 1 - asdfsd, asdfas | ACTION --> Inicio de sesión  de fernu@gmail.com
+-----------------------------------------------------------------
