@@ -58,4 +58,15 @@ class ExamenesController extends AppController {
     $this->set('preguntas', $preguntas);
     $this->set('historial', $historial);
   }
+  public function ajaxExamenes(){
+    $this->loadModel('Examen');
+    $this->layout= 'ajax';
+    $this->render(false);
+    $funcion = isset($_POST['funcion'])? $_POST['funcion']: null;
+  	$idExamen = isset($_POST['id_examen'])? $_POST['id_examen']: null;
+  	if($funcion =="borrarExamen"){
+      $borrarExamen = $this->Examen->borrarExamen($idExamen);
+      echo $borrarExamen;
+  	}
+  }
 }

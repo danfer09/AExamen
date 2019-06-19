@@ -350,7 +350,7 @@ public function selectAllExamenesCompleto() {
 	* @return  $fila nombre y apellidos del profesor*/
 	public function cargaNombreApellidosAutor($idProfesor){
 		$sql = "SELECT `nombre`,`apellidos` FROM `profesores` WHERE id=".$idProfesor;
-		$consulta=$consulta = $this->query($sql);
+		$consulta = $this->query($sql);
 		$count=0;
 		$respuesta=[];
 		$i=0;
@@ -364,5 +364,28 @@ public function selectAllExamenesCompleto() {
     }
 		return $respuesta[0];
 	}
+
+  /*Borra el examen que le indicamos por parametro
+  *
+  * Funcion que dado el identificador de un examen borra dicho examen del sistema
+  *devolviendo true en caso de que se haya borrado correctamente y false en caso
+  *contrario
+  *
+  * @param int $idExamen identificador del examen
+  * @return boolean $funciona true si se ha borrado el examen con exito y false en
+  *caso contrario */
+  public function borrarExamen($idExamen){
+    $funciona=false;
+    //comprobamos si se ha conectado a la base de datos
+    $preguntas = $this->cargaUnicoExamenPreguntas($idExamen);
+    foreach ($preguntas as $pregunta) {
+      $sqlReferencia = "UPDATE `preguntas` SET `referencias` = `referencias` - 1 WHERE id=".$pregunta['id_pregunta'];
+      $this->query($sql);
+    }
+    $sql = "DELETE FROM examenes WHERE id=".$idExamen;
+    $this->query($sql);
+    $funciona=true;
+    echo $funciona;
+  }
 
 }

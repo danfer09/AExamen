@@ -19,7 +19,7 @@ $(document).ready(function(){
     	var form_data = $(this).serialize();
       $.ajax({
           type        : 'POST',
-          url         : 'examenesProcesamiento.php',
+          url         : '/examenes/ajaxexamenes',
           data        : form_data + '&funcion=' + funcion + '&id_examen=' + $("#boton_borrar").attr("id_examen"),
           success: function(respuesta) {
         		if(respuesta){
