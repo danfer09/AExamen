@@ -32,7 +32,7 @@
 			      <div class="row" id="portfolio-wrapper">
 			      	<div class="col-xl-3 col-lg-4 col-md-6 col-sm-3 portfolio-item filter-app">
 			          <h3>PREGUNTAS</h3>
-			          <a <?php echo 'href="preguntas.php?nombreAsignatura='.$_GET["nombre"].'&idAsignatura='.$_GET["id"].'&autor=todos"' ?>>
+			          <a <?php echo 'href="/preguntas/index?nombreAsignatura='.$_GET["nombre"].'&idAsignatura='.$_GET["id"].'&autor=todos"' ?>>
 			            <img src="/img/question-solid.png" alt="">
 			            <h3>PREGUNTAS</h3>
 			            <div class="details">
