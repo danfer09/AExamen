@@ -170,4 +170,45 @@ class Asignatura extends AppModel {
     $resultado['profNoCoord']= $profNoCoord;
     return $resultado;
 	}
+
+  /*Funcion que modifica los coordinadores que hay en una asignatura
+	*
+	*Funcion que dado un identificador de una asignatura modifica los profesores que
+	*son cooordinadores y los profesores que no son coordinadores de la asignatura.
+	*Estos profesores vienen definidos en dos listas que les pasamos por parametro
+	*
+	* @param int $idAsig identificador de la asignatura
+	* @param string $idProfSelect string en formato json con los profesores que
+	*	son coordinadores de la asignatura
+	* @param string $idProfSelect string en formato json con los profesores que
+	*	no son coordinadores de la asignatura
+	* @return boolean $success devuelve true en caso de que la modificación se
+	* haya llevado con exito y false en caso contrario */
+	function setCoordinadores($idAsig, $idProfSelect, $idProfNoSelect){
+		$arrayIdProfSelect = json_decode($idProfSelect);
+		$arrayIdProfNoSelect = json_decode($idProfNoSelect);
+
+		for($i=0; $i < count($arrayIdProfSelect); $i++) {
+			$sql= 'SELECT count(`id_profesor`) as `existe` FROM `prof_asig_coord` WHERE `id_profesor`='.$arrayIdProfSelect[$i].' and`id_asignatura`='.$idAsig;
+      $consulta=$this->query($sql);
+			if($consulta[0][0]['existe']){
+				$sql= 'UPDATE `prof_asig_coord` SET `coordinador`=1 WHERE `id_profesor`='.$arrayIdProfSelect[$i].' and`id_asignatura`='.$idAsig;
+        $consulta=$this->query($sql);
+			}else{
+				$sql = "INSERT INTO `prof_asig_coord`(`id_profesor`, `id_asignatura`, `coordinador`, `id`) VALUES (".$arrayIdProfSelect[$i].",".$idAsig.",1,'')";
+        $consulta=$this->query($sql);
+			}
+		}
+		$arrayIdProfNoSelect = json_decode($idProfNoSelect);
+
+		for($i=0; $i < count($arrayIdProfNoSelect); $i++) {
+			$sql= 'SELECT count(`id_profesor`) as `existe` FROM `prof_asig_coord` WHERE `id_profesor`='.$arrayIdProfNoSelect[$i].' and`id_asignatura`='.$idAsig;
+      $consulta=$this->query($sql);
+			if($consulta[0][0]['existe']){
+				$sql= 'UPDATE `prof_asig_coord` SET `coordinador`=0 WHERE `id_profesor`='.$arrayIdProfNoSelect[$i].' and`id_asignatura`='.$idAsig;
+				$consulta=$this->query($sql);
+			}
+		 }
+	   echo true;
+	}
 }

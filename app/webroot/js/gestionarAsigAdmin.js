@@ -90,7 +90,7 @@ $(document).ready(function(){
 
         $.ajax({
             type        : 'POST',
-            url         : '',
+            url         : '/asignaturas/ajaxasignaturas',
             data        : 'funcion=' + funcion + '&idProfSelect=' + idProfSelectParam + '&idAsig=' + idAsig +'&idProfNoSelect=' + idProfNoSelectParam,
             success:function(respuesta){
                 if(respuesta){

@@ -61,12 +61,13 @@ class AsignaturasController extends AppController {
   	$idProfSelect = isset($_POST['idProfSelect'])? $_POST['idProfSelect']: null;
   	$idProfNoSelect = isset($_POST['idProfNoSelect'])? $_POST['idProfNoSelect']: null;
 
-    $profesoresUnaAsig = $this->Asignatura->getProfesoresAdmin($idAsig);
     if ($funcion == "getProfesoresAdmin"){
+      $profesoresUnaAsig = $this->Asignatura->getProfesoresAdmin($idAsig);
       echo json_encode($profesoresUnaAsig);
     }
   	else if ($funcion == "setCoordinadores"){
-  		setCoordinadores($idAsig, $idProfSelect, $idProfNoSelect);
+      $setCoordinadores = $this->Asignatura->setCoordinadores($idAsig, $idProfSelect, $idProfNoSelect);
+      echo $setCoordinadores;
     }
   }
 }
