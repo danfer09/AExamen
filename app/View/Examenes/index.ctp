@@ -148,9 +148,9 @@
 				<?php
 
 					if ($hidden) {
-						print('<a class="fas fa-plus-circle fa-2x masExamenes" hidden id="boton_modalAñadir" href="crearExamen.php?asignatura='.$_GET["asignatura"].'&idAsignatura='.$idAsig.'"></a>');
+						print('<a class="fas fa-plus-circle fa-2x masExamenes" hidden id="boton_modalAñadir" href="/crearexamenes/index?asignatura='.$_GET["asignatura"].'&idAsignatura='.$idAsig.'"></a>');
 					} else {
-						print('<a class="fas fa-plus-circle fa-2x masExamenes" id="boton_modalAñadir" href="crearExamen.php?asignatura='.$_GET["asignatura"].'&idAsignatura='.$idAsig.'"></a>');
+						print('<a class="fas fa-plus-circle fa-2x masExamenes" id="boton_modalAñadir" href="/crearexamenes/index?asignatura='.$_GET["asignatura"].'&idAsignatura='.$idAsig.'"></a>');
 					}
 
 				?>

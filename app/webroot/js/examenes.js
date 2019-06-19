@@ -54,7 +54,7 @@ function cambiarLinkGenerarExamen(value) {
         let id=value.split(",")[1];
         $("#boton_modalAñadir").removeAttr("hidden");
         $("#boton_modalAñadir").attr('href', null);
-        $("#boton_modalAñadir").attr('href', 'crearExamen.php?asignatura='+siglas+'&idAsignatura='+id);
+        $("#boton_modalAñadir").attr('href', '/crearexamenes/index?asignatura='+siglas+'&idAsignatura='+id);
       } else if (!$("#boton_modalAñadir").attr("hidden")  && value == "-") {
         $("#boton_modalAñadir").attr("hidden", true);
       }
