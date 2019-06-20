@@ -294,7 +294,7 @@ public function selectAllExamenesCompleto() {
 	*
 	* @param int $idExamen identificador de examen
 	* @return $preguntas array con las preguntas del examen */
-	public function cargaUnicoExamenPreguntas($idExamen){
+	public function cargaUnicoExamenPreguntas($idExamen, $cargaExamen=null){
 		$sql ="SELECT examenes.titulo AS titulo_examen, preguntas.titulo AS titulo_pregunta, exam_preg.id_examen, exam_preg.id_pregunta AS id_pregunta, exam_preg.id, examenes.creador AS creador_examen, examenes.fecha_creado AS fecha_creado_examen, examenes.fecha_modificado AS fecha_modificado_examen, examenes.ultimo_modificador AS ultimo_modificador_examen, preguntas.creador AS creador_pregunta,  preguntas.fecha_creacion AS fecha_creado_preguntas, preguntas.ult_modificador AS ultimo_modificador_pregunta, preguntas.fecha_modificado AS fecha_modificado_pregunta, preguntas.cuerpo, preguntas.tema				FROM ((exam_preg INNER JOIN examenes ON exam_preg.id_examen =examenes.id) INNER JOIN preguntas ON preguntas.id=exam_preg.id_pregunta) WHERE exam_preg.id_examen=".$idExamen;
 		$consulta = $this->query($sql);
     $resultado = [];
@@ -303,12 +303,19 @@ public function selectAllExamenesCompleto() {
     if((count($consulta) < 0)) {
       $resultado = null;
     } else {
-      while(count($consulta) > $count ){
-           $resultado[] = $consulta[$count]['preguntas'];
-           $count++;
+      if(!isset($cargaExamen)){
+        while(count($consulta) > $count ){
+             $resultado[] = $consulta[$count]['preguntas'];
+             $count++;
+        }
+      }
+      else{
+        while(count($consulta) > $count ){
+             $resultado[] = $consulta[$count]['exam_preg'];
+             $count++;
+        }
       }
     }
-
 		return $resultado;
 	}
 
@@ -377,10 +384,10 @@ public function selectAllExamenesCompleto() {
   public function borrarExamen($idExamen){
     $funciona=false;
     //comprobamos si se ha conectado a la base de datos
-    $preguntas = $this->cargaUnicoExamenPreguntas($idExamen);
+    $preguntas = $this->cargaUnicoExamenPreguntas($idExamen, true);
     foreach ($preguntas as $pregunta) {
       $sqlReferencia = "UPDATE `preguntas` SET `referencias` = `referencias` - 1 WHERE id=".$pregunta['id_pregunta'];
-      $this->query($sql);
+      $this->query($sqlReferencia);
     }
     $sql = "DELETE FROM examenes WHERE id=".$idExamen;
     $this->query($sql);
