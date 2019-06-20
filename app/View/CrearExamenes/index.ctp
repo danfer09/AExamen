@@ -1,23 +1,14 @@
 <html>
 <head>
 	<title>AExamen Crear Examen</title>
-	<!--css propio -->
-	<link rel="stylesheet" type="text/css" href="css/estilo.css">
-	<!--css externos-->
-	<link rel="stylesheet" type="text/css" href="css/w3.css">
-	<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
-	<link rel="stylesheet" type="text/css" href="css/all.css">
+
 	<meta charset="UTF-8">
 	<link rel="shortcut icon" href="img/favicon.ico" type="image/ico">
 </head>
 <body>
 	<div class="header" id="header"></div>
-	<div class="container-fluid" id="crearExamenContainer">
+	<div class="container" id="crearExamenContainer">
 		<?php
-
-			$_SESSION['nombreAsignatura'] = $nombreAsignatura = $_GET["asignatura"];
-			$_SESSION['idAsignatura'] = $_GET["idAsignatura"];
-			$_SESSION['editar'] = $editar;
 
 			//Llamamos a la variable Session igual que la asignatura, asi nos permitirá tener guardado un examen de cada asignatura en la sesion,
 			//además de que evitaremos errores a la hora de cargar el examen de otra asignatura.
@@ -31,43 +22,40 @@
 
 
 				$preguntasSesion = isset($_SESSION[$nombreAsignatura])? json_decode($_SESSION[$nombreAsignatura],true): null;
-
+        $nombreExamen = '';
 				$botonGuardar= "guardarNuevoExamen";
+
 			}
 			else{
 				echo "<h1>Editar examen de ". $_GET["asignatura"]. "</h1>";
 
 				$_SESSION["editarExamenCambios"] = (isset($_SESSION["editarExamenCambios"]))? $_SESSION["editarExamenCambios"]:'{}';
 
-
-				$idExamen = isset($_GET['id'])? $_GET['id']: null;
-
-
-				if (!isset($_SESSION[$examenEntero['titulo']]) || $_SESSION[$examenEntero['titulo']] == null) {
-					$preguntasSesion=json_decode($examenEntero['puntosPregunta'],true);
-				} else {
-					$preguntasSesion=json_decode($_SESSION[$examenEntero['titulo']],true);
-				}
-				$nombreExamen = $preguntasSesion['nombreExamen'];
-				$_SESSION['nombreExamenEditar']=$nombreExamen;
-				$_SESSION[$nombreExamen]= json_encode($preguntasSesion);
-				$_SESSION['idExamen']=$idExamen;
-
 				$botonGuardar= "guardarModificarExamen";
 			}
+
 
 		?>
 
 		<br>
 		<div class="row">
-
-			<div class="col-1"></div>
+			<div class="col-1">
+				<span id="openNav"><i class="fas fa-bars"></i></span>
+				<div id="mySidenav" class="sidenav">
+				  <?php
+				  for ($i = 1; $i <= $numTemas; $i++) {
+				  	echo '<a href="#">Tema'.$i.'</a>';
+				  }
+				  ?>
+          <br>
+          <a href="javascript:void(0)" class="closebtn" id="closeNav">&times;</a>
+				</div>
+			</div>
 			<div class="col-7"><input siglas="<?php echo $_GET["asignatura"]; ?>" id="nombreExamen" class="w3-input col-8" placeholder=<?php echo '"Nombre del examen... e.g.  '.$_GET["asignatura"].' [Parcial/Final] [Año]" value="'.$nombreExamen.'"'?>>
 
 			</div>
 			<div id="containerPuntosTotal" class="col-2">
 				<?php
-
 					$jsonPuntosTema = json_decode($arrayPuntosTema,true);
 					echo '<span>Total(</span>';
 					echo '<span id="numeradorTotal">';
@@ -91,23 +79,6 @@
 
 		</div>
 		<br>
-
-		<div class="row">
-			<div class="col-5">
-				<span id="openNav"><i class="fas fa-bars"></i></span>
-				<div id="mySidenav" class="sidenav">
-				  <a href="javascript:void(0)" class="closebtn" id="closeNav">&times;</a>
-				  <?php
-				  for ($i = 1; $i <= $numTemas; $i++) {
-				  	echo '<a href="#">Tema'.$i.'</a>';
-				  }
-				  ?>
-				</div>
-			</div>
-		</div>
-
-
-
 		<?php
 		  for ($i = 1; $i <= $numTemas; $i++) {
 			    echo '<div class="row">';
@@ -126,12 +97,13 @@
 					echo'</div>';
 				echo'</div>';
 				echo '<div class="row">';
-				echo '<div class="col-12"><hr /></div>';
+				echo '<div class="col-2"><hr class="separador-dos" /></div>';
+        echo '<div class="col-10"></div>';
 				echo '</div>';
 				echo'<div class="row" id="preguntasTema'.$i.'">';
 					if ($preguntasTema) {
 						foreach ($preguntasTema as $pregunta) {
-              $datos = $examenEntero['preguntas']['tema'.$i][$pregunta['id']];
+              $datos = $datosPreguntasSesion["tema".$i][$pregunta['id']];
 							//$datos = cargaUnicaPregunta($pregunta['id']);
 							echo '<div class="col-12 preguntaTema'.$i.'" puntos="'.$pregunta['puntos'].'"  id="'.$pregunta['id'].'">
 									<b><span class="tituloPreguntas">'.$datos['titulo'].'</span></b>
@@ -153,7 +125,7 @@
 					}
 				echo'</div>';
 				echo '<div class="row">';
-				echo '<div class="col-12"><hr /></div>';
+				echo '<div class="col-12"><hr class="separador-uno" /></div>';
 				echo '</div>';
 			}
 		?>

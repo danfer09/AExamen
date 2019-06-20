@@ -10,6 +10,7 @@ $(document).ready(function(){
 
 	$('#openNav').click(function() {
 		 document.getElementById("mySidenav").style.width = "250px";
+     document.getElementById("mySidenav").style.top = "50px";
 	});
 	$('#closeNav').click(function() {
 		 document.getElementById("mySidenav").style.width = "0px";
@@ -25,7 +26,7 @@ $(document).ready(function(){
 
         $.ajax({
             type        : 'POST',
-            url         : 'crearExamenProcesamiento.php',
+            url         : '/crearexamenes/ajaxcrearexamenes',
             data        : 'funcion=' + funcion + '&idAsignatura=' + $idAsignatura + '&tema=' + $tema,
             success:function(respuesta){
 		        if(respuesta){
@@ -92,7 +93,7 @@ $(document).ready(function(){
 
         $.ajax({
             type        : 'POST',
-            url         : 'crearExamenProcesamiento.php',
+            url         : '/crearexamenes/ajaxcrearexamenes',
             data        : form_data + '&funcion=' + funcion,
             success:function(respuesta){
             if(respuesta){
@@ -122,7 +123,7 @@ $(document).ready(function(){
       let funcion = 'guardarExamen';
       $.ajax({
           type        : 'POST',
-          url         : 'crearExamenProcesamiento.php',
+          url         : '/crearexamenes/ajaxcrearexamenes',
           data        : 'funcion=' + funcion + '&nombreExamen=' + nombreExamen,
           success:function(respuesta){
             if(respuesta){
@@ -135,7 +136,7 @@ $(document).ready(function(){
       dataType:"json"
       })
 			sleep(300);
-  		window.location = 'examenes.php?asignatura='+siglas+'&autor=todos&successCreate=true';
+  		window.location = '/examenes/index?asignatura='+siglas+'&autor=todos&successCreate=true';
 
       event.preventDefault();
     }
@@ -155,7 +156,7 @@ $(document).ready(function(){
       let funcion = 'guardarModificarExamen';
           $.ajax({
               type        : 'POST',
-              url         : 'modificarExamenProcesamiento.php',
+              url         : '/crearexamenes/ajaxcrearexamenes',
               data        : 'funcion=' + funcion + '&nombreExamen=' + nombreExamen,
               success:function(respuesta){
                 if(respuesta){
@@ -167,7 +168,7 @@ $(document).ready(function(){
               },
           dataType:"json"
           })
-          window.location = 'examenes.php?asignatura='+siglas+'&autor=todos&successEdit=true';
+          window.location = '/examenes/index?asignatura='+siglas+'&autor=todos&successEdit=true';
           event.preventDefault();
     }
   });
@@ -185,12 +186,12 @@ $(document).ready(function(){
     let denominador = $('#denominadorTema'+tema).text();
     let funcion = "cambiarPuntosPregunta";
     if (Number(numerador)+1 <= Number(denominador)) {
-      $(this).parent().find('.puntos').html("<b>"+(Number(puntosPregunta)+1)+"</b>");
+      $(this).parent().find('.puntos').html((Number(puntosPregunta)+1));
       $('#numeradorTema'+tema).text(Number(numerador)+1);
       $('#numeradorTotal').text(Number($('#numeradorTotal').text())+1);
       $.ajax({
           type        : 'POST',
-          url         : 'crearExamenProcesamiento.php',
+          url         : '/crearexamenes/ajaxcrearexamenes',
           data        : 'funcion=' + funcion + '&idPregunta=' + idPregunta + '&puntos=' + (Number(puntosPregunta)+1) + '&tema=' + tema,
           success:function(respuesta){
             if(respuesta){
@@ -221,12 +222,12 @@ $(document).ready(function(){
     let denominador = $('#denominadorTema'+tema).text();
     let funcion = "cambiarPuntosPregunta";
     if (Number(puntosPregunta)-1 >= 1) {
-      $(this).parent().find('.puntos').html("<b>"+(Number(puntosPregunta)-1)+"</b>");
+      $(this).parent().find('.puntos').html((Number(puntosPregunta)-1));
       $('#numeradorTema'+tema).text(Number(numerador)-1);
       $('#numeradorTotal').text(Number($('#numeradorTotal').text())-1);
       $.ajax({
           type        : 'POST',
-          url         : 'crearExamenProcesamiento.php',
+          url         : '/crearexamenes/ajaxcrearexamenes',
           data        : 'funcion=' + funcion + '&idPregunta=' + idPregunta + '&puntos=' + (Number(puntosPregunta)-1) + '&tema=' + tema,
           success:function(respuesta){
             if(respuesta){
@@ -261,7 +262,7 @@ $(document).ready(function(){
       let funcion = 'eliminarPregunta';
       $.ajax({
           type        : 'POST',
-          url         : 'crearExamenProcesamiento.php',
+          url         : '/crearexamenes/ajaxcrearexamenes',
           data        : 'funcion=' + funcion + '&idPregunta=' + idPregunta + '&tema=' + tema,
           success:function(respuesta){
             if(respuesta){
@@ -273,6 +274,8 @@ $(document).ready(function(){
           },
       dataType:"json"
       })
+      sleep(300);
+      location.reload();
       event.preventDefault();
 
     }

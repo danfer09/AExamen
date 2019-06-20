@@ -279,6 +279,9 @@ div .puntosPregunta {
     width: 6%;
     margin-left: 15px;
 }
+.puntosPregunta span.puntos {
+  font-weight: bold;
+}
 
 .botonesPregunta {
     margin-bottom: 15px;
@@ -368,8 +371,14 @@ table {
 #nombreExamen {
     font-size: 16px;
 }
-#crearExamenContainer hr {
-    background-color: #ffffff;
+#crearExamenContainer hr.separador-uno {
+    color: #616161!important;
+    background-color: #616161!important;
+}
+#crearExamenContainer hr.separador-dos {
+    background-color: #6f6f6f!important;
+    color: #6f6f6f!important;
+    opacity: 0.5;
 }
 #crearExamenContainer .fa-arrow-left {
     padding-top: 12%;
