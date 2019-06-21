@@ -34,7 +34,13 @@
 						<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
 		  				Examen editado con éxito
 			  		  </div>';
-			}
+			} else if (isset($_SESSION['error_generar_examen'])&& $_SESSION['error_generar_examen']) {
+	      echo '<div class="alert alert-success alert_success" role="alert">
+	          <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+	            Error al generar examen. El examen seleccionado no contiene preguntas.
+	            </div>';
+							$_SESSION['error_generar_examen'] = false;
+	    }
 		?>
 		<br>
 		<div class="row" id="filtros">
@@ -202,7 +208,7 @@
 					echo '<td id="opciones">
 							<a class="btn btn-primary btn-sm" id="idDetallesExam" href="/examenes/detalle_examen?id='.$valor["e1"]['id'].'" role="button">Detalles</a>';
 					if (!$_SESSION['administrador']) {
-						echo '<a class="btn btn-primary btn-sm" href="generarExamen.php?examen='.$valor['e1']['titulo'].'" role="button">Generar</a>';
+						echo '<a class="btn btn-primary btn-sm" href="/examenes/generar_un_examen?examen='.$valor['e1']['titulo'].'" role="button">Generar</a>';
 						echo '<a id="boton_modalEditar" idExamen="'.$valor["e1"]['id'].'" href="/crearexamenes/index?asignatura='.$valor["asignaturas"]['asignatura'].'&idAsignatura='.$valor["asignaturas"]['idAsignatura'].'&editar=1&id='.$valor["e1"]['id'].'"><i class="fas fa-pencil-alt fa-fw fa-lg"></i></a>';
 					}
 					echo '<a id="boton_modalBorrar" idExamen="'.$valor["e1"]['id'].'"><i class="fas fa-trash-alt fa-fw fa-lg"></i></a> </td>';

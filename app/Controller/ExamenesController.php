@@ -3,6 +3,10 @@ App::uses('AppController', 'Controller');
 
 class ExamenesController extends AppController {
   public function index(){
+    /*Iniciamos la sesion, pero antes hacemos una comprobacion para evitar errores*/
+  	if (session_status() == PHP_SESSION_NONE) {
+  	    session_start();
+  	}
     //Si existe $_SESSION['logeado'] volcamos su valor a la variable, si no existe volcamos false. Si vale true es que estamos logeado.
     $logeado = isset($_SESSION['logeado'])? $_SESSION['logeado']: false;
     /*En caso de no este logeado redirigimos al login, en caso contrario le damos la bienvenida*/
@@ -33,6 +37,10 @@ class ExamenesController extends AppController {
   }
 
   public function detalle_examen() {
+    /*Iniciamos la sesion, pero antes hacemos una comprobacion para evitar errores*/
+  	if (session_status() == PHP_SESSION_NONE) {
+  	    session_start();
+  	}
     $logeado = isset($_SESSION['logeado'])? $_SESSION['logeado']: false;
     /*En caso de no este logeado redirigimos al login, en caso contrario le damos la bienvenida*/
     if (!$logeado) {
@@ -58,6 +66,44 @@ class ExamenesController extends AppController {
     $this->set('preguntas', $preguntas);
     $this->set('historial', $historial);
   }
+
+  public function generar_un_examen() {
+    /*Iniciamos la sesion, pero antes hacemos una comprobacion para evitar errores*/
+  	if (session_status() == PHP_SESSION_NONE) {
+  	    session_start();
+  	}
+    $logeado = isset($_SESSION['logeado'])? $_SESSION['logeado']: false;
+    /*En caso de no este logeado redirigimos al login, en caso contrario le damos la bienvenida*/
+    if (!$logeado) {
+      return $this->redirect('/');
+    }
+
+    $this->loadModel('GenerarExamen');
+    $preguntasExamen = $this->GenerarExamen->getPreguntasExamen($_SESSION['idExamenGenerado'], $examenEntero, $preguntasSesion, $numTemas);
+    $_SESSION['error_generar_examen'] = count($preguntasExamen)>0? false:true;
+
+    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+      $this->GenerarExamen->construirPDF($_POST, $preguntasExamen);
+    }
+
+    $parametrosDefecto = $this->GenerarExamen->getDefaultParameters($_GET['examen']);
+    $_SESSION['asignaturaExamenGenerado'] = $parametrosDefecto['asignaturas']['nombre'];
+    $_SESSION['nombreExamenGenerado'] = $_GET['examen'];
+    $_SESSION['idExamenGenerado'] = $parametrosDefecto['examenes']['idExamen'];
+    $this->set('parametrosDefecto', $parametrosDefecto);
+
+    $this->loadModel('CrearExamen');
+		$examenEntero=$this->CrearExamen->getExamen($_SESSION['idExamenGenerado']);
+		$preguntasSesion=json_decode($examenEntero['puntosPregunta'],true);
+		$numTemas = $this->CrearExamen->getNumTemas($examenEntero['id_asig']);
+
+
+    if ($_SESSION['error_generar_examen']) {
+      return $this->redirect('/examenes/index?asignatura=todas&autor=todos');
+    }
+
+  }
+
   public function ajaxExamenes(){
     $this->loadModel('Examen');
     $this->layout= 'ajax';
