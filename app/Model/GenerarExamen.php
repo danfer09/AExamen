@@ -84,7 +84,7 @@ class GenerarExamen extends AppModel {
 	    $pdf->Ln(10);
 	    if ($preguntasExamen) {
 	    	$i=1;
-	    	foreach ($preguntas as $pregunta) {
+	    	foreach ($preguntasExamen as $pregunta) {
 	    		$pdf->Cell(5,5,$i.")","",0,'R');
 	    		$pdf->MultiCell(0,5,"(".intval($pregunta['puntos'])." puntos) ".utf8_decode($pregunta['pregunta']));
 	    		if ($postInfo['espaciado'] == 2) {

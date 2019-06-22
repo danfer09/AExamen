@@ -77,26 +77,26 @@ class ExamenesController extends AppController {
     if (!$logeado) {
       return $this->redirect('/');
     }
-
     $this->loadModel('GenerarExamen');
-    $preguntasExamen = $this->GenerarExamen->getPreguntasExamen($_SESSION['idExamenGenerado'], $examenEntero, $preguntasSesion, $numTemas);
-    $_SESSION['error_generar_examen'] = count($preguntasExamen)>0? false:true;
-
-    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-      $this->GenerarExamen->construirPDF($_POST, $preguntasExamen);
-    }
-
-    $parametrosDefecto = $this->GenerarExamen->getDefaultParameters($_GET['examen']);
-    $_SESSION['asignaturaExamenGenerado'] = $parametrosDefecto['asignaturas']['nombre'];
-    $_SESSION['nombreExamenGenerado'] = $_GET['examen'];
-    $_SESSION['idExamenGenerado'] = $parametrosDefecto['examenes']['idExamen'];
-    $this->set('parametrosDefecto', $parametrosDefecto);
-
     $this->loadModel('CrearExamen');
-		$examenEntero=$this->CrearExamen->getExamen($_SESSION['idExamenGenerado']);
-		$preguntasSesion=json_decode($examenEntero['puntosPregunta'],true);
-		$numTemas = $this->CrearExamen->getNumTemas($examenEntero['id_asig']);
 
+    if (isset($_GET['examen']) && $_GET['examen']!=null) {
+      $parametrosDefecto = $this->GenerarExamen->getDefaultParameters($_GET['examen']);
+      $_SESSION['asignaturaExamenGenerado'] = $parametrosDefecto['asignaturas']['nombre'];
+      $_SESSION['nombreExamenGenerado'] = $_GET['examen'];
+      $_SESSION['idExamenGenerado'] = $parametrosDefecto['examenes']['idExamen'];
+      $this->set('parametrosDefecto', $parametrosDefecto);
+
+  		$examenEntero=$this->CrearExamen->getExamen($_SESSION['idExamenGenerado']);
+  		$preguntasSesion=json_decode($examenEntero['puntosPregunta'],true);
+  		$numTemas = $this->CrearExamen->getNumTemas($examenEntero['id_asig']);
+
+      $preguntasExamen = $_SESSION['preguntasExamenGenerar'] = $this->GenerarExamen->getPreguntasExamen($_SESSION['idExamenGenerado'], $examenEntero, $preguntasSesion, $numTemas);
+      $_SESSION['error_generar_examen'] = count($preguntasExamen)>0? false:true;
+
+    } else if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+      $this->GenerarExamen->construirPDF($_POST, $_SESSION['preguntasExamenGenerar']);
+    }
 
     if ($_SESSION['error_generar_examen']) {
       return $this->redirect('/examenes/index?asignatura=todas&autor=todos');
