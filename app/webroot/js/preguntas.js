@@ -24,17 +24,15 @@ $(document).ready(function(){
     	var form_data = $(this).serialize();
         $.ajax({
             type        : 'POST',
-            url         : 'preguntasProcesamiento.php',
+            url         : '/preguntas/funcionesajaxpreguntas',
             data        : form_data + '&funcion=' + funcion + '&id_pregunta=' + $("#boton_editar").attr("id_pregunta"),
             success: function(respuesta) {
           		if(respuesta){
           			location.reload();
-
           		}
           		else{
           			location.reload();
           		}
-
 			}
         })
     	event.preventDefault();
@@ -48,7 +46,7 @@ $(document).ready(function(){
     	var form_data = $(this).serialize();
         $.ajax({
             type        : 'POST',
-            url         : 'preguntasProcesamiento.php',
+            url         : '/preguntas/funcionesajaxpreguntas',
             data        : form_data + '&funcion=' + funcion,
             success: function(respuesta) {
           		if(respuesta){
@@ -69,7 +67,7 @@ $(document).ready(function(){
     	var form_data = $(this).serialize();
       $.ajax({
           type        : 'POST',
-          url         : 'preguntasProcesamiento.php',
+          url         : '/preguntas/funcionesajaxpreguntas',
           data        : form_data + '&funcion=' + funcion + '&id_pregunta=' + $("#boton_borrar").attr("id_pregunta"),
           success: function(respuesta) {
         		if(respuesta){

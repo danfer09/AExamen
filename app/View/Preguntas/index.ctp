@@ -21,9 +21,6 @@
 			}
 			echo "<h1>Preguntas de ". $_GET['nombreAsignatura']. "</h1>";
 			$_SESSION['idAsignatura']=$_GET['idAsignatura'];
-			// include "preguntasProcesamiento.php";
-			// include 'examenesProcesamiento.php';
-			// include 'funcionesServidor.php';
 		?>
 		<br>
 		<!--Comienzo de cabecera  -->
@@ -81,7 +78,7 @@
 		    <tbody>
 		<?php
 			//Cargamos las preguntas del examen
-			$preguntas=cargaPreguntas($_GET['idAsignatura'], $_GET['autor']);
+			// $preguntas=cargaPreguntas($_GET['idAsignatura'], $_GET['autor']);
 			//Comprobamos los diversos errores que se han podido ocurrir para mostrarlos en consecuencia
 			$error_ningunaPregunta = isset($_SESSION['error_ningunaPregunta'])? $_SESSION['error_ningunaPregunta']: false;
 			$error_BBDD = isset($_SESSION['error_BBDD'])? $_SESSION['error_BBDD']: false;
@@ -134,10 +131,10 @@
 					echo '<td>'.$valor['autor'].'</td>';
 					echo '<td hidden=true;>'.$valor['fecha_creacion'].'</td>';
 					echo '<td hidden=true;>'.$valor['fecha_modificado'].'</td>';
-					echo '<td>'.formateoDateTime($valor['fecha_creacion']).'</td>';
-					echo '<td>'.formateoDateTime($valor['fecha_modificado']).'</td>';
+					echo '<td>'.$valor['fecha_creado_raw'].'</td>';
+					echo '<td>'.$valor['fecha_modificado_raw'].'</td>';
 					echo '<td id="opciones">';
-						echo '<a class="btn btn-primary" href="detallePregunta.php?id='.$valor['id_preguntas'].'" role="button">Detalles</a>';
+						echo '<a class="btn btn-primary" href="/preguntas/detalle_pregunta?id='.$valor['id_preguntas'].'" role="button">Detalles</a>';
 						echo (!$_SESSION['administrador'])? '<a id="boton_modalEditar" href="#" idPreguntas="'.$valor['id_preguntas'].'"><i class="fas fa-pencil-alt fa-fw fa-lg"></i></a>': '';
 						echo '<a id="boton_modalBorrar" href="#" idPreguntas="'.$valor['id_preguntas'].'"><i class="fas fa-trash-alt fa-fw fa-lg"></i></a>';
 					echo '</td>';
