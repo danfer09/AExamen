@@ -75,7 +75,7 @@
 
 		        <div class="col-xl-3 col-lg-4 col-md-6 col-sm-3 portfolio-item filter-app">
 		          <h3>PROFESORES</h3>
-		          <a href="profesoresAdmin.php">
+		          <a href="/profesores/index">
 		            <img src="img/profesores-users.png" alt="">
 		            <h3>PROFESORES</h3>
 		            <div class="details">
