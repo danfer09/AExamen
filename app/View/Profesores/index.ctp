@@ -44,7 +44,7 @@
 			</div>
 			<div class="form-inline col-lg-3">
 				<label for="boton_peticiones">Peticiones de registro </label>
-				<button type="button" id="boton_peticiones" onclick="window.location='panelControl.php';" class="btn btn-primary"><i class="fas fa-external-link-alt"></i></button>
+				<button type="button" id="boton_peticiones" onclick="window.location='/panelescontroles/index';" class="btn btn-primary"><i class="fas fa-external-link-alt"></i></button>
 			</div>
 		</div>
 

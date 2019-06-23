@@ -169,7 +169,7 @@
 					    <br>
 					    <textarea  class="form-control" placeholder="Introduzca el cuerpo" name="cuerpo" id="cuerpo" rows = "5"></textarea>
 					    <br>
-					    <input type="number" class="form-control" placeholder="Introduzca el tema" name="tema" id="tema" min="1">
+					    <input type="number" class="form-control" placeholder="Introduzca el número de tema" name="tema" id="tema" min="1">
 					    <br>
 					    <button type="submit" class="btn btn-primary" id="boton_añadir" name="boton_añadir">Insertar</button>
 					  </form>
@@ -230,9 +230,9 @@
 					    <p id="infoParaEditar" class="badge badge-pill badge-danger">Los campos que deje vacíos mantendrán su valor actual</p><br>
 					    <input type="text" class="form-control" placeholder="Introduzca el titulo" name="titulo" id="titulo">
 					    <br>
-					    <input type="textarea" class="form-control" placeholder="Introduzca el cuerpo" name="cuerpo" id="cuerpo">
+					    <textarea  class="form-control" placeholder="Introduzca el cuerpo" name="cuerpo" id="cuerpo" rows = "5"></textarea>
 					    <br>
-					    <input type="number" class="form-control" min="1" placeholder="Introduzca el tema" name="tema" id="tema">
+					    <input type="number" class="form-control" min="1" placeholder="Introduzca el número de tema" name="tema" id="tema">
 					    <br>
 					    <button type="submit" class="btn btn-primary" id="boton_editar" name="boton_editar">Editar</button>
 					  </form>

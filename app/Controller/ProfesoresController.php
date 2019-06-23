@@ -30,6 +30,7 @@ class ProfesoresController extends AppController {
   	//diferentes funciones
   	if ($email && $funcion==null) {
   		$this->Profesor->invitarProfesor($email);
+      return $this->redirect('/profesores');
   	}
 
   	if($funcion == "borrarProfesor"){
