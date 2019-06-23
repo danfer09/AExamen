@@ -87,7 +87,7 @@
 
 		        <div class="col-xl-3 col-lg-4 col-md-6 col-sm-3 portfolio-item filter-app">
 		          <h3>PANEL DE CONTROL</h3>
-		          <a href="panelControl.php">
+		          <a href="/panelescontroles/index">
 		            <img src="img/panel-control.png" alt="">
 		            <h3>PANEL DE CONTROL</h3>
 		            <div class="details">
