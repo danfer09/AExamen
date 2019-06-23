@@ -133,7 +133,7 @@ $('.modalAsignaturas').click(function() {
 
     $.ajax({
         type        : 'POST',
-        url         : 'profesoresAdminProcesamiento.php',
+        url         : '/profesores/funcionesajaxprofesores',
         data        : 'funcion=' + funcion + '&idProfesor=' + idProfesor,
         success:function(respuesta){
             if(respuesta){
@@ -171,7 +171,7 @@ $('.modalAsignaturas').click(function() {
         let idProfesor = $("#formAsig").attr("idProfesor");
         $.ajax({
             type        : 'POST',
-            url         : 'profesoresAdminProcesamiento.php',
+            url         : '/profesores/funcionesajaxprofesores',
             data        : 'funcion=' + funcion + '&idAsig=' + idAsig + '&idProfesor=' + idProfesor,
             success:function(respuesta){
                 if(respuesta){
@@ -240,7 +240,7 @@ $('.modalAsignaturas').click(function() {
         var idAsigNoSelectParam = JSON.stringify(idAsigNoSelect);
         $.ajax({
             type        : 'POST',
-            url         : 'profesoresAdminProcesamiento.php',
+            url         : '/profesores/funcionesajaxprofesores',
             data        : 'funcion=' + funcion + '&idAsigSelect=' + idAsigSelectParam + '&idProfesor=' + idProfesor +'&idAsigNoSelect=' + idAsigNoSelectParam,
             success:function(respuesta){
                 if(respuesta){

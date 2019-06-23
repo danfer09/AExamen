@@ -172,7 +172,7 @@
 
 			    <!-- Modal body -->
 			    <div class="modal-body">
-					  <form action="profesoresAdminProcesamiento.php" class="form-container" method="post" id="formAniadirProfesor">
+					  <form action="/profesores/funcionesAjaxProfesores" class="form-container" method="post" id="formAniadirProfesor">
 					    <div class="row">
 					    	<div class="col-md-8">
 					    		<label for="email" >Email:</label>

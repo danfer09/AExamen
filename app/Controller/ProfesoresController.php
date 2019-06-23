@@ -29,7 +29,7 @@ class ProfesoresController extends AppController {
   	//comprobamos los valores de las variables y en consecuencia llamamos a las
   	//diferentes funciones
   	if ($email && $funcion==null) {
-  		invitarProfesor($email);
+  		$this->Profesor->invitarProfesor($email);
   	}
 
   	if($funcion == "borrarProfesor"){
@@ -40,13 +40,14 @@ class ProfesoresController extends AppController {
   		$editarProfesor = $this->Profesor->editarProfesor($nombre,$apellidos,$email,$idProfesor);
       echo $editarProfesor;
     }
-  	else if($funcion == "getAsignaturas")
-  		getAsignaturas($idProfesor);
+  	else if($funcion == "getAsignaturas"){
+  		echo $this->Profesor->getAsignaturas($idProfesor);
+    }
   	else if($funcion == "setCoordinadores"){
-  		setCoordinadores($idProfesor, $idAsigSelect, $idAsigNoSelect);
+  		echo $this->Profesor->setCoordinadores($idProfesor, $idAsigSelect, $idAsigNoSelect);
   	}
   	else if($funcion == "isAsigWithCoord"){
-  		isAsigWithCoord($idAsig, $idProfesor);
+  		echo $this->Profesor->isAsigWithCoord($idAsig, $idProfesor);
   	}
   }
 }
