@@ -106,7 +106,7 @@
 
 			    <!-- Modal body -->
 			    <div class="modal-body" id="modal_borrarProfesor_body">
-					<form action="profesoresAdminProcesamiento.php" class="form-container" method="post" id="form_delete">
+					<form action="#" class="form-container" method="post" id="form_delete">
 						<button type="submit" class="btn btn-danger btn-lg" id="boton_borrar" name="boton_borrar">Sí</button>
 						<button type="button" class="btn btn-secondary btn-lg" id="boton_noBorrar" name="boton_noBorrar" data-dismiss="modal">No</button>
 					</form>
@@ -133,7 +133,7 @@
 			    <span id='mensajeEditar'></span><br>
 			    <!-- Modal body -->
 			    <div class="modal-body">
-					  <form action="profesoresAdminProcesamiento.php" class="form-container" method="post" id="form_mod">
+					  <form action="#" class="form-container" method="post" id="form_mod">
 					  	<div class="form-group">
 					  		<label for="nombre">Nombre</label>
 					    	<input type="text" class="form-control" placeholder="Introduzca el nombre" name="nombre" id="nombreForm">

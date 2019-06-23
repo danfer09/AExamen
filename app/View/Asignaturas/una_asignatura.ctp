@@ -58,7 +58,7 @@
 				?>
 					<div class="col-xl-3 col-lg-4 col-md-6 col-sm-3 portfolio-item filter-app">
 			          <h3>PROFESORES</h3>
-			          <a <?php echo 'href="profesoresDeUnaAsig.php?idAsig='.$_GET['id'].'&nombreAsig='.$nombreAsig.'"' ?>>
+			          <a <?php echo 'href="/profesores/profesores_asignatura?idAsig='.$_GET['id'].'&nombreAsig='.$nombreAsig.'"' ?>>
 			            <img src="/img/profesores-users.png" alt="">
 			            <h3>PROFESORES</h3>
 			            <div class="details">

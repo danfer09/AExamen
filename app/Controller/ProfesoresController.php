@@ -5,9 +5,56 @@ App::uses('AppController', 'Controller');
 class ProfesoresController extends AppController {
 
   public function index(){
+    /*Iniciamos la sesion, pero antes hacemos una comprobacion para evitar errores*/
+  	if (session_status() == PHP_SESSION_NONE) {
+  	    session_start();
+  	}
+    //Si existe $_SESSION['logeado'] volcamos su valor a la variable, si no existe volcamos false. Si vale true es que estamos logeado.
+    $logeado = isset($_SESSION['logeado'])? $_SESSION['logeado']: false;
+    /*En caso de no este logeado redirigimos al login, en caso contrario le damos la bienvenida*/
+    if (!$logeado) {
+      return $this->redirect('/');
+    }
+    //Comprobamos que es un administrador, en caso contrario lo redirigimos
+    $admin = isset($_SESSION['administrador'])? $_SESSION['administrador']: false;
+		if (!$admin){
+			return $this->redirect('/');
+		}
+
     $this->loadModel('Profesor');
     $profesores = $this->Profesor->getProfesoresAdmin();
 
+    $this->set('profesores', $profesores);
+  }
+
+  public function profesores_asignatura() {
+    /*Iniciamos la sesion, pero antes hacemos una comprobacion para evitar errores*/
+  	if (session_status() == PHP_SESSION_NONE) {
+  	    session_start();
+  	}
+    //Si existe $_SESSION['logeado'] volcamos su valor a la variable, si no existe volcamos false. Si vale true es que estamos logeado.
+    $logeado = isset($_SESSION['logeado'])? $_SESSION['logeado']: false;
+    /*En caso de no este logeado redirigimos al login, en caso contrario le damos la bienvenida*/
+    if (!$logeado) {
+      return $this->redirect('/');
+    }
+
+    $this->loadModel('Profesor');
+    $idAsignatura = $_GET['idAsig'];
+    $nombreAsignatura = $_GET['nombreAsig'];
+
+    $esCoordinador = $this->Profesor->esCoordinador($idAsignatura, $_SESSION['id']);
+    /*En caso de no este logeado redirigimos a index.php, en caso contrario le damos la bienvenida*/
+    if (!$esCoordinador) {
+      return $this->redirect('/asignaturas/index');
+    }
+
+    //Se cargan todos los profesores de la asignatura
+    $profesores = $this->Profesor->profesoresAsignatura($idAsignatura);
+
+
+    $this->set('idAsignatura', $idAsignatura);
+    $this->set('nombreAsignatura', $nombreAsignatura);
     $this->set('profesores', $profesores);
   }
 
@@ -25,6 +72,8 @@ class ProfesoresController extends AppController {
   	$idAsigSelect = isset($_POST['idAsigSelect'])? $_POST['idAsigSelect']: null;
   	$idAsigNoSelect = isset($_POST['idAsigNoSelect'])? $_POST['idAsigNoSelect']: null;
   	$idAsig = isset($_POST['idAsig'])? $_POST['idAsig']: null;
+    $profesor = isset($_POST['profesor'])? $_POST['profesor']: null;
+    $idProfesores = isset($_POST['idProfesores'])? $_POST['idProfesores']: null;
 
   	//comprobamos los valores de las variables y en consecuencia llamamos a las
   	//diferentes funciones
@@ -50,5 +99,14 @@ class ProfesoresController extends AppController {
   	else if($funcion == "isAsigWithCoord"){
   		echo $this->Profesor->isAsigWithCoord($idAsig, $idProfesor);
   	}
+    else if ($funcion == 'borrarProfesorDeAsig') {
+      echo $this->Profesor->borrarProfesorDeAsig($idProfesor, $idAsig);
+    }
+    else if($funcion == "getProfesoresFueraAsig"){
+		  echo json_encode($this->Profesor->getProfesoresFueraAsig($idAsig, $idProfesores));
+    }
+    else if ($funcion == "aniadirProfesor") {
+      echo $this->Profesor->aniadirProfesor($profesor, $idAsig);
+    }
   }
 }

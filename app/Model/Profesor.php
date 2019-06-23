@@ -155,7 +155,7 @@ class Profesor extends AppModel {
     echo count($consulta);
 	}
 
-  /*Función que define dado un profesor define que asignaturas coordina y cuales no.
+  /*Función que dado un profesor define que asignaturas coordina y cuales no.
 	*
 	*Funcion que dado el identificador de un profesor, un array con los identifiadores
 	*de las asignaturas que coordina y otro con las que no coordina define que
@@ -234,4 +234,102 @@ class Profesor extends AppModel {
 			return true;
 		}
 	}
+
+  /*Función que dada una asignatura nos devuelve todos los profesores de esta.
+	*
+	*Funcion que dado el identificador de una asignatura nos devuelve en un array
+	*todos los profesores que tiene esa asignatura y null en caso de que no tenga
+	*
+	* @param int $idAsig identificador de la asignatura
+	* @return $resultado array con los profesores de la asignatura, null si la
+	* asignatura no tiene profesores y false en caso de que haya un fallo con la
+	* BBDD */
+	function profesoresAsignatura($idAsig) {
+		$sql = 'SELECT `nombre`, `apellidos`, `email`, profesores.id as id FROM `profesores` INNER JOIN `prof_asig_coord` ON profesores.id=prof_asig_coord.id_profesor WHERE prof_asig_coord.id_asignatura='.$idAsig.' and prof_asig_coord.coordinador = 0';
+		$consulta=$this->query($sql);
+		$resultado = [];
+    $count=0;
+    if((count($consulta) < 0)) {
+			$resultado = null;
+		}
+    else{
+			while (count($consulta) > $count ){
+        $resultado[] = $consulta[$count]['profesores'];
+        $count++;
+			}
+		}
+		return $resultado;
+	}
+
+  /*Función que borra un profesor de una asignatura
+	*
+	*Funcion que dado un id de un profesor y el de una asignatura borra dicho
+	*profesor de la asignatura
+	*
+	* @param int $idProfesor identificador de un profesor
+	* @param int $idAsig identificador de una asignatura
+	* @return boolean $funciona vale true si se borra con exito y false en caso
+	* contrario */
+	function borrarProfesorDeAsig($idProfesor, $idAsig){
+		$sql = "DELETE FROM `prof_asig_coord` WHERE id_profesor=".$idProfesor." and id_asignatura=".$idAsig;
+		$consulta=$this->query($sql);
+		return true;
+	}
+
+  /*Función que nos devuelve los profesores que no estan en una asignatura
+	*
+	*Funcion que dado un id de una asignarua y un array con los identificadores de
+	*los profesores que hay en la asigntrua nos devuelve un array con los profesores
+	*que no estan en la asignatura
+	*
+	* @param int $idAsig identificador de la asignatura
+	* @param $idProfesores array con los  identificadores de los profesores que
+	* estan en la asignatura
+	* @return $resultado array con los identificadores de los profesores que no
+	* estan en la asignatura o false en caso de que haya habido algun error con
+	* la conexin con la BBDD */
+	function getProfesoresFueraAsig($idAsig, $idProfesores){
+		if ($idProfesores != null) {
+			$idProfesores = explode(',', $idProfesores);
+		} else {
+			$idProfesores = array();
+		}
+
+		$idProfesores[] = $_SESSION['id'];
+		$ids = implode (",", $idProfesores);
+		$sql = 'SELECT nombre, apellidos, email, profesores.id as id
+				FROM
+				`profesores` LEFT JOIN `prof_asig_coord` ON profesores.id=prof_asig_coord.id_profesor
+
+				 WHERE
+				 	profesores.id not in ('.$ids.')
+				 	and
+				 	(prof_asig_coord.id_asignatura<>'.$idAsig.' OR prof_asig_coord.id_asignatura is null)';
+		$consulta=$this->query($sql);
+		$resultado = [];
+    $count=0;
+    if((count($consulta) < 0)) {
+			$resultado = null;
+		}	else {
+			while (count($consulta) > $count ){
+				$resultado[] = $consulta[$count]['profesores'];
+        $count++;
+			}
+		}
+		return $resultado;
+	}
+
+  /*Función que añade un profesor a una asignarura
+	*
+	*Funcion que dado un id de un profesor y un id de una asignatura, añade ese
+	*profesor a esa asignatura
+	*
+	* @param int $idProfesor identificador del profesor
+	* @param int $idAsig identificador de la asignatura*/
+	function aniadirProfesor($idProfesor, $idAsig) {
+    $sql ='INSERT INTO `prof_asig_coord`(`id_profesor`, `id_asignatura`, `coordinador`, `id`) VALUES ('.$idProfesor.','.$idAsig.',0,'."''".')';
+    $consulta = $this->query($sql);
+    return true;
+	}
+
 }
