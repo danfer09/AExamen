@@ -19,7 +19,7 @@ $(document).ready(function(){
       $.ajax({
           type        : 'POST',
           url         : '/profesores/funcionesAjaxProfesores',
-          data        : form_data + '&funcion=' + funcion + '&idProfesor=' + $("#boton_borrar").attr("id_profesor") + '&idAsig=' + $("h2").attr("idAsig"),
+          data        : form_data + '&funcion=' + funcion + '&idProfesor=' + $("#boton_borrar").attr("id_profesor") + '&idAsig=' + $('#titulo').attr("idAsig"),
           success: function(respuesta) {
                 if(respuesta){
                     location.reload();
