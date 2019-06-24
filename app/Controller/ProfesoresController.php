@@ -58,6 +58,45 @@ class ProfesoresController extends AppController {
     $this->set('profesores', $profesores);
   }
 
+  public function definir_parametros() {
+    /*Iniciamos la sesion, pero antes hacemos una comprobacion para evitar errores*/
+  	if (session_status() == PHP_SESSION_NONE) {
+  	    session_start();
+  	}
+    //Si existe $_SESSION['logeado'] volcamos su valor a la variable, si no existe volcamos false. Si vale true es que estamos logeado.
+    $logeado = isset($_SESSION['logeado'])? $_SESSION['logeado']: false;
+    /*En caso de no este logeado redirigimos al login, en caso contrario le damos la bienvenida*/
+    if (!$logeado) {
+      return $this->redirect('/');
+    }
+
+    $this->loadModel('Profesor');
+    $idAsignatura = $_GET['idAsig'];
+
+    $esCoordinador = $this->Profesor->esCoordinador($idAsignatura, $_SESSION['id']);
+    /*En caso de no este logeado redirigimos a index.php, en caso contrario le damos la bienvenida*/
+    if (!$esCoordinador) {
+      return $this->redirect('/asignaturas/index');
+    }
+
+    $this->loadModel('Asignatura');
+    $nombreAsignatura = $this->Asignatura->cargaAsignatura($idAsignatura)['nombre'];
+
+    //Obtenemos los parametros que tienen los examenes de esta asignatura y
+  	// los ponemos en sus respectivas variables
+  	$paramExam = $this->Profesor->selectParametrosAsig($idAsignatura);
+  	$puntosTema = json_decode($paramExam['puntos_tema'], true);
+  	$espaciado = $paramExam['espaciado_defecto'];
+  	$textoInicial = $paramExam['texto_inicial'];
+
+    $this->set('idAsignatura', $idAsignatura);
+    $this->set('paramExam', $paramExam);
+    $this->set('puntosTema', $puntosTema);
+    $this->set('espaciado', $espaciado);
+    $this->set('textoInicial', $textoInicial);
+    $this->set('nombreAsignatura', $nombreAsignatura);
+  }
+
   public function funcionesAjaxProfesores(){
     $this->loadModel('Profesor');
     $_SESSION['error_no_poder_borrar'] = false;
@@ -74,6 +113,10 @@ class ProfesoresController extends AppController {
   	$idAsig = isset($_POST['idAsig'])? $_POST['idAsig']: null;
     $profesor = isset($_POST['profesor'])? $_POST['profesor']: null;
     $idProfesores = isset($_POST['idProfesores'])? $_POST['idProfesores']: null;
+    $puntos_tema = isset($_POST['jsonParametros'])? $_POST['jsonParametros']: null;
+    $espaciado = isset($_POST['espaciado'])? $_POST['espaciado']: null;
+    $textoInicial = isset($_POST['textoInicial'])? $_POST['textoInicial']: null;
+
 
   	//comprobamos los valores de las variables y en consecuencia llamamos a las
   	//diferentes funciones
@@ -107,6 +150,9 @@ class ProfesoresController extends AppController {
     }
     else if ($funcion == "aniadirProfesor") {
       echo $this->Profesor->aniadirProfesor($profesor, $idAsig);
+    }
+    else if($funcion == "updateParametrosAsig"){
+    	echo $this->Profesor->updateParametrosAsig($puntos_tema, $idAsig, $espaciado, $textoInicial);
     }
   }
 }

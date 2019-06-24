@@ -70,6 +70,29 @@ class Asignatura extends AppModel {
 
 	}
 
+  /*Funcion que devuelve todas las asignaturas de la plataforma
+	*
+	*Funcion que nos devuelve un array con todas las asignaturas de la plataforma
+	*
+	* @return array con todas las asignaturas de la plataforma */
+	public function cargaAsignatura($idAsig){
+		$sql = "SELECT * FROM `asignaturas` WHERE id=".$idAsig;
+    $consulta=$this->query($sql);
+		$resultado = [];
+    $count = 0;
+    if((count($consulta) < 0)) {
+      $resultado = null;
+		}
+    else{
+		    while(count($consulta) > $count ){
+			       $resultado[] = $consulta[$count]['asignaturas'];
+             $count++;
+		    }
+    }
+    return $resultado[0];
+
+	}
+
   /*Funcion que nos devuelve los profesores que coordinan una asignatura
 	*
 	*Funcion que dado el id de una asignatura devuelve el/los profesor/es que

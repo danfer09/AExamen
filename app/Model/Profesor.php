@@ -20,7 +20,7 @@ class Profesor extends AppModel {
 	* @return  $resultado array con todos los profesores de la aplicacion, null
 	* en caso de que no haya profesores y false en caso de que haya habido un
 	* fallo con la conexion de la BBDD*/
-	function getProfesoresAdmin() {
+	public function getProfesoresAdmin() {
 		$sql = 'SELECT `nombre`, `apellidos`, `email`, profesores.id as id FROM `profesores`';
     $consulta=$this->query($sql);
 		$resultado = [];
@@ -43,7 +43,7 @@ class Profesor extends AppModel {
 	* @param int $id identificador de la profesor
 	* @return boolean $funciona true en caso de que se haya borrado correctamente
 	* y false en caso contrario*/
-	function borrarProfesor($id) {
+	public function borrarProfesor($id) {
 		$funciona=false;
 		$admin = $_SESSION['administrador'];
 		if ($admin) {
@@ -67,7 +67,7 @@ class Profesor extends AppModel {
 	* @param int $idProfesor identificador de un profesor
 	* @return boolean $funciona true en caso de que se haya editado correctamente
 	* y false en caso contrario*/
-	function editarProfesor($nombre, $apellidos, $email, $idProfesor) {
+	public function editarProfesor($nombre, $apellidos, $email, $idProfesor) {
 		$admin = $_SESSION['administrador'];
 		if ($admin) {
 			$sql = "UPDATE `profesores` SET `nombre`='".$nombre."',`apellidos`='".$apellidos."',`email`='".$email."' WHERE id=".$idProfesor;
@@ -86,7 +86,7 @@ class Profesor extends AppModel {
 	* @param int $idProfesor identificador del profesor
 	* @return $resultado array con las asignaturas que coordina y
 	* que no coordina un profesor */
-	function getAsignaturas($idProfesor) {
+	public function getAsignaturas($idProfesor) {
 		$sql = 'SELECT `nombre`, `siglas`, `id` FROM `asignaturas`';
     $consulta = $this->query($sql);
 		$asigNoCoord = [];
@@ -121,7 +121,7 @@ class Profesor extends AppModel {
 	* @param int $idProfesor identificador de la profesor
 	* @return boolean $result['coordinador'] true en caso de que la sea coordinador
 	* y false en caso contrario*/
-	function esCoordinador($idAsig, $idProfesor){
+	public function esCoordinador($idAsig, $idProfesor){
 		$result=false;
 		$sql = "SELECT coordinador FROM `prof_asig_coord` WHERE `id_profesor` =".$idProfesor." and `id_asignatura`=".$idAsig;
 		$consulta = $this->query($sql);
@@ -145,7 +145,7 @@ class Profesor extends AppModel {
 	* @param int $idProfesor identificador del profesor
 	* @return int $resultado numero de profesores que coodinan la asignatura, false
 	* en caso de que haya fallado la conexion con la BBDD*/
-	function isAsigWithCoord($idAsig, $idProfesor) {
+	public function isAsigWithCoord($idAsig, $idProfesor) {
 		$sql = 'SELECT id_asignatura, coordinador, COUNT(coordinador) AS number_coord
 				FROM `prof_asig_coord`
 				WHERE id_asignatura = '.$idAsig.' AND id_profesor <> '.$idProfesor.'
@@ -165,7 +165,7 @@ class Profesor extends AppModel {
 	* @param $idAsigSelect identificadores de asignaturas seleccionadas
 	* @param $idAsigNoSelect identificadores de asignaturas no seleccionadas
 	*/
-	function setCoordinadores($idProf, $idAsigSelect, $idAsigNoSelect){
+	public function setCoordinadores($idProf, $idAsigSelect, $idAsigNoSelect){
 		$arrayIdAsigSelect = json_decode($idAsigSelect);
 		$arrayIdAsigNoSelect = json_decode($idAsigNoSelect);
 		for($i=0; $i < count($arrayIdAsigSelect); $i++) {
@@ -197,7 +197,7 @@ class Profesor extends AppModel {
 	*Funcion que dado un email, invita a ese usuario a la aplicacion
 	*
 	* @param string $email email valido */
-	function invitarProfesor($email) {
+	public function invitarProfesor($email) {
 		$_SESSION['error_envio_mail'] = false;
 		$credentialsStr = file_get_contents('json/credentials.json');
 		$credentials = json_decode($credentialsStr, true);
@@ -244,7 +244,7 @@ class Profesor extends AppModel {
 	* @return $resultado array con los profesores de la asignatura, null si la
 	* asignatura no tiene profesores y false en caso de que haya un fallo con la
 	* BBDD */
-	function profesoresAsignatura($idAsig) {
+	public function profesoresAsignatura($idAsig) {
 		$sql = 'SELECT `nombre`, `apellidos`, `email`, profesores.id as id FROM `profesores` INNER JOIN `prof_asig_coord` ON profesores.id=prof_asig_coord.id_profesor WHERE prof_asig_coord.id_asignatura='.$idAsig.' and prof_asig_coord.coordinador = 0';
 		$consulta=$this->query($sql);
 		$resultado = [];
@@ -270,7 +270,7 @@ class Profesor extends AppModel {
 	* @param int $idAsig identificador de una asignatura
 	* @return boolean $funciona vale true si se borra con exito y false en caso
 	* contrario */
-	function borrarProfesorDeAsig($idProfesor, $idAsig){
+	public function borrarProfesorDeAsig($idProfesor, $idAsig){
 		$sql = "DELETE FROM `prof_asig_coord` WHERE id_profesor=".$idProfesor." and id_asignatura=".$idAsig;
 		$consulta=$this->query($sql);
 		return true;
@@ -288,7 +288,7 @@ class Profesor extends AppModel {
 	* @return $resultado array con los identificadores de los profesores que no
 	* estan en la asignatura o false en caso de que haya habido algun error con
 	* la conexin con la BBDD */
-	function getProfesoresFueraAsig($idAsig, $idProfesores){
+	public function getProfesoresFueraAsig($idAsig, $idProfesores){
 		if ($idProfesores != null) {
 			$idProfesores = explode(',', $idProfesores);
 		} else {
@@ -326,10 +326,63 @@ class Profesor extends AppModel {
 	*
 	* @param int $idProfesor identificador del profesor
 	* @param int $idAsig identificador de la asignatura*/
-	function aniadirProfesor($idProfesor, $idAsig) {
+	public function aniadirProfesor($idProfesor, $idAsig) {
     $sql ='INSERT INTO `prof_asig_coord`(`id_profesor`, `id_asignatura`, `coordinador`, `id`) VALUES ('.$idProfesor.','.$idAsig.',0,'."''".')';
     $consulta = $this->query($sql);
     return true;
 	}
+
+  /*Función que nos devuelve los parametros de un examen de una asignatura.
+  *
+  *Funcion que dado el id de una asignatura nos devuelve los parametros para
+  *un examen de esa asignatura
+  *
+  * @param int $idAsig identificador de la asignatura
+  * @return $fila array con los parametros que tiene definido esa asignatura */
+  function selectParametrosAsig($idAsig) {
+  	$sql = "SELECT `puntos_tema`, `texto_inicial`, `espaciado_defecto` FROM `asignaturas` WHERE id=".$idAsig;
+  	$consulta=$this->query($sql);
+    $resultado = [];
+    $count=0;
+    if((count($consulta) < 0)) {
+      $resultado = null;
+    }	else {
+      while (count($consulta) > $count ){
+        $resultado[] = $consulta[$count]['asignaturas'];
+        $count++;
+      }
+    }
+
+  	return $resultado[0];
+  }
+
+  /*Función que nos actualiza los parametros para un examen de una asignatura
+  *
+  *Funcion que dado unos puntos por tema, un espaciado y un texto inicial
+  *actualiza esto valores como valores de un examen por defecto de la asignatura
+  *que le indicamos con el identificador que tambien le pasamos por parametro
+  *
+  *
+  * @param string $puntos_tema puntos definidos por cada tema con forma json
+  * @param string $idAsig identificador de la asignatura
+  * @param string $espaciado valor que queremos poner en el espaciado
+  * @param strint $textoInicial Texto que queremos mostrar al comienzo del examen
+  * @return boolean $success devuleve true si la modificacion se ha realizado con exito y false en caso contrario */
+  function updateParametrosAsig($puntos_tema, $idAsig, $espaciado, $textoInicial){
+  	//hacemos casting para transformarlos en enteros
+  	$espaciadoInt = (int)$espaciado;
+  	$idAsigInt = (int)$idAsig;
+
+  	$puntos_tema = "'".$puntos_tema."'";
+		$sql = "UPDATE `asignaturas` SET`espaciado_defecto`=".$espaciadoInt.", `texto_inicial`= '".$textoInicial."', `puntos_tema`= ".$puntos_tema." WHERE id=".$idAsigInt;
+		$consulta=$this->query($sql);
+
+		//Apuntamos en el log que usuario a modificado los valores por defecto del examen de la asignatura
+		$log  = '['.date("d/m/Y - H:i:s").'] : '."USER --> id ".$_SESSION['id'].' - '.$_SESSION['apellidos'].', '.$_SESSION['nombre'].', '.$_SESSION['email'].
+		        " | ACTION --> Parámetros de la asignatura con id ".$idAsig." modificados".PHP_EOL.
+		        "-----------------------------------------------------------------".PHP_EOL;
+		file_put_contents('./log/log_AExamen.log', utf8_decode($log), FILE_APPEND);
+  	echo true;
+  }
 
 }

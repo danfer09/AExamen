@@ -70,7 +70,7 @@
 
 			        <div class="col-xl-3 col-lg-4 col-md-6 col-sm-3 portfolio-item filter-app">
 			          <h3>PARÁMETROS</h3>
-			          <a <?php echo 'href="definirParametrosExam.php?idAsig='.$_GET['id'].'"' ?>>
+			          <a <?php echo 'href="/profesores/definir_parametros?idAsig='.$_GET['id'].'"' ?>>
 			            <img src="/img/parametros-examen.png" alt="">
 			            <h3>PARÁMETROS</h3>
 			            <div class="details">

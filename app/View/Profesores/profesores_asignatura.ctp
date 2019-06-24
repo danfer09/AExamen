@@ -7,9 +7,8 @@
 <body>
 	<div class="header" id="header"></div>
 	<div class="container">
-		<h1>Pagina de Coordinador</h1>
 		<?php
-			echo "<h2 idAsig=".'"'.$idAsignatura.'"'."> Profesores de ".$nombreAsignatura." </h2>";
+			echo "<h1 idAsig=".'"'.$idAsignatura.'"'."> Profesores de ".$nombreAsignatura." </h1>";
 		?>
 		<br>
 		<div class="row" id="filtros">
