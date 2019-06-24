@@ -92,7 +92,6 @@ class Pregunta extends AppModel {
 
     //Antes de borrar comprobamos que, o bien sea un coordinador o administrador,
     //o la pregunta sea propia
-		var_dump("llega antes if");
     if ($this->esCoordinador($asignatura, $idUsuario) || $_SESSION['administrador']) {
       if ($numRef == 0) {
         $sql = "DELETE FROM `preguntas` WHERE id=".$idPregunta;
@@ -182,16 +181,16 @@ class Pregunta extends AppModel {
 	function aniadirPregunta($titulo,$cuerpo,$tema){
 		$funciona=false;
 		$date = date('Y-m-d H:i:s', time());
-		$sql = "INSERT INTO `preguntas`(`titulo`, `cuerpo`, `tema`, `creador`, `fecha_creacion`, `ult_modificador`, `fecha_modificado`, `asignatura`) VALUES ('".$titulo."','".$cuerpo."','".$tema."','".$_SESSION['id']."','".$date."','".$_SESSION['id']."','".$date."','".$_SESSION['idAsignatura']."')";
+		$sql = "INSERT INTO `preguntas`(`titulo`, `cuerpo`, `tema`, `creador`, `fecha_creacion`, `ult_modificador`, `fecha_modificado`, `asignatura`)
+		VALUES ('".$titulo."','".$cuerpo."','".$tema."','".$_SESSION['id']."','".$date."','".$_SESSION['id']."','".$date."','".$_SESSION['idAsignatura']."')";
 		$consulta = $this->query($sql);
 
 		$sqlNuevoID='SELECT id FROM `preguntas` ORDER BY `preguntas`.`id` DESC LIMIT 1';
     $consulta = $this->query($sqlNuevoID);
 		$idPreguntaNueva = $consulta[0]['preguntas']['id'];
 
-
-
-		$sql = "INSERT INTO `preguntas_historial`(`id`, `idPregunta`, `idModificador`, `fecha_modificacion`) VALUES ('',".$idPreguntaNueva.",".$_SESSION['id'].",'".$date."')";
+		$sql = "INSERT INTO `preguntas_historial`(`id`, `idPregunta`, `idModificador`, `fecha_modificacion`)
+		VALUES ('',".$idPreguntaNueva.",".$_SESSION['id'].",'".$date."')";
 		$this->query($sql);
 
 		$sql = "SELECT `nombre` FROM `asignaturas` WHERE id=".$_SESSION['idAsignatura'];
