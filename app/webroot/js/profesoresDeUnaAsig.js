@@ -45,10 +45,11 @@ $(document).ready(function(){
 
 
     $(".fa-plus-circle").click(function() {
-        $idAsig=$('h2').attr("idAsig");
+        var idAsig=$('#titulo').attr("idAsig");
         var funcion = "getProfesoresFueraAsig";
         let idProfesores = [];
         let i = 0;
+        console.log($('h1'));
         $('#tabla_profesores > tbody > tr #idProfesor').each(function(){
             idProfesores[i] = $(this).text();
             i++;
@@ -58,7 +59,7 @@ $(document).ready(function(){
         $.ajax({
             type        : 'POST',
             url         : '/profesores/funcionesAjaxProfesores',
-            data        : 'funcion=' + funcion + '&idAsig=' + $idAsig + '&idProfesores=' + idProfesores,
+            data        : 'funcion=' + funcion + '&idAsig=' + idAsig + '&idProfesores=' + idProfesores,
             success:function(respuesta){
                 console.log(respuesta);
                 if(respuesta){
