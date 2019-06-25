@@ -1,30 +1,41 @@
 <?php
-	/*Iniciamos la sesion, pero antes hacemos una comprobacion para evitar errores*/
-	if (session_status() == PHP_SESSION_NONE) {
-	    session_start();
-	}
-	$_SESSION['host'] = $credentials['database']['host'];
-	/*Si el usuario esta logeado lo redirigimos a paginaPrincipalProf.php, en caso de que no este logeado lo redirigimos a loginFormulario.php para que se logee*/
-	//Si existe $_SESSION['logeado'] volcamos su valor a la variable, si no existe volcamos false
-	if (!isset($_SESSION['logeado']) && !$_SESSION['logeado']) {
-		header('Location: loginFormulario.php');
-		exit();
-	}
-	else{
-		header('Location: paginaPrincipalProf.php');
-		exit();
-	}
-?>
+/**
+ * Requests collector.
+ *
+ *  This file collects requests if:
+ *	- no mod_rewrite is available or .htaccess files are not supported
+ *  - requires App.baseUrl to be uncommented in app/Config/core.php
+ *	- app/webroot is not set as a document root.
+ *
+ * CakePHP(tm) : Rapid Development Framework (https://cakephp.org)
+ * Copyright (c) Cake Software Foundation, Inc. (https://cakefoundation.org)
+ *
+ * Licensed under The MIT License
+ * For full copyright and license information, please see the LICENSE.txt
+ * Redistributions of files must retain the above copyright notice.
+ *
+ * @copyright     Copyright (c) Cake Software Foundation, Inc. (https://cakefoundation.org)
+ * @link          https://cakephp.org CakePHP(tm) Project
+ * @since         CakePHP(tm) v 0.2.9
+ * @license       https://opensource.org/licenses/mit-license.php MIT License
+ */
 
-<html>
-<body>
-	<!--Librerias externas-->
-	<script src="js/jquery-3.3.1.min.js"></script>
-	<script src="js/jquery-3.3.1.slim.min.js"></script>
-	<script src="js/popper.min.js"></script>
-	<script src="js/bootstrap.min.js"></script>
-	<script src="js/jquery.min.js"></script>
-	<script src="js/w3.js"></script>
+/**
+ *  Get CakePHP's root directory
+ */
+define('APP_DIR', 'app');
+define('DS', DIRECTORY_SEPARATOR);
+define('ROOT', dirname(__FILE__));
+define('WEBROOT_DIR', 'webroot');
+define('WWW_ROOT', ROOT . DS . APP_DIR . DS . WEBROOT_DIR . DS);
 
-</body>
-</html>
+/**
+ * This only needs to be changed if the "cake" directory is located
+ * outside of the distributed structure.
+ * Full path to the directory containing "cake". Do not add trailing directory separator
+ */
+if (!defined('CAKE_CORE_INCLUDE_PATH')) {
+	define('CAKE_CORE_INCLUDE_PATH', ROOT . DS . 'lib');
+}
+
+require APP_DIR . DS . WEBROOT_DIR . DS . 'index.php';
