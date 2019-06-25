@@ -30,3 +30,4 @@ ehthumbs.db
 Thumbs.db
 
 /app/Plugin/DebugKit/
+app/webroot/json/credentials.json
