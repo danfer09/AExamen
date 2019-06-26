@@ -2,7 +2,7 @@
 App::uses('AppController', 'Controller');
 
 
-class CerrarSessionsController extends AppController {
+class CerrarsessionsController extends AppController {
 
   public function index(){
     $this->autoRender = false;

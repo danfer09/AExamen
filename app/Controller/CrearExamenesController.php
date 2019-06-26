@@ -1,7 +1,7 @@
 <?php
 App::uses('AppController', 'Controller');
 
-class CrearExamenesController extends AppController {
+class CrearexamenesController extends AppController {
   public function index(){
     /*Iniciamos la sesion, pero antes hacemos una comprobacion para evitar errores*/
     if (session_status() == PHP_SESSION_NONE) {

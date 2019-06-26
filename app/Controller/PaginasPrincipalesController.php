@@ -2,7 +2,7 @@
 App::uses('AppController', 'Controller');
 
 
-class PaginasPrincipalesController extends AppController {
+class PaginasprincipalesController extends AppController {
 
   public function index(){
     if (session_status() == PHP_SESSION_NONE) {

@@ -54,7 +54,7 @@ class LoginsController extends AppController {
   }
 
 
-  public function olvideContrasenia(){
+  public function olvidecontrasenia(){
   	if (session_status() == PHP_SESSION_NONE) {
   	    session_start();
   	}

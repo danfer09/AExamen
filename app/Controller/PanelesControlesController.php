@@ -2,7 +2,7 @@
 App::uses('AppController', 'Controller');
 
 
-class PanelesControlesController extends AppController {
+class PanelescontrolesController extends AppController {
   public function index(){
     $this->loadModel('Examen');
     $this->loadModel('PanelControl');
