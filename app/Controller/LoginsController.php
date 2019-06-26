@@ -58,6 +58,13 @@ class LoginsController extends AppController {
   	if (session_status() == PHP_SESSION_NONE) {
   	    session_start();
   	}
+    //Si existe $_SESSION['logeado'] volcamos su valor a la variable, si no existe volcamos false. Si vale true es que estamos logeado.
+    $logeado = isset($_SESSION['logeado'])? $_SESSION['logeado']: false;
+    /*En caso de no este logeado redirigimos al login, en caso contrario le damos la bienvenida*/
+    if ($logeado) {
+      return $this->redirect('/paginasprincipales');
+    }
+
   	$_SESSION['error_usuario_no_existente']=false;
   	//Comprobamos que el método empleado es POST
   	if ($_SERVER['REQUEST_METHOD'] == 'POST'){
@@ -74,6 +81,50 @@ class LoginsController extends AppController {
 	   }
   }
   public function test(){
+  }
+
+  public function restablecer_contrasenia(){
+    if (session_status() == PHP_SESSION_NONE) {
+  	    session_start();
+  	}
+
+    //Si existe $_SESSION['logeado'] volcamos su valor a la variable, si no existe volcamos false. Si vale true es que estamos logeado.
+    $logeado = isset($_SESSION['logeado'])? $_SESSION['logeado']: false;
+    /*En caso de no este logeado redirigimos al login, en caso contrario le damos la bienvenida*/
+    if ($logeado) {
+      return $this->redirect('/paginasprincipales');
+    }
+
+    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+  		$pass1 = isset($_POST['pass1'])? $_POST['pass1']: null;
+  		$pass2 = isset($_POST['pass2'])? $_POST['pass2']: null;
+  		$passOld = isset($_POST['passOld'])? $_POST['passOld']: null;
+
+  		if ( $pass1 != null && $pass2 != null && $pass1 == $pass2) {
+  			$hashed_clave = password_hash($pass1, PASSWORD_BCRYPT);
+  			if ($this->Login->updateClaveProfesor($_SESSION["emailTemp"], $hashed_clave)){
+  				$_SESSION['emailTemp'] = null;
+  				$_SESSION['error_autenticar'] = false;
+  				return $this->redirect('/logins/index');
+  			}
+  		} else {
+  			$_SESSION['password_diferente'] = true;
+  			return $this->redirect('/logins/restablecer_contrasenia');
+  		}
+  	} else {
+    	//Comprobamos los distitos session que controlan los diversos errores, si existen los volcamos en unas variables para que sea mas manejable
+    	$nombreTemp = isset($_SESSION['nombreTemp'])? $_SESSION['nombreTemp']: null;
+    	$apellidoTemp = isset($_SESSION['apellidoTemp'])? $_SESSION['apellidoTemp']: null;
+    	$emailTemp = isset($_SESSION['emailTemp'])? $_SESSION['emailTemp']: null;
+
+    	$_SESSION['confirmado'] = true;
+
+    	if (!isset($_SESSION['emailTemp']) || $_SESSION['emailTemp'] == null) {
+    		return $this->redirect('/registros/index');
+      } else if (!isset($_GET['authenticate']) || ($_GET['authenticate'] != $_SESSION['emailTempClave'])) {
+        return $this->redirect('/registros/index');
+    	}
+    }
   }
 }
 ?>

@@ -99,7 +99,7 @@ class Login extends AppModel {
 <div class="row">
   <h2 class="col-lg-12">Haga click sobre el siguiente enlace para reestablecer su contraseña:</h2>
   <span class="col-lg-2"></span>
-  <a class="col-lg-4" href="http://aexamen.epizy.com/reestablecerPassword.php?authenticate='.$codigo.'">REESTABLECER</a>
+  <a class="col-lg-4" href="http://aexamencakephp.epizy.com/logins/restablecer_contrasenia?authenticate='.$codigo.'">REESTABLECER</a>
   <span class="col-lg-6"></span>
   <p class="col-lg-12">¡Gracias!</p>
 </div>
@@ -140,5 +140,20 @@ class Login extends AppModel {
 		}
 	}
 
+  /*Función que actualiza la clave de un profesor en base de datos
+	*
+	* Función que dado un email de profesor y la contraseña hasheada
+	* actualiza en base de datos la contraseña de este profesor
+	*
+	* @param string $email correo electrónico del profesor
+	* @param string $hash contraseña hasheada del profesor
+	*
+	* @return string (AJAX) mensaje de éxito o fallo en la operación de actualización
+	*/
+	function updateClaveProfesor($email, $hash) {
+		$sql = "UPDATE profesores SET clave='".$hash."' WHERE email='".$email."'";
+    $consulta = $this->query($sql);
+		return true;
+	}
 
 }
