@@ -27,3 +27,9 @@
 Icon?
 ehthumbs.db
 Thumbs.db
+<<<<<<< HEAD
+=======
+
+/app/Plugin/DebugKit/
+app/webroot/json/credentials.json
+>>>>>>> 0ed8c64bc17a25c656460d665667066a0971b816
